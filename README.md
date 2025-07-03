@@ -45,10 +45,12 @@ This sample uses two Google Apps Script libraries:
     *   [Installation Guide](https://developers.google.com/apps-script/guides/libraries)
     *   Project Key: `1TlX_L9COAriBlAYvrMLiRFQ5WVf1n0jChB6zHamq2TNwuSbVlI5sBUzh`
     *   Identifier: `MCPApp`
+    *   Repository: [https://github.com/tanaikech/MCPApp](https://github.com/tanaikech/MCPApp)
 3.  **Install ToolsForMCPServer**:
     *   [Installation Guide](https://developers.google.com/apps-script/guides/libraries)
     *   Project Key: `1lnE7UL1jQgPDbTB9yjhiwZM0SaS9MObhzvWUWb_t8FisO6A3bLepvM2j`
     *   Identifier: `ToolsForMCPServer`
+    *   Repository: [https://github.com/tanaikech/ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer)
 
 ### 3. Script
 
