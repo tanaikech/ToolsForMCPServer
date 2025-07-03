@@ -584,10 +584,8 @@ function main(eventObject) {
 
 # Update History
 
-- v1.0.0 (May 8, 2025)
+- v1.0.0 (July 3, 2025)
 
   1. Initial release.
-
-- v1.0.1 (July 3, 2025)
 
 [TOP](#top)
