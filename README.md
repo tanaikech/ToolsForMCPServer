@@ -1,6 +1,6 @@
 # Gemini CLI with MCP Server: Expanding Possibilities with Google Apps Script
 
-The Gemini CLI confirmed that the MCP server built with Google Apps Script (GAS), a low-code platform, offers immense possibilities. If you've created snippets for Google Apps Script, these could be revitalized and/or leveraged in new ways by using them as the MCP server. The Gemini CLI and other MCP clients will be useful in achieving this.
+The Gemini CLI confirmed that the MCP server built with Google Apps Script (GAS), a low-code platform, offers immense possibilities. If you've created snippets for GAS, these could be revitalized and/or leveraged in new ways by using them as the MCP server. The Gemini CLI and other MCP clients will be useful in achieving this.
 
 <a name="top"></a>
 [![MIT License](http://img.shields.io/badge/license-MIT-blue.svg?style=flat)](LICENCE)
