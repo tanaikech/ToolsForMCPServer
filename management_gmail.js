@@ -1,5 +1,6 @@
 /**
  * Management of Gmail
+ * Updated on 20250708 11:40
  */
 
 /**
@@ -150,6 +151,7 @@ function get_massages_by_search_from_Gmail(object = {}) {
 
 /**
  * This function gets attachment files from Gmail.
+ * In this case, the attachment file is created as a file on Google Drive and the file ID is returned.
  * @private
  */
 function get_attachment_files_from_Gmail(object = {}) {
@@ -160,7 +162,30 @@ function get_attachment_files_from_Gmail(object = {}) {
     const attachments = m.getAttachments();
     let content;
     if (attachments.length > 0) {
-      content = attachments.map(blob => ({ type: "bytes", mimeType: blob.getContentType(), data: Utilities.base64Encode(blob.getBytes()) }));
+      const fileObj = attachments.map(blob => {
+        const file = DriveApp.createFile(blob);
+        return { filename: file.getName(), fileId: file.getId(), mimeType: file.getMimeType() };
+      });
+      const jsonSchema = {
+        type: "array",
+        description: "Attachment files of Gmail.",
+        items: {
+          type: "object",
+          properties: {
+            filename: { type: "string", description: "Filename of the file." },
+            fileId: { type: "string", description: "File ID on Google Drive." },
+            mimeType: { type: "string", description: "MimeType of the file." },
+          }
+        }
+      };
+      const text = [
+        `The attachment files are as follows.`,
+        `<AttachmentFiles>${JSON.stringify(fileObj)}</AttachmentFiles>`,
+        `JSON schema of "AttachmentFiles" is as follows.`,
+        `<jsonSchema>${JSON.stringify(jsonSchema)}</jsonSchema>`,
+      ].join("\n");
+      content = [{ type: "text", text }];
+
     } else {
       content = [{ type: "text", text: `No attachment files in the email of "${obj.messageId}".` }];
     }
@@ -224,7 +249,7 @@ function auto_reply_draft_creation_Gmail(object = {}) {
             const m = GmailApp.getMessageById(e.messageId);
             let draftMail;
             if (e.attachmentFiles && Array.isArray(e.attachmentFiles) && e.attachmentFiles.length > 0) {
-              draftMail = m.createDraftReply(e.replyMessage, { attachments: e.attachmentFiles.map(f => Utilities.newBlob(Utilities.base64Decode(f.data), f.mimeType, f.filename)) });
+              draftMail = m.createDraftReply(e.replyMessage, { attachments: e.attachmentFiles.map(id => DriveApp.getFileById(id).getBlob()) });
             } else {
               draftMail = m.createDraftReply(e.replyMessage);
             }
@@ -266,7 +291,7 @@ function auto_new_draft_creation_Gmail(object = {}) {
           try {
             let m;
             if (e.attachmentFiles && Array.isArray(e.attachmentFiles) && e.attachmentFiles.length > 0) {
-              m = GmailApp.createDraft(e.to, e.title, e.body, { attachments: e.attachmentFiles.map(f => Utilities.newBlob(Utilities.base64Decode(f.data), f.mimeType, f.filename)) });
+              m = GmailApp.createDraft(e.to, e.title, e.body, { attachments: e.attachmentFiles.map(id => DriveApp.getFileById(id).getBlob()) });
             } else {
               m = GmailApp.createDraft(e.to, e.title, e.body);
             }
@@ -408,6 +433,20 @@ const descriptions_management_gmail = {
   /**
    * The key and the function name are required to be the same.
    */
+  get_attachment_files_from_Gmail: {
+    description: "Use this to retrieve the attachment files of an email. The attachment files are returned as the file IDs on Google Drive.",
+    parameters: {
+      type: "object",
+      properties: {
+        messageId: { type: "string", description: `Message ID of the email.` }
+      },
+      required: ["messageId"]
+    }
+  },
+
+  /**
+   * The key and the function name are required to be the same.
+   */
   add_label_to_Gmail: {
     description: "Add labels to threads of Gmail. Don't use the invalid thread IDs.",
     parameters: {
@@ -465,15 +504,9 @@ const descriptions_management_gmail = {
                 description: "Message for replying to the mail.",
               },
               attachmentFiles: {
+                description: "Attachment files. If no attachment files are used, please set only the empty array like [].",
                 type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    filename: { type: "string", description: "Filename of the data." },
-                    mimeType: { type: "string", description: "MimeType of the data." },
-                    data: { type: "string", description: "Data of the base64." },
-                  }
-                }
+                items: { type: "string", description: "File ID of the file on Google Drive" }
               }
             },
             required: ["messageId", "replyMessage", "attachmentFiles"]
@@ -497,21 +530,15 @@ const descriptions_management_gmail = {
           description: `Object array including the recipient mail address, the mail title, and the mail body.`,
           items: {
             type: "object",
-            description: "Message IDs and reply messages. Each reply message is used as a reply to each message with the message ID.",
+            description: "The recipient mail address, the mail title, and the mail body. And, the attachment files.",
             properties: {
               to: { type: "string", description: "Recipient mail address." },
               title: { type: "string", description: "Mail title." },
               body: { type: "string", description: "Mail body." },
               attachmentFiles: {
+                description: "Attachment files. If no attachment files are used, please set only the empty array like [].",
                 type: "array",
-                items: {
-                  type: "object",
-                  properties: {
-                    filename: { type: "string", description: "Filename of the data." },
-                    mimeType: { type: "string", description: "MimeType of the data." },
-                    data: { type: "string", description: "Data of the base64." },
-                  }
-                }
+                items: { type: "string", description: "File ID of the file on Google Drive" }
               },
             },
             required: ["to", "title", "body", "attachmentFiles"]

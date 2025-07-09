@@ -21,6 +21,43 @@ One of the key advantages of using Google Apps Script is its ability to provide 
 
 Building upon that foundation, this report aims to explore the expanded possibilities when combining the Gemini CLI with an MCP server powered by Google Apps Script Web Apps. We will delve into how this powerful combination facilitates the integration of various tools and services, unlocking an infinite range of potential applications for enhanced productivity and automation within the Google ecosystem.
 
+# Current tools
+
+In the current stage (July 9, 2025), the following 32 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+
+* `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
+* `get_current_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
+* `get_current_date_time(timezone)`: Returns the current date and time for a given timezone.
+* `search_schedule_on_Google_Calendar(end, start, search)`: Searches for schedules and events on Google Calendar within a date range, with an optional search string.
+* `create_schedule_to_Google_Calendar(description, endDatetime, startDatetime, title)`: Creates an event (schedule) on Google Calendar with a title, description, start, and end datetime.
+* `get_values_from_google_docs(documentId, documentUrl, markdown, tabId, tabIndex, tabName)`: Retrieves text content from Google Docs, optionally in Markdown format, from a specific tab.
+* `put_values_into_google_docs(documentId, documentUrl, index, tabId, tabIndex, tabName, text)`: Appends or inserts text into Google Docs at a specified index or to the end, in a specific tab.
+* `search_file_in_google_drive(query)`: Searches for files in Google Drive using a search query.
+* `get_file_from_google_drive(filename)`: Downloads a file from Google Drive by filename, returning base64 encoded data.
+* `put_file_to_google_drive(base64Data, filename, mimeType)`: Uploads base64 encoded data to Google Drive as a file with a specified filename and MIME type.
+* `create_file_to_google_drive(filename, mimeType)`: Creates an empty file on Google Drive with a specified filename and MIME type.
+* `rename_files_on_google_drive(fileList)`: Renames files on Google Drive using their file IDs and new names.
+* `move_files_on_google_drive(fileList)`: Moves files and folders to a different folder on Google Drive using source anddestination IDs.
+* `convert_mimetype_of_file_on_google_drive(dstMimeType, fileIds)`: Converts the MIME type of files on Google Drive.
+* `generate_survey_with_google_forms(itemList, title)`: Generates a survey using Google Forms with a given title and a list of questions.
+* `generate_quiz_with_google_forms(itemList, title)`: Generates a quiz using Google Forms with a given title and a list of questions, including correct answers.
+* `get_massages_by_time_from_Gmail(after, excludedMessageIds)`: Retrieves Gmail messages received after a specified time, with an option to exclude certain message IDs.
+* `get_massages_by_search_from_Gmail(query, excludedMessageIds)`: Retrieves Gmail messages using a search query, with an option to exclude certain message IDs.
+* `get_attachment_files_from_Gmail(messageId)`: Retrieves attachment files from a Gmail message, returning their Google Drive file IDs.
+* `add_label_to_Gmail(obj)`: Adds labels to specified Gmail threads.
+* `auto_reply_draft_creation_Gmail(obj)`: Creates automatically drafted reply emails in Gmail for specified messages, with optional attachments.
+* `auto_new_draft_creation_Gmail(obj)`: Creates automatically drafted new emails in Gmail, with specified recipients, titles, bodies, and optional attachments.
+* `send_mails_Gmail(draftIds)`: Sends previously created draft emails in Gmail.
+* `remove_mails_Gmail(messageIds)`: Removes specified Gmail messages.
+* `get_values_from_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Retrieves values from Google Sheets from a specified range or sheet.
+* `put_values_to_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl, values)`: Puts values into Google Sheets at a specified range or to the last row of a sheet.
+* `generate_presentation_with_google_slides(name, presentationTime, text, title)`: Creates and generates a presentation using Google Slides with a title, speaker name, presentation time, and description.
+* `generate_description_on_google_drive(fileId)`: Generates a description for a file on Google Drive and sets it.
+* `generate_image_on_google_drive(prompt)`: Generates an image from a prompt and saves it as a file on Google Drive.
+* `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
+* `generate_roadmap_to_google_sheets(description, exportPDF, goal, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Generates a roadmap in Google Sheets, with options to export as PDF.
+* `description_web_site(urls)`: Describes websites using their URLs.
+
 # Usage
 
 This section details deploying the MCP server using Google Apps Script and configuring the Gemini CLI to use it.
@@ -69,7 +106,7 @@ const doPost = e => main(e);
 function main(eventObject) {
   const m = ToolsForMCPServer;
   m.apiKey = apiKey;
-  const object = { eventObject, items: m.getServer() };
+  const object = { eventObject, items: m.getTools() };
   return new MCPApp
     .mcpApp({ accessKey: "sample" })
     .setServices({ lock: LockService.getScriptLock() })
@@ -79,7 +116,12 @@ function main(eventObject) {
 
 **Note:**
 
-- If you intend to use the `generate_presentation_with_google_slides` tool, you must uncomment the `apiKey` line in the script and provide a valid API key for the Gemini API.
+- If you intend to use the following tools, you must uncomment the `apiKey` line in the script and provide a valid API key for the Gemini API.
+  - generate_roadmap_to_google_sheets: Creates a roadmap in Google Sheets.
+  - generate_description_on_google_drive: Generates and sets a description for a file on Google Drive.
+  - generate_image_on_google_drive: Generates an image from a prompt and saves it to Google Drive.
+  - summarize_file_on_google_drive: Summarizes a file stored on Google Drive.
+  - description_web_site: Provides descriptions of websites given their URLs.
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
 
 ### 4. Deploy Web Apps
@@ -137,6 +179,66 @@ Add the `mcpServers` configuration block as shown below.
 
 When you have never installed `mcp-remote`, please install it. [Ref](https://www.npmjs.com/package/mcp-remote)
 
+### 3. Transfer file content (Added on July 9, 2025)
+
+Recently, I published a report titled "Processing File Content Using Gemini CLI with an MCP Server Built by Google Apps Script" [Ref](https://medium.com/google-cloud/processing-file-content-using-gemini-cli-with-an-mcp-server-built-by-google-apps-script-86e2675e4d6b). In this report, I concluded that using the Drive API in the background is more effective for transferring file content between Gemini CLI and Google Drive than embedding base64 data directly in the prompt. Therefore, to facilitate this effective transfer, I use **ggsrun**, a CLI tool.
+
+#### 3.1. `ggsrun` Setup Guide
+
+To use this method, you first need to set up `ggsrun`.
+
+1.  **Download `ggsrun`:** Get the latest release from the [ggsrun releases page](https://github.com/tanaikech/ggsrun/releases). The main repository is [here](https://github.com/tanaikech/ggsrun).
+2.  **Create a Google Cloud Project:** Go to the [Google Cloud Platform Resource Manager](https://console.cloud.google.com/cloud-resource-manager) and click **CREATE PROJECT**.
+3.  **Enable Drive API:** In your new project, navigate to **APIs & Services > Enabled APIs & Services**. Search for and enable the **Drive API**.
+4.  **Create Credentials:** Navigate to **APIs & Services > Credentials**.
+5.  **Configure OAuth Client ID:** Click **Create credentials**, select **OAuth client ID**, and choose **Web Application**.
+6.  **Set Redirect URI:** Under "Authorized redirect URIs," add `http://localhost:8080`.
+7.  **Create and Download Credentials:** Click **Create**, then **Download JSON**. **Important: Rename the downloaded file to `client_secret.json`** and place it in your working directory.
+8.  **Authenticate `ggsrun`:**
+
+8-1. Open your terminal in the directory containing `client_secret.json`.
+
+8-2. Run the command `ggsrun auth`.
+
+8-3. Copy the URL displayed in the terminal, paste it into your browser, and authorize the requested scopes.
+
+8-4. Copy the authorization code from your browser's address bar and paste it back into the terminal.
+
+To verify the setup, run `ggsrun di` to display information about your Google Drive.
+
+#### 3.2. Configuring Gemini CLI for `ggsrun`
+
+To enable the Gemini CLI to use `ggsrun`, add the following tool definitions to your `GEMINI.md` file. This file is typically located at `~/.gemini/GEMINI.md` on macOS/Linux or `%USERPROFILE%\.gemini\GEMINI.md` on Windows.
+
+````text
+# Transferring file content between local PC and Google Drive using ggsrun
+
+* GitHub Repository: [https://github.com/tanaikech/ggsrun](https://github.com/tanaikech/ggsrun)
+* To download a file from Google Drive by filename, use this command:
+  ```bash
+  ggsrun d -f [filename]
+  ```
+* To download a file from Google Drive by file ID, use this command:
+  ```bash
+  ggsrun d -i [fileId]
+  ```
+* To upload files from the local PC to the root directory of Google Drive, use this command:
+  ```bash
+  ggsrun u -f "[filename1],[filename2],,,"
+  ```
+* To upload files from the local PC to a specific directory of Google Drive, use this command:
+  ```bash
+  ggsrun u -p [folderId] -f "[filename1],[filename2],,,"
+  ```
+* To search for files and folders on Google Drive, use this command:
+  ```bash
+  ggsrun sf -q "[search query of Drive API v3 ([https://developers.google.com/workspace/drive/api/guides/search-shareddrives](https://developers.google.com/workspace/drive/api/guides/search-shareddrives))]"
+  ```
+* To search for files and folders on Google Drive, use this command:
+  ```bash
+  ggsrun ls -s [filename]
+````
+
 # Sample Prompts and Answers
 
 The following examples demonstrate how the Gemini CLI uses the Google Apps Script MCP server to interact with various Google services.
@@ -156,7 +258,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (23 tools)
+  🟢 gas_web_apps - Ready (32 tools)
     - get_exchange_rate
     - get_current_weather
     - get_current_date_time
@@ -168,10 +270,14 @@ When your setting is correct, the following result is returned.
     - get_file_from_google_drive
     - put_file_to_google_drive
     - create_file_to_google_drive
+    - rename_files_on_google_drive
+    - move_files_on_google_drive
+    - convert_mimetype_of_file_on_google_drive
     - generate_survey_with_google_forms
     - generate_quiz_with_google_forms
-    - get_messages_by_time_from_Gmail
-    - get_messages_by_search_from_Gmail
+    - get_massages_by_time_from_Gmail
+    - get_massages_by_search_from_Gmail
+    - get_attachment_files_from_Gmail
     - add_label_to_Gmail
     - auto_reply_draft_creation_Gmail
     - auto_new_draft_creation_Gmail
@@ -180,9 +286,14 @@ When your setting is correct, the following result is returned.
     - get_values_from_google_sheets
     - put_values_to_google_sheets
     - generate_presentation_with_google_slides
+    - generate_description_on_google_drive
+    - generate_image_on_google_drive
+    - summarize_file_on_google_drive
+    - generate_roadmap_to_google_sheets
+    - description_web_site
 ```
 
-In the current stage (July 3, 2025), 23 tools are included in the MCP server "gas_web_apps".
+In the current stage (July 9, 2025), 32 tools are included in the MCP server "gas_web_apps".
 
 ## Search Files in Google Drive
 
@@ -489,6 +600,321 @@ The following quiz is automatically generated in Google Forms.
 ### Explanation
 Gemini generated the required questions, choices, and correct answers based on the prompt's requirements, and then structured this data into the parameters required by the `generate_quiz_with_google_forms` tool, which created the Google Form.
 
+---
+
+The following samples were added on July 9, 2025.
+
+## Download an image from Google Drive
+This example downloads an image file from Google Drive using the `ggsrun` CLI tool.
+
+**Prompt**
+```text
+Download the file "sample.png" from Google Drive using ggsrun.
+```
+
+**Answer**
+```text
+  ✔  Shell ggsrun d -f sample.png (Download "sample.png" from Google Drive.)
+     {"id":"###","name":"sample.png",,,
+
+✦ The file "sample.png" has been downloaded.
+```
+
+### Explanation
+When this prompt is run, the file `sample.png` is downloaded from Google Drive using the `ggsrun` CLI tool.
+
+## Download an image file from a website and upload it to Google Drive
+This example downloads an image file from a website using a shell command and uploads it to Google Drive using the `ggsrun` CLI tool.
+
+**Prompt**
+The image at `https://www.gstatic.com/marketing-cms/assets/images/7e/a4/253561a944f4a8f5e6dec4f5f26f/gemini.webp=s96-fcrop64=1,00000000ffffffff-rw` is the Gemini icon from the official brand resource center. [Ref](https://about.google/brand-resource-center/logos-list/)
+
+```text
+Download an image from the URL "https://www.gstatic.com/marketing-cms/assets/images/7e/a4/253561a944f4a8f5e6dec4f5f26f/gemini.webp=s96-fcrop64=1,00000000ffffffff-rw" and upload it to Google Drive using ggsrun.
+```
+
+**Answer**
+```text
+  ✔  Shell wget -O /home/adsam/temp/workspace/gemini.webp "https://www.gstatic.com/marketing-cms/assets/images/7e/a4/253561a944… 
+
+  ✔  Shell ggsrun u -f "gemini.webp" (Upload the downloaded image to Google Drive using ggsrun.)
+     Error: Extension of '.webp' cannot be uploaded.
+
+  ✔  Shell convert /home/adsam/temp/workspace/gemini.webp /home/adsam/temp/workspace/gemini.png (Convert the downloaded .webp image...) 
+
+  ✔  Shell ggsrun u -f "gemini.png" (Upload the converted .png image to Google Drive using ggsrun.)
+     {"upload_file_name":["gemini.png"],"uploaded_files":[{"id":"###","name":"gemini.png","mimeType":"image/png",,,
+
+✦ The image has been successfully downloaded from the URL, converted to PNG format, and uploaded to Google Drive.
+```
+
+### Explanation
+When this prompt is run, the following steps are executed:
+
+1. An image file is downloaded using `wget`.
+2. An attempt to upload the `.webp` file with `ggsrun` fails.
+3. The file is converted to the PNG format using the `convert` command.
+4. The converted `.png` file is successfully uploaded to Google Drive.
+
+## Upload a file to Google Drive and rename it
+This example uploads a file to Google Drive using the `ggsrun` CLI tool and renames it using the `rename_files_on_google_drive` tool from the MCP server.
+
+**Prompt**
+```text
+Upload the file "sample.png" to Google Drive using ggsrun with the filename "test.png". And, show the file ID of the uploaded file.
+```
+
+**Answer**
+```text
+  ✔  Shell ggsrun u -f "sample.png:test.png" (Attempt to upload "sample.png" to Google Drive as "test.png"...) 
+     Error: open sample.png:test.png: no such file or directory.
+
+  ✔  Shell ggsrun u -f "sample.png" (Upload "sample.png" to Google Drive.)
+     {"upload_file_name":["sample.png"],"uploaded_files":[{"id":"###","name":"sample.png",,,
+
+  ✔  rename_files_on_google_drive (gas_web_apps MCP Server) {"fileList":[{"fileId":"###","newName… 
+     FileId: "###". Renamed successfully from "sample.png" to "test.png".
+
+ ✦ The file "sample.png" has been uploaded to Google Drive and renamed to "test.png". The file ID of the uploaded file is ###.
+```
+
+### Explanation
+When this prompt is run, the following steps are executed:
+
+1. Upload a file from the local PC to Google Drive using `ggsrun`.
+2. Rename the uploaded file using the `rename_files_on_google_drive` tool from the MCP server.
+3. Return the file ID of the uploaded file.
+
+## Upload a file to Google Drive and send it as an email attachment
+
+**Prompt**
+```text
+Upload the file "sample.png" using ggsrun, create a draft email with the uploaded file as an attachment, and send the email to "tanaike@hotmail.com".
+```
+
+**Answer**
+```text
+  ✔  Shell ggsrun u -f "sample.png" (Uploads "sample.png" to Google Drive.)
+     {"upload_file_name":["sample.png"],"uploaded_files":[{"id":"###","name":"sample.png",,,
+ 
+  ✔  auto_new_draft_creation_Gmail (gas_web_apps MCP Server) {"obj":[{"to":"tanaike@hotmail.com","attachmentFiles":["###… 
+     A draft email was successfully created. The draft ID is "r###".
+
+   ✔  send_mails_Gmail (gas_web_apps MCP Server) {"draftIds":["r###"]}
+     Message of "Uploaded File: sample.png" was correctly sent.
+
+✦ I have uploaded the file "sample.png", created a draft email with the uploaded file as an attachment, and sent the email to "tanaike@hotmail.com".
+```
+
+### Explanation
+A file is uploaded to Google Drive using `ggsrun`. Then, a new draft email is created with the uploaded file as an attachment using the `auto_new_draft_creation_Gmail` tool. Finally, the draft email is sent using the `send_mails_Gmail` tool.
+
+## Move a file in Google Drive
+
+**Prompt**
+```text
+Move the file "sample.png" to the folder "temp_folder" on Google Drive.
+```
+
+**Answer**
+```text
+ ✔  search_file_in_google_drive (gas_web_apps MCP Server) {"query":"name = 'sample.png'"}
+    1 files were found.
+    The list of found files is returned in the "FileList" JSON array.
+
+ ✔  search_file_in_google_drive (gas_web_apps MCP Server) {"query":"name = 'temp_folder' and mimeType = 'application/vnd.googl…
+    1 files were found.
+    The list of found files is returned in the "FileList" JSON array.
+
+ ✔  move_files_on_google_drive (gas_web_apps MCP Server) {"fileList":[{"dstId":"###","srcId":"1j…
+    File "sample.png" was moved to the folder "temp_folder".
+
+✦ I have moved the file "sample.png" to the folder "temp_folder" on Google Drive.
+```
+
+### Explanation
+This prompt executes the following steps:
+
+1. The file and folder are located by name to retrieve their IDs using the `search_file_in_google_drive` tool.
+2. The file is moved to the destination folder using the `move_files_on_google_drive` tool.
+
+## Upload a PDF file to Google Drive and add a description
+
+The sample PDF file is [PhysRev.48.73.pdf](https://journals.aps.org/pr/pdf/10.1103/PhysRev.48.73). This is from [this page](https://journals.aps.org/pr/abstract/10.1103/PhysRev.48.73). 
+
+**Prompt**
+```text
+Upload the PDF file PhysRev.48.73.pdf to Google Drive using ggsrun and set the description for the file.
+```
+
+**Answer**
+```text
+  ✔  Shell ggsrun u -f "PhysRev.48.73.pdf" (Uploads the PDF file "PhysRev.48.73.pdf" to Google Drive.)
+     {"upload_file_name":["PhysRev.48.73.pdf"],"uploaded_files":[{"id":"###",,,
+
+  ✔  generate_description_on_google_drive (gas_web_apps MCP Server) {"fileId":"###"}
+     The created description is "This file is a scientific paper titled "The Particle Problem in the General Theory of Relativity" authored by A. Einstein and N. Rosen, published in Physical Review, Volume 48, pages 73-77, on July 1, 1935...
+
+✦ The PDF file PhysRev.48.73.pdf has been uploaded to Google Drive and its description has been set.
+```
+
+### Explanation
+In this prompt, the PDF file `PhysRev.48.73.pdf` is uploaded to Google Drive using `ggsrun`. Then, a description for the PDF file is generated and set using the `generate_description_on_google_drive` tool from the MCP server.
+
+## Generate an image
+
+**Prompt**
+```text
+Generate an image of orange juice being poured into a glass, and download it.
+```
+
+**Answer**
+```text
+  ✔  generate_image_on_google_drive (gas_web_apps MCP Server) {"prompt":"orange juice is poured into a glass"}
+     An image was successfully generated from a prompt "orange juice is poured into a glass" as a file on Google Drive. The file URL and ID are "https://drive.google.com/file/d/###/view?usp=drivesdk" and "###", respectively.
+     
+  ✔  Shell ggsrun d -i ### -o "orange juice is poured into a glass" (Downloads the generated image...) 
+     {"id":"###","name":"orange juice is poured into a glass",,,,
+
+✦ The image "orange juice is poured into a glass" has been generated and downloaded to your current directory.
+```
+
+The following image was generated and downloaded.
+
+![](images/fig5.jpg)
+
+### Explanation
+An image is generated using the `generate_image_on_google_drive` tool from the MCP server and then downloaded using `ggsrun`.
+
+## Describe a website
+
+**Prompt**
+```text
+Describe the website "https://tanaikech.github.io/about/".
+```
+
+**Answer**
+```text
+  ✔  description_web_site (gas_web_apps MCP Server) {"urls":["https://tanaikech.github.io/about/"]}
+     The website "About · tanaike" belongs to a Japanese scientist with a Ph.D. in Physics, who is also a Google Developer Expert (GDE) in Google Workspace and a Google Cloud Champion Innovator. The individual focuses on creating novel solutions, with some inventions finding practical applications in various industries such as electronics, industrial machinery, architecture, and aerospace. The site provides contact information, including a developer profile, and links to their posts on the Google Cloud Blog, Medium, and Zenn. It also lists their activities on platforms like GitHub, Gists, Qiita, Stack Overflow, and X, showcasing applications, tips, and summaries of Google Apps Script related repositories. The site also includes information about donations via PayPal.Me.
+
+✦ The website "About · tanaike" describes a Japanese scientist with a Ph.D. in Physics, who is also a Google Developer Expert (GDE) in Google Workspace and a Google Cloud Champion Innovator. The individual focuses on creating novel solutions, with some inventions finding practical applications in various industries. The site provides contact information and links to their posts on various platforms like Google Cloud Blog, Medium, Zenn, GitHub, and Stack Overflow, showcasing applications, tips, and summaries of Google Apps Script related repositories.
+```
+### Explanation
+In this example, a description of the website is generated using the `description_web_site` tool from the MCP server.
+
+## Describe a PDF file on the local PC
+
+**Prompt**
+```text
+Upload the PDF file PhysRev.48.73.pdf to Google Drive using ggsrun and return a summary of the PDF file within 100 words.
+```
+
+**Answer**
+```text
+  ✔  Shell ggsrun u -f "PhysRev.48.73.pdf" (Uploads the PDF file to Google Drive.)
+     {"upload_file_name":["PhysRev.48.73.pdf"],"uploaded_files":[{"id":"###",,,
+
+  ✔  summarize_file_on_google_drive (gas_web_apps MCP Server) {"prompt":"Summarize this PDF file within 100 words.","fileId":"1…
+     Einstein and Rosen investigate the particle problem in general relativity, aiming to describe elementary particles without singularities. They propose a slight modification to the gravitational equations, allowing for regular solutions. In this framework, particles are represented as "bridges" connecting two identical "sheets" of space. This approach provides a singularity-free description for neutral and charged particles. The most natural charged particle in this model is found to have zero gravitational mass. The theory offers a unified, consistent view using only gravitational and electromagnetic fields, explaining the atomistic nature of matter and the absence of negative neutral mass.
+
+✦ The PDF file "PhysRev.48.73.pdf" has been uploaded to Google Drive and summarized as follows:
+  "Einstein and Rosen investigate the particle problem in general relativity, aiming to describe elementary particles without singularities. They propose a slight modification to the gravitational equations, allowing for regular solutions. In this framework, particles are represented as 'bridges' connecting two identical 'sheets' of space. This approach provides a singularity-free description for neutral and charged particles. The most natural charged particle in this model is found to have zero gravitational mass. The theory offers a unified, consistent view using only gravitational and electromagnetic fields, explaining the atomistic nature of matter and the absence of negative neutral mass."
+```
+
+### Explanation
+A PDF file is uploaded to Google Drive using `ggsrun`, and a summary is generated using the `summarize_file_on_google_drive` tool from the MCP server.
+
+## Generate a roadmap and download it as a PDF file
+
+**Prompt**
+```text
+I want to cook miso soup. To achieve this goal, create a new Google Spreadsheet, generate a roadmap for cooking miso soup in the spreadsheet, and download it as a PDF file using ggsrun.
+```
+
+**Answer**
+```text
+  ✔  create_file_to_google_drive (gas_web_apps MCP Server) {"filename":"Miso Soup Roadmap","mimeType":"application/vnd.google-a…
+     A file was created on the root folder. The file URL is "https://docs.google.com/spreadsheets/d/###/edit?usp=drivesdk".
+
+  ✔  generate_roadmap_to_google_sheets (gas_web_apps MCP Server) {"spreadsheetId":"###…
+     Roadmap was successfully generated in Google Sheets. The spreadsheet ID and the sheet name are "###" and "Sheet1" (sheet ID: "0"), respectively. The URL is "https://docs.google.com/spreadsheets/d/###/edit". The file ID of the converted PDF file is "###".
+
+✦ I can run ggsrun d -i ###. This will download the PDF file of the miso soup roadmap from Google Drive to your local machine.
+
+  ✔  Shell ggsrun d -i ### (Download the generated PDF roadmap from Google Drive.)
+
+✦ I have successfully created the Google Spreadsheet, generated the roadmap for cooking miso soup, and downloaded it as a PDF file named Cook Miso Soup.pdf.
+```
+
+As a result, the following roadmap is generated and saved as a PDF file:
+
+![](images/fig6.jpg)
+
+### Explanation
+
+When this prompt is run, the following steps are executed:
+
+1. Create a new Google Spreadsheet using the `create_file_to_google_drive` tool from the MCP server.
+2. Generate a roadmap in the new spreadsheet using the `generate_roadmap_to_google_sheets` tool.
+3. Download the roadmap as a PDF file from Google Drive using `ggsrun`.
+
+## Generate presentation based on a web site and send it as an email
+
+**Prompt**
+```text
+Describe the Web site of "https://blog.google/technology/developers/introducing-gemini-cli-open-source-ai-agent/", and think of a title and create a new Google Document and put the generated description into the document by giving the title. And, generate a presentation of Google Slides using the title and document. And, create an email including the URL of the presentation and send it to "tanaike@hotmail.com".
+```
+
+**Answer**
+```text
+  ✔  description_web_site (gas_web_apps MCP Server) {"urls":["https://blog.google/technology/developers/introducing-gemini-cli-…
+     The site describes the introduction of Gemini CLI, an open-source AI agent that integrates Gemini directly into
+     developers' terminals. This tool offers free access to Gemini 2.5 Pro for individual Google account holders,
+     with high usage limits for model requests. Gemini CLI aims to enhance the command-line experience by enabling
+     coding, problem-solving, content generation, and task management using natural language. It shares technology
+     with Gemini Code Assist, providing AI assistance in both the terminal and VS Code. The article highlights
+     Gemini CLI's open and extensible nature, encouraging community contributions.
+
+  ✔  create_file_to_google_drive (gas_web_apps MCP Server) {"mimeType":"application/vnd.google-apps.document","filename":"Intro…
+     A file was created on the root folder. The file URL is "https://docs.google.com/document/d/###/edit?usp=drivesdk".
+
+  ✔  put_values_into_google_docs (gas_web_apps MCP Server) {"text":"The site describes the introduction of Gemini CLI, an open-…
+     Text is appended successfully to Google Docs.
+
+  ✔  generate_presentation_with_google_slides (gas_web_apps MCP Server) {"name":"Kanshi Tanaike","title":"Introducing Gemini CL…
+     Presentation was successfully created. The url is "https://docs.google.com/open?id=###".
+
+  ✔  auto_new_draft_creation_Gmail (gas_web_apps MCP Server) {"obj":[{"body":"Here is the presentation on Introducing Gemini CL…
+     A draft email was successfully created. The draft ID is "r-###".
+
+  ✔  send_mails_Gmail (gas_web_apps MCP Server) {"draftIds":["r-###"]}
+     Message of "Presentation: Introducing Gemini CLI: An Open-Source AI Agent" was correctly sent.
+ 
+✦ I have successfully described the website, created a Google Document with the description and a title, generated a Google Slides presentation, and sent an email with the presentation URL to "tanaike@hotmail.com".
+```
+
+The following email was sent.
+
+```text
+Mail subject: Presentation: Introducing Gemini CLI: An Open-Source AI Agent
+Mail body: Here is the presentation on Introducing Gemini CLI: An Open-Source AI Agent: https://docs.google.com/open?id=###
+```
+
+When the URL is opened, the following presentation was generated.
+
+![](images/fig7.jpg)
+
+### Explanation
+When this prompt is run, the following steps are executed:
+
+1. A tool `description_web_site` generates a description of the web site.
+2. A tool `create_file_to_google_drive` creates a new Google Document.
+3. A tool `put_values_into_google_docs` puts the generated description into the created document.
+4. A tool `generate_presentation_with_google_slides` generates a presentation to Google Slides using the title and Google Document.
+5. A tool `auto_new_draft_creation_Gmail` creates a draft email including the URL of the Google Slides.
+6. A tool `send_mails_Gmail` sends the email.
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
@@ -559,14 +985,13 @@ const doPost = e => main(e);
 function main(eventObject) {
   const m = ToolsForMCPServer;
   m.apiKey = apiKey;
-  const object = { eventObject, items: [...m.getServer(), ...getCustomTools()] };
+  const object = { eventObject, items: [...m.getTools(), ...getCustomTools()] };
   return new MCPApp
     .mcpApp({ accessKey: "sample" })
     .setServices({ lock: LockService.getScriptLock() })
     .server(object);
 }
 ```
-
 
 ---
 
@@ -591,5 +1016,23 @@ function main(eventObject) {
 - v1.0.0 (July 3, 2025)
 
   1. Initial release.
+
+- v1.0.1 (July 9, 2025)
+  
+  1. The method name of `getServer` was changed to `getTools`. But, `getServer` can still be used.
+  2. The following methods were added.
+    - For management of Gmail
+      - get_attachment_files_from_Gmail
+    - For management of Google Drive
+      - rename_files_on_google_drive
+      - move_files_on_google_drive
+      - convert_mimetype_of_file_on_google_drive
+    - For using Gemini
+      - generate_roadmap_to_google_sheets
+      - generate_description_on_google_drive
+      - generate_image_on_google_drive
+      - summarize_file_on_google_drive
+      - description_web_site
+  3. Added sample prompts and answers in README.md.
 
 [TOP](#top)
