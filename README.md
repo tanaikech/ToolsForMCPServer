@@ -295,7 +295,7 @@ When your setting is correct, the following result is returned.
     - description_web_site
 ```
 
-In the current stage (July 9, 2025), 32 tools are included in the MCP server "gas_web_apps".
+In the current stage (July 10, 2025), 33 tools are included in the MCP server "gas_web_apps".
 
 ## Search Files in Google Drive
 
