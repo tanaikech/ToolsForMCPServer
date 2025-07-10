@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250708 13:20
+ * Updated on 20250709 10:25
  */
 
 /**
@@ -275,6 +275,60 @@ function convert_mimetype_of_file_on_google_drive(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+/**
+ * This function changes the permission of a file or folder on Google Drive.
+ * 20250709 09:50
+ * @private
+ */
+function change_permission_of_file_on_google_drive(object = {}) {
+  const { fileId, email, role } = object;
+  let result;
+  try {
+    if (!fileId || !email || !role) {
+      throw new Error("Missing required parameters. Please provide 'fileId', 'email', and 'role'.");
+    }
+    const normalizedRole = role.toLowerCase();
+    if (!['viewer', 'commenter', 'editor'].includes(normalizedRole)) {
+      throw new Error("Invalid role specified. The role must be one of 'viewer', 'commenter', or 'editor'.");
+    }
+
+    let item;
+    let itemType;
+
+    try {
+      item = DriveApp.getFileById(fileId);
+      itemType = "file";
+    } catch (e) {
+      try {
+        item = DriveApp.getFolderById(fileId);
+        itemType = "folder";
+      } catch (f) {
+        throw new Error(`Could not find a file or folder with the ID '${fileId}'.`);
+      }
+    }
+
+    switch (normalizedRole) {
+      case 'editor':
+        item.addEditor(email);
+        break;
+      case 'commenter':
+        item.addCommenter(email);
+        break;
+      case 'viewer':
+        item.addViewer(email);
+        break;
+    }
+
+    result = { content: [{ type: "text", text: `Permission for the ${itemType} '${item.getName()}' (ID: ${fileId}) was successfully updated. User '${email}' has been granted '${normalizedRole}' access.` }], isError: false };
+
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
+
 // Descriptions of the functions.
 const descriptions_management_drive = {
   search_file_in_google_drive: {
@@ -396,6 +450,28 @@ const descriptions_management_drive = {
         dstMimeType: { type: "string", description: "Destination mimeType." },
       },
       required: ["fileIds", "dstMimeType"]
+    }
+  },
+
+  change_permission_of_file_on_google_drive: {
+    description: "Use to change the permission of a file or folder on Google Drive for a specific user by providing the item ID, user email, and desired role. As a sample situation, when URLs of the files are included in an email, it is required to add the permission to the recipient user to allow the user to read or write the file.",
+    parameters: {
+      type: "object",
+      properties: {
+        fileId: {
+          description: "The ID of the file or folder on Google Drive whose permissions need to be changed.",
+          type: "string"
+        },
+        email: {
+          description: "The email address of the user to whom the permission will be granted.",
+          type: "string"
+        },
+        role: {
+          description: "The permission level to grant. Accepted values are 'viewer', 'commenter', or 'editor'.",
+          type: "string"
+        },
+      },
+      required: ["fileId", "email", "role"]
     }
   },
 

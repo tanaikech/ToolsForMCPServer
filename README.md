@@ -23,7 +23,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 9, 2025), the following 32 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 10, 2025), the following 33 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
 * `get_current_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
@@ -57,6 +57,7 @@ In the current stage (July 9, 2025), the following 32 tools are provided by [Too
 * `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
 * `generate_roadmap_to_google_sheets(description, exportPDF, goal, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Generates a roadmap in Google Sheets, with options to export as PDF.
 * `description_web_site(urls)`: Describes websites using their URLs.
+* `change_permission_of_file_on_google_drive`: This is used to modify the access permissions of a specific file or folder on Google Drive for a given user.
 
 # Usage
 
@@ -258,7 +259,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (32 tools)
+  🟢 gas_web_apps - Ready (33 tools)
     - get_exchange_rate
     - get_current_weather
     - get_current_date_time
@@ -273,6 +274,7 @@ When your setting is correct, the following result is returned.
     - rename_files_on_google_drive
     - move_files_on_google_drive
     - convert_mimetype_of_file_on_google_drive
+    - change_permission_of_file_on_google_drive
     - generate_survey_with_google_forms
     - generate_quiz_with_google_forms
     - get_massages_by_time_from_Gmail
@@ -915,6 +917,37 @@ When this prompt is run, the following steps are executed:
 5. A tool `auto_new_draft_creation_Gmail` creates a draft email including the URL of the Google Slides.
 6. A tool `send_mails_Gmail` sends the email.
 
+---
+
+The following samples were added on July 10, 2025.
+
+## Generate presentation based on a web site and send it as an email
+
+**Prompt**
+```text
+Create a new Google Document and send an email to tanaike@hotmail.com that includes the document. Grant the user edit permission for the Google Document.
+```
+
+**Answer**
+```text
+  ✔  create_file_to_google_drive (gas_web_apps MCP Server) {"filename":"New Google Document","mimeType":"application/vnd.google…
+     A file was created on the root folder. The file URL is "https://docs.google.com/document/d/###/edit?usp=drivesdk".
+     
+  ✔  change_permission_of_file_on_google_drive (gas_web_apps MCP Server) {"role":"editor","fileId":"###…
+     Permission for the file 'New Google Document' (ID: ###) was successfully updated. User 'tanaike@hotmail.com' has been granted 'editor' access.
+     
+  ✔  auto_new_draft_creation_Gmail (gas_web_apps MCP Server) {"obj":[{"title":"New Google Document","to":"tanaike@hotmail.com",…
+     A draft email was successfully created. The draft ID is "r###".
+     
+  ✔  send_mails_Gmail (gas_web_apps MCP Server) {"draftIds":["r###"]}
+     Message of "New Google Document" was correctly sent.
+
+✦ I have created a new Google Document, granted edit permission to tanaike@hotmail.com, and sent an email to them with the
+  document link.
+```
+
+When this is run, an email including the URL of the Google Document. And, the write permission was added to the email.
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
@@ -1034,5 +1067,9 @@ function main(eventObject) {
       - summarize_file_on_google_drive
       - description_web_site
   3. Added sample prompts and answers in README.md.
+
+- v1.0.2 (July 10, 2025)
+  
+  1. A tool `change_permission_of_file_on_google_drive` was added. By this, when a Google Docs files are included in Gmail, the email can be sent by giving permission to the Google Docs file.
 
 [TOP](#top)
