@@ -23,10 +23,11 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 10, 2025), the following 33 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 11, 2025), the following 34 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
-* `get_current_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
+* `get_current_weather(latitude, longitude, timezone)`: Gets the current weather for latitude, longitude, and timezone.
+* `get_specific_date_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
 * `get_current_date_time(timezone)`: Returns the current date and time for a given timezone.
 * `search_schedule_on_Google_Calendar(end, start, search)`: Searches for schedules and events on Google Calendar within a date range, with an optional search string.
 * `create_schedule_to_Google_Calendar(description, endDatetime, startDatetime, title)`: Creates an event (schedule) on Google Calendar with a title, description, start, and end datetime.
@@ -39,6 +40,7 @@ In the current stage (July 10, 2025), the following 33 tools are provided by [To
 * `rename_files_on_google_drive(fileList)`: Renames files on Google Drive using their file IDs and new names.
 * `move_files_on_google_drive(fileList)`: Moves files and folders to a different folder on Google Drive using source anddestination IDs.
 * `convert_mimetype_of_file_on_google_drive(dstMimeType, fileIds)`: Converts the MIME type of files on Google Drive.
+* `change_permission_of_file_on_google_drive`: This is used to modify the access permissions of a specific file or folder on Google Drive for a given user.
 * `generate_survey_with_google_forms(itemList, title)`: Generates a survey using Google Forms with a given title and a list of questions.
 * `generate_quiz_with_google_forms(itemList, title)`: Generates a quiz using Google Forms with a given title and a list of questions, including correct answers.
 * `get_massages_by_time_from_Gmail(after, excludedMessageIds)`: Retrieves Gmail messages received after a specified time, with an option to exclude certain message IDs.
@@ -57,7 +59,6 @@ In the current stage (July 10, 2025), the following 33 tools are provided by [To
 * `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
 * `generate_roadmap_to_google_sheets(description, exportPDF, goal, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Generates a roadmap in Google Sheets, with options to export as PDF.
 * `description_web_site(urls)`: Describes websites using their URLs.
-* `change_permission_of_file_on_google_drive`: This is used to modify the access permissions of a specific file or folder on Google Drive for a given user.
 
 # Usage
 
@@ -259,9 +260,10 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (33 tools)
+  🟢 gas_web_apps - Ready (34 tools)
     - get_exchange_rate
     - get_current_weather
+    - get_specific_date_weather
     - get_current_date_time
     - search_schedule_on_Google_Calendar
     - create_schedule_to_Google_Calendar
@@ -294,8 +296,6 @@ When your setting is correct, the following result is returned.
     - generate_roadmap_to_google_sheets
     - description_web_site
 ```
-
-In the current stage (July 10, 2025), 33 tools are included in the MCP server "gas_web_apps".
 
 ## Search Files in Google Drive
 
@@ -1071,5 +1071,10 @@ function main(eventObject) {
 - v1.0.2 (July 10, 2025)
   
   1. A tool `change_permission_of_file_on_google_drive` was added. By this, when a Google Docs files are included in Gmail, the email can be sent by giving permission to the Google Docs file.
+
+- v1.0.3 (July 11, 2025)
+
+  1. A tool `get_current_weather` was updated.
+  2. A new tool `get_specific_date_weather` was added.
 
 [TOP](#top)
