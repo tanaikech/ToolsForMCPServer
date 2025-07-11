@@ -1,5 +1,6 @@
 /**
  * Management of Google Sheets
+ * Updated on 20250711 16:14
  */
 
 /**
@@ -8,25 +9,27 @@
  */
 function getSheet_(object) {
   const { spreadsheetId = null, spreadsheetUrl = null, sheetName = null, sheetId = null, sheetIndex = 0 } = object;
+  const { spreadsheet_id = null, spreadsheet_url = null, sheet_name = null, sheet_id = null, sheet_index = 0 } = object;
+
   let result;
-  if (!spreadsheetId && !spreadsheetUrl) {
+  if (!spreadsheetId && !spreadsheetUrl && !spreadsheet_id && !spreadsheet_url) {
     result = { content: [{ type: "text", text: "Spreadsheet ID or spreadsheet URL was not found." }], isError: true };
   } else {
     let ss;
-    if (spreadsheetId) {
-      ss = SpreadsheetApp.openById(spreadsheetId);
+    if (spreadsheetId || spreadsheet_id) {
+      ss = SpreadsheetApp.openById(spreadsheetId || spreadsheet_id);
     } else {
-      ss = SpreadsheetApp.openByUrl(spreadsheetUrl);
+      ss = SpreadsheetApp.openByUrl(spreadsheetUrl || spreadsheet_url);
     }
-    if (sheetName) {
-      result = ss.getSheetByName(sheetName);
-    } else if (sheetId) {
-      result = ss.getSheetById(sheetId);
+    if (sheetName || sheet_name) {
+      result = ss.getSheetByName(sheetName || sheet_name);
+    } else if (sheetId || sheet_id) {
+      result = ss.getSheetById(sheetId || sheet_id);
     } else {
-      if (ss.getNumSheets() >= sheetIndex + 1) {
-        result = ss.getSheets()[sheetIndex];
+      if (ss.getNumSheets() >= (sheetIndex || sheet_index) + 1) {
+        result = ss.getSheets()[sheetIndex || sheet_index];
       } else {
-        result = { content: [{ type: "text", text: `"${sheetIndex}" didn't exist.` }], isError: true };
+        result = { content: [{ type: "text", text: `"${sheetIndex || sheet_index}" didn't exist.` }], isError: true };
       }
     }
   }

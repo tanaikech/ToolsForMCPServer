@@ -1077,4 +1077,8 @@ function main(eventObject) {
   1. A tool `get_current_weather` was updated.
   2. A new tool `get_specific_date_weather` was added.
 
+- v1.0.4 (July 11, 2025)
+
+  1. A function `getSheet_` was updated.
+
 [TOP](#top)
