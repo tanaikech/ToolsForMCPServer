@@ -23,7 +23,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 11, 2025), the following 34 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 16, 2025), the following 35 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
 * `get_current_weather(latitude, longitude, timezone)`: Gets the current weather for latitude, longitude, and timezone.
@@ -53,6 +53,7 @@ In the current stage (July 11, 2025), the following 34 tools are provided by [To
 * `remove_mails_Gmail(messageIds)`: Removes specified Gmail messages.
 * `get_values_from_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Retrieves values from Google Sheets from a specified range or sheet.
 * `put_values_to_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl, values)`: Puts values into Google Sheets at a specified range or to the last row of a sheet.
+* `search_values_from_google_sheets(spreadsheetId, spreadsheetUrl, searchText)`: Search all cells in Google Spreadsheet using a regex.
 * `generate_presentation_with_google_slides(name, presentationTime, text, title)`: Creates and generates a presentation using Google Slides with a title, speaker name, presentation time, and description.
 * `generate_description_on_google_drive(fileId)`: Generates a description for a file on Google Drive and sets it.
 * `generate_image_on_google_drive(prompt)`: Generates an image from a prompt and saves it as a file on Google Drive.
@@ -260,7 +261,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (34 tools)
+  🟢 gas_web_apps - Ready (35 tools)
     - get_exchange_rate
     - get_current_weather
     - get_specific_date_weather
@@ -289,6 +290,7 @@ When your setting is correct, the following result is returned.
     - remove_mails_Gmail
     - get_values_from_google_sheets
     - put_values_to_google_sheets
+    - search_values_from_google_sheets
     - generate_presentation_with_google_slides
     - generate_description_on_google_drive
     - generate_image_on_google_drive
@@ -1080,5 +1082,9 @@ function main(eventObject) {
 - v1.0.4 (July 11, 2025)
 
   1. A function `getSheet_` was updated.
+
+- v1.0.5 (July 16, 2025)
+
+  1. A new tool `search_values_from_google_sheets` was added.
 
 [TOP](#top)

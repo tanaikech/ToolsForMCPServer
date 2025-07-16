@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250711 16:14
+ * Updated on 20250716 15:10
  */
 
 /**
@@ -93,6 +93,38 @@ function put_values_to_google_sheets(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+/**
+ * This function searches all cells in Google Sheets using a regex.
+ * @private
+ */
+function search_values_from_google_sheets(object = {}) {
+  const { searchText = null } = object;
+  let result;
+  try {
+    if (!searchText) {
+      result = { content: [{ type: "text", text: "Set the searh text as regex." }], isError: true };
+    } else {
+      result = getSheet_(object);
+      if (result.toString() == "Sheet") {
+        const sheet = result;
+        const ss = sheet.getParent();
+        const ranges = ss.createTextFinder(searchText).useRegularExpression(true).matchEntireCell(true).findAll();
+        let text;
+        if (ranges.length > 0) {
+          text = `"${searchText}" was found at the cells ` + ranges.map(r => `'${r.getSheet().getSheetName()}'!${r.getA1Notation()}`).join(",");
+        } else {
+          text = `"${searchText}" was not found.`;
+        }
+        result = { content: [{ type: "text", text }], isError: false };
+      }
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 // Descriptions of the functions.
 const descriptions_management_sheets = {
   get_values_from_google_sheets: {
@@ -129,6 +161,22 @@ const descriptions_management_sheets = {
         range: { type: "string", description: "Range as A1Notation. The values are retrieved from this range. If this is not used, the values are put into the last row." },
       },
       oneOf: [{ required: ["spreadsheetId", "values"] }, { required: ["spreadsheetUrl", "values"] }]
+    }
+  },
+
+  search_values_from_google_sheets: {
+    description: "Use this to search all cells in Google Sheets using a regex. In this case, the search text is searched to see whether it is the same as the entire cell value. So, if you want to search the cells including 'sample' text, please use a regex like '.*sample.*'.",
+    parameters: {
+      type: "object",
+      properties: {
+        spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." },
+        spreadsheetUrl: { type: "string", description: "Spreadsheet URL of Google Sheets." },
+        searchText: {
+          type: "string",
+          description: "Search text. The search text is searched to see whether it is the same as the entire cell value. So, if you want to search the cells including 'sample' text, please use a regex like '.*sample.*'. You can search the cell coordinates using a regex.",
+        },
+      },
+      oneOf: [{ required: ["spreadsheetId", "searchText"] }, { required: ["spreadsheetUrl", "searchText"] }]
     }
   },
 
