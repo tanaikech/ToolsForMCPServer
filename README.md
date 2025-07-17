@@ -23,7 +23,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 16, 2025), the following 35 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 17, 2025), the following 41 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
 * `get_current_weather(latitude, longitude, timezone)`: Gets the current weather for latitude, longitude, and timezone.
@@ -33,6 +33,8 @@ In the current stage (July 16, 2025), the following 35 tools are provided by [To
 * `create_schedule_to_Google_Calendar(description, endDatetime, startDatetime, title)`: Creates an event (schedule) on Google Calendar with a title, description, start, and end datetime.
 * `get_values_from_google_docs(documentId, documentUrl, markdown, tabId, tabIndex, tabName)`: Retrieves text content from Google Docs, optionally in Markdown format, from a specific tab.
 * `put_values_into_google_docs(documentId, documentUrl, index, tabId, tabIndex, tabName, text)`: Appends or inserts text into Google Docs at a specified index or to the end, in a specific tab.
+* `get_google_doc_object_using_docs_api(documentId)`: Get Google Docs Object using Docs API.
+* `manage_google_docs_using_docs_api(documentId, requests)`: Manage Google Docs using Docs API.
 * `search_file_in_google_drive(query)`: Searches for files in Google Drive using a search query.
 * `get_file_from_google_drive(filename)`: Downloads a file from Google Drive by filename, returning base64 encoded data.
 * `put_file_to_google_drive(base64Data, filename, mimeType)`: Uploads base64 encoded data to Google Drive as a file with a specified filename and MIME type.
@@ -54,7 +56,11 @@ In the current stage (July 16, 2025), the following 35 tools are provided by [To
 * `get_values_from_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Retrieves values from Google Sheets from a specified range or sheet.
 * `put_values_to_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl, values)`: Puts values into Google Sheets at a specified range or to the last row of a sheet.
 * `search_values_from_google_sheets(spreadsheetId, spreadsheetUrl, searchText)`: Search all cells in Google Spreadsheet using a regex.
+* `get_google_sheet_object_using_sheets_api(spreadsheetId)`: Get Google Sheets Object using Sheets API.
+* `manage_google_sheets_using_sheets_api(spreadsheetId, requests)`: Manage Google Sheets using Sheets API.
 * `generate_presentation_with_google_slides(name, presentationTime, text, title)`: Creates and generates a presentation using Google Slides with a title, speaker name, presentation time, and description.
+* `get_google_slides_object_using_slides_api(presentationId)`: Get Google Slides Object using Slides API.
+* `manage_google_slides_using_slides_api(presentationId, requests)`: Manage Google Slides using Slides API.
 * `generate_description_on_google_drive(fileId)`: Generates a description for a file on Google Drive and sets it.
 * `generate_image_on_google_drive(prompt)`: Generates an image from a prompt and saves it as a file on Google Drive.
 * `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
@@ -261,7 +267,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (35 tools)
+  🟢 gas_web_apps - Ready (41 tools)
     - get_exchange_rate
     - get_current_weather
     - get_specific_date_weather
@@ -270,6 +276,8 @@ When your setting is correct, the following result is returned.
     - create_schedule_to_Google_Calendar
     - get_values_from_google_docs
     - put_values_into_google_docs
+    - get_google_doc_object_using_docs_api
+    - manage_google_docs_using_docs_api
     - search_file_in_google_drive
     - get_file_from_google_drive
     - put_file_to_google_drive
@@ -291,7 +299,11 @@ When your setting is correct, the following result is returned.
     - get_values_from_google_sheets
     - put_values_to_google_sheets
     - search_values_from_google_sheets
+    - get_google_sheet_object_using_sheets_api
+    - manage_google_sheets_using_sheets_api
     - generate_presentation_with_google_slides
+    - get_google_slides_object_using_slides_api
+    - manage_google_slides_using_slides_api
     - generate_description_on_google_drive
     - generate_image_on_google_drive
     - summarize_file_on_google_drive
@@ -1086,5 +1098,15 @@ function main(eventObject) {
 - v1.0.5 (July 16, 2025)
 
   1. A new tool `search_values_from_google_sheets` was added.
+
+- v1.0.6 (July 17, 2025)
+
+  1. The following 6 new tools were added.
+    - get_google_doc_object_using_docs_api
+    - manage_google_docs_using_docs_api
+    - get_google_sheet_object_using_sheets_api
+    - manage_google_sheets_using_sheets_api
+    - get_google_slides_object_using_slides_api
+    - manage_google_slides_using_slides_api
 
 [TOP](#top)
