@@ -134,6 +134,7 @@ function main(eventObject) {
   - summarize_file_on_google_drive: Summarizes a file stored on Google Drive.
   - description_web_site: Provides descriptions of websites given their URLs.
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
+- **If you want to manage Docs, Sheets, and Slides using the batch update methods of API, please enable Docs API, Sheets API, and Slides API at Advanced Google services.**
 
 ### 4. Deploy Web Apps
 
