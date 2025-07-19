@@ -106,6 +106,8 @@ This sample uses two Google Apps Script libraries:
 
 Please copy and paste the following script into the script editor (replacing any existing code) and save the project.
 
+This is a basic script for using this library.
+
 ```javascript
 const apiKey = "###"; // API key for Gemini API
 
@@ -135,6 +137,53 @@ function main(eventObject) {
   - description_web_site: Provides descriptions of websites given their URLs.
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
 - **If you want to manage Docs, Sheets, and Slides using the batch update methods of API, please enable Docs API, Sheets API, and Slides API at Advanced Google services.**
+
+#### Show all tools
+
+When this script is run, all tools in this library are shown as a JSON object.
+
+```javascript
+function showAlltools() {
+  const res = ToolsForMCPServer.getToolList();
+  console.log(res);
+}
+```
+
+#### Filter tools
+
+When you want to use the specific tools, you can also use the following script.
+
+This script uses only the tool `get_exchange_rate`.
+
+```javascript
+function main(eventObject) {
+  const enables = ["get_exchange_rate"];
+
+  const m = ToolsForMCPServer;
+  m.apiKey = apiKey;
+  const object = { eventObject, items: m.getTools({ enables }) };
+  return new MCPApp
+    .mcpApp({ accessKey: "sample" })
+    .setServices({ lock: LockService.getScriptLock() })
+    .server(object);
+}
+```
+
+This script uses all tools except for the tool `get_exchange_rate`.
+
+```javascript
+function main(eventObject) {
+  const disables = ["get_exchange_rate"];
+
+  const m = ToolsForMCPServer;
+  m.apiKey = apiKey;
+  const object = { eventObject, items: m.getTools({ disables }) };
+  return new MCPApp
+    .mcpApp({ accessKey: "sample" })
+    .setServices({ lock: LockService.getScriptLock() })
+    .server(object);
+}
+```
 
 ### 4. Deploy Web Apps
 
@@ -1111,5 +1160,10 @@ function main(eventObject) {
     - manage_google_sheets_using_sheets_api
     - get_google_slides_object_using_slides_api
     - manage_google_slides_using_slides_api
+
+- v1.0.7 (July 19, 2025)
+
+  1. Added a `getToolList` method for retrieving all current tools in the library.
+  2. Tools can be filtered using `enables` or `disables` as an array argument for the `getTools` method. If `enables` is used, only the tools specified in the `enables` array will be used. If `disables` is used, all tools except those specified in the `disables` array will be used. If neither `enables` nor `disables` is used, all tools will be used.
 
 [TOP](#top)
