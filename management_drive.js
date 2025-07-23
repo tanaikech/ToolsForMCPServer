@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250709 10:25
+ * Updated on 20250710 10:25
  */
 
 /**
@@ -277,7 +277,6 @@ function convert_mimetype_of_file_on_google_drive(object = {}) {
 
 /**
  * This function changes the permission of a file or folder on Google Drive.
- * 20250709 09:50
  * @private
  */
 function change_permission_of_file_on_google_drive(object = {}) {

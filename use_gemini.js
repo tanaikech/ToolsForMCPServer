@@ -1,6 +1,6 @@
 /**
  * Functions using Gemini
- * Updated on 20250709 08:55
+ * Updated on 20250715 13:52
  */
 
 /**
@@ -183,7 +183,7 @@ function description_web_site(object = {}) {
 // Descriptions of the functions.
 const descriptions_use_gemini = {
   generate_description_on_google_drive: {
-    description: "Use this to generate the description of the file and set it to the file on Google Drive.",
+    description: "Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.",
     parameters: {
       type: "object",
       properties: {
@@ -217,12 +217,11 @@ const descriptions_use_gemini = {
   },
 
   generate_roadmap_to_google_sheets: {
-    description: "Use this to generate a roadmap to Google Sheets.",
+    description: "This generates a roadmap in Google Sheets. Use this to generate a roadmap to Google Sheets. Spreadsheet ID and your goal of the roadmap are required to be provided.",
     parameters: {
       type: "object",
       properties: {
         spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." },
-        spreadsheetUrl: { type: "string", description: "Spreadsheet URL of Google Sheets." },
         sheetName: { type: "string", description: "Sheet name in the Google Sheets. If both sheetName, sheetId, and sheetIndex are not provided, the values are retrieved from the 1st sheet on Google Sheets." },
         sheetId: { type: "string", description: "Sheet ID of the sheet in Google Sheets. If both sheetName, sheetId, and sheetIndex are not provided, the values are retrieved from the 1st sheet on Google Sheets." },
         sheetIndex: { type: "number", description: "Sheet index (The 1st sheet is 0.) of the sheet in Google Sheets. If both sheetName, sheetId, and sheetIndex are not provided, the values are retrieved from the 1st sheet on Google Sheets." },
@@ -230,7 +229,7 @@ const descriptions_use_gemini = {
         description: { type: "string", description: "Description of the roadmap." },
         exportPDF: { type: "boolean", description: "The default is false. When this is true, the PDF file converted from the Google Sheets is created and the file ID of the PDF file is returned. You can download the created PDF file using this file ID." },
       },
-      oneOf: [{ required: ["spreadsheetId", "goal"] }, { required: ["spreadsheetUrl", "goal"] }]
+      required: ["spreadsheetId", "goal"]
     }
   },
 

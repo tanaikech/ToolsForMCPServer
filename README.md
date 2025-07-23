@@ -1166,4 +1166,10 @@ function main(eventObject) {
   1. Added a `getToolList` method for retrieving all current tools in the library.
   2. Tools can be filtered using `enables` or `disables` as an array argument for the `getTools` method. If `enables` is used, only the tools specified in the `enables` array will be used. If `disables` is used, all tools except those specified in the `disables` array will be used. If neither `enables` nor `disables` is used, all tools will be used.
 
+- v1.0.8 (July 23, 2025)
+
+  1. An issue occurred when I updated Gemini CLI from v0.1.12 to v0.1.13. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/2) Fortunately, Google is already aware of this issue, and I'm awaiting a resolution. In the meantime, I've received emails about it, so I've updated ToolsForMCPServer for Gemini CLI v0.1.13. The detailed updates are as follows: I confirmed that all tools in ToolsForMCPServer v1.0.8 worked when tested with Gemini CLI v0.1.13.
+    - `oneOf` has been removed from the schema of each tool.
+    - Following [this report](https://medium.com/google-cloud/generating-request-body-for-apis-using-gemini-43977961ca2a), the request body is now generated on the MCP server side. Therefore, when using the tools `manage_google_docs_using_docs_api`, `manage_google_sheets_using_sheets_api`, and `manage_google_slides_using_slides_api`, please use your API key for the Gemini API.
+
 [TOP](#top)

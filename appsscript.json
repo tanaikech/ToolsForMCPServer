@@ -6,6 +6,21 @@
         "userSymbol": "Drive",
         "version": "v3",
         "serviceId": "drive"
+      },
+      {
+        "userSymbol": "Docs",
+        "version": "v1",
+        "serviceId": "docs"
+      },
+      {
+        "userSymbol": "Slides",
+        "version": "v1",
+        "serviceId": "slides"
+      },
+      {
+        "userSymbol": "Sheets",
+        "version": "v4",
+        "serviceId": "sheets"
       }
     ]
   },

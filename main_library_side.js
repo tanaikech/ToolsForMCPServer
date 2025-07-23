@@ -3,8 +3,8 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * 20250719 15:53
- * version 1.0.7
+ * 20250723 12:10
+ * version 1.0.8
  */
 
 /**
