@@ -25,49 +25,51 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 17, 2025), the following 41 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 24, 2025), the following 43 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
-* `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
-* `get_current_weather(latitude, longitude, timezone)`: Gets the current weather for latitude, longitude, and timezone.
-* `get_specific_date_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
-* `get_current_date_time(timezone)`: Returns the current date and time for a given timezone.
-* `search_schedule_on_Google_Calendar(end, start, search)`: Searches for schedules and events on Google Calendar within a date range, with an optional search string.
-* `create_schedule_to_Google_Calendar(description, endDatetime, startDatetime, title)`: Creates an event (schedule) on Google Calendar with a title, description, start, and end datetime.
-* `get_values_from_google_docs(documentId, documentUrl, markdown, tabId, tabIndex, tabName)`: Retrieves text content from Google Docs, optionally in Markdown format, from a specific tab.
-* `put_values_into_google_docs(documentId, documentUrl, index, tabId, tabIndex, tabName, text)`: Appends or inserts text into Google Docs at a specified index or to the end, in a specific tab.
-* `get_google_doc_object_using_docs_api(documentId)`: Get Google Docs Object using Docs API.
-* `manage_google_docs_using_docs_api(documentId, requests)`: Manage Google Docs using Docs API.
-* `search_file_in_google_drive(query)`: Searches for files in Google Drive using a search query.
-* `get_file_from_google_drive(filename)`: Downloads a file from Google Drive by filename, returning base64 encoded data.
-* `put_file_to_google_drive(base64Data, filename, mimeType)`: Uploads base64 encoded data to Google Drive as a file with a specified filename and MIME type.
-* `create_file_to_google_drive(filename, mimeType)`: Creates an empty file on Google Drive with a specified filename and MIME type.
-* `rename_files_on_google_drive(fileList)`: Renames files on Google Drive using their file IDs and new names.
-* `move_files_on_google_drive(fileList)`: Moves files and folders to a different folder on Google Drive using source anddestination IDs.
-* `convert_mimetype_of_file_on_google_drive(dstMimeType, fileIds)`: Converts the MIME type of files on Google Drive.
-* `change_permission_of_file_on_google_drive`: This is used to modify the access permissions of a specific file or folder on Google Drive for a given user.
-* `generate_survey_with_google_forms(itemList, title)`: Generates a survey using Google Forms with a given title and a list of questions.
-* `generate_quiz_with_google_forms(itemList, title)`: Generates a quiz using Google Forms with a given title and a list of questions, including correct answers.
-* `get_massages_by_time_from_Gmail(after, excludedMessageIds)`: Retrieves Gmail messages received after a specified time, with an option to exclude certain message IDs.
-* `get_massages_by_search_from_Gmail(query, excludedMessageIds)`: Retrieves Gmail messages using a search query, with an option to exclude certain message IDs.
-* `get_attachment_files_from_Gmail(messageId)`: Retrieves attachment files from a Gmail message, returning their Google Drive file IDs.
 * `add_label_to_Gmail(obj)`: Adds labels to specified Gmail threads.
-* `auto_reply_draft_creation_Gmail(obj)`: Creates automatically drafted reply emails in Gmail for specified messages, with optional attachments.
 * `auto_new_draft_creation_Gmail(obj)`: Creates automatically drafted new emails in Gmail, with specified recipients, titles, bodies, and optional attachments.
-* `send_mails_Gmail(draftIds)`: Sends previously created draft emails in Gmail.
-* `remove_mails_Gmail(messageIds)`: Removes specified Gmail messages.
-* `get_values_from_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Retrieves values from Google Sheets from a specified range or sheet.
-* `put_values_to_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl, values)`: Puts values into Google Sheets at a specified range or to the last row of a sheet.
-* `search_values_from_google_sheets(spreadsheetId, spreadsheetUrl, searchText)`: Search all cells in Google Spreadsheet using a regex.
-* `get_google_sheet_object_using_sheets_api(spreadsheetId)`: Get Google Sheets Object using Sheets API.
-* `manage_google_sheets_using_sheets_api(spreadsheetId, requests)`: Manage Google Sheets using Sheets API.
-* `generate_presentation_with_google_slides(name, presentationTime, text, title)`: Creates and generates a presentation using Google Slides with a title, speaker name, presentation time, and description.
-* `get_google_slides_object_using_slides_api(presentationId)`: Get Google Slides Object using Slides API.
-* `manage_google_slides_using_slides_api(presentationId, requests)`: Manage Google Slides using Slides API.
+* `auto_reply_draft_creation_Gmail(obj)`: Creates automatically drafted reply emails in Gmail for specified messages, with optional attachments.
+* `change_permission_of_file_on_google_drive`: This is used to modify the access permissions of a specific file or folder on Google Drive for a given user.
+* `convert_mimetype_of_file_on_google_drive(dstMimeType, fileIds)`: Converts the MIME type of files on Google Drive.
+* `create_file_to_google_drive(filename, mimeType)`: Creates an empty file on Google Drive with a specified filename and MIME type.
+* `create_google_docs_from_markdown_on_google_drive`: Create a Google Document from a markdown format.
+* `create_schedule_to_Google_Calendar(description, endDatetime, startDatetime, title)`: Creates an event (schedule) on Google Calendar with a title, description, start, and end datetime.
+* `description_web_site(urls)`: Describes websites using their URLs.
+* `description_youtube`: Describe a YouTube video by providing the URL.
 * `generate_description_on_google_drive(fileId)`: Generates a description for a file on Google Drive and sets it.
 * `generate_image_on_google_drive(prompt)`: Generates an image from a prompt and saves it as a file on Google Drive.
-* `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
+* `generate_quiz_with_google_forms(itemList, title)`: Generates a quiz using Google Forms with a given title and a list of questions, including correct answers.
 * `generate_roadmap_to_google_sheets(description, exportPDF, goal, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Generates a roadmap in Google Sheets, with options to export as PDF.
-* `description_web_site(urls)`: Describes websites using their URLs.
+* `generate_survey_with_google_forms(itemList, title)`: Generates a survey using Google Forms with a given title and a list of questions.
+* `generate_presentation_with_google_slides(name, presentationTime, text, title)`: Creates and generates a presentation using Google Slides with a title, speaker name, presentation time, and description.
+* `get_attachment_files_from_Gmail(messageId)`: Retrieves attachment files from a Gmail message, returning their Google Drive file IDs.
+* `get_current_date_time(timezone)`: Returns the current date and time for a given timezone.
+* `get_current_weather(latitude, longitude, timezone)`: Gets the current weather for latitude, longitude, and timezone.
+* `get_exchange_rate(currency_date, currency_from, currency_to)`: Gets the current exchange rate between two currencies for a given date.
+* `get_file_from_google_drive(filename)`: Downloads a file from Google Drive by filename, returning base64 encoded data.
+* `get_google_doc_object_using_docs_api(documentId)`: Get Google Docs Object using Docs API.
+* `get_google_sheet_object_using_sheets_api(spreadsheetId)`: Get Google Sheets Object using Sheets API.
+* `get_google_slides_object_using_slides_api(presentationId)`: Get Google Slides Object using Slides API.
+* `get_massages_by_search_from_Gmail(query, excludedMessageIds)`: Retrieves Gmail messages using a search query, with an option to exclude certain message IDs.
+* `get_massages_by_time_from_Gmail(after, excludedMessageIds)`: Retrieves Gmail messages received after a specified time, with an option to exclude certain message IDs.
+* `get_specific_date_weather(date, latitude, longitude, timezone)`: Gets the weather for a specified date, latitude, longitude, and timezone.
+* `get_values_from_google_docs(documentId, documentUrl, markdown, tabId, tabIndex, tabName)`: Retrieves text content from Google Docs, optionally in Markdown format, from a specific tab.
+* `get_values_from_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl)`: Retrieves values from Google Sheets from a specified range or sheet.
+* `manage_google_docs_using_docs_api(documentId, requests)`: Manage Google Docs using Docs API.
+* `manage_google_sheets_using_sheets_api(spreadsheetId, requests)`: Manage Google Sheets using Sheets API.
+* `manage_google_slides_using_slides_api(presentationId, requests)`: Manage Google Slides using Slides API.
+* `move_files_on_google_drive(fileList)`: Moves files and folders to a different folder on Google Drive using source anddestination IDs.
+* `put_file_to_google_drive(base64Data, filename, mimeType)`: Uploads base64 encoded data to Google Drive as a file with a specified filename and MIME type.
+* `put_values_into_google_docs(documentId, documentUrl, index, tabId, tabIndex, tabName, text)`: Appends or inserts text into Google Docs at a specified index or to the end, in a specific tab.
+* `put_values_to_google_sheets(range, sheetId, sheetIndex, sheetName, spreadsheetId, spreadsheetUrl, values)`: Puts values into Google Sheets at a specified range or to the last row of a sheet.
+* `remove_mails_Gmail(messageIds)`: Removes specified Gmail messages.
+* `rename_files_on_google_drive(fileList)`: Renames files on Google Drive using their file IDs and new names.
+* `search_file_in_google_drive(query)`: Searches for files in Google Drive using a search query.
+* `search_schedule_on_Google_Calendar(end, start, search)`: Searches for schedules and events on Google Calendar within a date range, with an optional search string.
+* `search_values_from_google_sheets(spreadsheetId, spreadsheetUrl, searchText)`: Search all cells in Google Spreadsheet using a regex.
+* `send_mails_Gmail(draftIds)`: Sends previously created draft emails in Gmail.
+* `summarize_file_on_google_drive(fileId, prompt)`: Summarizes a file on Google Drive based on a given prompt.
 
 # Usage
 
@@ -267,6 +269,8 @@ To use this method, you first need to set up `ggsrun`.
 
 To verify the setup, run `ggsrun di` to display information about your Google Drive.
 
+<a name="configggsrun"></a>
+
 #### 3.2. Configuring Gemini CLI for `ggsrun`
 
 To enable the Gemini CLI to use `ggsrun`, add the following tool definitions to your `GEMINI.md` file. This file is typically located at `~/.gemini/GEMINI.md` on macOS/Linux or `%USERPROFILE%\.gemini\GEMINI.md` on Windows.
@@ -283,6 +287,11 @@ To enable the Gemini CLI to use `ggsrun`, add the following tool definitions to 
   ```bash
   ggsrun d -i [fileId]
   ```
+* To download a file from Google Drive by a file ID by converting mimeType, use this command:
+  ```bash
+  ggsrun d -i [fileId] -e [extension]
+  ```
+  [extension] is the file extension. For example, when you want to download the file in PDF format and TEXT format, use "pdf" and "txt", respectively.
 * To upload files from the local PC to the root directory of Google Drive, use this command:
   ```bash
   ggsrun u -f "[filename1],[filename2],,,"
@@ -298,6 +307,7 @@ To enable the Gemini CLI to use `ggsrun`, add the following tool definitions to 
 * To search for files and folders on Google Drive, use this command:
   ```bash
   ggsrun ls -s [filename]
+  ```
 ````
 
 # Sample Prompts and Answers
@@ -319,48 +329,50 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (41 tools)
-    - get_exchange_rate
-    - get_current_weather
-    - get_specific_date_weather
-    - get_current_date_time
-    - search_schedule_on_Google_Calendar
-    - create_schedule_to_Google_Calendar
-    - get_values_from_google_docs
-    - put_values_into_google_docs
-    - get_google_doc_object_using_docs_api
-    - manage_google_docs_using_docs_api
-    - search_file_in_google_drive
-    - get_file_from_google_drive
-    - put_file_to_google_drive
-    - create_file_to_google_drive
-    - rename_files_on_google_drive
-    - move_files_on_google_drive
-    - convert_mimetype_of_file_on_google_drive
-    - change_permission_of_file_on_google_drive
-    - generate_survey_with_google_forms
-    - generate_quiz_with_google_forms
-    - get_massages_by_time_from_Gmail
-    - get_massages_by_search_from_Gmail
-    - get_attachment_files_from_Gmail
+  🟢 gas_web_apps - Ready (43 tools)
     - add_label_to_Gmail
-    - auto_reply_draft_creation_Gmail
     - auto_new_draft_creation_Gmail
-    - send_mails_Gmail
-    - remove_mails_Gmail
-    - get_values_from_google_sheets
-    - put_values_to_google_sheets
-    - search_values_from_google_sheets
-    - get_google_sheet_object_using_sheets_api
-    - manage_google_sheets_using_sheets_api
-    - generate_presentation_with_google_slides
-    - get_google_slides_object_using_slides_api
-    - manage_google_slides_using_slides_api
+    - auto_reply_draft_creation_Gmail
+    - change_permission_of_file_on_google_drive
+    - convert_mimetype_of_file_on_google_drive
+    - create_file_to_google_drive
+    - create_google_docs_from_markdown_on_google_drive
+    - create_schedule_to_Google_Calendar
+    - description_web_site
+    - description_youtube
     - generate_description_on_google_drive
     - generate_image_on_google_drive
-    - summarize_file_on_google_drive
+    - generate_presentation_with_google_slides
+    - generate_quiz_with_google_forms
     - generate_roadmap_to_google_sheets
-    - description_web_site
+    - generate_survey_with_google_forms
+    - get_attachment_files_from_Gmail
+    - get_current_date_time
+    - get_current_weather
+    - get_exchange_rate
+    - get_file_from_google_drive
+    - get_google_doc_object_using_docs_api
+    - get_google_sheet_object_using_sheets_api
+    - get_google_slides_object_using_slides_api
+    - get_massages_by_search_from_Gmail
+    - get_massages_by_time_from_Gmail
+    - get_specific_date_weather
+    - get_values_from_google_docs
+    - get_values_from_google_sheets
+    - manage_google_docs_using_docs_api
+    - manage_google_sheets_using_sheets_api
+    - manage_google_slides_using_slides_api
+    - move_files_on_google_drive
+    - put_file_to_google_drive
+    - put_values_into_google_docs
+    - put_values_to_google_sheets
+    - remove_mails_Gmail
+    - rename_files_on_google_drive
+    - search_file_in_google_drive
+    - search_schedule_on_Google_Calendar
+    - search_values_from_google_sheets
+    - send_mails_Gmail
+    - summarize_file_on_google_drive
 ```
 
 ## Search Files in Google Drive
@@ -1014,6 +1026,42 @@ Create a new Google Document and send an email to tanaike@hotmail.com that inclu
 
 When this is run, an email including the URL of the Google Document. And, the write permission was added to the email.
 
+---
+
+The following samples were added on July 24, 2025.
+
+## Describe YouTube
+
+**Prompt**
+```text
+Use a tool "description_video_on_youtube". Describe a YouTube video by giving the URL "https://www.youtube.com/watch?v=Dc2WPQkovZE".
+```
+
+**Answer**
+
+![](images/fig8.jpg)
+
+## Convert markdown to Google Docs and export as a PDF
+
+In this case, [ggsrun](https://github.com/tanaikech/ggsrun) of a CLI tool is used for exporting the file from Google Drive. So, `GEMINI.md` is set. [Ref](#configggsrun)
+
+**Prompt**
+```text
+Please follow these steps:
+
+1.  Review @PhysRev.48.73.pdf.
+2.  Summarize the PDF content in Markdown format.
+3.  Generate a Google Document from the Markdown as a temporary file.
+4.  Export the Google Document as a PDF using ggsrun.
+5.  Remove the temporary file.
+```
+
+**Answer**
+
+![](images/fig9.jpg)
+
+By this flow, a PDF file is saved as a file in the working directory.
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
@@ -1171,5 +1219,11 @@ function main(eventObject) {
   1. An issue occurred when I updated Gemini CLI from v0.1.12 to v0.1.13. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/2) Fortunately, Google is already aware of this issue, and I'm awaiting a resolution. In the meantime, I've received emails about it, so I've updated ToolsForMCPServer for Gemini CLI v0.1.13. The detailed updates are as follows: I confirmed that all tools in ToolsForMCPServer v1.0.8 worked when tested with Gemini CLI v0.1.13.
     - `oneOf` has been removed from the schema of each tool.
     - Following [this report](https://medium.com/google-cloud/generating-request-body-for-apis-using-gemini-43977961ca2a), the request body is now generated on the MCP server side. Therefore, when using the tools `manage_google_docs_using_docs_api`, `manage_google_sheets_using_sheets_api`, and `manage_google_slides_using_slides_api`, please use your API key for the Gemini API.
+
+- v1.0.9 (July 24, 2025)
+
+  1. The following 2 new tools were added.
+    - description_youtube: Describe a YouTube video by providing the URL.
+    - create_google_docs_from_markdown_on_google_drive: Create a Google Document from a markdown format.
 
 [TOP](#top)

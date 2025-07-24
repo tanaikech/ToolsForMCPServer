@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250710 10:25
+ * Updated on 20250724 11:30
  */
 
 /**
@@ -327,6 +327,28 @@ function change_permission_of_file_on_google_drive(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+/**
+ * This function creates Google Docs by converting the markdown format.
+ * @private
+ */
+function create_google_docs_from_markdown_on_google_drive(object = {}) {
+  const { name = "sample name", markdown = "" } = object;
+  let result;
+  try {
+    if (markdown) {
+      const blob = Utilities.newBlob(markdown, "text/markdown", name);
+      const obj = Drive.Files.create({ mimeType: MimeType.GOOGLE_DOCS, name }, blob);
+      const url = `https://docs.google.com/document/d/${obj.id}/edit`;
+      result = { content: [{ type: "text", text: `The Google Docs file was created successfully. The file ID and URL of the created Google Docs are "${obj.id}" and "${url}", respectively.` }], isError: false };
+    } else {
+      result = { content: [{ type: "text", text: `No text as markdown.` }], isError: true };
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
 
 // Descriptions of the functions.
 const descriptions_management_drive = {
@@ -473,5 +495,17 @@ const descriptions_management_drive = {
       required: ["fileId", "email", "role"]
     }
   },
+
+  create_google_docs_from_markdown_on_google_drive: {
+    description: "Use to create a Google Document from a markdown format.",
+    parameters: {
+      type: "object",
+      properties: {
+        name: { description: "Google Document name.", type: "string" },
+        markdown: { description: "Text as a markdown format.", type: "string" },
+      },
+      required: ["markdown"]
+    }
+  }
 
 };

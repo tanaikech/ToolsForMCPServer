@@ -1,6 +1,6 @@
 /**
  * Functions using Gemini
- * Updated on 20250715 13:52
+ * Updated on 20250724 11:30
  */
 
 /**
@@ -180,6 +180,29 @@ function description_web_site(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+/**
+ * This function generates a description of YouTube by URLs.
+ * @private
+ */
+function description_video_on_youtube(object = {}) {
+  const { url = null } = object;
+  let result;
+  try {
+    if (url) {
+      const g = new GeminiWithFiles({ apiKey });
+      const parts = [{ text: "Describe the video." }, { file_data: { file_uri: url } }];
+      const text = g.generateContent({ parts });
+      result = { content: [{ type: "text", text }], isError: false };
+    } else {
+      result = { content: [{ type: "text", text: "No YouTube URL." }], isError: true };
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 // Descriptions of the functions.
 const descriptions_use_gemini = {
   generate_description_on_google_drive: {
@@ -242,6 +265,17 @@ const descriptions_use_gemini = {
         urls: { type: "array", items: { type: "string", description: "URL of the site." } },
       },
       required: ["urls"]
+    }
+  },
+
+  description_video_on_youtube: {
+    description: "Use this to describe and summarize a video on YouTube using the YouTube URL.",
+    parameters: {
+      type: "object",
+      properties: {
+        url: { type: "string", description: "URL of YouTube. It will be like 'https://www.youtube.com/watch?v=[videoId]'." },
+      },
+      required: ["url"]
     }
   },
 
