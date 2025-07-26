@@ -3,15 +3,22 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * 20250723 12:10
- * version 1.0.8
+ * Updated on 20250726 12:13
+ * version 1.0.10
  */
 
 /**
  * This is an API key for using Gemini API.
- * When the `generate_presentation_with_google_slides` tool is used, this API key is required to be used.
+ * When the tools of `use_gemini` are used, this API key is required to be used.
  */
 var apiKey = "";
+
+/**
+ * This is an access token and key for using StackExchange API.
+ * When the `get_questions_on_stackoverflow` tool is used, these values are required to be used.
+ */
+var accessToken_stackoverflow = "";
+var key_stackoverflow = "";
 
 /**
  * This function returns tool objects as an array.
@@ -28,6 +35,8 @@ function functions_() {
     descriptions_management_sheets,
     descriptions_management_slides,
     descriptions_use_gemini,
+
+    // descriptions_dev,
   ];
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
   /**
@@ -40,6 +49,15 @@ function functions_() {
     o[k] = this[k];
     return o;
   }, { params_: {} });
+
+  const tools = Object.keys(functions.params_).sort((a, b) => a > b ? 1 : -1);
+  functions.params_ = tools.reduce((o, f) => {
+    if (functions.params_[f]) {
+      o[f] = functions.params_[f];
+    }
+    return o;
+  }, {});
+
   return functions;
 }
 
@@ -73,16 +91,15 @@ function filterTools_(object) {
  */
 function getTools(object = {}) {
   const functions = filterTools_(object);
-  const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
 
   // for MCP
   const itemsForMCP = [
     {
       "type": "initialize",
       "value": {
-        "protocolVersion": "2024-11-05", // or "2025-03-26"
+        "protocolVersion": "2024-11-05", // or "2025-06-18"
         "capabilities": { "tools": { "listChanged": false } },
-        "serverInfo": { "name": "gas_web_apps", "version": "1.0.7" }
+        "serverInfo": { "name": "gas_web_apps", "version": "1.0.10" }
       }
     },
 
@@ -108,7 +125,7 @@ function getTools(object = {}) {
  */
 function getToolList() {
   const functions = functions_();
-  return Object.keys(functions.params_).reduce((o, f) => (o[f] = functions.params_[f].description, o), {});
+  return Object.keys(functions.params_).sort((a, b) => a > b ? 1 : -1).reduce((o, f) => (o[f] = functions.params_[f].description, o), {});
 }
 
 /**

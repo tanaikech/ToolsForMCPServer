@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250717 15:50
+ * Updated on 20250726 12:13
  */
 
 /**
@@ -151,13 +151,14 @@ function get_google_sheet_object_using_sheets_api(object = {}) {
  * @private
  */
 function manage_google_sheets_using_sheets_api(object = {}) {
-  const { spreadsheetId = null, prompt = null, refUrls = [] } = object;
+  const { spreadsheetId = null, requests = [] } = object;
   let result;
   try {
-    if (spreadsheetId && prompt) {
-      const resourceIds = { spreadsheetId };
-      const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForSheets, resourceIds, refUrls });
-      result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
+    if (!spreadsheetId || requests.length == 0) {
+      result = { content: [{ type: "text", text: "No spreadsheet ID or requests." }], isError: true };
+    } else {
+      const obj = Sheets.Spreadsheets.batchUpdate({ requests }, spreadsheetId);
+      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
     }
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
@@ -165,6 +166,28 @@ function manage_google_sheets_using_sheets_api(object = {}) {
   console.log(result); // Check response.
   return { jsonrpc: "2.0", result };
 }
+
+// /**
+//  * This function manages Google Sheets using Sheets API.
+//  * This is for only @google/gemini-cli with v0.1.13. At v0.1.13, the specification of the schema for MCP was changed. So, I use this tool.
+//  * At v0.1.14, I confirmed that the previous schema could be used. So, this tool was removed, and the above tool is reimplemented.
+//  * @private
+//  */
+// function manage_google_sheets_using_sheets_api(object = {}) {
+//   const { spreadsheetId = null, prompt = null, refUrls = [] } = object;
+//   let result;
+//   try {
+//     if (spreadsheetId && prompt) {
+//       const resourceIds = { spreadsheetId };
+//       const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForSheets, resourceIds, refUrls });
+//       result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
+//     }
+//   } catch ({ stack }) {
+//     result = { content: [{ type: "text", text: stack }], isError: true };
+//   }
+//   console.log(result); // Check response.
+//   return { jsonrpc: "2.0", result };
+// }
 
 // Descriptions of the functions.
 const descriptions_management_sheets = {
@@ -231,20 +254,28 @@ const descriptions_management_sheets = {
   },
 
   manage_google_sheets_using_sheets_api: {
-    description: `Use this to manage Google Sheets using the batchUpdate method of the Sheets API. The information of the sheet ID of each sheet can be retrieved by a tool "get_google_sheet_object_using_sheets_api". If the request cannot be achieved by the tool "put_values_to_google_sheets", try it with this tool.`,
-    parameters: {
-      type: "object",
-      properties: {
-        spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." },
-        prompt: { type: "string", description: "Prompt. Provide the request for processing using the Sheets API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
-        refUrls: {
-          type: "array",
-          description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
-          items: { type: "string", description: "URL" }
-        },
-      },
-      required: ["spreadsheetId", "prompt"]
-    }
+    description: "Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/batchUpdate",
+    parameters: jsonSchemaForSheets,
   },
+
+  // /**
+  //  * This is for only @google/gemini-cli with v0.1.13.
+  //  */
+  // manage_google_sheets_using_sheets_api: {
+  //   description: `Use this to manage Google Sheets using the batchUpdate method of the Sheets API. The information of the sheet ID of each sheet can be retrieved by a tool "get_google_sheet_object_using_sheets_api". If the request cannot be achieved by the tool "put_values_to_google_sheets", try it with this tool.`,
+  //   parameters: {
+  //     type: "object",
+  //     properties: {
+  //       spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." },
+  //       prompt: { type: "string", description: "Prompt. Provide the request for processing using the Sheets API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
+  //       refUrls: {
+  //         type: "array",
+  //         description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
+  //         items: { type: "string", description: "URL" }
+  //       },
+  //     },
+  //     required: ["spreadsheetId", "prompt"]
+  //   }
+  // },
 
 };

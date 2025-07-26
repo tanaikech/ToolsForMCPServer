@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250717 15:50
+ * Updated on 20250726 12:13
  */
 
 /**
@@ -136,19 +136,19 @@ function get_google_doc_object_using_docs_api(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
-
 /**
  * This function manages Google Docs using Docs API.
  * @private
  */
 function manage_google_docs_using_docs_api(object = {}) {
-  const { documentId = null, prompt = null, refUrls = [] } = object;
+  const { documentId = null, requests = [] } = object;
   let result;
   try {
-    if (documentId && prompt) {
-      const resourceIds = { documentId };
-      const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForDocs, resourceIds, refUrls });
-      result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
+    if (!documentId || requests.length == 0) {
+      result = { content: [{ type: "text", text: "No document ID or requests." }], isError: true };
+    } else {
+      const obj = Docs.Documents.batchUpdate({ requests }, documentId);
+      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
     }
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
@@ -156,6 +156,28 @@ function manage_google_docs_using_docs_api(object = {}) {
   console.log(result); // Check response.
   return { jsonrpc: "2.0", result };
 }
+
+// /**
+//  * This function manages Google Docs using Docs API.
+//  * This is for only @google/gemini-cli with v0.1.13. At v0.1.13, the specification of the schema for MCP was changed. So, I use this tool.
+//  * At v0.1.14, I confirmed that the previous schema could be used. So, this tool was removed, and the above tool is reimplemented.
+//  * @private
+//  */
+// function manage_google_docs_using_docs_api(object = {}) {
+//   const { documentId = null, prompt = null, refUrls = [] } = object;
+//   let result;
+//   try {
+//     if (documentId && prompt) {
+//       const resourceIds = { documentId };
+//       const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForDocs, resourceIds, refUrls });
+//       result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
+//     }
+//   } catch ({ stack }) {
+//     result = { content: [{ type: "text", text: stack }], isError: true };
+//   }
+//   console.log(result); // Check response.
+//   return { jsonrpc: "2.0", result };
+// }
 
 // Descriptions of the functions.
 const descriptions_management_docs = {
@@ -202,20 +224,28 @@ const descriptions_management_docs = {
   },
 
   manage_google_docs_using_docs_api: {
-    description: `Use this to manage Google Docs using the batchUpdate method of the Docs API. The information of the index of each content can be retrieved by a tool "get_google_doc_object_using_docs_api". If the request cannot be achieved by the tool "put_values_into_google_docs", try it with this tool.`,
-    parameters: {
-      type: "object",
-      properties: {
-        documentId: { type: "string", description: "Document ID of Google Docs." },
-        prompt: { type: "string", description: "Prompt. Provide the request for processing using the Docs API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
-        refUrls: {
-          type: "array",
-          description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
-          items: { type: "string", description: "URL" }
-        },
-      },
-      required: ["documentId", "prompt"]
-    }
+    description: "Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate",
+    parameters: jsonSchemaForDocs,
   },
+
+  // /**
+  //  * This is for only @google/gemini-cli with v0.1.13.
+  //  */
+  // manage_google_docs_using_docs_api: {
+  //   description: `Use this to manage Google Docs using the batchUpdate method of the Docs API. The information of the index of each content can be retrieved by a tool "get_google_doc_object_using_docs_api". If the request cannot be achieved by the tool "put_values_into_google_docs", try it with this tool.`,
+  //   parameters: {
+  //     type: "object",
+  //     properties: {
+  //       documentId: { type: "string", description: "Document ID of Google Docs." },
+  //       prompt: { type: "string", description: "Prompt. Provide the request for processing using the Docs API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
+  //       refUrls: {
+  //         type: "array",
+  //         description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
+  //         items: { type: "string", description: "URL" }
+  //       },
+  //     },
+  //     required: ["documentId", "prompt"]
+  //   }
+  // },
 
 };
