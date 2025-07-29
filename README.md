@@ -1074,7 +1074,7 @@ By this flow, a PDF file is saved as a file in the working directory.
 
 The following samples were added on July 29, 2025.
 
-In this case, you can see the samples at [Medium](https://medium.com/@tanaike/next-level-data-automation-gemini-cli-google-calendar-and-mcp-1b9e39e75f34).
+In this case, you can see the samples at **"[Next-Level Data Automation: Gemini CLI, Google Calendar, and MCP](https://medium.com/@tanaike/next-level-data-automation-gemini-cli-google-calendar-and-mcp-1b9e39e75f34)"**.
 
 # Summary
 
