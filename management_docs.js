@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250726 12:13
+ * Updated on 20250729 12:10
  */
 
 /**
@@ -122,6 +122,16 @@ function put_values_into_google_docs(object = {}) {
 function get_google_doc_object_using_docs_api(object = {}) {
   const { documentId = null } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Docs";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!documentId) {
       result = { content: [{ type: "text", text: "No document ID." }], isError: true };
@@ -143,6 +153,16 @@ function get_google_doc_object_using_docs_api(object = {}) {
 function manage_google_docs_using_docs_api(object = {}) {
   const { documentId = null, requests = [] } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Docs";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!documentId || requests.length == 0) {
       result = { content: [{ type: "text", text: "No document ID or requests." }], isError: true };

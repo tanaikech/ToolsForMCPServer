@@ -12,7 +12,10 @@ const doPost = e => main(e);
 
 function main(eventObject) {
   const m = ToolsForMCPServer;
-  m.apiKey = apiKey;
+
+  m.apiKey = apiKey; // This is an API key for using Gemini API.
+  // m.defaultCalendarId = "###"; // If you want to use the specific calendar, please use this.
+
   const object = { eventObject, items: m.getTools() };
   return new MCPApp
     .mcpApp({ accessKey: "sample" })

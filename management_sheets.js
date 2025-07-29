@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250726 12:13
+ * Updated on 20250729 12:10
  */
 
 /**
@@ -132,6 +132,16 @@ function search_values_from_google_sheets(object = {}) {
 function get_google_sheet_object_using_sheets_api(object = {}) {
   const { spreadsheetId = null } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Sheets";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!spreadsheetId) {
       result = { content: [{ type: "text", text: "No spreadsheet ID." }], isError: true };
@@ -153,6 +163,16 @@ function get_google_sheet_object_using_sheets_api(object = {}) {
 function manage_google_sheets_using_sheets_api(object = {}) {
   const { spreadsheetId = null, requests = [] } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Sheets";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!spreadsheetId || requests.length == 0) {
       result = { content: [{ type: "text", text: "No spreadsheet ID or requests." }], isError: true };

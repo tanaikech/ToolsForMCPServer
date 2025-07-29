@@ -21,6 +21,11 @@
         "userSymbol": "Sheets",
         "version": "v4",
         "serviceId": "sheets"
+      },
+      {
+        "userSymbol": "Calendar",
+        "version": "v3",
+        "serviceId": "calendar"
       }
     ]
   },

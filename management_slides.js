@@ -1,6 +1,6 @@
 /**
  * Management of Google Slides
- * Updated on 20250726 12:13
+ * Updated on 20250729 12:10
  */
 
 /**
@@ -11,6 +11,16 @@
 function generate_presentation_with_google_slides(object = {}) {
   const { title = null, name = "Sample speaker", presentationTime = 5, text = "" } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Drive";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (title) {
       let documentId = null;
@@ -63,6 +73,16 @@ function generate_presentation_with_google_slides(object = {}) {
 function get_google_slides_object_using_slides_api(object = {}) {
   const { presentationId = null } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Slides";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!presentationId) {
       result = { content: [{ type: "text", text: "No presentation ID." }], isError: true };
@@ -84,6 +104,16 @@ function get_google_slides_object_using_slides_api(object = {}) {
 function manage_google_slides_using_slides_api(object = {}) {
   const { presentationId = null, requests = [] } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Slides";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (!presentationId || requests.length == 0) {
       result = { content: [{ type: "text", text: "No presentation ID or requests." }], isError: true };

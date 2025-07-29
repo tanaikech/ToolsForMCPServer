@@ -25,51 +25,53 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 26, 2025), the following 43 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (July 29, 2025), the following 45 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
-* `add_label_to_Gmail`: Easily **organize Gmail threads** by adding labels. Ensure thread IDs are valid.
-* `auto_new_draft_creation_Gmail`: Automatically **create new Gmail drafts**. Includes message/draft IDs. Adds sender's name to footer unless unknown or explicitly forbidden.
-* `auto_reply_draft_creation_Gmail`: Quickly **draft reply emails in Gmail**. Returns message/draft IDs and mail URL. Avoid invalid message IDs.
-* `change_permission_of_file_on_google_drive`: Adjust **Google Drive file/folder permissions** for specific users. Great for sharing files from emails.
-* `convert_mimetype_of_file_on_google_drive`: **Change the file type** (mimeType) of documents stored on Google Drive.
-* `create_file_to_google_drive`: **Generate a new, empty file** directly within your Google Drive storage.
-* `create_google_docs_from_markdown_on_google_drive`: **Convert markdown text into a Google Document** and save it on Google Drive.
-* `create_schedule_to_Google_Calendar`: **Add new events or appointments** to your Google Calendar effortlessly.
-* `description_video_on_youtube`: **Summarize the content of a YouTube video** using its provided URL.
-* `description_web_site`: **Generate a concise description** of any website by simply providing its URL.
-* `generate_description_on_google_drive`: **Create and apply a description** to any file stored on your Google Drive.
-* `generate_image_on_google_drive`: **Produce an image from a text prompt**, saving the generated image directly to Google Drive.
-* `generate_presentation_with_google_slides`: **Create and develop presentations** using the features of Google Slides.
-* `generate_quiz_with_google_forms`: **Build a quiz using Google Forms**, defaulting to five questions if not specified.
-* `generate_roadmap_to_google_sheets`: **Design a roadmap in Google Sheets**. Requires your spreadsheet ID and desired roadmap goal.
-* `generate_survey_with_google_forms`: **Develop a survey using Google Forms**, creating five questions by default if unstated.
-* `get_attachment_files_from_Gmail`: **Retrieve email attachments from Gmail**, returning them as Google Drive file IDs.
-* `get_current_date_time`: **Fetch the current date and time**, automatically detecting your timezone if not provided.
-* `get_current_weather`: **Obtain current weather conditions** for a specified location, converting it to latitude/longitude.
-* `get_exchange_rate`: **Access real-time currency exchange rates**, for example, converting Japanese Yen to US Dollars.
-* `get_file_from_google_drive`: **Download a file from Google Drive** by filename. Output is base64 data requiring decoding.
-* `get_google_doc_object_using_docs_api`: **Access Google Docs objects via the Docs API** for structural information, not direct text retrieval.
-* `get_google_sheet_object_using_sheets_api`: **Retrieve Google Sheets objects via the Sheets API** for metadata like sheet names, not cell values.
-* `get_google_slides_object_using_slides_api`: **Get Google Slides objects via the Slides API** to retrieve presentation element IDs.
-* `get_massages_by_search_from_Gmail`: **Find specific Gmail messages** by using a detailed search query.
-* `get_massages_by_time_from_Gmail`: **Retrieve Gmail messages** sent from a specific time up to the present.
-* `get_specific_date_weather`: **Get weather details for a past or future date** at a specified location using coordinates.
-* `get_values_from_google_docs`: **Extract text content from Google Docs** in either plain text or markdown format.
-* `get_values_from_google_sheets`: **Retrieve cell values from Google Sheets** using the spreadsheet ID or URL.
-* `manage_google_docs_using_docs_api`: **Programmatically modify Google Docs** by sending batch update requests through the Docs API.
-* `manage_google_sheets_using_sheets_api`: **Control Google Sheets content** by sending batch update requests through the Sheets API.
-* `manage_google_slides_using_slides_api`: **Manipulate Google Slides presentations** by sending batch update requests through the Slides API.
-* `move_files_on_google_drive`: **Relocate files and folders** to different directories within Google Drive.
-* `put_file_to_google_drive`: **Upload data as a new file to Google Drive**. Requires file content encoded in base64.
-* `put_values_into_google_docs`: **Add or insert text content** into an existing Google Doc using its ID or URL.
-* `put_values_to_google_sheets`: **Input data directly into Google Sheets** cells using the spreadsheet ID or URL.
-* `remove_mails_Gmail`: **Delete unwanted email messages** from your Gmail account.
-* `rename_files_on_google_drive`: **Change the names of files** stored on your Google Drive.
-* `search_file_in_google_drive`: **Locate files on Google Drive** using search queries. Confirm the correct file if duplicates exist.
-* `search_schedule_on_Google_Calendar`: **Find calendar events** within a specified date range on Google Calendar.
-* `search_values_from_google_sheets`: **Search Google Sheets cells** using regular expressions. Use '.*text.*' for partial matches.
-* `send_mails_Gmail`: **Dispatch pre-created draft emails** from your Gmail account to recipients.
-* `summarize_file_on_google_drive`: **Generate a concise description or summary** of a file stored on Google Drive.
+* `add_label_to_Gmail`: Adds labels to Gmail threads, ensuring valid thread IDs are used.
+* `auto_new_draft_creation_Gmail`: Automatically creates Gmail draft emails, returning message and draft IDs.
+* `auto_reply_draft_creation_Gmail`: Automatically creates Gmail reply drafts, returning message/draft IDs and mail URL.
+* `change_permission_of_file_on_google_drive`: Changes Google Drive file/folder permissions for a user via item ID and email.
+* `convert_mimetype_of_file_on_google_drive`: Converts the MIME type of files on Google Drive.
+* `create_file_to_google_drive`: Creates an empty file on Google Drive.
+* `create_google_docs_from_markdown_on_google_drive`: Creates a Google Document from markdown format on Google Drive.
+* `create_schedule_on_Google_Calendar`: Creates a new schedule (event) on Google Calendar.
+* `delete_schedules_on_Google_Calendar`: Deletes schedules (events) from Google Calendar.
+* `description_video_on_youtube`: Describes and summarizes a YouTube video using its URL.
+* `description_web_site`: Describes websites using their URLs.
+* `generate_description_on_google_drive`: Generates and sets a description for a file on Google Drive.
+* `generate_image_on_google_drive`: Generates an image from a prompt and saves it to Google Drive.
+* `generate_presentation_with_google_slides`: Creates and generates a presentation using Google Slides.
+* `generate_quiz_with_google_forms`: Generates a quiz with Google Forms (defaults to 5 questions).
+* `generate_roadmap_to_google_sheets`: Generates a roadmap in Google Sheets, requiring spreadsheet ID and goal.
+* `generate_survey_with_google_forms`: Generates a survey with Google Forms (defaults to 5 questions).
+* `get_attachment_files_from_Gmail`: Retrieves attachment files from an email as Google Drive file IDs.
+* `get_current_date_time`: Returns the current date and time, optionally detecting the timezone.
+* `get_current_weather`: Gets current weather for a location, converting it to latitude and longitude.
+* `get_exchange_rate`: Retrieves the current exchange rate between currencies.
+* `get_file_from_google_drive`: Downloads a file from Google Drive as base64 data using its filename.
+* `get_google_doc_object_using_docs_api`: Retrieves a Google Docs Object via the Docs API for content indexing.
+* `get_google_sheet_object_using_sheets_api`: Retrieves a Google Sheets Object via the Sheets API for sheet names.
+* `get_google_slides_object_using_slides_api`: Retrieves a Google Slides Object via the Slides API for object IDs.
+* `get_massages_by_search_from_Gmail`: Retrieves Gmail messages using a search query.
+* `get_massages_by_time_from_Gmail`: Retrieves Gmail messages from a specified time until now.
+* `get_specific_date_weather`: Gets weather for a specific date and location using latitude and longitude.
+* `get_values_from_google_docs`: Retrieves text from Google Docs in text or markdown format using the document ID.
+* `get_values_from_google_sheets`: Retrieves cell values from Google Sheets using the spreadsheet ID.
+* `manage_google_docs_using_docs_api`: Manages Google Docs by providing a request body for the batchUpdate method.
+* `manage_google_sheets_using_sheets_api`: Manages Google Sheets by providing a request body for the batchUpdate method.
+* `manage_google_slides_using_slides_api`: Manages Google Slides by providing a request body for the batchUpdate method.
+* `move_files_on_google_drive`: Moves files and folders to another folder on Google Drive.
+* `put_file_to_google_drive`: Uploads base64 encoded data as a file to Google Drive.
+* `put_values_into_google_docs`: Appends or inserts text into Google Docs using the document ID.
+* `put_values_to_google_sheets`: Puts values into Google Sheets using the spreadsheet ID.
+* `remove_mails_Gmail`: Removes specified email messages from Gmail.
+* `rename_files_on_google_drive`: Renames files on Google Drive.
+* `search_file_in_google_drive`: Searches for files on Google Drive by query, confirming with user if multiple found.
+* `search_schedule_on_Google_Calendar`: Searches Google Calendar for events within a specified date range.
+* `search_values_from_google_sheets`: Searches all Google Sheets cells using a regex with the spreadsheet ID.
+* `send_mails_Gmail`: Sends pre-created draft emails from Gmail.
+* `summarize_file_on_google_drive`: Describes and summarizes a file located on Google Drive.
+* `update_schedule_on_Google_Calendar`: Updates an existing schedule (event) on Google Calendar.
 
 # Usage
 
@@ -120,7 +122,10 @@ const doPost = e => main(e);
 
 function main(eventObject) {
   const m = ToolsForMCPServer;
-  m.apiKey = apiKey;
+
+  m.apiKey = apiKey; // This is an API key for using Gemini API.
+  // m.defaultCalendarId = "###"; // If you want to use the specific calendar, please use this.
+
   const object = { eventObject, items: m.getTools() };
   return new MCPApp
     .mcpApp({ accessKey: "sample" })
@@ -138,7 +143,8 @@ function main(eventObject) {
   - summarize_file_on_google_drive: Summarizes a file stored on Google Drive.
   - description_web_site: Provides descriptions of websites given their URLs.
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
-- **If you want to manage Docs, Sheets, and Slides using the batch update methods of API, please enable Docs API, Sheets API, and Slides API at Advanced Google services.**
+- **If you want to manage Docs, Sheets, Slides, and Calendars using the batch update methods of API, please enable Docs API, Sheets API, Slides API, and Calendar API at Advanced Google services.**
+- If you want to use the specific Google Calendar, please set `defaultCalendarId`.
 
 #### Show all tools
 
@@ -329,7 +335,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (43 tools)
+  🟢 gas_web_apps - Ready (45 tools)
     - add_label_to_Gmail
     - auto_new_draft_creation_Gmail
     - auto_reply_draft_creation_Gmail
@@ -337,7 +343,8 @@ When your setting is correct, the following result is returned.
     - convert_mimetype_of_file_on_google_drive
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
-    - create_schedule_to_Google_Calendar
+    - create_schedule_on_Google_Calendar
+    - delete_schedules_on_Google_Calendar
     - description_video_on_youtube
     - description_web_site
     - generate_description_on_google_drive
@@ -373,6 +380,7 @@ When your setting is correct, the following result is returned.
     - search_values_from_google_sheets
     - send_mails_Gmail
     - summarize_file_on_google_drive
+    - update_schedule_on_Google_Calendar
 ```
 
 ## Search Files in Google Drive
@@ -1229,5 +1237,9 @@ function main(eventObject) {
 - v1.0.10 (July 26, 2025)
 
   1. When I updated Gemini CLI from v0.1.12 to v0.1.13, an issue related to the schema of MCP occurred. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/2) So, as a workaround at the time, I updated this library. But when I updated Gemini CLI to v0.1.14, I confirmed that the previous schema could be used. So, I reimplemented the previous schema. By this, the request body for APIs can be directly generated using Gemini CLI v0.1.14.
+
+- v1.0.11 (July 29, 2025)
+
+  1. [`management_calendar.js`](https://github.com/tanaikech/ToolsForMCPServer/blob/master/management_calendar.js) was updated. `search_schedule_on_Google_Calendar` and `create_schedule_to_Google_Calendar` were updated. And, 2 tools `delete_schedules_on_Google_Calendar` and `update_schedule_on_Google_Calendar` were added. From this version, when you want to manage Google Calendars, please enable Calendar API at Advanced Google services.
 
 [TOP](#top)

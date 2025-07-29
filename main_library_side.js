@@ -3,8 +3,8 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250726 12:13
- * version 1.0.10
+ * Updated on 20250729 12:10
+ * version 1.0.11
  */
 
 /**
@@ -14,11 +14,17 @@
 var apiKey = "";
 
 /**
+ * This is a calendar ID. When this is not set, the primary calendar is used.
+ * This calendar ID is used for searching and creating events as the default calendar.
+ */
+var defaultCalendarId = null;
+
+/**
  * This is an access token and key for using StackExchange API.
  * When the `get_questions_on_stackoverflow` tool is used, these values are required to be used.
  */
-var accessToken_stackoverflow = "";
-var key_stackoverflow = "";
+// var accessToken_stackoverflow = "";
+// var key_stackoverflow = "";
 
 /**
  * This function returns tool objects as an array.
@@ -35,8 +41,6 @@ function functions_() {
     descriptions_management_sheets,
     descriptions_management_slides,
     descriptions_use_gemini,
-
-    // descriptions_dev,
   ];
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
   /**
@@ -99,7 +103,7 @@ function getTools(object = {}) {
       "value": {
         "protocolVersion": "2024-11-05", // or "2025-06-18"
         "capabilities": { "tools": { "listChanged": false } },
-        "serverInfo": { "name": "gas_web_apps", "version": "1.0.10" }
+        "serverInfo": { "name": "gas_web_apps", "version": "1.0.7" }
       }
     },
 
@@ -137,3 +141,27 @@ function getToolList() {
 function getServer(object = {}) {
   return getTools(object);
 }
+
+/**
+ * ### Description
+ * Check whether Drive API is enabled at Advanced Google services, and return it as true or false and the version.
+ * ref: https://medium.com/google-cloud/checking-api-enabled-with-advanced-google-services-using-google-apps-script-572bcdeb39a8
+ *
+ * @param {String} apiName API name you want to check.
+ * @returns {Object} Object including "api" and "version" properties.
+ */
+function isAPIAtAdvancedGoogleServices_(apiName) {
+  if (!apiName || apiName == "" || typeof apiName != "string") {
+    throw new Error("Please set a valid API name.");
+  } else if (!/^[A-Z]+$/g.test(apiName[0])) {
+    const [t, ...b] = apiName;
+    apiName = [t.toUpperCase(), ...b].join("");
+  }
+  const obj = { apiName, api: "disable" };
+  if (typeof this[apiName] !== "undefined") {
+    obj.api = "enable";
+    obj.version = this[apiName].getVersion();
+  }
+  return obj;
+}
+

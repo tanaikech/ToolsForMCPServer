@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250724 11:30
+ * Updated on 20250729 12:10
  */
 
 /**
@@ -161,6 +161,16 @@ function put_file_to_google_drive(object = {}) {
 function create_file_to_google_drive(object = {}) {
   const { filename, mimeType } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Drive";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
     if (filename && mimeType) {
       const { webViewLink } = Drive.Files.create({ name: filename, mimeType }, null, { fields: "webViewLink" });
@@ -332,16 +342,34 @@ function change_permission_of_file_on_google_drive(object = {}) {
  * @private
  */
 function create_google_docs_from_markdown_on_google_drive(object = {}) {
-  const { name = "sample name", markdown = "" } = object;
+  const { name = "sample name", markdown = "", html = "", text = "" } = object;
   let result;
+
+  /**
+   * Check API.
+   */
+  const apiName = "Drive";
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+
   try {
-    if (markdown) {
-      const blob = Utilities.newBlob(markdown, "text/markdown", name);
+    if (markdown || html || text) {
+      let params = [];
+      if (markdown) {
+        params = [markdown, "text/markdown", name];
+      } else if (html) {
+        params = [html, MimeType.HTML, name];
+      } else {
+        params = [text, MimeType.PLAIN_TEXT, name];
+      }
+      const blob = Utilities.newBlob(...params);
       const obj = Drive.Files.create({ mimeType: MimeType.GOOGLE_DOCS, name }, blob);
       const url = `https://docs.google.com/document/d/${obj.id}/edit`;
       result = { content: [{ type: "text", text: `The Google Docs file was created successfully. The file ID and URL of the created Google Docs are "${obj.id}" and "${url}", respectively.` }], isError: false };
     } else {
-      result = { content: [{ type: "text", text: `No text as markdown.` }], isError: true };
+      result = { content: [{ type: "text", text: `No data. Please provide markdown, html, or text as a text data.` }], isError: true };
     }
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
@@ -503,8 +531,9 @@ const descriptions_management_drive = {
       properties: {
         name: { description: "Google Document name.", type: "string" },
         markdown: { description: "Text as a markdown format.", type: "string" },
-      },
-      required: ["markdown"]
+        html: { description: "Text as a markdown format.", type: "string" },
+        text: { description: "Text as a markdown format.", type: "string" },
+      }
     }
   }
 
