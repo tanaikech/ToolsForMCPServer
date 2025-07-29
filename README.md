@@ -1070,6 +1070,12 @@ Please follow these steps:
 
 By this flow, a PDF file is saved as a file in the working directory.
 
+---
+
+The following samples were added on July 29, 2025.
+
+In this case, you can see the samples at [Medium](https://medium.com/@tanaike/next-level-data-automation-gemini-cli-google-calendar-and-mcp-1b9e39e75f34).
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
