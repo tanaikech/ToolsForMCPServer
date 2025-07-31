@@ -1248,4 +1248,8 @@ function main(eventObject) {
 
   1. [`management_calendar.js`](https://github.com/tanaikech/ToolsForMCPServer/blob/master/management_calendar.js) was updated. `search_schedule_on_Google_Calendar` and `create_schedule_to_Google_Calendar` were updated. And, 2 tools `delete_schedules_on_Google_Calendar` and `update_schedule_on_Google_Calendar` were added. From this version, when you want to manage Google Calendars, please enable Calendar API at Advanced Google services.
 
+- v1.0.12 (July 31, 2025)
+
+  1. At Gemini CLI v0.1.15, `prompts/list` was called even when **`prompts` wasn't included in `capabilities`**. This resulted in the error `Error discovering prompts from gas_web_apps: MCP error -32001: Request timed out` when `prompts` wasn't returned for `prompts/list`. To resolve this, I updated `ToolsForMCPServer` to **return an empty array for `prompts`**, which eliminated the error. Consequently, with this update in v1.0.12, you can now **set custom `prompts` and `resources`**.
+
 [TOP](#top)

@@ -3,8 +3,8 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250729 12:10
- * version 1.0.11
+ * Updated on 20250731 09:55
+ * version 1.0.12
  */
 
 /**
@@ -23,8 +23,8 @@ var defaultCalendarId = null;
  * This is an access token and key for using StackExchange API.
  * When the `get_questions_on_stackoverflow` tool is used, these values are required to be used.
  */
-// var accessToken_stackoverflow = "";
-// var key_stackoverflow = "";
+var accessToken_stackoverflow = "";
+var key_stackoverflow = "";
 
 /**
  * This function returns tool objects as an array.
@@ -41,6 +41,8 @@ function functions_() {
     descriptions_management_sheets,
     descriptions_management_slides,
     descriptions_use_gemini,
+
+    // descriptions_dev,
   ];
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
   /**
@@ -101,10 +103,22 @@ function getTools(object = {}) {
     {
       "type": "initialize",
       "value": {
-        "protocolVersion": "2024-11-05", // or "2025-06-18"
-        "capabilities": { "tools": { "listChanged": false } },
+        "protocolVersion": "2025-06-18",
+        "capabilities": {
+          "tools": { "listChanged": false }, "prompts": { listChanged: false }, "resources": { "subscribe": false, "listChanged": false }
+        },
         "serverInfo": { "name": "gas_web_apps", "version": "1.0.7" }
       }
+    },
+
+    {
+      "type": "prompts/list",
+      "value": { "prompts": [] }
+    },
+
+    {
+      "type": "resources/list",
+      "value": { "resources": [] }
     },
 
     ...Object.keys(functions.params_).map(f => (
@@ -164,4 +178,3 @@ function isAPIAtAdvancedGoogleServices_(apiName) {
   }
   return obj;
 }
-
