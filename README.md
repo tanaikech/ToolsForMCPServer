@@ -343,7 +343,8 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (45 tools)
+  🟢 gas_web_apps - Ready (45 tools, 3 prompts)
+    Tools:
     - add_label_to_Gmail
     - auto_new_draft_creation_Gmail
     - auto_reply_draft_creation_Gmail
@@ -389,6 +390,11 @@ When your setting is correct, the following result is returned.
     - send_mails_Gmail
     - summarize_file_on_google_drive
     - update_schedule_on_Google_Calendar
+
+    Prompts:
+    - generate_roadmap
+    - get_weather
+    - search_files_on_google_drive
 ```
 
 ## Search Files in Google Drive
