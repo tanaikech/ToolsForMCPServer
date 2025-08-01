@@ -1094,7 +1094,7 @@ In this case, you can see the samples at **"[Next-Level Data Automation: Gemini 
 
 The following samples were added on August 1, 2025.
 
-
+In this case, you can see the samples at **"[Enhanced Guide to Using Prompts in Gemini CLI](https://medium.com/@tanaike/enhanced-guide-to-using-prompts-in-the-gemini-cli-817cbce97e46)"**.
 
 ---
 
