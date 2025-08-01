@@ -25,7 +25,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (July 29, 2025), the following 45 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (August 1, 2025), the following 45 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `add_label_to_Gmail`: Adds labels to Gmail threads, ensuring valid thread IDs are used.
 * `auto_new_draft_creation_Gmail`: Automatically creates Gmail draft emails, returning message and draft IDs.
@@ -72,6 +72,14 @@ In the current stage (July 29, 2025), the following 45 tools are provided by [To
 * `send_mails_Gmail`: Sends pre-created draft emails from Gmail.
 * `summarize_file_on_google_drive`: Describes and summarizes a file located on Google Drive.
 * `update_schedule_on_Google_Calendar`: Updates an existing schedule (event) on Google Calendar.
+
+# Current prompts
+
+In the current stage (August 1, 2025), the following 3 prompts are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+
+* `generate_roadmap`: Generate a roadmap in Google Sheets.
+* `get_weather`: Search the current weather.
+* `search_files_on_google_drive`: Search files on Google Drive.
 
 # Usage
 
@@ -1076,6 +1084,14 @@ The following samples were added on July 29, 2025.
 
 In this case, you can see the samples at **"[Next-Level Data Automation: Gemini CLI, Google Calendar, and MCP](https://medium.com/@tanaike/next-level-data-automation-gemini-cli-google-calendar-and-mcp-1b9e39e75f34)"**.
 
+---
+
+The following samples were added on August 1, 2025.
+
+
+
+---
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
@@ -1084,9 +1100,12 @@ The samples provided represent only a small subset of what is possible. The `Too
 
 # Appendix
 
-## Add custom tools
+## Add custom tools and prompts
 
-You might want to add your custom tools to the MCP server. At that time, please refer to the following script.
+You might want to add your custom tools and promts to the MCP server. At that time, please refer to the following script.
+
+If you are required to add only tools, please remove `prompts/list` and `prompts/get` from `itemsForMCP`.
+If you are required to add only prompts, please remove `tools/list` from `itemsForMCP`.
 
 ```javascript
 /**
@@ -1115,7 +1134,7 @@ function getCustomTools() {
     {
       "type": "initialize",
       "value": {
-        "protocolVersion": "2024-11-05", // or "2025-03-26"
+        "protocolVersion": "2025-03-26",
         "capabilities": { "tools": { "listChanged": false } },
         "serverInfo": { "name": "gas_web_apps", "version": "1.0.0" }
       }
@@ -1129,10 +1148,61 @@ function getCustomTools() {
           description: functions.params_[f].description,
           inputSchema: functions.params_[f].parameters,
         }
-      }))
+      })),
+
+    {
+      "type": "prompts/list",
+      "value": {
+        "prompts": [
+          {
+            name: "custom1",
+            description: "Custom 1",
+            arguments: [
+              { name: "sample1", description: "sample1", required: true },
+            ],
+          },
+          {
+            name: "custom2",
+            description: "Custom 2",
+            arguments: [
+              { name: "sample2", description: "sample2", required: true },
+            ],
+          },
+        ]
+      }
+    },
+
+    {
+      "type": "prompts/get",
+      "value": {
+        "custom1": {
+          description: "Custom1",
+          messages: [
+            {
+              role: "user",
+              content: {
+                type: "text",
+                text: "Custom1",
+              },
+            },
+          ],
+        },
+        "custom2": {
+          description: "Custom2",
+          messages: [
+            {
+              role: "user",
+              content: {
+                type: "text",
+                text: "Custom2",
+              },
+            },
+          ],
+        },
+      }
+    },
   ];
 
-  // return itemsForMCP;
   return itemsForMCP;
 }
 
@@ -1251,5 +1321,9 @@ function main(eventObject) {
 - v1.0.12 (July 31, 2025)
 
   1. At Gemini CLI v0.1.15, `prompts/list` was called even when **`prompts` wasn't included in `capabilities`**. This resulted in the error `Error discovering prompts from gas_web_apps: MCP error -32001: Request timed out` when `prompts` wasn't returned for `prompts/list`. To resolve this, I updated `ToolsForMCPServer` to **return an empty array for `prompts`**, which eliminated the error. Consequently, with this update in v1.0.12, you can now **set custom `prompts` and `resources`**.
+
+- v1.0.13 (August 1, 2025)
+
+  1. `prompts/get` was updated. And, 3 prompts were added.
 
 [TOP](#top)

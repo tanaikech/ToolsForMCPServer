@@ -3,8 +3,8 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250731 09:55
- * version 1.0.12
+ * Updated on 20250801 14:15
+ * version 1.0.13
  */
 
 /**
@@ -113,7 +113,78 @@ function getTools(object = {}) {
 
     {
       "type": "prompts/list",
-      "value": { "prompts": [] }
+      "value": {
+        "prompts": [
+          {
+            name: "search_files_on_google_drive",
+            description: "Search files on Google Drive.",
+            arguments: [
+              { name: "filename", description: "Filename of the search file.", required: true },
+            ],
+          },
+          {
+            name: "get_weather",
+            description: "Search the current weather.",
+            arguments: [
+              { name: "location", description: "Location of the weather.", required: true },
+            ],
+          },
+          {
+            name: "generate_roadmap",
+            description: "Generate a roadmap in Google Sheets.",
+            arguments: [
+              { name: "goal", description: "Goal of the roadmap.", required: true },
+            ],
+          },
+        ]
+      }
+    },
+
+    {
+      "type": "prompts/get",
+      "value": {
+        "search_files_on_google_drive": {
+          description: "Search files on Google Drive.",
+          messages: [
+            {
+              role: "user",
+              content: {
+                type: "text",
+                text: "Return file metadata of '{{filename}}' on Google Drive.",
+              },
+            },
+          ],
+        },
+        "get_weather": {
+          description: "Search the current weather.",
+          messages: [
+            {
+              role: "user",
+              content: {
+                type: "text",
+                text: "What is the current weather in {{location}}?",
+              },
+            },
+          ],
+        },
+        "generate_roadmap": {
+          description: "Generate a roadmap in Google Sheets.",
+          messages: [
+            {
+              role: "user",
+              content: {
+                type: "text",
+                text: [
+                  `Create a roadmap for a new Google Spreadsheet with the goal of "{{goal}}".`,
+                  `1. Create a new Google Spreadsheet.`,
+                  `2. Generate a detailed roadmap in the spreadsheet to reach the goal.`,
+                  `3. Return the spreadsheet's URL.`,
+                ].join("\n"),
+              },
+            },
+          ],
+        },
+      }
     },
 
     {
