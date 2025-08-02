@@ -1121,30 +1121,30 @@ If you are required to add only prompts, please remove `tools/list` from `itemsF
 function getCustomTools() {
   const functions = {
     params_: {
-      function_name1: {
-        description: "###",
-        parameters: {}
+      tool1: {
+        description: "Use this for testing a tool 1 of MCP server.",
+        parameters: {
+          type: "object",
+          properties: { sample: { type: "string", description: "Sample value." } },
+          required: ["sample"]
+        }
       },
-      function_name2: {
-        description: "###",
-        parameters: {}
+      tool2: {
+        description: "Use this for testing a tool 2 of MCP server.",
+        parameters: {
+          type: "object",
+          properties: { sample: { type: "string", description: "Sample value." } },
+          required: ["sample"]
+        },
       }
     },
 
-    function_name1: (object) => { },
-    function_name2: (object) => { },
+    tool1: (object) => object,
+    tool2: (object) => object,
   };
 
   // for MCP
   const itemsForMCP = [
-    {
-      "type": "initialize",
-      "value": {
-        "protocolVersion": "2025-03-26",
-        "capabilities": { "tools": { "listChanged": false } },
-        "serverInfo": { "name": "gas_web_apps", "version": "1.0.0" }
-      }
-    },
     ...Object.keys(functions.params_).map(f => (
       {
         "type": "tools/list",
@@ -1157,19 +1157,19 @@ function getCustomTools() {
       })),
 
     {
-      "type": "prompts/list",
-      "value": {
-        "prompts": [
+      type: "prompts/list",
+      value: {
+        prompts: [
           {
-            name: "custom1",
-            description: "Custom 1",
+            name: "prompt1",
+            description: "Custom prompt 1",
             arguments: [
               { name: "sample1", description: "sample1", required: true },
             ],
           },
           {
-            name: "custom2",
-            description: "Custom 2",
+            name: "prompt2",
+            description: "Custom prompt 2",
             arguments: [
               { name: "sample2", description: "sample2", required: true },
             ],
@@ -1179,28 +1179,28 @@ function getCustomTools() {
     },
 
     {
-      "type": "prompts/get",
-      "value": {
-        "custom1": {
-          description: "Custom1",
+      type: "prompts/get",
+      value: {
+        prompt1: {
+          description: "Custom prompt 1",
           messages: [
             {
               role: "user",
               content: {
                 type: "text",
-                text: "Custom1",
+                text: "Custom prompt 1",
               },
             },
           ],
         },
-        "custom2": {
-          description: "Custom2",
+        prompt2: {
+          description: "Custom prompt 2",
           messages: [
             {
               role: "user",
               content: {
                 type: "text",
-                text: "Custom2",
+                text: "Custom prompt 2",
               },
             },
           ],
