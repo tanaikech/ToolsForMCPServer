@@ -3,9 +3,12 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250801 14:15
- * version 1.0.13
+ * Updated on 20250802 10:30
+ * version 1.0.14
  */
+
+const ToolsForMCPServerVersion = "1.0.14";
+const ProtocolVersion = "2025-06-18";
 
 /**
  * This is an API key for using Gemini API.
@@ -103,11 +106,11 @@ function getTools(object = {}) {
     {
       "type": "initialize",
       "value": {
-        "protocolVersion": "2025-06-18",
+        "protocolVersion": ProtocolVersion,
         "capabilities": {
           "tools": { "listChanged": false }, "prompts": { listChanged: false }, "resources": { "subscribe": false, "listChanged": false }
         },
-        "serverInfo": { "name": "gas_web_apps", "version": "1.0.7" }
+        "serverInfo": { "name": "gas_web_apps", "version": ToolsForMCPServerVersion }
       }
     },
 

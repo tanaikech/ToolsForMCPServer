@@ -1332,4 +1332,8 @@ function main(eventObject) {
 
   1. `prompts/get` was updated. And, 3 prompts were added.
 
+- v1.0.14 (August 2, 2025)
+
+  1. The library version and protocol version were set as variables.
+
 [TOP](#top)
