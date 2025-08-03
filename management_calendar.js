@@ -134,7 +134,7 @@ function create_schedule_on_Google_Calendar(object = {}) {
       opt.location = location;
     }
     if (guests) {
-      opt.guests = guest.join(",");
+      opt.guests = guests.join(",");
       opt.sendInvites = true;
     }
     const event = cal.createEvent(
@@ -234,7 +234,7 @@ function update_schedule_on_Google_Calendar(object = {}) {
           event.setLocation(location);
         }
         if (guests) {
-          event.addGuest(guest.join(","));
+          event.addGuest(guests.join(","));
         }
         if (googleMeet) {
           Calendar.Events.patch(
@@ -324,3 +324,4 @@ const descriptions_management_calendar = {
   },
 
 };
+
