@@ -1336,4 +1336,8 @@ function main(eventObject) {
 
   1. The library version and protocol version were set as variables.
 
+- v1.0.15 (August 2, 2025)
+
+  1. Bugs of tools `create_schedule_on_Google_Calendar` and `update_schedule_on_Google_Calendar` were removed.
+
 [TOP](#top)
