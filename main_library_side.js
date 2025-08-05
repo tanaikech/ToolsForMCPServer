@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250805 11:23
- * version 1.0.16
+ * Updated on 20250805 11:45
+ * version 1.0.17
  */
 
-const ToolsForMCPServerVersion = "1.0.16";
+const ToolsForMCPServerVersion = "1.0.17";
 const ProtocolVersion = "2025-06-18";
 
 /**
@@ -195,16 +195,22 @@ function getTools(object = {}) {
       "value": { "resources": [] }
     },
 
-    ...Object.keys(functions.params_).map(f => (
-      {
+    ...Object.keys(functions.params_).map(f => {
+      const tempValue = {
+        name: f,
+        title: functions.params_[f].title || f,
+        description: functions.params_[f].description,
+        inputSchema: functions.params_[f].parameters,
+      };
+      if (functions.params_[f].outputSchema) {
+        tempValue.outputSchema = functions.params_[f].outputSchema;
+      }
+      return {
         "type": "tools/list",
         "function": functions[f],
-        "value": {
-          name: f,
-          description: functions.params_[f].description,
-          inputSchema: functions.params_[f].parameters,
-        }
-      }))
+        "value": tempValue
+      }
+    })
   ];
 
   return itemsForMCP;

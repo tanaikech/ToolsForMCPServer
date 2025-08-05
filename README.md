@@ -1344,4 +1344,8 @@ function main(eventObject) {
 
   1. A tool `update_schedule_on_Google_Calendar` was updated. From this version, when the event is updated, an email is sent. And, the guests can also be removed.
 
+- v1.0.17 (August 5, 2025)
+
+  1. `main_library_side.js` was updated.
+
 [TOP](#top)
