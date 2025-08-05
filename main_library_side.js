@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250802 10:30
- * version 1.0.14
+ * Updated on 20250805 11:23
+ * version 1.0.16
  */
 
-const ToolsForMCPServerVersion = "1.0.14";
+const ToolsForMCPServerVersion = "1.0.16";
 const ProtocolVersion = "2025-06-18";
 
 /**

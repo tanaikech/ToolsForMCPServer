@@ -1,6 +1,6 @@
 /**
  * Management of Google Calendar
- * Updated on 20250729 12:10
+ * Updated on 20250805 11:23
  */
 
 /**
@@ -134,7 +134,7 @@ function create_schedule_on_Google_Calendar(object = {}) {
       opt.location = location;
     }
     if (guests) {
-      opt.guests = guests.join(",");
+      opt.guests = guest.join(",");
       opt.sendInvites = true;
     }
     const event = cal.createEvent(
@@ -203,7 +203,7 @@ function delete_schedules_on_Google_Calendar(object = {}) {
  * @private
  */
 function update_schedule_on_Google_Calendar(object = {}) {
-  const { calendarId, eventId, startDatetime, endDatetime, title, description, location, guests, googleMeet = false } = object;
+  const { calendarId, eventId, startDatetime, endDatetime, title, description, location, guests, googleMeet = false, removeGuests } = object;
   let result;
 
   /**
@@ -220,30 +220,39 @@ function update_schedule_on_Google_Calendar(object = {}) {
       const cal = calendarId ? CalendarApp.getCalendarById(calendarId) : defaultCalendarId ? CalendarApp.getCalendarById(defaultCalendarId) : CalendarApp.getDefaultCalendar();
       const event = cal.getEventById(eventId);
       if (event) {
-        if (startDatetime && endDatetime) {
-          const timeZone = Session.getScriptTimeZone();
-          event.setTime(Utilities.parseDate(startDatetime, timeZone, "yyyy-MM-dd HH:mm:ss"), event.getEndTime());
+        const calId = cal.getId();
+        const eventId = event.getId().split("@")[0];
+        const timeZone = Session.getScriptTimeZone();
+        const requestBody = {};
+        const optionalArgs = { sendUpdates: "all" };
+        if (startDatetime) {
+          requestBody.start = { dateTime: Utilities.parseDate(startDatetime, timeZone, "yyyy-MM-dd HH:mm:ss").toISOString() };
+        }
+        if (endDatetime) {
+          requestBody.end = { dateTime: Utilities.parseDate(endDatetime, timeZone, "yyyy-MM-dd HH:mm:ss").toISOString() };
         }
         if (title) {
-          event.setTitle(title);
+          requestBody.summary = title;
         }
         if (description) {
-          event.setDescription(description);
+          requestBody.description = description;
         }
         if (location) {
-          event.setLocation(location);
+          requestBody.location = location;
         }
         if (guests) {
-          event.addGuest(guests.join(","));
+          requestBody.attendees = guests.map(email => ({ email }));
+        }
+        if (removeGuests) {
+          const guests = event.getGuestList().map(e => e.getEmail());
+          const newGuests = guests.filter(e => !removeGuests.includes(e));
+          requestBody.attendees = newGuests.map(email => ({ email }));
         }
         if (googleMeet) {
-          Calendar.Events.patch(
-            { conferenceData: { createRequest: { requestId: Utilities.getUuid(), conferenceSolutionKey: { type: "hangoutsMeet" } } } },
-            cal.getId(),
-            event.getId().split("@")[0],
-            { conferenceDataVersion: 1 }
-          );
+          requestBody.conferenceData = { createRequest: { requestId: Utilities.getUuid(), conferenceSolutionKey: { type: "hangoutsMeet" } } };
+          optionalArgs.conferenceDataVersion = 1;
         }
+        Calendar.Events.patch(requestBody, calId, eventId, optionalArgs);
         result = { content: [{ type: "text", text: `An event (event id is "${event.getId()}") was created on the calendar ${cal.getName()}.` }], isError: false };
       } else {
         result = { content: [{ type: "text", text: `No event of the event ID ${eventId} on the calendar ${cal.getName()}.` }], isError: true };
@@ -318,6 +327,7 @@ const descriptions_management_calendar = {
         location: { description: `Description of schedule (event).`, type: "string" },
         guests: { description: `Email addresses that should be added as guests.`, type: "array", items: { type: "string", description: "Guest email." } },
         googleMeet: { description: `The default is false. When Google Meet is used, set this as true.`, type: "boolean" },
+        removeGuests: { description: `Email addresses that should be removed from guests.`, type: "array", items: { type: "string", description: "Guest email." } },
       },
       required: ["eventId"]
     }
