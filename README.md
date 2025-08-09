@@ -1348,4 +1348,8 @@ function main(eventObject) {
 
   1. `main_library_side.js` was updated.
 
+- v1.0.18 (August 9, 2025)
+
+  1. A bug was removed. When a tool for Google Forms is run, an error like `FunctionDeclaration in the request exceeds the maximum allowed nesting depth.` occurs. This bug was removed by refactoring the JSON schema.
+
 [TOP](#top)

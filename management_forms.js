@@ -1,5 +1,6 @@
 /**
  * Management of Google Forms
+ * Updated on 20250809 15:59
  */
 
 /**
@@ -63,97 +64,151 @@ const descriptions_management_forms = {
   generate_survey_with_google_forms: {
     description: "Use this to generate a survey with Google Forms. If the number of total questions is not provided, please create 5 questions as the default number of questions.",
     parameters: {
-      type: "object",
-      properties: {
-        title: { type: "string", description: "The title of the survey. If this is not provided, set the title by understanding the questions." },
-        itemList: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              itemTitle: { type: "string", description: "Title of question." },
-              helpText: { type: "string", description: "Description of the question." },
-              required: { type: "boolean", description: "When the user has to answer, set to true. Please set false as the default value." },
-              itemMethod: {
-                type: "string",
-                description: [
-                  `Select one of the following "Methods". These are the methods of the Class Form of Google Apps Script. The reference page is "https://developers.google.com/apps-script/reference/forms/form".`,
-                  `<Methods>addCheckboxItem,addDateItem,addDateTimeItem,addTimeItem,addListItem,addMultipleChoiceItem,addParagraphTextItem,addTextItem</Methods>`,
-                ].join("\n")
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the survey. If this is not provided, set the title by understanding the questions."
+        },
+        "itemList": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "itemTitle": {
+                "type": "string",
+                "description": "Title of the question."
               },
-              params: {
-                type: "array",
-                description: `Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.`,
-                items: {
-                  type: "object",
-                  properties: {
-                    method: { type: "string", description: `Method name. This method is the method of the Class object selected at "itemMethod". Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.` },
-                    choiceValues: {
-                      type: "array",
-                      items: {
-                        type: "string",
-                        description: `Only when you select one of the methods "addCheckboxItem","addListItem","addMultipleChoiceItem" for "itemMethod", "setChoiceValues" is required to be selected as "method". At that time, set the choice values.`,
-                      }
-                    }
-                  },
-                  required: ["method", "choiceValues"]
+              "helpText": {
+                "type": "string",
+                "description": "Description of the question."
+              },
+              "required": {
+                "type": "boolean",
+                "description": "When the user has to answer, set to true. Please set false as the default value.",
+                "default": false
+              },
+              "itemMethod": {
+                "type": "string",
+                "description": "Select one of the following methods from the Google Apps Script Form service.\nReference: https://developers.google.com/apps-script/reference/forms/form\n<Methods>addCheckboxItem, addDateItem, addDateTimeItem, addTimeItem, addListItem, addMultipleChoiceItem, addParagraphTextItem, addTextItem</Methods>",
+                "enum": [
+                  "addCheckboxItem",
+                  "addDateItem",
+                  "addDateTimeItem",
+                  "addTimeItem",
+                  "addListItem",
+                  "addMultipleChoiceItem",
+                  "addParagraphTextItem",
+                  "addTextItem"
+                ]
+              }
+            },
+            "required": [
+              "itemTitle",
+              "helpText",
+              "required",
+              "itemMethod"
+            ],
+            "if": {
+              "properties": {
+                "itemMethod": {
+                  "enum": [
+                    "addCheckboxItem",
+                    "addListItem",
+                    "addMultipleChoiceItem"
+                  ]
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "choices": {
+                  "type": "array",
+                  "description": "The list of choice values. This is required only when 'itemMethod' is 'addCheckboxItem', 'addListItem', or 'addMultipleChoiceItem'.",
+                  "items": {
+                    "type": "string"
+                  }
                 }
               },
-            },
-            required: ["itemTitle", "helpText", "required", "itemMethod", "params"]
+              "required": [
+                "choices"
+              ]
+            }
           }
         }
       },
-      required: ["title", "itemList"]
+      "required": [
+        "title",
+        "itemList"
+      ]
     }
   },
 
   generate_quiz_with_google_forms: {
     description: "Use this to generate a quiz with Google Forms. If the number of total questions is not provided, please create 5 questions as the default number of questions.",
     parameters: {
-      type: "object",
-      properties: {
-        title: { type: "string", description: "The title of the quiz. If this is not provided, set the title by understanding the questions." },
-        itemList: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              itemTitle: { type: "string", description: "Title of question." },
-              helpText: { type: "string", description: "Description of the question." },
-              required: { type: "boolean", description: "When the user has to answer, set to true. Please set false as the default value." },
-              itemMethod: {
-                type: "string",
-                description: [
-                  `Select one of the following "Methods". These are the methods of the Class Form of Google Apps Script. The reference page is "https://developers.google.com/apps-script/reference/forms/form".`,
-                  `<Methods>addCheckboxItem,addDateItem,addDateTimeItem,addTimeItem,addListItem,addMultipleChoiceItem,addParagraphTextItem,addTextItem</Methods>`,
-                ].join("\n")
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string",
+          "description": "The title of the quiz. If this is not provided, a title will be generated based on the questions."
+        },
+        "questions": {
+          "type": "array",
+          "description": "A list of questions for the quiz.",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "description": "Title of the question."
               },
-              params: {
-                type: "array",
-                description: `Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.`,
-                items: {
-                  type: "object",
-                  properties: {
-                    method: { type: "string", description: `Method name. This method is the method of the Class object selected at "itemMethod". Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.` },
-                    choiceValues: {
-                      type: "array",
-                      items: {
-                        type: "string",
-                        description: `Only when you select one of the methods "addCheckboxItem","addListItem","addMultipleChoiceItem" for "itemMethod", "setChoiceValues" is required to be selected as "method". At that time, set the choice values.`,
-                      }
-                    },
-                    correctIndex: { type: "number", description: `The index of the correct answer in "choiceValues" of the array.` }
-                  },
-                  required: ["method", "choiceValues", "correctIndex"]
+              "description": {
+                "type": "string",
+                "description": "A more detailed description or help text for the question."
+              },
+              "isRequired": {
+                "type": "boolean",
+                "description": "Specifies if the question must be answered. Defaults to false.",
+                "default": false
+              },
+              "questionType": {
+                "type": "string",
+                "description": "The type of question, which corresponds to a method in the Google Apps Script Form service. Reference: https://developers.google.com/apps-script/reference/forms/form",
+                "enum": [
+                  "addCheckboxItem",
+                  "addDateItem",
+                  "addDateTimeItem",
+                  "addTimeItem",
+                  "addListItem",
+                  "addMultipleChoiceItem",
+                  "addParagraphTextItem",
+                  "addTextItem"
+                ]
+              },
+              "choices": {
+                "type": "array",
+                "description": "A list of choice values. This is only applicable for 'addCheckboxItem', 'addListItem', and 'addMultipleChoiceItem' question types.",
+                "items": {
+                  "type": "string"
                 }
               },
+              "correctAnswerIndex": {
+                "type": "integer",
+                "description": "The 0-based index of the correct answer within the 'choices' array. This is only applicable for question types that have choices."
+              }
             },
-            required: ["itemTitle", "helpText", "required", "itemMethod", "params"]
+            "required": [
+              "title",
+              "questionType"
+            ]
           }
         }
       },
-      required: ["title", "itemList"]
+      "required": [
+        "title",
+        "questions"
+      ]
     }
   },
 
