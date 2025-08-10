@@ -15,6 +15,9 @@ function main(eventObject) {
 
   m.apiKey = apiKey; // This is an API key for using Gemini API.
   // m.defaultCalendarId = "###"; // If you want to use the specific calendar, please use this.
+  // m.enableBaseTools = false; // Disable base tools
+  // m.enableClassroomTools = false; // Disable tools for managing Google Classroom
+  // m.enablePeopleTools = false; // Disable tools for managing Google People
 
   const object = { eventObject, items: m.getTools() };
   return new MCPApp

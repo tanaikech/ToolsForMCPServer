@@ -25,61 +25,137 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (August 1, 2025), the following 45 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (August 10, 2025), the following 115 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
-* `add_label_to_Gmail`: Adds labels to Gmail threads, ensuring valid thread IDs are used.
-* `auto_new_draft_creation_Gmail`: Automatically creates Gmail draft emails, returning message and draft IDs.
-* `auto_reply_draft_creation_Gmail`: Automatically creates Gmail reply drafts, returning message/draft IDs and mail URL.
-* `change_permission_of_file_on_google_drive`: Changes Google Drive file/folder permissions for a user via item ID and email.
-* `convert_mimetype_of_file_on_google_drive`: Converts the MIME type of files on Google Drive.
-* `create_file_to_google_drive`: Creates an empty file on Google Drive.
-* `create_google_docs_from_markdown_on_google_drive`: Creates a Google Document from markdown format on Google Drive.
-* `create_schedule_on_Google_Calendar`: Creates a new schedule (event) on Google Calendar.
-* `delete_schedules_on_Google_Calendar`: Deletes schedules (events) from Google Calendar.
-* `description_video_on_youtube`: Describes and summarizes a YouTube video using its URL.
-* `description_web_site`: Describes websites using their URLs.
-* `generate_description_on_google_drive`: Generates and sets a description for a file on Google Drive.
-* `generate_image_on_google_drive`: Generates an image from a prompt and saves it to Google Drive.
-* `generate_presentation_with_google_slides`: Creates and generates a presentation using Google Slides.
-* `generate_quiz_with_google_forms`: Generates a quiz with Google Forms (defaults to 5 questions).
-* `generate_roadmap_to_google_sheets`: Generates a roadmap in Google Sheets, requiring spreadsheet ID and goal.
-* `generate_survey_with_google_forms`: Generates a survey with Google Forms (defaults to 5 questions).
-* `get_attachment_files_from_Gmail`: Retrieves attachment files from an email as Google Drive file IDs.
-* `get_current_date_time`: Returns the current date and time, optionally detecting the timezone.
-* `get_current_weather`: Gets current weather for a location, converting it to latitude and longitude.
-* `get_exchange_rate`: Retrieves the current exchange rate between currencies.
-* `get_file_from_google_drive`: Downloads a file from Google Drive as base64 data using its filename.
-* `get_google_doc_object_using_docs_api`: Retrieves a Google Docs Object via the Docs API for content indexing.
-* `get_google_sheet_object_using_sheets_api`: Retrieves a Google Sheets Object via the Sheets API for sheet names.
-* `get_google_slides_object_using_slides_api`: Retrieves a Google Slides Object via the Slides API for object IDs.
-* `get_massages_by_search_from_Gmail`: Retrieves Gmail messages using a search query.
-* `get_massages_by_time_from_Gmail`: Retrieves Gmail messages from a specified time until now.
-* `get_specific_date_weather`: Gets weather for a specific date and location using latitude and longitude.
-* `get_values_from_google_docs`: Retrieves text from Google Docs in text or markdown format using the document ID.
-* `get_values_from_google_sheets`: Retrieves cell values from Google Sheets using the spreadsheet ID.
-* `manage_google_docs_using_docs_api`: Manages Google Docs by providing a request body for the batchUpdate method.
-* `manage_google_sheets_using_sheets_api`: Manages Google Sheets by providing a request body for the batchUpdate method.
-* `manage_google_slides_using_slides_api`: Manages Google Slides by providing a request body for the batchUpdate method.
-* `move_files_on_google_drive`: Moves files and folders to another folder on Google Drive.
-* `put_file_to_google_drive`: Uploads base64 encoded data as a file to Google Drive.
-* `put_values_into_google_docs`: Appends or inserts text into Google Docs using the document ID.
-* `put_values_to_google_sheets`: Puts values into Google Sheets using the spreadsheet ID.
-* `remove_mails_Gmail`: Removes specified email messages from Gmail.
-* `rename_files_on_google_drive`: Renames files on Google Drive.
-* `search_file_in_google_drive`: Searches for files on Google Drive by query, confirming with user if multiple found.
-* `search_schedule_on_Google_Calendar`: Searches Google Calendar for events within a specified date range.
-* `search_values_from_google_sheets`: Searches all Google Sheets cells using a regex with the spreadsheet ID.
-* `send_mails_Gmail`: Sends pre-created draft emails from Gmail.
-* `summarize_file_on_google_drive`: Describes and summarizes a file located on Google Drive.
-* `update_schedule_on_Google_Calendar`: Updates an existing schedule (event) on Google Calendar.
-
-# Current prompts
-
-In the current stage (August 1, 2025), the following 3 prompts are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
-
-* `generate_roadmap`: Generate a roadmap in Google Sheets.
-* `get_weather`: Search the current weather.
-* `search_files_on_google_drive`: Search files on Google Drive.
+* `add_label_to_Gmail`: Add labels to threads of Gmail. Don't use the invalid thread IDs.
+* `auto_new_draft_creation_Gmail`: Create automatically drafted emails in Gmail. This function returns the value, including the message ID and the draft ID. When creating the draft email, confirm the owner's name and insert the sender's name into the footer. Don't use '[Your Name]'. If you have no information about the sender's email, don't include the footer of sender's name in the email.
+* `auto_reply_draft_creation_Gmail`: Create automatically drafted reply emails in Gmail. Don't use the invalid message IDs. This function returns the value including the message ID, the draft ID, the URL of the mail.
+* `change_permission_of_file_on_google_drive`: Use to change the permission of a file or folder on Google Drive for a specific user by providing the item ID, user email, and desired role. As a sample situation, when URLs of the files are included in an email, it is required to add the permission to the recipient user to allow the user to read or write the file.
+* `classroom_courses_aliases_create`: Use to create an alias for a course.
+* `classroom_courses_aliases_delete`: Use to delete an alias of a course.
+* `classroom_courses_aliases_list`: Use to get a list of aliases.
+* `classroom_courses_announcements_create`: Use to creates an announcement using the "courses.announcements.create" method of Google Classroom API.
+* `classroom_courses_announcements_delete`: Use to delete an announcement.
+* `classroom_courses_announcements_get`: Use to return an announcement.
+* `classroom_courses_announcements_list`: Use to return a list of announcements that the requester is permitted to view.
+* `classroom_courses_announcements_modifyAssignees`: Use to modify assignee mode and options of an announcement using the "courses.announcements.modifyAssignees" method of Google Classroom API.
+* `classroom_courses_announcements_patch`: Use to update one or more fields of an announcement using the "courses.announcements.patch" method of Google Classroom API.
+* `classroom_courses_courseWorkMaterials_create`: Use to creates a course work material using the "courses.courseWorkMaterials.create" method of Google Classroom API.
+* `classroom_courses_courseWorkMaterials_delete`: Use to delete a course work material.
+* `classroom_courses_courseWorkMaterials_get`: Use to return a course work material.
+* `classroom_courses_courseWorkMaterials_list`: Returns a list of course work material that the requester is permitted to view.
+* `classroom_courses_courseWorkMaterials_patch`: Use to update one or more fields of a course work material using the "courses.courseWorkMaterials.patch" method of Google Classroom API.
+* `classroom_courses_courseWork_create`: Use to create course work using the "courses.courseWork.create" method of Google Classroom API.
+* `classroom_courses_courseWork_delete`: Use to delete a course work.
+* `classroom_courses_courseWork_get`: Use to return metadata of course work.
+* `classroom_courses_courseWork_list`: Use to return a list of course work that the requester is permitted to view.
+* `classroom_courses_courseWork_modifyAssignees`: Use to modify assignee mode and options of a coursework.
+* `classroom_courses_courseWork_patch`: Use to update one or more fields of a course work using the "courses.courseWork.patch" method of Google Classroom API.
+* `classroom_courses_courseWork_rubrics_create`: Use to creates a rubric using the "courses.courseWork.rubrics.create" method of Google Classroom API.
+* `classroom_courses_courseWork_rubrics_delete`: Use to delete a rubric using the "courses.courseWork.rubrics.delete" method of Google Classroom API.
+* `classroom_courses_courseWork_rubrics_get`: Use to return a rubric using the "courses.courseWork.rubrics.get" method of Google Classroom API.
+* `classroom_courses_courseWork_rubrics_list`: Returns a list of rubrics that the requester is permitted to view.
+* `classroom_courses_courseWork_rubrics_patch`: Use to update a rubric using the "courses.courseWork.rubrics.patch" method of Google Classroom API.
+* `classroom_courses_courseWork_studentSubmissions_get`: Use to return the metadata of a student submission using the "courses.courseWork.studentSubmissions.get" method of Google Classroom API.
+* `classroom_courses_courseWork_studentSubmissions_list`: Returns a list of student submissions that the requester is permitted to view.
+* `classroom_courses_courseWork_studentSubmissions_patch`: Use to update one or more fields of a student submission using the "courses.courseWork.studentSubmissions.patch" method of Google Classroom API.
+* `classroom_courses_courseWork_studentSubmissions_reclaim`: Use to reclaim a student submission on behalf of the student that owns it using the "courses.courseWork.studentSubmissions.reclaim" method of Google Classroom API.
+* `classroom_courses_courseWork_studentSubmissions_return`: Use to returns a student submission using the "courses.courseWork.studentSubmissions.return" method of Google Classroom API.
+* `classroom_courses_courseWork_studentSubmissions_turnIn`: Use to turn in a student submission using the "courses.courseWork.studentSubmissions.turnIn" method of Google Classroom API.
+* `classroom_courses_create`: Use to create a course using the "courses.create" method of Google Classroom API.
+The user specified in ownerId is the owner of the created course and added as a teacher. A non-admin requesting user can only create a course with themselves as the owner. Domain admins can create courses owned by any user within their domain.
+* `classroom_courses_get`: Use to return metadata of a course.
+* `classroom_courses_getGradingPeriodSettings`: Use to return the grading period settings in a course.
+* `classroom_courses_list`: Use to retrieve courses of Google Classroom using a method "courses.list" of Google Classroom API.
+Unless otherwise specified, run this tool without parameters of "studentId", "teacherId", and "courseStates".
+* `classroom_courses_patch`: Use to update one or more fields in a course using the "courses.patch" method of Google Classroom API.
+* `classroom_courses_remove`: Use to deletes a course using the "courses.delete" method of Google Classroom API.
+* `classroom_courses_students_create`: Use to add a user as a student of a course. using the "courses.students.create" method of Google Classroom API.
+* `classroom_courses_students_delete`: Use to delete a student of a course.
+* `classroom_courses_students_get`: Use to return a student of a course.
+* `classroom_courses_students_list`: Use to return a list of students of this course that the requester is permitted to view.
+* `classroom_courses_teachers_create`: Use to add a user as a teacher of a course using the "courses.teachers.create" method of Google Classroom API.
+* `classroom_courses_teachers_delete`: Use to delete a teacher of a course.
+* `classroom_courses_teachers_get`: Use to return a teacher of a course.
+* `classroom_courses_teachers_list`: Use to return a list of teachers of this course that the requester is permitted to view.
+* `classroom_courses_topics_create`: Use to creates a topic using the "courses.topics.create" method of Google Classroom API.
+* `classroom_courses_topics_delete`: Use to delete a topic.
+* `classroom_courses_topics_get`: Use to return a topic.
+* `classroom_courses_topics_list`: Use to return a list of topics that the requester is permitted to view.
+* `classroom_courses_topics_patch`: Use to update one or more fields of a topic using the "courses.topics.patch" method of Google Classroom API.
+* `classroom_courses_update`: Use to update a course using the "courses.update" method of Google Classroom API.
+* `classroom_courses_updateGradingPeriodSettings`: Use to update grading period settings of a course using the "courses.updateGradingPeriodSettings" method of Google Classroom API.
+* `classroom_invitations_accept`: Use to accept an invitation using the "invitations.accept" method of Google Classroom API. Accepts an invitation, removing it and adding the invited user to the teachers or students (as appropriate) of the specified course. Only the invited user may accept an invitation.
+* `classroom_invitations_create`: Use to create an invitation using the "invitations.create" method of Google Classroom API.
+Only one invitation for a user and course may exist at a time. Delete and re-create an invitation to make changes.
+* `classroom_invitations_get`: Use to return an invitation using the "invitations.get" method of Google Classroom API.
+* `classroom_invitations_list`: Use to retrieve a list of invitations that the requesting user is permitted to view, restricted to those that match the list request of Google Classroom using a method "invitations.list" of Google Classroom API.
+At least one of userId or courseId must be supplied. Both fields can be supplied.
+* `classroom_invitations_remove`: Use to deletes an invitation using the "invitations.delete" method of Google Classroom API.
+* `classroom_registrations_create`: Use to create a Registration using the "registrations.create" method of Google Classroom API.
+Creates a Registration, causing Classroom to start sending notifications from the provided feed to the destination provided in cloudPubSubTopic.
+Returns the created Registration. Currently, this will be the same as the argument, but with server-assigned fields such as expiryTime and id filled in.
+Note that any value specified for the expiryTime or id fields will be ignored.
+While Classroom may validate the cloudPubSubTopic and return errors on a best effort basis, it is the caller's responsibility to ensure that it exists and that Classroom has permission to publish to it.
+* `classroom_registrations_delete`: Use to deletes a Registration using the "registrations.delete" method of Google Classroom API. Deletes a Registration, causing Classroom to stop sending notifications for that Registration.
+* `classroom_userProfiles_get`: Use to return a user profile using the "userProfiles.get" method of Google Classroom API.
+* `classroom_userProfiles_guardianInvitations_create`: Use to creates a guardian invitation using the "courses.topics.create" method of Google Classroom API. Creates a guardian invitation, and sends an email to the guardian asking them to confirm that they are the student's guardian.
+* `classroom_userProfiles_guardianInvitations_get`: Use to return a specific guardian invitation using the "userProfiles.guardianInvitations.get" method of Google Classroom API.
+* `classroom_userProfiles_guardianInvitations_list`: Use to retrieve a list of guardian invitations that the requesting user is permitted to view, filtered by the parameters provided using a method "userProfiles.guardianInvitations.list" of Google Classroom API.
+* `classroom_userProfiles_guardianInvitations_patch`: Use to modify a guardian invitation using the "userProfiles.guardianInvitations.patch" method of Google Classroom API. Currently, the only valid modification is to change the state from PENDING to COMPLETE. This has the effect of withdrawing the invitation.
+* `classroom_userProfiles_guardians_get`: Use to return a specific guardian using the "userProfiles.guardians.get" method of Google Classroom API.
+* `classroom_userProfiles_guardians_list`: Use to retrieve a list of guardians that the requesting user is permitted to view, restricted to those that match the request using a method "userProfiles.guardianInvitations.list" of Google Classroom API.
+To list guardians for any student that the requesting user may view guardians for, use the literal character - for the student ID.
+* `classroom_userProfiles_guardians_remove`: Use to delete a guardian using the "userProfiles.guardians.delete" method of Google Classroom API.
+* `convert_mimetype_of_file_on_google_drive`: Use this to convert the mimeType of files on Google Drive.
+* `create_file_to_google_drive`: Use this to create an empty file to Google Drive.
+* `create_google_docs_from_markdown_on_google_drive`: Use to create a Google Document from a markdown format.
+* `create_schedule_on_Google_Calendar`: Use to create a new schedule (event) on Google Calendar.
+* `delete_schedules_on_Google_Calendar`: Use to delete schedules (events) from Google Calendar.
+* `description_video_on_youtube`: Use this to describe and summarize a video on YouTube using the YouTube URL.
+* `description_web_site`: Use this to describe sites using URLs.
+* `generate_description_on_google_drive`: Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.
+* `generate_image_on_google_drive`: Use this to generate an image from an inputted prompt. The generated image is saved as a file on Google Drive.
+* `generate_presentation_with_google_slides`: Use this to create and generate a presentation using Google Slides.
+* `generate_quiz_with_google_forms`: Use this to generate a quiz with Google Forms. If the number of total questions is not provided, please create 5 questions as the default number of questions.
+* `generate_roadmap_to_google_sheets`: This generates a roadmap in Google Sheets. Use this to generate a roadmap to Google Sheets. Spreadsheet ID and your goal of the roadmap are required to be provided.
+* `generate_survey_with_google_forms`: Use this to generate a survey with Google Forms. If the number of total questions is not provided, please create 5 questions as the default number of questions.
+* `get_attachment_files_from_Gmail`: Use this to retrieve the attachment files of an email. The attachment files are returned as the file IDs on Google Drive.
+* `get_current_date_time`: The current date and time are returned. Please provide your timezone. If you don't know the timezone, it is automatically detected with the script.
+* `get_current_weather`: Use this to get the current weather using the latitude and the longitude.
+At that time, convert the location to the latitude and the longitude and provide them to the function.
+If you cannot know the location, decide the location using the timezone.
+* `get_exchange_rate`: Use this to get the current exchange rate. Using this, for example, it can exchange yen for dollars.
+* `get_file_from_google_drive`: Use this to get and download a file from Google Drive by giving a filename. When you use this function, the returned data is base64 data. So, you are required to decode base64 data.
+* `get_google_doc_object_using_docs_api`: Use this to get Google Docs Object using Docs API. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/get When this tool is used, for example, the index of each content in the document body can be retrieved. This cannot be directly used for retrieving text of the document body.
+* `get_google_sheet_object_using_sheets_api`: Use this to get Google Sheets Object using Sheets API. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/get When this tool is used, for example, the sheet names can be converted to sheet IDs. This cannot be used for retrieving the cell values.
+* `get_google_slides_object_using_slides_api`: Use this to get Google Slides Object using Slides API. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/get When this tool is used, for example, the object IDs on the slides can be retrieved.
+* `get_massages_by_search_from_Gmail`: Get messages (emails) from Gmail using the search query. This function returns the messages using the search query.
+* `get_massages_by_time_from_Gmail`: Get messages (emails) from Gmail using the time. This function returns the messages from "after" to now.
+* `get_specific_date_weather`: Use this to get the weather for the specific date using the latitude and the longitude.
+At that time, convert the location to the latitude and the longitude and provide them to the function.
+The date is required to be included. The date format is "yyyy-MM-dd HH:mm"
+If you cannot know the location, decide the location using the timezone.
+* `get_values_from_google_docs`: Use this to get text from Google Docs in a text format or a markdown format. The document ID is used for retrieving the values from the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
+* `get_values_from_google_sheets`: Use this to get cell values from Google Sheets. The spreadsheet ID is used for retrieving the values from the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
+* `manage_google_docs_using_docs_api`: Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate
+* `manage_google_sheets_using_sheets_api`: Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/batchUpdate
+* `manage_google_slides_using_slides_api`: Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/batchUpdate
+* `move_files_on_google_drive`: Use this to move the files and the folders into other folder on Google Drive.
+* `people_connections_list`: Provides a list of the authenticated user's contacts.
+* `people_contactGroups_list`: List all contact groups owned by the authenticated user. Members of the contact groups are not populated.
+* `people_otherContacts_list`: List all "Other contacts", that is contacts that are not in a contact group. "Other contacts" are typically auto created contacts from interactions.
+* `put_file_to_google_drive`: Use this to put and upload data to Google Drive as a file. When you use this function, please provide the file content converted to base64 data. So, you are required to encode the file content as base64 data.
+* `put_values_into_google_docs`: Use this to append or insert text to Google Docs. The document ID is used for putting the values to the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
+* `put_values_to_google_sheets`: Use this to put values into Google Sheets. The spreadsheet ID is used for putting the values to the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
+* `remove_mails_Gmail`: Use this to remove the messages.
+* `rename_files_on_google_drive`: Use this to rename the files on Google Drive.
+* `search_file_in_google_drive`: Use this to search files in Google Drive by providing a search query. For example, the filename can be converted to the file ID. But, in the case of Google Drive, the file IDs are unique values. But, the same filenames can exist in the same folder. So, when a filename is searched, multiple file IDs might be returned. At that time, it is required to confirm which file the user wants to use.
+* `search_schedule_on_Google_Calendar`: Use to search the schedules (events) on Google Calendar by providing the date range.
+* `search_values_from_google_sheets`: Use this to search all cells in Google Sheets using a regex. The spreadsheet ID is used for searching a text from the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID. In this case, the search text is searched to see whether it is the same as the entire cell value. So, if you want to search the cells including 'sample' text, please use a regex like '.*sample.*'.
+* `send_mails_Gmail`: Use this to send the draft emails which have already been created. If you want to send an email, first, it is required to create a draft email. By this, the draft email can be sent.
+* `summarize_file_on_google_drive`: Use this to describe and summaize a file on Google Drive.
+* `update_schedule_on_Google_Calendar`: Use to update the schedule (event) on Google Calendar.
 
 # Usage
 
@@ -133,6 +209,9 @@ function main(eventObject) {
 
   m.apiKey = apiKey; // This is an API key for using Gemini API.
   // m.defaultCalendarId = "###"; // If you want to use the specific calendar, please use this.
+  // m.enableBaseTools = false; // Disable base tools
+  // m.enableClassroomTools = false; // Disable tools for managing Google Classroom
+  // m.enablePeopleTools = false; // Disable tools for managing Google People
 
   const object = { eventObject, items: m.getTools() };
   return new MCPApp
@@ -153,6 +232,7 @@ function main(eventObject) {
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
 - **If you want to manage Docs, Sheets, Slides, and Calendars using the batch update methods of API, please enable Docs API, Sheets API, Slides API, and Calendar API at Advanced Google services.**
 - If you want to use the specific Google Calendar, please set `defaultCalendarId`.
+- **If you want to manage Google Classroom and Google People, please enable the Google Classroom API and the Google People API at Advanced Google services.**
 
 #### Show all tools
 
@@ -343,12 +423,79 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (45 tools, 3 prompts)
+  🟢 gas_web_apps - Ready (115 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - auto_new_draft_creation_Gmail
     - auto_reply_draft_creation_Gmail
     - change_permission_of_file_on_google_drive
+    - classroom_courses_aliases_create
+    - classroom_courses_aliases_delete
+    - classroom_courses_aliases_list
+    - classroom_courses_announcements_create
+    - classroom_courses_announcements_delete
+    - classroom_courses_announcements_get
+    - classroom_courses_announcements_list
+    - classroom_courses_announcements_modifyAssignees
+    - classroom_courses_announcements_patch
+    - classroom_courses_courseWork_create
+    - classroom_courses_courseWork_delete
+    - classroom_courses_courseWork_get
+    - classroom_courses_courseWork_list
+    - classroom_courses_courseWork_modifyAssignees
+    - classroom_courses_courseWork_patch
+    - classroom_courses_courseWork_rubrics_create
+    - classroom_courses_courseWork_rubrics_delete
+    - classroom_courses_courseWork_rubrics_get
+    - classroom_courses_courseWork_rubrics_list
+    - classroom_courses_courseWork_rubrics_patch
+    - classroom_courses_courseWork_studentSubmissions_get
+    - classroom_courses_courseWork_studentSubmissions_list
+    - classroom_courses_courseWork_studentSubmissions_patch
+    - classroom_courses_courseWork_studentSubmissions_reclaim
+    - classroom_courses_courseWork_studentSubmissions_return
+    - classroom_courses_courseWork_studentSubmissions_turnIn
+    - classroom_courses_courseWorkMaterials_create
+    - classroom_courses_courseWorkMaterials_delete
+    - classroom_courses_courseWorkMaterials_get
+    - classroom_courses_courseWorkMaterials_list
+    - classroom_courses_courseWorkMaterials_patch
+    - classroom_courses_create
+    - classroom_courses_get
+    - classroom_courses_getGradingPeriodSettings
+    - classroom_courses_list
+    - classroom_courses_patch
+    - classroom_courses_remove
+    - classroom_courses_students_create
+    - classroom_courses_students_delete
+    - classroom_courses_students_get
+    - classroom_courses_students_list
+    - classroom_courses_teachers_create
+    - classroom_courses_teachers_delete
+    - classroom_courses_teachers_get
+    - classroom_courses_teachers_list
+    - classroom_courses_topics_create
+    - classroom_courses_topics_delete
+    - classroom_courses_topics_get
+    - classroom_courses_topics_list
+    - classroom_courses_topics_patch
+    - classroom_courses_update
+    - classroom_courses_updateGradingPeriodSettings
+    - classroom_invitations_accept
+    - classroom_invitations_create
+    - classroom_invitations_get
+    - classroom_invitations_list
+    - classroom_invitations_remove
+    - classroom_registrations_create
+    - classroom_registrations_delete
+    - classroom_userProfiles_get
+    - classroom_userProfiles_guardianInvitations_create
+    - classroom_userProfiles_guardianInvitations_get
+    - classroom_userProfiles_guardianInvitations_list
+    - classroom_userProfiles_guardianInvitations_patch
+    - classroom_userProfiles_guardians_get
+    - classroom_userProfiles_guardians_list
+    - classroom_userProfiles_guardians_remove
     - convert_mimetype_of_file_on_google_drive
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
@@ -379,6 +526,9 @@ When your setting is correct, the following result is returned.
     - manage_google_sheets_using_sheets_api
     - manage_google_slides_using_slides_api
     - move_files_on_google_drive
+    - people_connections_list
+    - people_contactGroups_list
+    - people_otherContacts_list
     - put_file_to_google_drive
     - put_values_into_google_docs
     - put_values_to_google_sheets
@@ -1098,6 +1248,12 @@ In this case, you can see the samples at **"[Enhanced Guide to Using Prompts in 
 
 ---
 
+The following samples were added on August 10, 2025.
+
+In this case, you can see the samples at **"[Next-Level Classroom Automation: Gemini CLI, Google Classroom, and MCP](https://medium.com/google-cloud/next-level-classroom-automation-gemini-cli-google-classroom-and-mcp-ac4bb9103fa6)"**.
+
+---
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
@@ -1351,5 +1507,9 @@ function main(eventObject) {
 - v1.0.18 (August 9, 2025)
 
   1. A bug was removed. When a tool for Google Forms is run, an error like `FunctionDeclaration in the request exceeds the maximum allowed nesting depth.` occurs. This bug was removed by refactoring the JSON schema.
+
+- v1.0.19 (August 10, 2025)
+
+  1. 67 Tools for managing Google Classroom and 3 tools for managing Google People were added. When you use those tools, please enable the Google Classroom API and the Google People API at Advanced Google services.
 
 [TOP](#top)

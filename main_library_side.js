@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250805 11:45
- * version 1.0.17
+ * Updated on 20250809 11:55
+ * version 1.0.19
  */
 
-const ToolsForMCPServerVersion = "1.0.17";
+const ToolsForMCPServerVersion = "1.0.19";
 const ProtocolVersion = "2025-06-18";
 
 /**
@@ -23,6 +23,24 @@ var apiKey = "";
 var defaultCalendarId = null;
 
 /**
+ * When this is false, the base tools are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enableBaseTools = true;
+
+/**
+ * When this is false, the tools for managing the Google Classroom API are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enableClassroomTools = true;
+
+/**
+ * When this is false, the tools for managing the Google People API are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enablePeopleTools = true;
+
+/**
  * This is an access token and key for using StackExchange API.
  * When the `get_questions_on_stackoverflow` tool is used, these values are required to be used.
  */
@@ -34,19 +52,42 @@ var key_stackoverflow = "";
  * @private
  */
 function functions_() {
-  const descriptions = [
-    descriptions_management_apis,
-    descriptions_management_calendar,
-    descriptions_management_docs,
-    descriptions_management_drive,
-    descriptions_management_forms,
-    descriptions_management_gmail,
-    descriptions_management_sheets,
-    descriptions_management_slides,
-    descriptions_use_gemini,
+  const descriptions = [];
 
-    // descriptions_dev,
-  ];
+  /**
+   * Add base tools.
+   */
+  if (enableBaseTools) {
+    descriptions.push(
+      descriptions_management_apis,
+      descriptions_management_calendar,
+      descriptions_management_docs,
+      descriptions_management_drive,
+      descriptions_management_forms,
+      descriptions_management_gmail,
+      descriptions_management_sheets,
+      descriptions_management_slides,
+      descriptions_use_gemini,
+      descriptions_management_people,
+
+      // descriptions_dev,
+    );
+  }
+
+  /**
+   * Add tools for managing Google Classroom.
+   */
+  if (enableClassroomTools === true) {
+    descriptions.push(descriptions_management_classroom);
+  }
+
+  /**
+   * Add tools for managing Google People.
+   */
+  if (enablePeopleTools === true) {
+    descriptions.push(descriptions_management_people);
+  }
+
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
   /**
    * By the way, the format of "functions" is the same with GeminiWithFiles.
@@ -258,3 +299,121 @@ function isAPIAtAdvancedGoogleServices_(apiName) {
   }
   return obj;
 }
+
+/**
+ * Check API.
+ * @param {String} apiName API name you want to check.
+ * @returns {Object}
+ */
+function checkAPI_(apiName) {
+  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
+    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
+    return { jsonrpc: "2.0", result };
+  }
+  return {};
+}
+
+// Common functions.
+var for_google_apis = {
+  list: ({ func, args, jsonSchema, itemName }) => {
+    const queryParameters = args.pop();
+    let result;
+    try {
+      const ar = [];
+      let pageToken;
+      do {
+        const a = [...args, queryParameters];
+        const obj = func(...a);
+        if (obj[itemName]) {
+          ar.push(...obj[itemName]);
+        }
+        pageToken = obj.nextPageToken;
+        queryParameters.pageToken = pageToken;
+      } while (pageToken);
+      const itemJsonSchema = {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "description": "JSON schema for the response value.",
+        "type": "object",
+        "properties": {
+          [itemName]: {
+            "description": `${itemName} that match the list request.`,
+            "type": "array",
+            "items": jsonSchema
+          }
+        },
+        "required": [itemName],
+      };
+      const text = [
+        `Retrieved values are as follows.`,
+        `<Values>${ar.length == 0 ? "No values." : JSON.stringify({ [itemName]: ar })}</Values>`,
+        `JSON schema of "Values" is as follows.`,
+        `<JSONSchema>${JSON.stringify(itemJsonSchema)}</JSONSchema>`,
+      ].join("\n");
+      result = { content: [{ type: "text", text }], isError: false };
+    } catch ({ stack }) {
+      result = { content: [{ type: "text", text: stack }], isError: true };
+    }
+    console.log(result); // Check response.
+    return { jsonrpc: "2.0", result };
+  },
+
+  create: ({ func, args, jsonSchema }) => {
+    let result;
+    try {
+      const obj = func(...args);
+      const text = [
+        `Response value is as follows.`,
+        `<Value>${JSON.stringify(obj)}</Value>`,
+        `JSON schema of the response value is as follows.`,
+        `<JSONSchema>${JSON.stringify(jsonSchema)}</JSONSchema>`,
+      ].join("\n");
+      result = { content: [{ type: "text", text }], isError: false };
+    } catch ({ stack }) {
+      result = { content: [{ type: "text", text: stack }], isError: true };
+    }
+    console.log(result); // Check response.
+    return { jsonrpc: "2.0", result };
+  },
+
+  update: ({ func, args }) => {
+    let result;
+    try {
+      const obj = func(...args);
+      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
+    } catch ({ stack }) {
+      result = { content: [{ type: "text", text: stack }], isError: true };
+    }
+    console.log(result); // Check response.
+    return { jsonrpc: "2.0", result };
+  },
+
+  remove: ({ func, args }) => {
+    let result;
+    try {
+      const obj = func(...args);
+      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
+    } catch ({ stack }) {
+      result = { content: [{ type: "text", text: stack }], isError: true };
+    }
+    console.log(result); // Check response.
+    return { jsonrpc: "2.0", result };
+  },
+
+  get: ({ func, args, jsonSchema }) => {
+    let result;
+    try {
+      const obj = func(...args);
+      const text = [
+        `Response value is as follows.`,
+        `<Value>${JSON.stringify(obj)}</Value>`,
+        `JSON schema of the response value is as follows.`,
+        `<JSONSchema>${JSON.stringify(jsonSchema)}</JSONSchema>`,
+      ].join("\n");
+      result = { content: [{ type: "text", text }], isError: false };
+    } catch ({ stack }) {
+      result = { content: [{ type: "text", text: stack }], isError: true };
+    }
+    console.log(result); // Check response.
+    return { jsonrpc: "2.0", result };
+  }
+};
