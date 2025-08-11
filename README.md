@@ -1512,4 +1512,8 @@ function main(eventObject) {
 
   1. 67 Tools for managing Google Classroom and 3 tools for managing Google People were added. When you use those tools, please enable the Google Classroom API and the Google People API at Advanced Google services. You can see the sample prompts at [Next-Level Classroom Automation: Gemini CLI, Google Classroom, and MCP](https://medium.com/google-cloud/next-level-classroom-automation-gemini-cli-google-classroom-and-mcp-ac4bb9103fa6).
 
+- v1.0.20 (August 10, 2025)
+
+  1. A bug was removed. [Ref](https://github.com/tanaikech/ToolsForMCPServer/pull/8)
+
 [TOP](#top)
