@@ -134,7 +134,7 @@ function create_schedule_on_Google_Calendar(object = {}) {
       opt.location = location;
     }
     if (guests) {
-      opt.guests = guest.join(",");
+      opt.guests = guests.join(",");
       opt.sendInvites = true;
     }
     const event = cal.createEvent(
@@ -334,3 +334,4 @@ const descriptions_management_calendar = {
   },
 
 };
+
