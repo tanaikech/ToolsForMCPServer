@@ -1516,4 +1516,8 @@ function main(eventObject) {
 
   1. A bug was removed. [Ref](https://github.com/tanaikech/ToolsForMCPServer/pull/8)
 
+- v1.0.21 (August 12, 2025)
+
+  1. A tool `create_schedule_on_Google_Calendar` in [`management_calendar.js`](https://github.com/tanaikech/ToolsForMCPServer/blob/master/management_calendar.js) was updated. From this version, the Calendar API is used.
+
 [TOP](#top)
