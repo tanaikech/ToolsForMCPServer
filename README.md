@@ -1262,6 +1262,10 @@ The samples provided represent only a small subset of what is possible. The `Too
 
 # Appendix
 
+## What should we do in this situation?
+
+- When Gemini CLI is launched and an error `Error connecting to MCP server 'gas_web_apps': Connection failed for 'gas_web_apps': MCP error -32000: Connection closed` occurs, please redeploy Web Apps to reflect the latest script and try it again. 
+
 ## Add custom tools and prompts
 
 You might want to add your custom tools and promts to the MCP server. At that time, please refer to the following script.
