@@ -1528,10 +1528,10 @@ function main(eventObject) {
 
   1. Upon updating the Gemini CLI from v0.1.18 to v0.1.19, I noticed a regression. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/9) I modified most of the tools, but left `manage_google_docs_using_docs_api`, `manage_google_sheets_using_sheets_api`, and `manage_google_slides_using_slides_api` untouched. These tools rely on `$ref` in their input schemas, but it appears `$ref` is not supported in version v0.1.19. I'll hold off on further changes and wait for a future update to the Gemini CLI. At v0.1.19, when Gemini CLI is run, the following 3 errors are shown in the above. But, other 112 tools can be used.
 
-  ```
-  Skipping tool 'manage_google_docs_using_docs_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
-  Skipping tool 'manage_google_sheets_using_sheets_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
-  Skipping tool 'manage_google_slides_using_slides_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
-  ```
+    ```
+    Skipping tool 'manage_google_docs_using_docs_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
+    Skipping tool 'manage_google_sheets_using_sheets_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
+    Skipping tool 'manage_google_slides_using_slides_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
+    ```
 
 [TOP](#top)
