@@ -239,7 +239,7 @@ const descriptions_management_sheets = {
         values: {
           type: "array",
           description: "Values for putting into Google Sheets. This is required to be a 2-dimensional array.",
-          items: { type: "array", items: { anyof: [{ type: "string" }, { type: "number" }] } },
+          items: { type: "array", items: { oneOf: [{ type: "string" }, { type: "number" }] } },
         },
         range: { type: "string", description: "Range as A1Notation. The values are retrieved from this range. If this is not used, the values are put into the last row." },
       },

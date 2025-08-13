@@ -3,7 +3,7 @@
  * Author: Kanshi Tanaike
  * GitHub: https://github.com/tanaikech/Generating-Request-Body-for-APIs-using-Gemini
  * 
- * version 1.0.1
+ * version 1.0.2
  */
 
 const jsonSchemaForSheets = {
@@ -3191,37 +3191,19 @@ const jsonSchemaForClassroom = {
         "description": "Additional materials. Announcements must have no more than 20 material items.",
         "items": {
           "type": "object",
-          "description": "Material attached to course work.",
-          "oneOf": [
-            {
-              "properties": {
-                "driveFile": {
-                  "type": "object"
-                }
-              }
-            },
-            {
-              "properties": {
-                "youtubeVideo": {
-                  "type": "object"
-                }
-              }
-            },
-            {
-              "properties": {
-                "link": {
-                  "type": "object"
-                }
-              }
-            },
-            {
-              "properties": {
-                "form": {
-                  "type": "object"
-                }
-              }
-            }
-          ]
+          "description": "Material attached to course work. This can be a drive file, a YouTube video, a link, or a form.",
+
+          /**
+           * Modified the following part to the above by an error of "FunctionDeclaration in the request exceeds the maximum allowed nesting depth.".
+           */
+          // "description": "Material attached to course work.",
+          // "oneOf": [
+          //   { "properties": { "driveFile": { "type": "object" } } },
+          //   { "properties": { "youtubeVideo": { "type": "object" } } },
+          //   { "properties": { "link": { "type": "object" } } },
+          //   { "properties": { "form": { "type": "object" } } }
+          // ]
+
         }
       },
       "state": {

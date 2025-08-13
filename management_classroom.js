@@ -1,7 +1,6 @@
 /**
  * Management of Google Classroom
  * Created on 20250809 11:55
- * version 1.0.19
  */
 
 // REST Resource: courses: https://developers.google.com/workspace/classroom/reference/rest/v1/courses
@@ -1041,11 +1040,53 @@ const descriptions_management_classroom = {
     title: "Updates grading period settings of a course",
     description: `Use to update grading period settings of a course using the "courses.updateGradingPeriodSettings" method of Google Classroom API.`,
     parameters: {
-      "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/$defs/GradingPeriodSettings"
+          "title": "GradingPeriodSettings",
+          "description": "Settings for grading periods in Google Classroom.",
+          "type": "object",
+          "properties": {
+            "gradingPeriods": {
+              "type": "array",
+              "description": "The list of grading periods.",
+              "items": {
+                "type": "object",
+                "title": "GradingPeriod",
+                "description": "Represents a specific grading period.",
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Title of the grading period. For example, “Semester 1”."
+                  },
+                  "startDate": {
+                    "description": "Start date, in UTC, of the grading period. Inclusive. This object contains three properties: `year` (integer, from 1 to 9999), `month` (integer, from 1 to 12), and `day` (integer, from 1 to 31). The `day` must be valid for the given year and month.",
+                    "type": "string",
+
+                    // "type": "object",
+                    // "title": "Date",
+                    // "properties": {"year": {"type": "number"}, "month": {"type": "number"}, "day": {"type": "number"}},
+                    // "required": ["year", "month", "day"]
+                  },
+                  "endDate": {
+                    "description": "End date, in UTC, of the grading period. Inclusive. This object contains three properties: `year` (integer, from 1 to 9999), `month` (integer, from 1 to 12), and `day` (integer, from 1 to 31). The `day` must be valid for the given year and month.",
+                    "type": "string",
+
+                    // "type": "object",
+                    // "title": "Date",
+                    // "properties": {"year": {"type": "number"}, "month": {"type": "number"}, "day": {"type": "number"}},
+                    // "required": ["year", "month", "day"]
+                  }
+                },
+                "required": ["startDate", "endDate"]
+              }
+            },
+            "applyToExistingCoursework": {
+              "type": "boolean",
+              "description": "Supports toggling the application of grading periods on existing stream items. Once set, this value is persisted meaning that it does not need to be set in every request to update GradingPeriodSettings. If not previously set, the default is False."
+            },
+          },
+          "required": ["gradingPeriods"]
         },
         "pathParameters": {
           "type": "object",
@@ -1068,69 +1109,7 @@ const descriptions_management_classroom = {
           "required": ["updateMask"]
         }
       },
-      "required": ["requestBody", "pathParameters"],
-
-      "$defs": {
-        "Date": {
-          "type": "object",
-          "title": "Date",
-          "properties": {
-            "year": {
-              "type": "integer",
-              "description": "Year of the date. Must be from 1 to 9999."
-            },
-            "month": {
-              "type": "integer",
-              "description": "Month of a year. Must be from 1 to 12."
-            },
-            "day": {
-              "type": "integer",
-              "description": "Day of a month. Must be from 1 to 31 and valid for the year and month."
-            }
-          },
-          "required": ["year", "month", "day"]
-        },
-        "GradingPeriod": {
-          "type": "object",
-          "title": "GradingPeriod",
-          "description": "Represents a specific grading period.",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "The unique identifier for the grading period.",
-              "readOnly": true
-            },
-            "displayName": {
-              "type": "string",
-              "description": "The name of the grading period, e.g., 'Q1', 'Semester 1'."
-            },
-            "startDate": {
-              "description": "The start date of the grading period.",
-              "$ref": "#/$defs/Date"
-            },
-            "endDate": {
-              "description": "The end date of the grading period.",
-              "$ref": "#/$defs/Date"
-            }
-          },
-          "required": ["startDate", "endDate"]
-        },
-        "GradingPeriodSettings": {
-          "title": "GradingPeriodSettings",
-          "description": "Settings for grading periods in Google Classroom.",
-          "type": "object",
-          "properties": {
-            "gradingPeriods": {
-              "type": "array",
-              "description": "The list of grading periods.",
-              "items": {
-                "$ref": "#/$defs/GradingPeriod"
-              }
-            }
-          },
-          "required": ["gradingPeriods"]
-        }
-      }
+      "required": ["requestBody", "pathParameters"]
     }
   },
 
@@ -1426,153 +1405,44 @@ const descriptions_management_classroom = {
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/definitions/Student"
-        },
-        "pathParameters": {
-          "type": "object",
-          "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Course ID. Identifier of the course to update. This identifier can be either the Classroom-assigned identifier or an alias."
-            }
-          },
-          "required": ["courseId"]
-        },
-        "queryParameters": {
-          "type": "object",
-          "properties": {
-            "enrollmentCode": {
-              "type": "string",
-              "description": "Enrollment code of the course to create the student in. This code is required if userId corresponds to the requesting user; it may be omitted if the requesting user has administrative permissions to create students for any user."
-            }
-          }
-        }
-      },
-      "required": ["requestBody", "pathParameters"],
-      "definitions": {
-        "Student": {
-          "title": "Student",
           "description": "A student in a course.",
           "type": "object",
           "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Identifier of the course. [1]"
-            },
             "userId": {
               "type": "string",
-              "description": "Identifier of the user. [1]"
-            },
-            "profile": {
-              "$ref": "#/definitions/UserProfile"
-            },
-            "studentWorkFolder": {
-              "$ref": "#/definitions/DriveFolder"
+              "description": [
+                `Identifier of the user.`,
+                `When specified as a parameter of a request, this identifier can be one of the following:`,
+                `- the numeric identifier for the user`,
+                `- the email address of the user`,
+                `- the string literal "me", indicating the requesting user`,
+              ].join("\n")
             }
           },
-          "required": [
-            "courseId",
-            "userId",
-            "profile",
-            "studentWorkFolder"
-          ]
+          "required": ["userId"]
         },
-        "UserProfile": {
-          "title": "UserProfile",
-          "description": "Global user information for the student. [1]",
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Identifier of the user. [2]"
-            },
-            "name": {
-              "type": "object",
-              "description": "Name of the user. [2]",
-              "properties": {
-                "givenName": {
-                  "type": "string",
-                  "description": "The user's first name. [2]"
-                },
-                "familyName": {
-                  "type": "string",
-                  "description": "The user's last name. [2]"
-                },
-                "fullName": {
-                  "type": "string",
-                  "description": "The user's full name. [2]"
-                }
-              },
-              "required": [
-                "givenName",
-                "familyName",
-                "fullName"
-              ]
-            },
-            "emailAddress": {
-              "type": "string",
-              "description": "Email address of the user. [2]"
-            },
-            "photoUrl": {
-              "type": "string",
-              "description": "URL of user's profile photo. [2]"
-            },
-            "permissions": {
-              "type": "array",
-              "description": "Global permissions of the user. [2]",
-              "items": {
-                "type": "object",
-                "properties": {
-                  "permission": {
-                    "type": "string",
-                    "enum": [
-                      "PERMISSION_UNSPECIFIED",
-                      "CREATE_COURSE"
-                    ]
-                  }
-                }
-              }
-            },
-            "verifiedTeacher": {
-              "type": "boolean",
-              "description": "Whether the user is a verified teacher. [2]"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "emailAddress",
-            "photoUrl",
-            "permissions",
-            "verifiedTeacher"
-          ]
+      },
+      "pathParameters": {
+        "type": "object",
+        "properties": {
+          "courseId": {
+            "type": "string",
+            "description": "Course ID. Identifier of the course to update. This identifier can be either the Classroom-assigned identifier or an alias."
+          }
         },
-        "DriveFolder": {
-          "title": "DriveFolder",
-          "description": "A Drive Folder for this student's work in this course. [1]",
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Drive API resource ID. [3]"
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of the Drive folder. [3]"
-            },
-            "alternateLink": {
-              "type": "string",
-              "description": "URL that can be used to access the Drive folder. [3]"
-            }
-          },
-          "required": [
-            "id",
-            "title",
-            "alternateLink"
-          ]
+        "required": ["courseId"]
+      },
+      "queryParameters": {
+        "type": "object",
+        "properties": {
+          "enrollmentCode": {
+            "type": "string",
+            "description": "Enrollment code of the course to create the student in. This code is required if userId corresponds to the requesting user; it may be omitted if the requesting user has administrative permissions to create students for any user."
+          }
         }
       }
-    }
+    },
+    "required": ["requestBody", "pathParameters"],
   },
 
   classroom_courses_students_delete: {
@@ -1652,13 +1522,25 @@ const descriptions_management_classroom = {
     title: "Adds a user as a teacher of a course",
     description: `Use to add a user as a teacher of a course using the "courses.teachers.create" method of Google Classroom API.`,
     parameters: {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "title": "API Request Schema",
       "description": "Defines the structure for an API request involving a teacher object.",
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/$defs/teacher"
+          "description": "Teacher of a course.",
+          "type": "object",
+          "properties": {
+            "userId": {
+              "type": "string",
+              "description": [
+                `Identifier of the user.`,
+                `When specified as a parameter of a request, this identifier can be one of the following:`,
+                `- the numeric identifier for the user`,
+                `- the email address of the user`,
+                `- the string literal "me", indicating the requesting user`,
+              ].join("\n")
+            },
+          },
+          "required": ["userId"]
         },
         "pathParameters": {
           "type": "object",
@@ -1668,118 +1550,10 @@ const descriptions_management_classroom = {
               "description": "Course ID. Identifier of the course to update. This identifier can be either the Classroom-assigned identifier or an alias."
             }
           },
-          "required": [
-            "courseId"
-          ]
+          "required": ["courseId"]
         }
       },
-      "required": [
-        "requestBody",
-        "pathParameters"
-      ],
-      "$defs": {
-        "teacher": {
-          "title": "Teacher",
-          "description": "Teacher of a course.",
-          "type": "object",
-          "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Identifier of the course. Read-only.",
-              "readOnly": true
-            },
-            "userId": {
-              "type": "string",
-              "description": "Identifier of the user."
-            },
-            "profile": {
-              "$ref": "#/$defs/profile"
-            }
-          },
-          "required": [
-            "courseId",
-            "userId",
-            "profile"
-          ]
-        },
-        "profile": {
-          "type": "object",
-          "description": "Global user information for the teacher. Read-only.",
-          "readOnly": true,
-          "properties": {
-            "id": {
-              "type": "string",
-              "description": "Identifier of the user. Read-only."
-            },
-            "name": {
-              "$ref": "#/$defs/name"
-            },
-            "emailAddress": {
-              "type": "string",
-              "description": "Email address of the user. Read-only."
-            },
-            "photoUrl": {
-              "type": "string",
-              "description": "URL of user's profile photo. Read-only."
-            },
-            "permissions": {
-              "type": "array",
-              "description": "Global permissions of the user. Read-only.",
-              "items": {
-                "$ref": "#/$defs/permission"
-              }
-            },
-            "verifiedTeacher": {
-              "type": "boolean",
-              "description": "Represents whether a Google Workspace for Education user's domain administrator has explicitly verified them as being a teacher. This field is always false if the user is not a member of a Google Workspace for Education domain. Read-only"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "emailAddress",
-            "photoUrl",
-            "permissions",
-            "verifiedTeacher"
-          ]
-        },
-        "name": {
-          "type": "object",
-          "description": "Name of the user. Read-only.",
-          "readOnly": true,
-          "properties": {
-            "givenName": {
-              "type": "string",
-              "description": "The user's first name. Read-only."
-            },
-            "familyName": {
-              "type": "string",
-              "description": "The user's last name. Read-only."
-            },
-            "fullName": {
-              "type": "string",
-              "description": "The user's full name formed by concatenating the first and last name values. Read-only."
-            }
-          },
-          "required": [
-            "givenName",
-            "familyName",
-            "fullName"
-          ]
-        },
-        "permission": {
-          "type": "object",
-          "properties": {
-            "permission": {
-              "type": "string",
-              "enum": [
-                "PERMISSION_UNSPECIFIED",
-                "CREATE_COURSE"
-              ]
-            }
-          }
-        }
-      }
+      "required": ["requestBody", "pathParameters"]
     }
   },
 
@@ -1890,234 +1664,13 @@ const descriptions_management_classroom = {
     title: "Creates a course work material",
     description: `Use to creates a course work material using the "courses.courseWorkMaterials.create" method of Google Classroom API.`,
     parameters: {
-      "$schema": "http://json-schema.org/draft-07/schema#",
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/definitions/CourseWorkMaterial"
-        },
-        "pathParameters": {
-          "$ref": "#/definitions/PathParameters"
-        }
-      },
-      "required": [
-        "requestBody",
-        "pathParameters"
-      ],
-      "definitions": {
-        "CourseWorkMaterial": {
           "title": "CourseWorkMaterial",
           "description": "Course work material created by a teacher for students of the course",
           "type": "object",
           "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Identifier of the course. [1]",
-              "readOnly": true
-            },
-            "id": {
-              "type": "string",
-              "description": "Classroom-assigned identifier of this course work material, unique per course. [1]",
-              "readOnly": true
-            },
-            "title": {
-              "type": "string",
-              "description": "Title of this course work material. The title must be a valid UTF-8 string containing between 1 and 3000 characters. [1]"
-            },
-            "description": {
-              "type": "string",
-              "description": "Optional description of this course work material. The text must be a valid UTF-8 string containing no more than 30,000 characters. [1]"
-            },
-            "materials": {
-              "type": "array",
-              "description": "Additional materials. A course work material must have no more than 20 material items. [1]",
-              "items": {
-                "$ref": "#/definitions/Material"
-              }
-            },
-            "state": {
-              "type": "string",
-              "description": "Status of this course work material. If unspecified, the default state is DRAFT. [2]",
-              "enum": [
-                "COURSEWORK_MATERIAL_STATE_UNSPECIFIED",
-                "PUBLISHED",
-                "DRAFT",
-                "DELETED"
-              ]
-            },
-            "alternateLink": {
-              "type": "string",
-              "description": "Absolute link to this course work material in the Classroom web UI. This is only populated if state is PUBLISHED. [1]",
-              "readOnly": true
-            },
-            "creationTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Timestamp when this course work material was created. [1]",
-              "readOnly": true
-            },
-            "updateTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Timestamp of the most recent change to this course work material. [1]",
-              "readOnly": true
-            },
-            "scheduledTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Optional timestamp when this course work material is scheduled to be published. [1]"
-            },
-            "assigneeMode": {
-              "type": "string",
-              "description": "Assignee mode of the course work material. If unspecified, the default value is ALL_STUDENTS. [3]",
-              "enum": [
-                "ASSIGNEE_MODE_UNSPECIFIED",
-                "ALL_STUDENTS",
-                "INDIVIDUAL_STUDENTS"
-              ]
-            },
-            "individualStudentsOptions": {
-              "$ref": "#/definitions/IndividualStudentsOptions"
-            },
-            "creatorUserId": {
-              "type": "string",
-              "description": "Identifier for the user that created the course work material. [1]",
-              "readOnly": true
-            },
-            "topicId": {
-              "type": "string",
-              "description": "Identifier for the topic that this course work material is associated with. Must match an existing topic in the course. [1]"
-            }
-          },
-          "required": [
-            "courseId",
-            "id",
-            "title",
-            "state",
-            "alternateLink",
-            "creationTime",
-            "updateTime",
-            "assigneeMode",
-            "creatorUserId"
-          ]
-        },
-        "Material": {
-          "type": "object",
-          "description": "Material attached to course work. [1]",
-          "oneOf": [
-            {
-              "properties": {
-                "driveFile": {
-                  "$ref": "#/definitions/DriveFile"
-                }
-              }
-            },
-            {
-              "properties": {
-                "youtubeVideo": {
-                  "type": "object"
-                }
-              }
-            },
-            {
-              "properties": {
-                "link": {
-                  "type": "object"
-                }
-              }
-            },
-            {
-              "properties": {
-                "form": {
-                  "type": "object"
-                }
-              }
-            }
-          ]
-        },
-        "DriveFile": {
-          "type": "object",
-          "properties": {
-            "driveFile": {
-              "type": "object"
-            },
-            "shareMode": {
-              "type": "string",
-              "enum": [
-                "UNKNOWN_SHARE_MODE",
-                "VIEW",
-                "EDIT",
-                "STUDENT_COPY"
-              ]
-            }
-          }
-        },
-        "IndividualStudentsOptions": {
-          "type": "object",
-          "description": "Assignee details about a coursework/announcement. This field is set if and only if assigneeMode is INDIVIDUAL_STUDENTS. [4]",
-          "properties": {
-            "studentIds": {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          }
-        },
-        "PathParameters": {
-          "type": "object",
-          "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Course ID. Identifier of the course to update. This identifier can be either the Classroom-assigned identifier or an alias."
-            }
-          },
-          "required": [
-            "courseId"
-          ]
-        }
-      }
-    }
-  },
-
-  classroom_courses_courseWorkMaterials_patch: {
-    title: "Updates one or more fields of a course work material",
-    description: `Use to update one or more fields of a course work material using the "courses.courseWorkMaterials.patch" method of Google Classroom API.`,
-    parameters: {
-      "$schema": "http://json-schema.org/draft-07/schema#",
-      "type": "object",
-      "properties": {
-        "requestBody": {
-          "$ref": "#/$defs/CourseWorkMaterial"
-        },
-        "pathParameters": {
-          "$ref": "#/$defs/PathParameters"
-        },
-        "queryParameters": {
-          "$ref": "#/$defs/QueryParameters"
-        }
-      },
-      "required": [
-        "requestBody",
-        "pathParameters",
-        "queryParameters"
-      ],
-      "$defs": {
-        "CourseWorkMaterial": {
-          "title": "CourseWorkMaterial",
-          "description": "Course work material created by a teacher for students of the course",
-          "type": "object",
-          "properties": {
-            "courseId": {
-              "type": "string",
-              "description": "Identifier of the course.",
-              "readOnly": true
-            },
-            "id": {
-              "type": "string",
-              "description": "Classroom-assigned identifier of this course work material, unique per course.",
-              "readOnly": true
-            },
             "title": {
               "type": "string",
               "description": "Title of this course work material. The title must be a valid UTF-8 string containing between 1 and 3000 characters."
@@ -2128,37 +1681,16 @@ const descriptions_management_classroom = {
             },
             "materials": {
               "type": "array",
-              "description": "Additional materials. A course work material must have no more than 20 material items.",
+              "description": "Additional materials. A course work material must have no more than 20 material items. [1]",
               "items": {
-                "$ref": "#/$defs/Material"
+                "type": "object",
+                "description": "Material attached to course work. This can be a drive file, a YouTube video, a link, or a form.",
               }
             },
             "state": {
               "type": "string",
               "description": "Status of this course work material. If unspecified, the default state is DRAFT.",
-              "enum": [
-                "COURSEWORK_MATERIAL_STATE_UNSPECIFIED",
-                "PUBLISHED",
-                "DRAFT",
-                "DELETED"
-              ]
-            },
-            "alternateLink": {
-              "type": "string",
-              "description": "Absolute link to this course work material in the Classroom web UI. This is only populated if state is PUBLISHED.",
-              "readOnly": true
-            },
-            "creationTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Timestamp when this course work material was created.",
-              "readOnly": true
-            },
-            "updateTime": {
-              "type": "string",
-              "format": "date-time",
-              "description": "Timestamp of the most recent change to this course work material.",
-              "readOnly": true
+              "enum": ["COURSEWORK_MATERIAL_STATE_UNSPECIFIED", "PUBLISHED", "DRAFT", "DELETED"]
             },
             "scheduledTime": {
               "type": "string",
@@ -2168,105 +1700,100 @@ const descriptions_management_classroom = {
             "assigneeMode": {
               "type": "string",
               "description": "Assignee mode of the course work material. If unspecified, the default value is ALL_STUDENTS.",
-              "enum": [
-                "ASSIGNEE_MODE_UNSPECIFIED",
-                "ALL_STUDENTS",
-                "INDIVIDUAL_STUDENTS"
-              ]
+              "enum": ["ASSIGNEE_MODE_UNSPECIFIED", "ALL_STUDENTS", "INDIVIDUAL_STUDENTS"]
             },
             "individualStudentsOptions": {
-              "$ref": "#/$defs/IndividualStudentsOptions"
-            },
-            "creatorUserId": {
-              "type": "string",
-              "description": "Identifier for the user that created the course work material.",
-              "readOnly": true
+              "type": "object",
+              "description": "Assignee details about a coursework/announcement. This field is set if and only if assigneeMode is INDIVIDUAL_STUDENTS.",
+              "properties": {
+                "studentIds": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
             },
             "topicId": {
               "type": "string",
               "description": "Identifier for the topic that this course work material is associated with. Must match an existing topic in the course."
             }
           },
-          "required": [
-            "courseId",
-            "id",
-            "title",
-            "materials",
-            "state",
-            "alternateLink",
-            "creationTime",
-            "updateTime",
-            "assigneeMode",
-            "creatorUserId"
-          ],
-          "if": {
-            "properties": {
-              "assigneeMode": {
-                "const": "INDIVIDUAL_STUDENTS"
-              }
+          "required": ["title"]
+        },
+        "pathParameters": {
+          "type": "object",
+          "properties": {
+            "courseId": {
+              "type": "string",
+              "description": "Course ID. Identifier of the course to update. This identifier can be either the Classroom-assigned identifier or an alias."
             }
           },
-          "then": {
-            "required": [
-              "individualStudentsOptions"
-            ]
-          }
-        },
-        "Material": {
-          "type": "object",
-          "description": "Material attached to course work.",
-          "oneOf": [
-            {
-              "properties": { "driveFile": { "$ref": "#/$defs/DriveFileMaterial" } },
-              "required": ["driveFile"]
-            },
-            {
-              "properties": { "youtubeVideo": { "$ref": "#/$defs/YouTubeVideoMaterial" } },
-              "required": ["youtubeVideo"]
-            },
-            {
-              "properties": { "link": { "$ref": "#/$defs/LinkMaterial" } },
-              "required": ["link"]
-            },
-            {
-              "properties": { "form": { "$ref": "#/$defs/FormMaterial" } },
-              "required": ["form"]
-            }
-          ]
-        },
-        "DriveFileMaterial": {
+          "required": ["courseId"]
+        }
+      },
+      "required": ["requestBody", "pathParameters"],
+    }
+  },
+
+  classroom_courses_courseWorkMaterials_patch: {
+    title: "Updates one or more fields of a course work material",
+    description: `Use to update one or more fields of a course work material using the "courses.courseWorkMaterials.patch" method of Google Classroom API.`,
+    parameters: {
+      "type": "object",
+      "properties": {
+        "requestBody": {
+          "title": "CourseWorkMaterial",
+          "description": "Course work material created by a teacher for students of the course",
           "type": "object",
           "properties": {
-            "driveFile": {
-              "type": "object"
-            },
-            "shareMode": {
+            "title": {
               "type": "string",
-              "enum": [
-                "UNKNOWN_SHARE_MODE",
-                "VIEW",
-                "EDIT",
-                "STUDENT_COPY"
-              ]
-            }
-          }
-        },
-        "YouTubeVideoMaterial": { "type": "object" },
-        "LinkMaterial": { "type": "object" },
-        "FormMaterial": { "type": "object" },
-        "IndividualStudentsOptions": {
-          "type": "object",
-          "description": "Assignee details about a coursework/announcement. This field is set if and only if assigneeMode is INDIVIDUAL_STUDENTS.",
-          "properties": {
-            "studentIds": {
+              "description": "Title of this course work material. The title must be a valid UTF-8 string containing between 1 and 3000 characters."
+            },
+            "description": {
+              "type": "string",
+              "description": "Optional description of this course work material. The text must be a valid UTF-8 string containing no more than 30,000 characters."
+            },
+            "materials": {
               "type": "array",
+              "description": "Additional materials. A course work material must have no more than 20 material items. [1]",
               "items": {
-                "type": "string"
+                "type": "object",
+                "description": "Material attached to course work. This can be a drive file, a YouTube video, a link, or a form.",
               }
+            },
+            "state": {
+              "type": "string",
+              "description": "Status of this course work material. If unspecified, the default state is DRAFT.",
+              "enum": ["COURSEWORK_MATERIAL_STATE_UNSPECIFIED", "PUBLISHED", "DRAFT", "DELETED"]
+            },
+            "scheduledTime": {
+              "type": "string",
+              "format": "date-time",
+              "description": "Optional timestamp when this course work material is scheduled to be published."
+            },
+            "assigneeMode": {
+              "type": "string",
+              "description": "Assignee mode of the course work material. If unspecified, the default value is ALL_STUDENTS.",
+              "enum": ["ASSIGNEE_MODE_UNSPECIFIED", "ALL_STUDENTS", "INDIVIDUAL_STUDENTS"]
+            },
+            "individualStudentsOptions": {
+              "type": "object",
+              "description": "Assignee details about a coursework/announcement. This field is set if and only if assigneeMode is INDIVIDUAL_STUDENTS.",
+              "properties": {
+                "studentIds": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            },
+            "topicId": {
+              "type": "string",
+              "description": "Identifier for the topic that this course work material is associated with. Must match an existing topic in the course."
             }
-          }
+          },
+          "required": ["title"]
         },
-        "PathParameters": {
+        "pathParameters": {
           "type": "object",
           "properties": {
             "courseId": {
@@ -2278,12 +1805,9 @@ const descriptions_management_classroom = {
               "description": "Identifier of the course work material."
             }
           },
-          "required": [
-            "courseId",
-            "id"
-          ]
+          "required": ["courseId", "id"]
         },
-        "QueryParameters": {
+        "queryParameters": {
           "type": "object",
           "properties": {
             "updateMask": {
@@ -2291,11 +1815,10 @@ const descriptions_management_classroom = {
               "description": "Mask that identifies which fields on the course work material to update. This field is required to do an update. The update fails if invalid fields are specified. If a field supports empty values, it can be cleared by specifying it in the update mask and not in the course work material object. If a field that does not support empty values is included in the update mask and not set in the course work material object, an INVALID_ARGUMENT error is returned.\n\nThe following fields may be specified by teachers:\n\ntitle\ndescription\nstate\nscheduledTime\ntopicId\n\nThis is a comma-separated list of fully qualified names of fields. Example: \"user.displayName,photo\"."
             }
           },
-          "required": [
-            "updateMask"
-          ]
+          "required": ["updateMask"]
         }
-      }
+      },
+      "required": ["requestBody", "pathParameters", "queryParameters"]
     }
   },
 
@@ -2413,72 +1936,43 @@ const descriptions_management_classroom = {
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/$defs/studentSubmission"
-        },
-        "pathParameters": {
-          "$ref": "#/$defs/pathParameters"
-        },
-        "queryParameters": {
-          "$ref": "#/$defs/queryParameters"
-        }
-      },
-      "required": [
-        "requestBody",
-        "pathParameters",
-        "queryParameters"
-      ],
-      "$defs": {
-        "studentSubmission": {
-          "$schema": "http://json-schema.org/draft-07/schema#",
           "title": "StudentSubmission",
           "description": "Student submission for course work. StudentSubmission items are generated when a CourseWork item is created.",
           "type": "object",
           "properties": {
-            "courseId": { "type": "string", "description": "Identifier of the course. Read-only." },
-            "courseWorkId": { "type": "string", "description": "Identifier for the course work this corresponds to. Read-only." },
-            "id": { "type": "string", "description": "Classroom-assigned Identifier for the student submission. This is unique among submissions for the relevant course work. Read-only." },
-            "userId": { "type": "string", "description": "Identifier for the student that owns this submission. Read-only." },
-            "creationTime": { "type": "string", "format": "date-time", "description": "Creation time of this submission. This may be unset if the student has not accessed this item. Read-only." },
-            "updateTime": { "type": "string", "format": "date-time", "description": "Last update time of this submission. This may be unset if the student has not accessed this item. Read-only." },
-            "state": {
-              "type": "string",
-              "description": "State of this submission. Read-only.",
-              "enum": ["STATE_UNSPECIFIED", "CREATED", "TURNED_IN", "RETURNED", "RECLAIMED_BY_STUDENT", "STUDENT_EDITED_AFTER_TURN_IN"]
-            },
-            "late": { "type": "boolean", "description": "Whether this submission is late. Read-only." },
             "draftGrade": { "type": "number", "description": "Optional pending grade. If unset, no grade was set. This value must be non-negative. Decimal (that is, non-integer) values are allowed, but are rounded to two decimal places. This is only visible to and modifiable by course teachers." },
             "assignedGrade": { "type": "number", "description": "Optional grade. If unset, no grade was set. This value must be non-negative. Decimal (that is, non-integer) values are allowed, but are rounded to two decimal places. This may be modified only by course teachers." },
-            "rubricId": { "type": "string", "description": "Output only. Identifier of the rubric currently attached to this course work and used for grading this student submission. This ID is empty if there is no rubric. This ID reflects the currently active rubric; it changes if teachers delete and recreate the rubric. Read-only." },
-            "draftRubricGrades": {
+            "assignmentSubmission": {
               "type": "object",
-              "description": "Pending rubric grades based on the rubric's criteria. This map is empty if there is no rubric attached to this course work or if a rubric is attached, but no grades have been set on any criteria. Entries are only populated for grades that have been set. Key: The rubric's criterion ID. Read-only.",
-              "additionalProperties": { "$ref": "#/$defs/rubricGradeItem" }
+              "properties": {
+                "attachments": {
+                  "type": "array",
+                  "items": {
+                    "description": "The file can be one of the following types: driveFile, youTubeVideo, link, or form.",
+                    "type": "object",
+
+                    // "oneOf": [
+                    //   { "properties": { "driveFile": { "type": "object" } } },
+                    //   { "properties": { "youTubeVideo": { "type": "object" } } },
+                    //   { "properties": { "link": { "type": "object" } } },
+                    //   { "properties": { "form": { "type": "object" } } }
+                    // ]
+                  }
+                }
+              }
             },
-            "assignedRubricGrades": {
+            "shortAnswerSubmission": {
               "type": "object",
-              "description": "Assigned rubric grades based on the rubric's Criteria. This map is empty if there is no rubric attached to this course work or if a rubric is attached, but no grades have been set on any Criteria. Entries are only populated for grades that have been set. Key: The rubric's criterion ID. Read-only.",
-              "additionalProperties": { "$ref": "#/$defs/rubricGradeItem" }
+              "properties": {
+                "answer": { "type": "string", "description": "Student response to a short-answer question." }
+              }
             },
-            "alternateLink": { "type": "string", "description": "Absolute link to the submission in the Classroom web UI. Read-only." },
-            "courseWorkType": {
-              "type": "string",
-              "description": "Type of course work this submission is for. Read-only.",
-              "enum": ["COURSE_WORK_TYPE_UNSPECIFIED", "ASSIGNMENT", "SHORT_ANSWER_QUESTION", "MULTIPLE_CHOICE_QUESTION"]
-            },
-            "associatedWithDeveloper": { "type": "boolean", "description": "Whether this student submission is associated with the Developer Console project making the request. Read-only." },
-            "submissionHistory": {
-              "type": "array",
-              "description": "The history of the submission (includes state and grade histories). Read-only.",
-              "items": { "$ref": "#/$defs/submissionHistoryItem" }
-            },
-            "previewVersion": {
-              "type": "string",
-              "description": "Output only. The preview version of the API. This must be set in order to access new API capabilities made available to developers in the Preview Program.",
-              "enum": ["V1_20231110_PREVIEW"]
-            },
-            "assignmentSubmission": { "$ref": "#/$defs/assignmentSubmission" },
-            "shortAnswerSubmission": { "$ref": "#/$defs/shortAnswerSubmission" },
-            "multipleChoiceSubmission": { "$ref": "#/$defs/multipleChoiceSubmission" }
+            "multipleChoiceSubmission": {
+              "type": "object",
+              "properties": {
+                "answer": { "type": "string", "description": "Student's select choice." }
+              }
+            }
           }
         },
         "pathParameters": {
@@ -2499,70 +1993,9 @@ const descriptions_management_classroom = {
             }
           },
           "required": ["updateMask"]
-        },
-        "rubricGradeItem": {
-          "type": "object",
-          "properties": {
-            "criterionId": { "type": "string", "description": "Optional. Criterion ID." },
-            "levelId": { "type": "string", "description": "Optional. Optional level ID of the selected level. If empty, no level was selected." },
-            "points": { "type": "number", "description": "Optional. Optional points assigned for this criterion, typically based on the level. Levels might or might not have points. If unset, no points were set for this criterion." }
-          }
-        },
-        "submissionHistoryItem": {
-          "type": "object",
-          "oneOf": [
-            { "properties": { "stateHistory": { "$ref": "#/$defs/stateHistory" } } },
-            { "properties": { "gradeHistory": { "$ref": "#/$defs/gradeHistory" } } }
-          ]
-        },
-        "stateHistory": {
-          "type": "object",
-          "properties": {
-            "state": { "type": "string", "enum": ["STATE_UNSPECIFIED", "CREATED", "TURNED_IN", "RETURNED", "RECLAIMED_BY_STUDENT", "STUDENT_EDITED_AFTER_TURN_IN"] },
-            "stateTimestamp": { "type": "string", "format": "date-time" },
-            "actorUserId": { "type": "string" }
-          }
-        },
-        "gradeHistory": {
-          "type": "object",
-          "properties": {
-            "pointsEarned": { "type": "number" },
-            "maxPoints": { "type": "number" },
-            "gradeTimestamp": { "type": "string", "format": "date-time" },
-            "actorUserId": { "type": "string" },
-            "gradeChangeType": { "type": "string", "enum": ["UNKNOWN_GRADE_CHANGE_TYPE", "DRAFT_GRADE_POINTS_EARNED_CHANGE", "ASSIGNED_GRADE_POINTS_EARNED_CHANGE", "MAX_POINTS_CHANGE"] }
-          }
-        },
-        "assignmentSubmission": {
-          "type": "object",
-          "properties": {
-            "attachments": {
-              "type": "array",
-              "items": {
-                "type": "object",
-                "oneOf": [
-                  { "properties": { "driveFile": { "type": "object" } } },
-                  { "properties": { "youTubeVideo": { "type": "object" } } },
-                  { "properties": { "link": { "type": "object" } } },
-                  { "properties": { "form": { "type": "object" } } }
-                ]
-              }
-            }
-          }
-        },
-        "shortAnswerSubmission": {
-          "type": "object",
-          "properties": {
-            "answer": { "type": "string", "description": "Student response to a short-answer question." }
-          }
-        },
-        "multipleChoiceSubmission": {
-          "type": "object",
-          "properties": {
-            "answer": { "type": "string", "description": "Student's select choice." }
-          }
         }
-      }
+      },
+      "required": ["requestBody", "pathParameters", "queryParameters"]
     }
   },
 
@@ -2896,117 +2329,72 @@ const descriptions_management_classroom = {
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/$defs/Rubric"
-        },
-        "pathParameters": {
-          "$ref": "#/$defs/PathParameters"
-        }
-      },
-      "required": [
-        "requestBody",
-        "pathParameters"
-      ],
-      "$defs": {
-        "Rubric": {
           "title": "Rubric",
           "description": "The rubric of the course work. A rubric is a scoring guide used to evaluate student work and give feedback.",
           "type": "object",
           "properties": {
-            "courseId": {
-              "description": "Identifier of the course. Read-only.",
-              "type": "string"
-            },
-            "courseWorkId": {
-              "description": "Identifier for the course work this corresponds to. Read-only.",
-              "type": "string"
-            },
-            "id": {
-              "description": "Classroom-assigned identifier for the rubric. This is unique among rubrics for the relevant course work. Read-only.",
-              "type": "string"
-            },
-            "creationTime": {
-              "description": "Output only. Timestamp when this rubric was created. Read-only.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "updateTime": {
-              "description": "Output only. Timestamp of the most recent change to this rubric. Read-only.",
-              "type": "string",
-              "format": "date-time"
-            },
             "criteria": {
               "description": "List of criteria. Each criterion is a dimension on which performance is rated.",
               "type": "array",
               "items": {
-                "$ref": "#/$defs/Criterion"
+                "title": "Criterion",
+                "description": "A dimension on which performance is rated.",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "The criterion ID. On creation, an ID is assigned.",
+                    "type": "string"
+                  },
+                  "title": {
+                    "description": "The title of the criterion.",
+                    "type": "string"
+                  },
+                  "description": {
+                    "description": "The description of the criterion.",
+                    "type": "string"
+                  },
+                  "levels": {
+                    "description": "The list of levels within this criterion.",
+                    "type": "array",
+                    "items": {
+                      "title": "Level",
+                      "description": "A level of performance within a criterion. It has an ID, a title, a description, and optional points. The ID is assigned on creation. The title must be set if points are not. Points, if set, must be distinct across all levels within a single criterion, and 0 is considered distinct from no points.",
+                      "type": "object",
+
+                      // "description": "A level of performance within a criterion.",
+                      // "type": "object",
+                      // "properties": {
+                      //   "id": {
+                      //     "description": "The level ID. On creation, an ID is assigned.",
+                      //     "type": "string"
+                      //   },
+                      //   "title": {
+                      //     "description": "The title of the level. If the level has no points set, title must be set.",
+                      //     "type": "string"
+                      //   },
+                      //   "description": {
+                      //     "description": "The description of the level.",
+                      //     "type": "string"
+                      //   },
+                      //   "points": {
+                      //     "description": "Optional points associated with this level. If set, all levels within the rubric must specify points and the value must be distinct across all levels within a single criterion. 0 is distinct from no points.",
+                      //     "type": "number"
+                      //   }
+                      // }
+
+                    }
+                  }
+                }
               }
-            },
-            "previewVersion": {
-              "description": "Output only. The preview version of the API used to retrieve this resource.",
-              "type": "string",
-              "enum": [
-                "PREVIEW_VERSION_UNSPECIFIED",
-                "V1_20231110_PREVIEW",
-                "V1_20240401_PREVIEW",
-                "V1_20240930_PREVIEW"
-              ]
             },
             "sourceSpreadsheetId": {
               "description": "Input only. Immutable. Google Sheets ID of the spreadsheet. This spreadsheet must contain formatted rubric settings.",
               "type": "string"
             }
-          }
+          },
+          "required": ["criteria"]
         },
-        "Criterion": {
-          "title": "Criterion",
-          "description": "A dimension on which performance is rated.",
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "The criterion ID. On creation, an ID is assigned.",
-              "type": "string"
-            },
-            "title": {
-              "description": "The title of the criterion.",
-              "type": "string"
-            },
-            "description": {
-              "description": "The description of the criterion.",
-              "type": "string"
-            },
-            "levels": {
-              "description": "The list of levels within this criterion.",
-              "type": "array",
-              "items": {
-                "$ref": "#/$defs/Level"
-              }
-            }
-          }
-        },
-        "Level": {
-          "title": "Level",
-          "description": "A level of performance within a criterion.",
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "The level ID. On creation, an ID is assigned.",
-              "type": "string"
-            },
-            "title": {
-              "description": "The title of the level. If the level has no points set, title must be set.",
-              "type": "string"
-            },
-            "description": {
-              "description": "The description of the level.",
-              "type": "string"
-            },
-            "points": {
-              "description": "Optional points associated with this level. If set, all levels within the rubric must specify points and the value must be distinct across all levels within a single criterion. 0 is distinct from no points.",
-              "type": "number"
-            }
-          }
-        },
-        "PathParameters": {
+        "pathParameters": {
           "title": "Path Parameters",
           "type": "object",
           "properties": {
@@ -3019,12 +2407,10 @@ const descriptions_management_classroom = {
               "description": "Identifier of the course work."
             }
           },
-          "required": [
-            "courseId",
-            "courseWorkId"
-          ]
+          "required": ["courseId", "courseWorkId"]
         }
-      }
+      },
+      "required": ["requestBody", "pathParameters"]
     }
   },
 
@@ -3035,7 +2421,70 @@ const descriptions_management_classroom = {
       "type": "object",
       "properties": {
         "requestBody": {
-          "$ref": "#/definitions/rubric"
+          "title": "Rubric",
+          "description": "The rubric of the course work. A rubric is a scoring guide used to evaluate student work and give feedback.",
+          "type": "object",
+          "properties": {
+            "criteria": {
+              "description": "List of criteria. Each criterion is a dimension on which performance is rated.",
+              "type": "array",
+              "items": {
+                "title": "Criterion",
+                "description": "A dimension on which performance is rated.",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "The criterion ID. On creation, an ID is assigned.",
+                    "type": "string"
+                  },
+                  "title": {
+                    "description": "The title of the criterion.",
+                    "type": "string"
+                  },
+                  "description": {
+                    "description": "The description of the criterion.",
+                    "type": "string"
+                  },
+                  "levels": {
+                    "description": "The list of levels within this criterion.",
+                    "type": "array",
+                    "items": {
+                      "title": "Level",
+                      "description": "A level of performance within a criterion. It has an ID, a title, a description, and optional points. The ID is assigned on creation. The title must be set if points are not. Points, if set, must be distinct across all levels within a single criterion, and 0 is considered distinct from no points.",
+                      "type": "object",
+
+                      // "description": "A level of performance within a criterion.",
+                      // "type": "object",
+                      // "properties": {
+                      //   "id": {
+                      //     "description": "The level ID. On creation, an ID is assigned.",
+                      //     "type": "string"
+                      //   },
+                      //   "title": {
+                      //     "description": "The title of the level. If the level has no points set, title must be set.",
+                      //     "type": "string"
+                      //   },
+                      //   "description": {
+                      //     "description": "The description of the level.",
+                      //     "type": "string"
+                      //   },
+                      //   "points": {
+                      //     "description": "Optional points associated with this level. If set, all levels within the rubric must specify points and the value must be distinct across all levels within a single criterion. 0 is distinct from no points.",
+                      //     "type": "number"
+                      //   }
+                      // }
+
+                    }
+                  }
+                }
+              }
+            },
+            "sourceSpreadsheetId": {
+              "description": "Input only. Immutable. Google Sheets ID of the spreadsheet. This spreadsheet must contain formatted rubric settings.",
+              "type": "string"
+            }
+          },
+          "required": ["criteria"]
         },
         "pathParameters": {
           "type": "object",
@@ -3066,105 +2515,7 @@ const descriptions_management_classroom = {
           "required": ["updateMask"]
         }
       },
-      "required": ["requestBody", "pathParameters", "queryParameters"],
-      "definitions": {
-        "rubric": {
-          "$schema": "http://json-schema.org/draft-07/schema#",
-          "title": "Rubric",
-          "description": "The rubric of the course work. A rubric is a scoring guide used to evaluate student work and give feedback.",
-          "type": "object",
-          "properties": {
-            "courseId": {
-              "description": "Identifier of the course. Read-only.",
-              "type": "string"
-            },
-            "courseWorkId": {
-              "description": "Identifier for the course work this corresponds to. Read-only.",
-              "type": "string"
-            },
-            "id": {
-              "description": "Classroom-assigned identifier for the rubric. This is unique among rubrics for the relevant course work. Read-only.",
-              "type": "string"
-            },
-            "creationTime": {
-              "description": "Output only. Timestamp when this rubric was created. Read-only.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "updateTime": {
-              "description": "Output only. Timestamp of the most recent change to this rubric. Read-only.",
-              "type": "string",
-              "format": "date-time"
-            },
-            "criteria": {
-              "description": "List of criteria. Each criterion is a dimension on which performance is rated.",
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/criterion"
-              }
-            },
-            "previewVersion": {
-              "description": "Output only. The preview version of the API used to retrieve this resource.",
-              "type": "string",
-              "enum": [
-                "PREVIEW_VERSION_UNSPECIFIED",
-                "V1_20231110_PREVIEW",
-                "V1_20240401_PREVIEW",
-                "V1_20240930_PREVIEW"
-              ]
-            },
-            "sourceSpreadsheetId": {
-              "description": "Input only. Immutable. Google Sheets ID of the spreadsheet. This spreadsheet must contain formatted rubric settings.",
-              "type": "string"
-            }
-          }
-        },
-        "criterion": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "The criterion ID. On creation, an ID is assigned.",
-              "type": "string"
-            },
-            "title": {
-              "description": "The title of the criterion.",
-              "type": "string"
-            },
-            "description": {
-              "description": "The description of the criterion.",
-              "type": "string"
-            },
-            "levels": {
-              "description": "The list of levels within this criterion.",
-              "type": "array",
-              "items": {
-                "$ref": "#/definitions/level"
-              }
-            }
-          }
-        },
-        "level": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "description": "The level ID. On creation, an ID is assigned.",
-              "type": "string"
-            },
-            "title": {
-              "description": "The title of the level. If the level has no points set, title must be set.",
-              "type": "string"
-            },
-            "description": {
-              "description": "The description of the level.",
-              "type": "string"
-            },
-            "points": {
-              "description": "Optional points associated with this level. If set, all levels within the rubric must specify points and the value must be distinct across all levels within a single criterion. 0 is distinct from no points.",
-              "type": "number"
-            }
-          }
-        }
-      }
+      "required": ["requestBody", "pathParameters", "queryParameters"]
     }
   },
 
