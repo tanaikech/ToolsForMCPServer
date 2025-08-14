@@ -1,6 +1,6 @@
 /**
  * Management of Gmail
- * Updated on 20250708 11:40
+ * Updated on 20250714 09:49
  */
 
 /**
@@ -155,41 +155,45 @@ function get_massages_by_search_from_Gmail(object = {}) {
  * @private
  */
 function get_attachment_files_from_Gmail(object = {}) {
-  const { obj } = object;
+  const { messageId } = object;
   let result;
   try {
-    const m = GmailApp.getMessageById(obj.messageId);
-    const attachments = m.getAttachments();
-    let content;
-    if (attachments.length > 0) {
-      const fileObj = attachments.map(blob => {
-        const file = DriveApp.createFile(blob);
-        return { filename: file.getName(), fileId: file.getId(), mimeType: file.getMimeType() };
-      });
-      const jsonSchema = {
-        type: "array",
-        description: "Attachment files of Gmail.",
-        items: {
-          type: "object",
-          properties: {
-            filename: { type: "string", description: "Filename of the file." },
-            fileId: { type: "string", description: "File ID on Google Drive." },
-            mimeType: { type: "string", description: "MimeType of the file." },
+    if (messageId) {
+      const m = GmailApp.getMessageById(messageId);
+      const attachments = m.getAttachments();
+      let content;
+      if (attachments.length > 0) {
+        const fileObj = attachments.map(blob => {
+          const file = DriveApp.createFile(blob);
+          return { filename: file.getName(), fileId: file.getId(), mimeType: file.getMimeType() };
+        });
+        const jsonSchema = {
+          type: "array",
+          description: "Attachment files of Gmail.",
+          items: {
+            type: "object",
+            properties: {
+              filename: { type: "string", description: "Filename of the file." },
+              fileId: { type: "string", description: "File ID on Google Drive." },
+              mimeType: { type: "string", description: "MimeType of the file." },
+            }
           }
-        }
-      };
-      const text = [
-        `The attachment files are as follows.`,
-        `<AttachmentFiles>${JSON.stringify(fileObj)}</AttachmentFiles>`,
-        `JSON schema of "AttachmentFiles" is as follows.`,
-        `<jsonSchema>${JSON.stringify(jsonSchema)}</jsonSchema>`,
-      ].join("\n");
-      content = [{ type: "text", text }];
+        };
+        const text = [
+          `The attachment files are as follows.`,
+          `<AttachmentFiles>${JSON.stringify(fileObj)}</AttachmentFiles>`,
+          `JSON schema of "AttachmentFiles" is as follows.`,
+          `<jsonSchema>${JSON.stringify(jsonSchema)}</jsonSchema>`,
+        ].join("\n");
+        content = [{ type: "text", text }];
 
+      } else {
+        content = [{ type: "text", text: `No attachment files in the email of "${obj.messageId}".` }];
+      }
+      result = { content, isError: false };
     } else {
-      content = [{ type: "text", text: `No attachment files in the email of "${obj.messageId}".` }];
+      result = { content: [{ type: "text", text: "No message ID." }], isError: true };
     }
-    result = { content, isError: false };
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
   }

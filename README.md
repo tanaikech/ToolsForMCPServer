@@ -1534,4 +1534,8 @@ function main(eventObject) {
     Skipping tool 'manage_google_slides_using_slides_api' from MCP server 'gas_web_apps' because it has missing types in its parameter schema. Please file an issue with the owner of the MCP server.
     ```
 
+- v1.0.23 (August 14, 2025)
+
+  1. A tool `get_attachment_files_from_Gmail` was updated. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/10)
+
 [TOP](#top)
