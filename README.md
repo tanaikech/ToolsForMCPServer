@@ -1552,4 +1552,8 @@ function main(eventObject) {
 
   With this workaround, the input schema remains simple, and the complex JSON schema can still be used to generate the request body. Additionally, no errors occur when using the Gemini CLI.
 
+- v1.0.25 (August 14, 2025)
+
+  1. Modified descriptions of `manage_google_docs_using_docs_api`, `manage_google_sheets_using_sheets_api`, and `manage_google_slides_using_slides_api`.
+
 [TOP](#top)

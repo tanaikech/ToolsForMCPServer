@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250814 10:44
+ * Updated on 20250814 13:30
  */
 
 /**
@@ -274,7 +274,10 @@ const descriptions_management_sheets = {
   },
 
   manage_google_sheets_using_sheets_api: {
-    description: "Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/batchUpdate",
+    description: [
+      "Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/batchUpdate",
+      `In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".`,
+    ].join("\n"),
     parameters: jsonSchemaForSheets,
   },
 

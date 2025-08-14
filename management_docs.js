@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250814 10:44
+ * Updated on 20250814 13:30
  */
 
 /**
@@ -244,7 +244,10 @@ const descriptions_management_docs = {
   },
 
   manage_google_docs_using_docs_api: {
-    description: "Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate",
+    description: [
+      "Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate",
+      `In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".`,
+    ].join("\n"),
     parameters: jsonSchemaForDocs,
   },
 

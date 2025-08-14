@@ -1,6 +1,6 @@
 /**
  * Management of Google Slides
- * Updated on 20250814 10:44
+ * Updated on 20250814 13:30
  */
 
 /**
@@ -178,7 +178,10 @@ const descriptions_management_slides = {
   },
 
   manage_google_slides_using_slides_api: {
-    description: "Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/batchUpdate",
+    description: [
+      "Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/batchUpdate",
+      `In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".`,
+    ].join("\n"),
     parameters: jsonSchemaForSlides,
   },
 
