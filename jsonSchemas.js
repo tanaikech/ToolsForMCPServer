@@ -3,158 +3,207 @@
  * Author: Kanshi Tanaike
  * GitHub: https://github.com/tanaikech/Generating-Request-Body-for-APIs-using-Gemini
  * 
- * version 1.0.2
+ * version 1.0.3
  */
 
-const jsonSchemaForSheets = {
+const requestsForSheetsAPI_ = {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Sheets API batchUpdate Request",
-  "description": "A request to apply one or more updates to a spreadsheet.",
-  "type": "object",
-  "properties": {
-    "requests": {
-      "type": "array",
-      "description": "A list of updates to apply to the spreadsheet.",
-      "items": {
-        "$ref": "#/definitions/Request"
-      }
-    },
-    "includeSpreadsheetInResponse": {
-      "type": "boolean",
-      "description": "Determines if the updated spreadsheet should be returned in the response."
-    },
-    "responseRanges": {
-      "type": "array",
-      "description": "The ranges that should be returned in the response.",
-      "items": {
-        "type": "string"
-      }
-    },
-    "responseIncludeGridData": {
-      "type": "boolean",
-      "description": "True if grid data should be returned. This parameter is ignored if a field mask was set in the request."
-    }
+  "title": "Google Sheets API batchUpdate Requests",
+  "description": "JSON schema for the 'requests' property of the spreadsheets.batchUpdate method.",
+  "type": "array",
+  "items": {
+    "$ref": "#/$defs/Request"
   },
-  "required": [
-    "requests"
-  ],
-  "definitions": {
+  "$defs": {
     "Request": {
       "type": "object",
       "description": "A single kind of update to apply to a spreadsheet.",
       "oneOf": [
-        { "$ref": "#/definitions/UpdateSpreadsheetPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateSheetPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateDimensionPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateNamedRangeRequest" },
-        { "$ref": "#/definitions/RepeatCellRequest" },
-        { "$ref": "#/definitions/AddNamedRangeRequest" },
-        { "$ref": "#/definitions/DeleteNamedRangeRequest" },
-        { "$ref": "#/definitions/AddSheetRequest" },
-        { "$ref": "#/definitions/DeleteSheetRequest" },
-        { "$ref": "#/definitions/AutoFillRequest" },
-        { "$ref": "#/definitions/CutPasteRequest" },
-        { "$ref": "#/definitions/CopyPasteRequest" },
-        { "$ref": "#/definitions/MergeCellsRequest" },
-        { "$ref": "#/definitions/UnmergeCellsRequest" },
-        { "$ref": "#/definitions/UpdateBordersRequest" },
-        { "$ref": "#/definitions/UpdateCellsRequest" },
-        { "$ref": "#/definitions/AddFilterViewRequest" },
-        { "$ref": "#/definitions/AppendCellsRequest" },
-        { "$ref": "#/definitions/ClearBasicFilterRequest" },
-        { "$ref": "#/definitions/DeleteDimensionRequest" },
-        { "$ref": "#/definitions/DeleteEmbeddedObjectRequest" },
-        { "$ref": "#/definitions/DeleteFilterViewRequest" },
-        { "$ref": "#/definitions/DuplicateFilterViewRequest" },
-        { "$ref": "#/definitions/DuplicateSheetRequest" },
-        { "$ref": "#/definitions/FindReplaceRequest" },
-        { "$ref": "#/definitions/InsertDimensionRequest" },
-        { "$ref": "#/definitions/InsertRangeRequest" },
-        { "$ref": "#/definitions/MoveDimensionRequest" },
-        { "$ref": "#/definitions/UpdateEmbeddedObjectPositionRequest" },
-        { "$ref": "#/definitions/PasteDataRequest" },
-        { "$ref": "#/definitions/TextToColumnsRequest" },
-        { "$ref": "#/definitions/UpdateFilterViewRequest" },
-        { "$ref": "#/definitions/DeleteRangeRequest" },
-        { "$ref": "#/definitions/AppendDimensionRequest" },
-        { "$ref": "#/definitions/AddConditionalFormatRuleRequest" },
-        { "$ref": "#/definitions/UpdateConditionalFormatRuleRequest" },
-        { "$ref": "#/definitions/DeleteConditionalFormatRuleRequest" },
-        { "$ref": "#/definitions/SortRangeRequest" },
-        { "$ref": "#/definitions/SetDataValidationRequest" },
-        { "$ref": "#/definitions/SetBasicFilterRequest" },
-        { "$ref": "#/definitions/AddProtectedRangeRequest" },
-        { "$ref": "#/definitions/UpdateProtectedRangeRequest" },
-        { "$ref": "#/definitions/DeleteProtectedRangeRequest" },
-        { "$ref": "#/definitions/AutoResizeDimensionsRequest" },
-        { "$ref": "#/definitions/AddChartRequest" },
-        { "$ref": "#/definitions/UpdateChartSpecRequest" },
-        { "$ref": "#/definitions/UpdateBandingRequest" },
-        { "$ref": "#/definitions/AddBandingRequest" },
-        { "$ref": "#/definitions/DeleteBandingRequest" },
-        { "$ref": "#/definitions/CreateDeveloperMetadataRequest" },
-        { "$ref": "#/definitions/UpdateDeveloperMetadataRequest" },
-        { "$ref": "#/definitions/DeleteDeveloperMetadataRequest" },
-        { "$ref": "#/definitions/RandomizeRangeRequest" },
-        { "$ref": "#/definitions/AddDimensionGroupRequest" },
-        { "$ref": "#/definitions/DeleteDimensionGroupRequest" },
-        { "$ref": "#/definitions/UpdateDimensionGroupRequest" },
-        { "$ref": "#/definitions/TrimWhitespaceRequest" },
-        { "$ref": "#/definitions/DeleteDuplicatesRequest" },
-        { "$ref": "#/definitions/UpdateEmbeddedObjectBorderRequest" },
-        { "$ref": "#/definitions/AddSlicerRequest" },
-        { "$ref": "#/definitions/UpdateSlicerSpecRequest" },
-        { "$ref": "#/definitions/AddDataSourceRequest" },
-        { "$ref": "#/definitions/UpdateDataSourceRequest" },
-        { "$ref": "#/definitions/DeleteDataSourceRequest" },
-        { "$ref": "#/definitions/RefreshDataSourceRequest" },
-        { "$ref": "#/definitions/CancelDataSourceRefreshRequest" },
-        { "$ref": "#/definitions/AddTableRequest" },
-        { "$ref": "#/definitions/UpdateTableRequest" },
-        { "$ref": "#/definitions/DeleteTableRequest" }
-      ]
-    },
-    "AddTableRequest": {
-      "type": "object",
-      "properties": {
-        "table": {
-          "type": "object",
-          "description": "The table to add."
-        }
-      }
-    },
-    "UpdateTableRequest": {
-      "type": "object",
-      "properties": {
-        "table": {
-          "type": "object",
-          "description": "The table to update."
+        {
+          "properties": {
+            "updateSpreadsheetProperties": {
+              "$ref": "#/$defs/UpdateSpreadsheetPropertiesRequest"
+            }
+          }
         },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+        {
+          "properties": {
+            "updateSheetProperties": {
+              "$ref": "#/$defs/UpdateSheetPropertiesRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "updateDimensionProperties": {
+              "$ref": "#/$defs/UpdateDimensionPropertiesRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "updateNamedRange": {
+              "$ref": "#/$defs/UpdateNamedRangeRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "repeatCell": {
+              "$ref": "#/$defs/RepeatCellRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "addNamedRange": {
+              "$ref": "#/$defs/AddNamedRangeRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "deleteNamedRange": {
+              "$ref": "#/$defs/DeleteNamedRangeRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "addSheet": {
+              "$ref": "#/$defs/AddSheetRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "deleteSheet": {
+              "$ref": "#/$defs/DeleteSheetRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "autoFill": {
+              "$ref": "#/$defs/AutoFillRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "cutPaste": {
+              "$ref": "#/$defs/CutPasteRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "copyPaste": {
+              "$ref": "#/$defs/CopyPasteRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "mergeCells": {
+              "$ref": "#/$defs/MergeCellsRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "unmergeCells": {
+              "$ref": "#/$defs/UnmergeCellsRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "updateBorders": {
+              "$ref": "#/$defs/UpdateBordersRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "updateCells": {
+              "$ref": "#/$defs/UpdateCellsRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "addFilterView": {
+              "$ref": "#/$defs/AddFilterViewRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "appendCells": {
+              "$ref": "#/$defs/AppendCellsRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "clearBasicFilter": {
+              "$ref": "#/$defs/ClearBasicFilterRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "deleteDimension": {
+              "$ref": "#/$defs/DeleteDimensionRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "deleteEmbeddedObject": {
+              "$ref": "#/$defs/DeleteEmbeddedObjectRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "deleteFilterView": {
+              "$ref": "#/$defs/DeleteFilterViewRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "duplicateFilterView": {
+              "$ref": "#/$defs/DuplicateFilterViewRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "duplicateSheet": {
+              "$ref": "#/$defs/DuplicateSheetRequest"
+            }
+          }
+        },
+        {
+          "properties": {
+            "findReplace": {
+              "$ref": "#/$defs/FindReplaceRequest"
+            }
+          }
         }
-      }
-    },
-    "DeleteTableRequest": {
-      "type": "object",
-      "properties": {
-        "tableId": {
-          "type": "string",
-          "description": "The ID of the table to delete."
-        }
-      }
+      ]
     },
     "UpdateSpreadsheetPropertiesRequest": {
       "type": "object",
       "properties": {
         "properties": {
-          "type": "object",
-          "description": "The properties to update."
+          "type": "object"
         },
         "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+          "type": "string"
         }
       }
     },
@@ -162,12 +211,10 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "properties": {
-          "type": "object",
-          "description": "The properties to update."
+          "type": "object"
         },
         "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+          "type": "string"
         }
       }
     },
@@ -175,16 +222,13 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range of the dimensions to update."
+          "type": "object"
         },
         "properties": {
-          "type": "object",
-          "description": "The properties to update."
+          "type": "object"
         },
         "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+          "type": "string"
         }
       }
     },
@@ -192,12 +236,10 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "namedRange": {
-          "type": "object",
-          "description": "The named range to update."
+          "type": "object"
         },
         "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+          "type": "string"
         }
       }
     },
@@ -205,16 +247,13 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range to repeat the cell in."
+          "type": "object"
         },
         "cell": {
-          "type": "object",
-          "description": "The data to write."
+          "$ref": "#/$defs/CellData"
         },
         "fields": {
-          "type": "string",
-          "description": "The fields that should be updated. At least one field must be specified."
+          "type": "string"
         }
       }
     },
@@ -222,8 +261,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "namedRange": {
-          "type": "object",
-          "description": "The named range to add."
+          "type": "object"
         }
       }
     },
@@ -231,8 +269,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "namedRangeId": {
-          "type": "string",
-          "description": "The ID of the named range to delete."
+          "type": "string"
         }
       }
     },
@@ -240,8 +277,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "properties": {
-          "type": "object",
-          "description": "The properties the new sheet should have."
+          "type": "object"
         }
       }
     },
@@ -249,8 +285,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "sheetId": {
-          "type": "integer",
-          "description": "The ID of the sheet to delete."
+          "type": "integer"
         }
       }
     },
@@ -258,16 +293,13 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range to autofill."
+          "type": "object"
         },
         "sourceAndDestination": {
-          "type": "object",
-          "description": "The source and destination areas to autofill."
+          "type": "object"
         },
         "useAlternateSeries": {
-          "type": "boolean",
-          "description": "True if we should generate data with the 'alternate' series."
+          "type": "boolean"
         }
       }
     },
@@ -275,25 +307,13 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "source": {
-          "type": "object",
-          "description": "The source data to cut."
+          "type": "object"
         },
         "destination": {
-          "type": "object",
-          "description": "The top-left coordinate where the data should be pasted."
+          "type": "object"
         },
         "pasteType": {
-          "type": "string",
-          "enum": [
-            "PASTE_NORMAL",
-            "PASTE_VALUES",
-            "PASTE_FORMAT",
-            "PASTE_NO_BORDERS",
-            "PASTE_FORMULA",
-            "PASTE_DATA_VALIDATION",
-            "PASTE_CONDITIONAL_FORMATTING"
-          ],
-          "description": "What kind of data to paste."
+          "type": "string"
         }
       }
     },
@@ -301,33 +321,16 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "source": {
-          "type": "object",
-          "description": "The source range to copy."
+          "type": "object"
         },
         "destination": {
-          "type": "object",
-          "description": "The location to paste to."
+          "type": "object"
         },
         "pasteType": {
-          "type": "string",
-          "enum": [
-            "PASTE_NORMAL",
-            "PASTE_VALUES",
-            "PASTE_FORMAT",
-            "PASTE_NO_BORDERS",
-            "PASTE_FORMULA",
-            "PASTE_DATA_VALIDATION",
-            "PASTE_CONDITIONAL_FORMATTING"
-          ],
-          "description": "What kind of data to paste."
+          "type": "string"
         },
         "pasteOrientation": {
-          "type": "string",
-          "enum": [
-            "NORMAL",
-            "TRANSPOSE"
-          ],
-          "description": "How that data should be oriented when pasting."
+          "type": "string"
         }
       }
     },
@@ -335,17 +338,10 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range of cells to merge."
+          "type": "object"
         },
         "mergeType": {
-          "type": "string",
-          "enum": [
-            "MERGE_ALL",
-            "MERGE_COLUMNS",
-            "MERGE_ROWS"
-          ],
-          "description": "How the cells should be merged."
+          "type": "string"
         }
       }
     },
@@ -353,8 +349,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range within which all cells should be unmerged."
+          "type": "object"
         }
       }
     },
@@ -362,8 +357,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The range whose borders should be updated."
+          "type": "object"
         },
         "top": {
           "type": "object"
@@ -389,18 +383,16 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "start": {
-          "type": "object",
-          "description": "The coordinate to start writing data at."
+          "type": "object"
         },
         "rows": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/$defs/RowData"
           }
         },
         "fields": {
-          "type": "string",
-          "description": "The fields of CellData that should be updated."
+          "type": "string"
         }
       }
     },
@@ -408,8 +400,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "filter": {
-          "type": "object",
-          "description": "The filter to add."
+          "type": "object"
         }
       }
     },
@@ -417,18 +408,16 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "sheetId": {
-          "type": "integer",
-          "description": "The sheet ID to append the data to."
+          "type": "integer"
         },
         "rows": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/$defs/RowData"
           }
         },
         "fields": {
-          "type": "string",
-          "description": "The fields of CellData that should be updated."
+          "type": "string"
         }
       }
     },
@@ -436,8 +425,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "sheetId": {
-          "type": "integer",
-          "description": "The sheet ID on which the basic filter should be cleared."
+          "type": "integer"
         }
       }
     },
@@ -445,8 +433,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "range": {
-          "type": "object",
-          "description": "The dimensions to delete from the sheet."
+          "type": "object"
         }
       }
     },
@@ -454,8 +441,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "objectId": {
-          "type": "integer",
-          "description": "The ID of the embedded object to delete."
+          "type": "integer"
         }
       }
     },
@@ -463,8 +449,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "filterId": {
-          "type": "integer",
-          "description": "The ID of the filter to delete."
+          "type": "integer"
         }
       }
     },
@@ -472,8 +457,7 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "filterId": {
-          "type": "integer",
-          "description": "The ID of the filter being duplicated."
+          "type": "integer"
         }
       }
     },
@@ -481,20 +465,16 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "sourceSheetId": {
-          "type": "integer",
-          "description": "The sheet to duplicate."
+          "type": "integer"
         },
         "insertSheetIndex": {
-          "type": "integer",
-          "description": "The zero-based index where the new sheet should be inserted."
+          "type": "integer"
         },
         "newSheetId": {
-          "type": "integer",
-          "description": "If set, the ID of the new sheet."
+          "type": "integer"
         },
         "newSheetName": {
-          "type": "string",
-          "description": "The name of the new sheet."
+          "type": "string"
         }
       }
     },
@@ -502,28 +482,22 @@ const jsonSchemaForSheets = {
       "type": "object",
       "properties": {
         "find": {
-          "type": "string",
-          "description": "The value to search."
+          "type": "string"
         },
         "replacement": {
-          "type": "string",
-          "description": "The value to use as the replacement."
+          "type": "string"
         },
         "matchCase": {
-          "type": "boolean",
-          "description": "True if the search is case sensitive."
+          "type": "boolean"
         },
         "matchEntireCell": {
-          "type": "boolean",
-          "description": "True if the find value should match the entire cell."
+          "type": "boolean"
         },
         "searchByRegex": {
-          "type": "boolean",
-          "description": "True if the find value is a regex."
+          "type": "boolean"
         },
         "includeFormulas": {
-          "type": "boolean",
-          "description": "True if the search should include cells with formulas."
+          "type": "boolean"
         },
         "range": {
           "type": "object"
@@ -536,570 +510,100 @@ const jsonSchemaForSheets = {
         }
       }
     },
-    "InsertDimensionRequest": {
+    "RowData": {
       "type": "object",
       "properties": {
-        "range": {
-          "type": "object",
-          "description": "The dimensions to insert."
-        },
-        "inheritFromBefore": {
-          "type": "boolean",
-          "description": "Whether dimension properties should be extended from the dimensions before or after the newly inserted dimensions."
-        }
-      }
-    },
-    "InsertRangeRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range to insert new cells into."
-        },
-        "shiftDimension": {
-          "type": "string",
-          "enum": [
-            "ROWS",
-            "COLUMNS"
-          ],
-          "description": "The dimension which will be shifted when inserting cells."
-        }
-      }
-    },
-    "MoveDimensionRequest": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "object",
-          "description": "The source dimensions to move."
-        },
-        "destinationIndex": {
-          "type": "integer",
-          "description": "The zero-based start index of where to move the source data to."
-        }
-      }
-    },
-    "UpdateEmbeddedObjectPositionRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": {
-          "type": "integer",
-          "description": "The ID of the object to be moved."
-        },
-        "newPosition": {
-          "type": "object",
-          "description": "An explicit position to move the embedded object to."
-        },
-        "fields": {
-          "type": "string",
-          "description": "The fields of OverlayPosition that should be updated."
-        }
-      }
-    },
-    "PasteDataRequest": {
-      "type": "object",
-      "properties": {
-        "coordinate": {
-          "type": "object",
-          "description": "The coordinate at which the data should start being inserted."
-        },
-        "data": {
-          "type": "string",
-          "description": "The data to insert."
-        },
-        "type": {
-          "type": "string",
-          "enum": [
-            "PASTE_NORMAL",
-            "PASTE_VALUES",
-            "PASTE_FORMAT",
-            "PASTE_NO_BORDERS",
-            "PASTE_FORMULA",
-            "PASTE_DATA_VALIDATION",
-            "PASTE_CONDITIONAL_FORMATTING"
-          ],
-          "description": "How the data should be pasted."
-        },
-        "delimiter": {
-          "type": "string",
-          "description": "The delimiter in the data."
-        }
-      }
-    },
-    "TextToColumnsRequest": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "object",
-          "description": "The source data range."
-        },
-        "delimiter": {
-          "type": "string",
-          "description": "The delimiter to use."
-        },
-        "delimiterType": {
-          "type": "string",
-          "enum": [
-            "COMMA",
-            "SEMICOLON",
-            "PERIOD",
-            "SPACE",
-            "CUSTOM",
-            "AUTODETECT"
-          ],
-          "description": "The delimiter type to use."
-        }
-      }
-    },
-    "UpdateFilterViewRequest": {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object",
-          "description": "The new properties of the filter view."
-        },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "DeleteRangeRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range of cells to delete."
-        },
-        "shiftDimension": {
-          "type": "string",
-          "enum": [
-            "ROWS",
-            "COLUMNS"
-          ],
-          "description": "The dimension from which deleted cells will be replaced with."
-        }
-      }
-    },
-    "AppendDimensionRequest": {
-      "type": "object",
-      "properties": {
-        "sheetId": {
-          "type": "integer",
-          "description": "The sheet to append rows or columns to."
-        },
-        "dimension": {
-          "type": "string",
-          "enum": [
-            "ROWS",
-            "COLUMNS"
-          ],
-          "description": "Whether rows or columns should be appended."
-        },
-        "length": {
-          "type": "integer",
-          "description": "The number of rows or columns to append."
-        }
-      }
-    },
-    "AddConditionalFormatRuleRequest": {
-      "type": "object",
-      "properties": {
-        "rule": {
-          "type": "object",
-          "description": "The rule to add."
-        },
-        "index": {
-          "type": "integer",
-          "description": "The zero-based index where the rule should be inserted."
-        }
-      }
-    },
-    "UpdateConditionalFormatRuleRequest": {
-      "type": "object",
-      "properties": {
-        "index": {
-          "type": "integer",
-          "description": "The zero-based index of the rule that should be replaced or moved."
-        },
-        "rule": {
-          "type": "object",
-          "description": "The rule that should replace the rule at the given index."
-        },
-        "newIndex": {
-          "type": "integer",
-          "description": "The zero-based new index the rule should end up at."
-        }
-      }
-    },
-    "DeleteConditionalFormatRuleRequest": {
-      "type": "object",
-      "properties": {
-        "index": {
-          "type": "integer",
-          "description": "The zero-based index of the rule to be deleted."
-        },
-        "sheetId": {
-          "type": "integer",
-          "description": "The sheet the rule is being deleted from."
-        }
-      }
-    },
-    "SortRangeRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range to sort."
-        },
-        "sortSpecs": {
+        "values": {
           "type": "array",
           "items": {
-            "type": "object"
+            "$ref": "#/$defs/CellData"
           }
         }
       }
     },
-    "SetDataValidationRequest": {
+    "CellData": {
       "type": "object",
       "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range the data validation rule should apply to."
-        },
-        "rule": {
-          "type": "object",
-          "description": "The data validation rule to set on each cell in the range."
-        }
-      }
-    },
-    "SetBasicFilterRequest": {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object",
-          "description": "The filter to set."
-        }
-      }
-    },
-    "AddProtectedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "protectedRange": {
-          "type": "object",
-          "description": "The protected range to be added."
-        }
-      }
-    },
-    "UpdateProtectedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "protectedRange": {
-          "type": "object",
-          "description": "The protected range to update with the new properties."
-        },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "DeleteProtectedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "protectedRangeId": {
-          "type": "integer",
-          "description": "The ID of the protected range to delete."
-        }
-      }
-    },
-    "AutoResizeDimensionsRequest": {
-      "type": "object",
-      "properties": {
-        "dimensions": {
-          "type": "object",
-          "description": "The dimensions to automatically resize."
-        }
-      }
-    },
-    "AddChartRequest": {
-      "type": "object",
-      "properties": {
-        "chart": {
-          "type": "object",
-          "description": "The chart that should be added to the spreadsheet."
-        }
-      }
-    },
-    "UpdateChartSpecRequest": {
-      "type": "object",
-      "properties": {
-        "chartId": {
-          "type": "integer",
-          "description": "The ID of the chart to update."
-        },
-        "spec": {
-          "type": "object",
-          "description": "The specification to apply to the chart."
-        }
-      }
-    },
-    "UpdateBandingRequest": {
-      "type": "object",
-      "properties": {
-        "bandedRange": {
-          "type": "object",
-          "description": "The banded range to update with the new properties."
-        },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "AddBandingRequest": {
-      "type": "object",
-      "properties": {
-        "bandedRange": {
-          "type": "object",
-          "description": "The banded range to add."
-        }
-      }
-    },
-    "DeleteBandingRequest": {
-      "type": "object",
-      "properties": {
-        "bandedRangeId": {
-          "type": "integer",
-          "description": "The ID of the banded range to delete."
-        }
-      }
-    },
-    "CreateDeveloperMetadataRequest": {
-      "type": "object",
-      "properties": {
-        "developerMetadata": {
-          "type": "object",
-          "description": "The developer metadata to create."
-        }
-      }
-    },
-    "UpdateDeveloperMetadataRequest": {
-      "type": "object",
-      "properties": {
-        "dataFilters": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "developerMetadata": {
+        "userEnteredValue": {
           "type": "object"
         },
-        "fields": {
+        "effectiveValue": {
+          "type": "object"
+        },
+        "formattedValue": {
           "type": "string"
-        }
-      }
-    },
-    "DeleteDeveloperMetadataRequest": {
-      "type": "object",
-      "properties": {
-        "dataFilter": {
-          "type": "object",
-          "description": "The data filter describing the criteria used to select which developer metadata entry to delete."
-        }
-      }
-    },
-    "RandomizeRangeRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range to randomize."
-        }
-      }
-    },
-    "AddDimensionGroupRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range over which to create a group."
-        }
-      }
-    },
-    "DeleteDimensionGroupRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range of the group to be deleted."
-        }
-      }
-    },
-    "UpdateDimensionGroupRequest": {
-      "type": "object",
-      "properties": {
-        "dimensionGroup": {
-          "type": "object",
-          "description": "The group whose state should be updated."
         },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "TrimWhitespaceRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range whose cells to trim."
-        }
-      }
-    },
-    "DeleteDuplicatesRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object",
-          "description": "The range to remove duplicates rows from."
+        "userEnteredFormat": {
+          "type": "object"
         },
-        "comparisonColumns": {
+        "effectiveFormat": {
+          "type": "object"
+        },
+        "hyperlink": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        },
+        "textFormatRuns": {
           "type": "array",
           "items": {
             "type": "object"
           }
-        }
-      }
-    },
-    "UpdateEmbeddedObjectBorderRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": {
-          "type": "integer",
-          "description": "The ID of the embedded object to update."
         },
-        "border": {
-          "type": "object",
-          "description": "The border that applies to the embedded object."
+        "dataValidation": {
+          "type": "object"
         },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "AddSlicerRequest": {
-      "type": "object",
-      "properties": {
-        "slicer": {
-          "type": "object",
-          "description": "The slicer that should be added to the spreadsheet."
-        }
-      }
-    },
-    "UpdateSlicerSpecRequest": {
-      "type": "object",
-      "properties": {
-        "slicerId": {
-          "type": "integer",
-          "description": "The id of the slicer to update."
+        "pivotTable": {
+          "type": "object"
         },
-        "spec": {
-          "type": "object",
-          "description": "The specification to apply to the slicer."
+        "dataSourceTable": {
+          "type": "object"
         },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "AddDataSourceRequest": {
-      "type": "object",
-      "properties": {
-        "dataSource": {
-          "type": "object",
-          "description": "The data source to add."
-        }
-      }
-    },
-    "UpdateDataSourceRequest": {
-      "type": "object",
-      "properties": {
-        "dataSource": {
-          "type": "object",
-          "description": "The data source to update."
-        },
-        "fields": {
-          "type": "string",
-          "description": "The fields that should be updated."
-        }
-      }
-    },
-    "DeleteDataSourceRequest": {
-      "type": "object",
-      "properties": {
-        "dataSourceId": {
-          "type": "string",
-          "description": "The ID of the data source to delete."
-        }
-      }
-    },
-    "RefreshDataSourceRequest": {
-      "type": "object",
-      "properties": {
-        "dataSourceId": {
-          "type": "string",
-          "description": "Reference to a DataSource."
-        },
-        "isAll": {
-          "type": "boolean",
-          "description": "Refreshes all existing data source objects in the spreadsheet."
-        },
-        "force": {
-          "type": "boolean",
-          "description": "Refreshes the data source objects regardless of the current state."
-        }
-      }
-    },
-    "CancelDataSourceRefreshRequest": {
-      "type": "object",
-      "properties": {
-        "dataSourceId": {
-          "type": "string",
-          "description": "Reference to a DataSource."
-        },
-        "isAll": {
-          "type": "boolean",
-          "description": "Cancels all existing data source object refreshes for all data sources in the spreadsheet."
+        "dataSourceFormula": {
+          "type": "object"
         }
       }
     }
   }
 };
 
-const jsonSchemaForDocs = {
+const jsonSchemaForSheets = {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Docs API batchUpdate Request Body",
-  "description": "A list of updates to apply to the document.",
+  "title": "Google Sheets API - spreadsheets.batchUpdate Request Body",
+  "description": "A request to apply one or more updates to a spreadsheet.",
   "type": "object",
   "properties": {
+    "spreadsheetId": { "type": "string", "description": "Spreadsheet ID" },
     "requests": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Request"
+        "type": "object",
+        "description": [
+          `Create "requests" by following JSON schema.`,
+          `The JSON schema of "requests" is as follows.`,
+          `<JSONSchema>${JSON.stringify(requestsForSheetsAPI_)}</JSONSchema>`,
+          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
+          `<URLs>`,
+          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
+          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
+          `</URLs>`,
+          `You can also refer to creating "request" by searching Google.`,
+        ].join("\n"),
       }
-    },
-    "writeControl": {
-      "$ref": "#/definitions/WriteControl"
     }
   },
-  "required": [
-    "requests"
-  ],
+  "required": ["spreadsheetId", "requests"]
+};
+
+const requestsForDocsAPI_ = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Google Docs API batchUpdate Requests",
+  "description": "Schema for the 'requests' property of the documents.batchUpdate method.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Request"
+  },
   "definitions": {
     "Request": {
       "type": "object",
@@ -1142,67 +646,124 @@ const jsonSchemaForDocs = {
     "ReplaceAllTextRequest": {
       "type": "object",
       "properties": {
-        "replaceText": { "type": "string" },
-        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" },
-        "tabsCriteria": { "$ref": "#/definitions/TabsCriteria" }
+        "replaceText": {
+          "type": "string"
+        },
+        "containsText": {
+          "$ref": "#/definitions/SubstringMatchCriteria"
+        },
+        "tabsCriteria": {
+          "$ref": "#/definitions/TabsCriteria"
+        }
       }
     },
     "InsertTextRequest": {
       "type": "object",
       "properties": {
-        "text": { "type": "string" },
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
+        "text": {
+          "type": "string"
+        },
+        "location": {
+          "$ref": "#/definitions/Location"
+        },
+        "endOfSegmentLocation": {
+          "$ref": "#/definitions/EndOfSegmentLocation"
+        }
       }
     },
     "UpdateTextStyleRequest": {
       "type": "object",
       "properties": {
-        "textStyle": { "type": "object" },
-        "fields": { "type": "string" },
-        "range": { "$ref": "#/definitions/Range" }
+        "textStyle": {
+          "$ref": "#/definitions/TextStyle"
+        },
+        "fields": {
+          "type": "string"
+        },
+        "range": {
+          "$ref": "#/definitions/Range"
+        }
       }
     },
     "CreateParagraphBulletsRequest": {
       "type": "object",
       "properties": {
-        "range": { "$ref": "#/definitions/Range" },
-        "bulletPreset": { "type": "string" }
+        "range": {
+          "$ref": "#/definitions/Range"
+        },
+        "bulletPreset": {
+          "type": "string",
+          "enum": [
+            "BULLET_GLYPH_PRESET_UNSPECIFIED",
+            "BULLET_DISC_CIRCLE_SQUARE",
+            "BULLET_DIAMONDX_ARROW3D_SQUARE",
+            "BULLET_CHECKBOX",
+            "BULLET_ARROW_DIAMOND_DISC",
+            "BULLET_STAR_CIRCLE_SQUARE",
+            "BULLET_ARROW3D_CIRCLE_SQUARE",
+            "BULLET_LEFTTRIANGLE_DIAMOND_DISC",
+            "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE",
+            "BULLET_DIAMOND_CIRCLE_SQUARE",
+            "NUMBERED_DECIMAL_ALPHA_ROMAN",
+            "NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS",
+            "NUMBERED_DECIMAL_NESTED",
+            "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
+            "NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL",
+            "NUMBERED_ZERODECIMAL_ALPHA_ROMAN"
+          ]
+        }
       }
     },
     "DeleteParagraphBulletsRequest": {
       "type": "object",
       "properties": {
-        "range": { "$ref": "#/definitions/Range" }
+        "range": {
+          "$ref": "#/definitions/Range"
+        }
       }
     },
     "CreateNamedRangeRequest": {
       "type": "object",
       "properties": {
-        "name": { "type": "string" },
-        "range": { "$ref": "#/definitions/Range" }
+        "name": {
+          "type": "string"
+        },
+        "range": {
+          "$ref": "#/definitions/Range"
+        }
       }
     },
     "DeleteNamedRangeRequest": {
       "type": "object",
       "properties": {
-        "name": { "type": "string" },
-        "namedRangeId": { "type": "string" },
-        "tabsCriteria": { "$ref": "#/definitions/TabsCriteria" }
+        "name": {
+          "type": "string"
+        },
+        "namedRangeId": {
+          "type": "string"
+        }
       }
     },
     "UpdateParagraphStyleRequest": {
       "type": "object",
       "properties": {
-        "paragraphStyle": { "type": "object" },
-        "fields": { "type": "string" },
-        "range": { "$ref": "#/definitions/Range" }
+        "paragraphStyle": {
+          "$ref": "#/definitions/ParagraphStyle"
+        },
+        "fields": {
+          "type": "string"
+        },
+        "range": {
+          "$ref": "#/definitions/Range"
+        }
       }
     },
     "DeleteContentRangeRequest": {
       "type": "object",
       "properties": {
-        "range": { "$ref": "#/definitions/Range" }
+        "range": {
+          "$ref": "#/definitions/Range"
+        }
       }
     },
     "InsertInlineImageRequest": {
@@ -1259,8 +820,7 @@ const jsonSchemaForDocs = {
     "DeletePositionedObjectRequest": {
       "type": "object",
       "properties": {
-        "objectId": { "type": "string" },
-        "tabId": { "type": "string" }
+        "objectId": { "type": "string" }
       }
     },
     "UpdateTableColumnPropertiesRequest": {
@@ -1268,17 +828,16 @@ const jsonSchemaForDocs = {
       "properties": {
         "tableStartLocation": { "$ref": "#/definitions/Location" },
         "columnIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableColumnProperties": { "type": "object" },
+        "tableColumnProperties": { "$ref": "#/definitions/TableColumnProperties" },
         "fields": { "type": "string" }
       }
     },
     "UpdateTableCellStyleRequest": {
       "type": "object",
       "properties": {
-        "tableCellStyle": { "type": "object" },
+        "tableCellStyle": { "$ref": "#/definitions/TableCellStyle" },
         "fields": { "type": "string" },
-        "tableRange": { "$ref": "#/definitions/TableRange" },
-        "tableStartLocation": { "$ref": "#/definitions/Location" }
+        "tableRange": { "$ref": "#/definitions/TableRange" }
       }
     },
     "UpdateTableRowStyleRequest": {
@@ -1286,7 +845,7 @@ const jsonSchemaForDocs = {
       "properties": {
         "tableStartLocation": { "$ref": "#/definitions/Location" },
         "rowIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableRowStyle": { "type": "object" },
+        "tableRowStyle": { "$ref": "#/definitions/TableRowStyle" },
         "fields": { "type": "string" }
       }
     },
@@ -1295,16 +854,14 @@ const jsonSchemaForDocs = {
       "properties": {
         "imageObjectId": { "type": "string" },
         "uri": { "type": "string" },
-        "imageReplaceMethod": { "type": "string" },
-        "tabId": { "type": "string" }
+        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_CROP"] }
       }
     },
     "UpdateDocumentStyleRequest": {
       "type": "object",
       "properties": {
-        "documentStyle": { "type": "object" },
-        "fields": { "type": "string" },
-        "tabId": { "type": "string" }
+        "documentStyle": { "$ref": "#/definitions/DocumentStyle" },
+        "fields": { "type": "string" }
       }
     },
     "MergeTableCellsRequest": {
@@ -1322,14 +879,14 @@ const jsonSchemaForDocs = {
     "CreateHeaderRequest": {
       "type": "object",
       "properties": {
-        "type": { "type": "string" },
+        "type": { "type": "string", "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"] },
         "sectionBreakLocation": { "$ref": "#/definitions/Location" }
       }
     },
     "CreateFooterRequest": {
       "type": "object",
       "properties": {
-        "type": { "type": "string" },
+        "type": { "type": "string", "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"] },
         "sectionBreakLocation": { "$ref": "#/definitions/Location" }
       }
     },
@@ -1344,23 +901,21 @@ const jsonSchemaForDocs = {
       "type": "object",
       "properties": {
         "namedRangeName": { "type": "string" },
-        "namedRangeId": { "type": "string" },
-        "text": { "type": "string" },
-        "tabsCriteria": { "$ref": "#/definitions/TabsCriteria" }
+        "text": { "type": "string" }
       }
     },
     "UpdateSectionStyleRequest": {
       "type": "object",
       "properties": {
         "range": { "$ref": "#/definitions/Range" },
-        "sectionStyle": { "type": "object" },
+        "sectionStyle": { "$ref": "#/definitions/SectionStyle" },
         "fields": { "type": "string" }
       }
     },
     "InsertSectionBreakRequest": {
       "type": "object",
       "properties": {
-        "sectionType": { "type": "string" },
+        "sectionType": { "type": "string", "enum": ["SECTION_TYPE_UNSPECIFIED", "CONTINUOUS", "NEXT_PAGE"] },
         "location": { "$ref": "#/definitions/Location" },
         "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
       }
@@ -1368,15 +923,13 @@ const jsonSchemaForDocs = {
     "DeleteHeaderRequest": {
       "type": "object",
       "properties": {
-        "headerId": { "type": "string" },
-        "tabId": { "type": "string" }
+        "headerId": { "type": "string" }
       }
     },
     "DeleteFooterRequest": {
       "type": "object",
       "properties": {
-        "footerId": { "type": "string" },
-        "tabId": { "type": "string" }
+        "footerId": { "type": "string" }
       }
     },
     "PinTableHeaderRowsRequest": {
@@ -1389,47 +942,142 @@ const jsonSchemaForDocs = {
     "SubstringMatchCriteria": {
       "type": "object",
       "properties": {
-        "text": { "type": "string" },
-        "matchCase": { "type": "boolean" }
-      },
-      "required": ["text"]
+        "text": {
+          "type": "string"
+        },
+        "matchCase": {
+          "type": "boolean"
+        }
+      }
     },
     "Location": {
       "type": "object",
       "properties": {
-        "segmentId": { "type": "string" },
-        "index": { "type": "integer" },
-        "tabId": { "type": "string" }
+        "segmentId": {
+          "type": "string"
+        },
+        "index": {
+          "type": "integer"
+        }
       }
     },
     "EndOfSegmentLocation": {
       "type": "object",
       "properties": {
-        "segmentId": { "type": "string" },
-        "tabId": { "type": "string" }
+        "segmentId": {
+          "type": "string"
+        }
       }
     },
     "Range": {
       "type": "object",
       "properties": {
-        "segmentId": { "type": "string" },
-        "startIndex": { "type": "integer" },
-        "endIndex": { "type": "integer" },
-        "tabId": { "type": "string" }
+        "segmentId": {
+          "type": "string"
+        },
+        "startIndex": {
+          "type": "integer"
+        },
+        "endIndex": {
+          "type": "integer"
+        }
       }
     },
-    "Size": {
+    "TextStyle": {
       "type": "object",
       "properties": {
-        "height": { "$ref": "#/definitions/Dimension" },
-        "width": { "$ref": "#/definitions/Dimension" }
+        "bold": { "type": "boolean" },
+        "italic": { "type": "boolean" },
+        "underline": { "type": "boolean" },
+        "strikethrough": { "type": "boolean" },
+        "smallCaps": { "type": "boolean" },
+        "backgroundColor": { "$ref": "#/definitions/OptionalColor" },
+        "foregroundColor": { "$ref": "#/definitions/OptionalColor" },
+        "fontSize": { "$ref": "#/definitions/Dimension" },
+        "weightedFontFamily": { "$ref": "#/definitions/WeightedFontFamily" },
+        "baselineOffset": { "type": "string", "enum": ["BASELINE_OFFSET_UNSPECIFIED", "NONE", "SUPERSCRIPT", "SUBSCRIPT"] },
+        "link": { "$ref": "#/definitions/Link" }
+      }
+    },
+    "OptionalColor": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/Color"
+        }
+      }
+    },
+    "Color": {
+      "type": "object",
+      "properties": {
+        "rgbColor": {
+          "$ref": "#/definitions/RgbColor"
+        }
+      }
+    },
+    "RgbColor": {
+      "type": "object",
+      "properties": {
+        "red": {
+          "type": "number"
+        },
+        "green": {
+          "type": "number"
+        },
+        "blue": {
+          "type": "number"
+        }
       }
     },
     "Dimension": {
       "type": "object",
       "properties": {
-        "magnitude": { "type": "number" },
-        "unit": { "type": "string" }
+        "magnitude": {
+          "type": "number"
+        },
+        "unit": {
+          "type": "string",
+          "enum": [
+            "UNIT_UNSPECIFIED",
+            "PT"
+          ]
+        }
+      }
+    },
+    "WeightedFontFamily": {
+      "type": "object",
+      "properties": {
+        "fontFamily": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "integer"
+        }
+      }
+    },
+    "Link": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "bookmarkId": {
+          "type": "string"
+        },
+        "headingId": {
+          "type": "string"
+        }
+      }
+    },
+    "Size": {
+      "type": "object",
+      "properties": {
+        "height": {
+          "$ref": "#/definitions/Dimension"
+        },
+        "width": {
+          "$ref": "#/definitions/Dimension"
+        }
       }
     },
     "TableCellLocation": {
@@ -1440,12 +1088,139 @@ const jsonSchemaForDocs = {
         "columnIndex": { "type": "integer" }
       }
     },
+    "TableColumnProperties": {
+      "type": "object",
+      "properties": {
+        "width": { "$ref": "#/definitions/Dimension" },
+        "widthType": { "type": "string", "enum": ["WIDTH_TYPE_UNSPECIFIED", "EVENLY_DISTRIBUTED", "FIXED_WIDTH"] }
+      }
+    },
+    "TableCellStyle": {
+      "type": "object",
+      "properties": {
+        "backgroundColor": { "$ref": "#/definitions/OptionalColor" },
+        "borderTop": { "$ref": "#/definitions/TableCellBorder" },
+        "borderBottom": { "$ref": "#/definitions/TableCellBorder" },
+        "borderLeft": { "$ref": "#/definitions/TableCellBorder" },
+        "borderRight": { "$ref": "#/definitions/TableCellBorder" },
+        "paddingTop": { "$ref": "#/definitions/Dimension" },
+        "paddingBottom": { "$ref": "#/definitions/Dimension" },
+        "paddingLeft": { "$ref": "#/definitions/Dimension" },
+        "paddingRight": { "$ref": "#/definitions/Dimension" },
+        "contentAlignment": { "type": "string", "enum": ["CONTENT_ALIGNMENT_UNSPECIFIED", "CONTENT_ALIGNMENT_UNSUPPORTED", "TOP", "MIDDLE", "BOTTOM"] }
+      }
+    },
     "TableRange": {
       "type": "object",
       "properties": {
         "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" },
         "rowSpan": { "type": "integer" },
         "columnSpan": { "type": "integer" }
+      }
+    },
+    "TableRowStyle": {
+      "type": "object",
+      "properties": {
+        "minRowHeight": { "$ref": "#/definitions/Dimension" }
+      }
+    },
+    "DocumentStyle": {
+      "type": "object",
+      "properties": {
+        "background": { "$ref": "#/definitions/Background" },
+        "pageNumberStart": { "type": "integer" },
+        "marginTop": { "$ref": "#/definitions/Dimension" },
+        "marginBottom": { "$ref": "#/definitions/Dimension" },
+        "marginRight": { "$ref": "#/definitions/Dimension" },
+        "marginLeft": { "$ref": "#/definitions/Dimension" },
+        "pageSize": { "$ref": "#/definitions/Size" },
+        "marginHeader": { "$ref": "#/definitions/Dimension" },
+        "marginFooter": { "$ref": "#/definitions/Dimension" },
+        "useCustomHeaderFooterMargins": { "type": "boolean" },
+        "flipPageOrientation": { "type": "boolean" }
+      }
+    },
+    "SectionStyle": {
+      "type": "object",
+      "properties": {
+        "columnProperties": { "type": "array", "items": { "$ref": "#/definitions/SectionColumnProperties" } },
+        "columnSeparatorStyle": { "type": "string", "enum": ["COLUMN_SEPARATOR_STYLE_UNSPECIFIED", "NONE", "BETWEEN_EACH_COLUMN"] },
+        "contentDirection": { "type": "string", "enum": ["CONTENT_DIRECTION_UNSPECIFIED", "LEFT_TO_RIGHT", "RIGHT_TO_LEFT"] },
+        "marginTop": { "$ref": "#/definitions/Dimension" },
+        "marginBottom": { "$ref": "#/definitions/Dimension" },
+        "marginRight": { "$ref": "#/definitions/Dimension" },
+        "marginLeft": { "$ref": "#/definitions/Dimension" },
+        "marginHeader": { "$ref": "#/definitions/Dimension" },
+        "marginFooter": { "$ref": "#/definitions/Dimension" },
+        "pageNumberStart": { "type": "integer" }
+      }
+    },
+    "Background": {
+      "type": "object",
+      "properties": {
+        "color": {
+          "$ref": "#/definitions/OptionalColor"
+        }
+      }
+    },
+    "SectionColumnProperties": {
+      "type": "object",
+      "properties": {
+        "width": {
+          "$ref": "#/definitions/Dimension"
+        },
+        "paddingEnd": {
+          "$ref": "#/definitions/Dimension"
+        }
+      }
+    },
+    "ParagraphStyle": {
+      "type": "object",
+      "properties": {
+        "headingId": { "type": "string" },
+        "namedStyleType": { "type": "string", "enum": ["NAMED_STYLE_TYPE_UNSPECIFIED", "NORMAL_TEXT", "TITLE", "SUBTITLE", "HEADING_1", "HEADING_2", "HEADING_3", "HEADING_4", "HEADING_5", "HEADING_6"] },
+        "alignment": { "type": "string", "enum": ["ALIGNMENT_UNSPECIFIED", "START", "CENTER", "END", "JUSTIFIED"] },
+        "lineSpacing": { "type": "number" },
+        "direction": { "type": "string", "enum": ["CONTENT_DIRECTION_UNSPECIFIED", "LEFT_TO_RIGHT", "RIGHT_TO_LEFT"] },
+        "spacingMode": { "type": "string", "enum": ["SPACING_MODE_UNSPECIFIED", "NEVER_COLLAPSE", "COLLAPSE_LISTS"] },
+        "spaceAbove": { "$ref": "#/definitions/Dimension" },
+        "spaceBelow": { "$ref": "#/definitions/Dimension" },
+        "borderBetween": { "$ref": "#/definitions/ParagraphBorder" },
+        "borderTop": { "$ref": "#/definitions/ParagraphBorder" },
+        "borderBottom": { "$ref": "#/definitions/ParagraphBorder" },
+        "borderLeft": { "$ref": "#/definitions/ParagraphBorder" },
+        "borderRight": { "$ref": "#/definitions/ParagraphBorder" },
+        "indentFirstLine": { "$ref": "#/definitions/Dimension" },
+        "indentStart": { "$ref": "#/definitions/Dimension" },
+        "indentEnd": { "$ref": "#/definitions/Dimension" },
+        "keepLinesTogether": { "type": "boolean" },
+        "keepWithNext": { "type": "boolean" },
+        "shading": { "$ref": "#/definitions/Shading" }
+      }
+    },
+    "ParagraphBorder": {
+      "type": "object",
+      "properties": {
+        "color": { "$ref": "#/definitions/OptionalColor" },
+        "width": { "$ref": "#/definitions/Dimension" },
+        "padding": { "$ref": "#/definitions/Dimension" },
+        "dashStyle": { "type": "string", "enum": ["DASH_STYLE_UNSPECIFIED", "SOLID", "DOT", "DASH"] }
+      }
+    },
+    "Shading": {
+      "type": "object",
+      "properties": {
+        "backgroundColor": {
+          "$ref": "#/definitions/OptionalColor"
+        }
+      }
+    },
+    "TableCellBorder": {
+      "type": "object",
+      "properties": {
+        "color": { "$ref": "#/definitions/OptionalColor" },
+        "width": { "$ref": "#/definitions/Dimension" },
+        "dashStyle": { "type": "string", "enum": ["DASH_STYLE_UNSPECIFIED", "SOLID", "DOT", "DASH"] }
       }
     },
     "TabsCriteria": {
@@ -1456,43 +1231,49 @@ const jsonSchemaForDocs = {
           "items": { "type": "string" }
         }
       }
-    },
-    "WriteControl": {
-      "type": "object",
-      "properties": {
-        "requiredRevisionId": { "type": "string" },
-        "targetRevisionId": { "type": "string" }
-      }
     }
   }
 };
 
-const jsonSchemaForSlides = {
+const jsonSchemaForDocs = {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Slides API batchUpdate Request",
-  "description": "A list of requests to be applied to the presentation.",
+  "title": "Google Docs API batchUpdate Request Body",
+  "description": "A list of updates to apply to the document.",
   "type": "object",
   "properties": {
+    "documentId": { "type": "string", "description": "Document ID" },
     "requests": {
       "type": "array",
       "items": {
-        "$ref": "#/definitions/Request"
-      }
-    },
-    "writeControl": {
-      "type": "object",
-      "properties": {
-        "requiredRevisionId": {
-          "type": "string"
-        }
+        "type": "object",
+        "description": [
+          `Create "requests" by following JSON schema.`,
+          `The JSON schema of "requests" is as follows.`,
+          `<JSONSchema>${JSON.stringify(requestsForDocsAPI_)}</JSONSchema>`,
+          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
+          `<URLs>`,
+          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
+          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
+          `</URLs>`,
+          `You can also refer to creating "request" by searching Google.`,
+        ].join("\n"),
       }
     }
   },
-  "required": [
-    "requests"
-  ],
+  "required": ["documentId", "requests"]
+};
+
+const requestsForSlidesAPI_ = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Google Slides API Requests",
+  "description": "JSON schema for the 'requests' property of the presentations.batchUpdate method in the Google Slides API. The 'requests' property is an array of Request objects.",
+  "type": "array",
+  "items": {
+    "$ref": "#/definitions/Request"
+  },
   "definitions": {
     "Request": {
+      "type": "object",
       "oneOf": [
         { "$ref": "#/definitions/CreateSlideRequest" },
         { "$ref": "#/definitions/CreateShapeRequest" },
@@ -1543,621 +1324,480 @@ const jsonSchemaForSlides = {
     "CreateSlideRequest": {
       "type": "object",
       "properties": {
-        "createSlide": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "insertionIndex": { "type": "integer" },
-            "slideLayoutReference": { "type": "object" },
-            "placeholderIdMappings": { "type": "array", "items": { "type": "object" } }
-          }
+        "objectId": { "type": "string" },
+        "insertionIndex": { "type": "integer" },
+        "slideLayoutReference": { "$ref": "#/definitions/LayoutReference" },
+        "placeholderIdMappings": {
+          "type": "array",
+          "items": { "$ref": "#/definitions/LayoutPlaceholderIdMapping" }
         }
+      }
+    },
+    "LayoutReference": {
+      "type": "object",
+      "properties": {
+        "predefinedLayout": { "type": "string", "enum": ["PREDEFINED_LAYOUT_UNSPECIFIED", "BLANK", "CAPTION_ONLY", "TITLE", "TITLE_AND_BODY", "TITLE_AND_TWO_COLUMNS", "TITLE_ONLY", "SECTION_HEADER", "SECTION_TITLE_AND_DESCRIPTION", "ONE_COLUMN_TEXT", "MAIN_POINT", "BIG_NUMBER"] },
+        "layoutId": { "type": "string" }
+      }
+    },
+    "LayoutPlaceholderIdMapping": {
+      "type": "object",
+      "properties": {
+        "layoutPlaceholder": { "$ref": "#/definitions/Placeholder" },
+        "layoutPlaceholderObjectId": { "type": "string" },
+        "objectId": { "type": "string" }
+      }
+    },
+    "Placeholder": {
+      "type": "object",
+      "properties": {
+        "parentObjectId": { "type": "string" },
+        "index": { "type": "integer" },
+        "type": { "type": "string", "enum": ["NONE", "BODY", "CHART", "CLIP_ART", "CENTERED_TITLE", "DIAGRAM", "DATE_AND_TIME", "FOOTER", "HEADER", "MEDIA", "OBJECT", "PICTURE", "SLIDE_NUMBER", "SUBTITLE", "TABLE", "TITLE", "SLIDE_IMAGE"] }
       }
     },
     "CreateShapeRequest": {
       "type": "object",
       "properties": {
-        "createShape": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "shapeType": { "type": "string", "enum": ["TYPE_UNSPECIFIED", "TEXT_BOX", "RECTANGLE", "ROUND_RECTANGLE", "ELLIPSE", "ARC", "BENT_ARROW", "BENT_UP_ARROW", "BEVEL", "BLOCK_ARC", "BRACE_PAIR", "BRACKET_PAIR", "CAN", "CHEVRON", "CHORD", "CLOUD", "CORNER", "CUBE", "CURVED_DOWN_ARROW", "CURVED_LEFT_ARROW", "CURVED_RIGHT_ARROW", "CURVED_UP_ARROW", "DECAGON", "DIAMOND", "DODECAGON", "DONUT", "DOUBLE_WAVE", "DOWN_ARROW", "DOWN_ARROW_CALLOUT", "FOLDED_CORNER", "FRAME", "HALF_FRAME", "HEART", "HEPTAGON", "HEXAGON", "HOME_PLATE", "HORIZONTAL_SCROLL", "IRREGULAR_SEAL_1", "IRREGULAR_SEAL_2", "LEFT_ARROW", "LEFT_ARROW_CALLOUT", "LEFT_BRACE", "LEFT_BRACKET", "LEFT_RIGHT_ARROW", "LEFT_RIGHT_ARROW_CALLOUT", "LEFT_RIGHT_UP_ARROW", "LEFT_UP_ARROW", "LIGHTNING_BOLT", "MATH_DIVIDE", "MATH_EQUAL", "MATH_MINUS", "MATH_MULTIPLY", "MATH_NOT_EQUAL", "MATH_PLUS", "MOON", "NO_SMOKING", "NOTCHED_RIGHT_ARROW", "OCTAGON", "PARALLELOGRAM", "PENTAGON", "PIE", "PLAQUE", "PLUS", "QUAD_ARROW", "QUAD_ARROW_CALLOUT", "RIBBON", "RIBBON_2", "RIGHT_ARROW", "RIGHT_ARROW_CALLOUT", "RIGHT_BRACE", "RIGHT_BRACKET", "ROUND_1_RECTANGLE", "ROUND_2_DIAG_RECTANGLE", "ROUND_2_SAME_RECTANGLE", "RIGHT_TRIANGLE", "SMILEY_FACE", "SNIP_1_RECTANGLE", "SNIP_2_DIAG_RECTANGLE", "SNIP_2_SAME_RECTANGLE", "SNIP_ROUND_RECTANGLE", "STAR_10", "STAR_12", "STAR_16", "STAR_24", "STAR_32", "STAR_4", "STAR_5", "STAR_6", "STAR_7", "STAR_8", "STRIPED_RIGHT_ARROW", "SUN", "TRAPEZOID", "TRIANGLE", "UP_ARROW", "UP_ARROW_CALLOUT", "UP_DOWN_ARROW", "UTURN_ARROW", "VERTICAL_SCROLL", "WAVE", "WEDGE_ELLIPSE_CALLOUT", "WEDGE_RECTANGLE_CALLOUT", "WEDGE_ROUND_RECTANGLE_CALLOUT", "WITH_OUT_SHAPE_TYPE"] },
-            "elementProperties": { "type": "object" }
-          },
-          "required": ["shapeType"]
-        }
+        "objectId": { "type": "string" },
+        "shapeType": { "type": "string", "enum": ["TYPE_UNSPECIFIED", "TEXT_BOX", "RECTANGLE", "ROUND_RECTANGLE", "ELLIPSE", "ARC", "BENT_ARROW", "BENT_UP_ARROW", "BEVEL", "BLOCK_ARC", "BRACE_PAIR", "BRACKET_PAIR", "CAN", "CHEVRON", "CHORD", "CLOUD", "CORNER", "CUBE", "CURVED_DOWN_ARROW", "CURVED_LEFT_ARROW", "CURVED_RIGHT_ARROW", "CURVED_UP_ARROW", "DECAGON", "DIAMOND", "DODECAGON", "DONUT", "DOUBLE_WAVE", "DOWN_ARROW", "DOWN_ARROW_CALLOUT", "FOLDED_CORNER", "FRAME", "HALF_FRAME", "HEART", "HEPTAGON", "HEXAGON", "HOME_PLATE", "HORIZONTAL_SCROLL", "IRREGULAR_SEAL_1", "IRREGULAR_SEAL_2", "LEFT_ARROW", "LEFT_ARROW_CALLOUT", "LEFT_BRACE", "LEFT_BRACKET", "LEFT_RIGHT_ARROW", "LEFT_RIGHT_ARROW_CALLOUT", "LEFT_RIGHT_UP_ARROW", "LEFT_UP_ARROW", "LIGHTNING_BOLT", "MATH_DIVIDE", "MATH_EQUAL", "MATH_MINUS", "MATH_MULTIPLY", "MATH_NOT_EQUAL", "MATH_PLUS", "MOON", "NO_SMOKING", "NON_ISOSCELES_TRAPEZOID", "NOTCHED_RIGHT_ARROW", "OCTAGON", "PARALLELOGRAM", "PENTAGON", "PIE", "PLAQUE", "PLUS", "QUAD_ARROW", "QUAD_ARROW_CALLOUT", "RIBBON", "RIBBON_2", "RIGHT_ARROW", "RIGHT_ARROW_CALLOUT", "RIGHT_BRACE", "RIGHT_BRACKET", "ROUND_1_RECTANGLE", "ROUND_2_DIAG_RECTANGLE", "ROUND_2_SAME_RECTANGLE", "RIGHT_TRIANGLE", "SMILEY_FACE", "SNIP_1_RECTANGLE", "SNIP_2_DIAG_RECTANGLE", "SNIP_2_SAME_RECTANGLE", "SNIP_ROUND_RECTANGLE", "STAR_10", "STAR_12", "STAR_16", "STAR_24", "STAR_32", "STAR_4", "STAR_5", "STAR_6", "STAR_7", "STAR_8", "STRIPED_RIGHT_ARROW", "SUN", "TRAPEZOID", "TRIANGLE", "UP_ARROW", "UP_ARROW_CALLOUT", "UP_DOWN_ARROW", "UTURN_ARROW", "VERTICAL_SCROLL", "WAVE", "WEDGE_ELLIPSE_CALLOUT", "WEDGE_RECTANGLE_CALLOUT", "WEDGE_ROUND_RECTANGLE_CALLOUT"] },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" }
+      }
+    },
+    "PageElementProperties": {
+      "type": "object",
+      "properties": {
+        "pageObjectId": { "type": "string" },
+        "size": { "$ref": "#/definitions/Size" },
+        "transform": { "$ref": "#/definitions/AffineTransform" }
+      }
+    },
+    "Size": {
+      "type": "object",
+      "properties": {
+        "width": { "$ref": "#/definitions/Dimension" },
+        "height": { "$ref": "#/definitions/Dimension" }
+      }
+    },
+    "Dimension": {
+      "type": "object",
+      "properties": {
+        "magnitude": { "type": "number" },
+        "unit": { "type": "string", "enum": ["UNIT_UNSPECIFIED", "EMU", "PT"] }
+      }
+    },
+    "AffineTransform": {
+      "type": "object",
+      "properties": {
+        "scaleX": { "type": "number" },
+        "scaleY": { "type": "number" },
+        "translateX": { "type": "number" },
+        "translateY": { "type": "number" },
+        "shearX": { "type": "number" },
+        "shearY": { "type": "number" },
+        "unit": { "type": "string", "enum": ["UNIT_UNSPECIFIED", "EMU", "PT"] }
       }
     },
     "CreateTableRequest": {
       "type": "object",
       "properties": {
-        "createTable": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "elementProperties": { "type": "object" },
-            "rows": { "type": "integer" },
-            "columns": { "type": "integer" }
-          },
-          "required": ["rows", "columns"]
-        }
+        "objectId": { "type": "string" },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
+        "rows": { "type": "integer" },
+        "columns": { "type": "integer" }
       }
     },
     "InsertTextRequest": {
       "type": "object",
       "properties": {
-        "insertText": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "text": { "type": "string" },
-            "insertionIndex": { "type": "integer" }
-          },
-          "required": ["objectId", "text"]
-        }
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "insertionIndex": { "type": "integer" },
+        "text": { "type": "string" }
       }
     },
-    "DeleteObjectRequest": {
+    "TableCellLocation": {
       "type": "object",
       "properties": {
-        "deleteObject": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" }
-          },
-          "required": ["objectId"]
-        }
-      }
-    },
-    "DeleteTextRequest": {
-      "type": "object",
-      "properties": {
-        "deleteText": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "textRange": { "type": "object" }
-          },
-          "required": ["objectId"]
-        }
+        "rowIndex": { "type": "integer" },
+        "columnIndex": { "type": "integer" }
       }
     },
     "InsertTableRowsRequest": {
       "type": "object",
       "properties": {
-        "insertTableRows": {
-          "type": "object",
-          "properties": {
-            "tableObjectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "insertBelow": { "type": "boolean" },
-            "number": { "type": "integer" }
-          },
-          "required": ["tableObjectId"]
-        }
+        "tableObjectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "insertBelow": { "type": "boolean" },
+        "number": { "type": "integer" }
       }
     },
     "InsertTableColumnsRequest": {
       "type": "object",
       "properties": {
-        "insertTableColumns": {
-          "type": "object",
-          "properties": {
-            "tableObjectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "insertRight": { "type": "boolean" },
-            "number": { "type": "integer" }
-          },
-          "required": ["tableObjectId"]
-        }
+        "tableObjectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "insertRight": { "type": "boolean" },
+        "number": { "type": "integer" }
       }
     },
     "DeleteTableRowRequest": {
       "type": "object",
       "properties": {
-        "deleteTableRow": {
-          "type": "object",
-          "properties": {
-            "tableObjectId": { "type": "string" },
-            "cellLocation": { "type": "object" }
-          },
-          "required": ["tableObjectId"]
-        }
+        "tableObjectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" }
       }
     },
     "DeleteTableColumnRequest": {
       "type": "object",
       "properties": {
-        "deleteTableColumn": {
-          "type": "object",
-          "properties": {
-            "tableObjectId": { "type": "string" },
-            "cellLocation": { "type": "object" }
-          },
-          "required": ["tableObjectId"]
-        }
+        "tableObjectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" }
       }
     },
     "ReplaceAllTextRequest": {
       "type": "object",
       "properties": {
-        "replaceAllText": {
-          "type": "object",
-          "properties": {
-            "replaceText": { "type": "string" },
-            "pageObjectIds": { "type": "array", "items": { "type": "string" } },
-            "containsText": { "type": "object" }
-          },
-          "required": ["replaceText", "containsText"]
-        }
+        "replaceText": { "type": "string" },
+        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
+        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
+      }
+    },
+    "SubstringMatchCriteria": {
+      "type": "object",
+      "properties": {
+        "text": { "type": "string" },
+        "matchCase": { "type": "boolean" }
+      }
+    },
+    "DeleteObjectRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": { "type": "string" }
       }
     },
     "UpdatePageElementTransformRequest": {
       "type": "object",
       "properties": {
-        "updatePageElementTransform": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "transform": { "type": "object" },
-            "applyMode": { "type": "string", "enum": ["APPLY_MODE_UNSPECIFIED", "RELATIVE", "ABSOLUTE"] }
-          },
-          "required": ["objectId", "transform"]
-        }
+        "objectId": { "type": "string" },
+        "transform": { "$ref": "#/definitions/AffineTransform" },
+        "applyMode": { "type": "string", "enum": ["APPLY_MODE_UNSPECIFIED", "RELATIVE", "ABSOLUTE"] }
       }
     },
     "UpdateSlidesPositionRequest": {
       "type": "object",
       "properties": {
-        "updateSlidesPosition": {
-          "type": "object",
-          "properties": {
-            "slideObjectIds": { "type": "array", "items": { "type": "string" } },
-            "insertionIndex": { "type": "integer" }
-          },
-          "required": ["slideObjectIds"]
-        }
+        "slideObjectIds": { "type": "array", "items": { "type": "string" } },
+        "insertionIndex": { "type": "integer" }
+      }
+    },
+    "DeleteTextRequest": {
+      "type": "object",
+      "properties": {
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "textRange": { "$ref": "#/definitions/Range" }
+      }
+    },
+    "Range": {
+      "type": "object",
+      "properties": {
+        "type": { "type": "string", "enum": ["RANGE_TYPE_UNSPECIFIED", "FIXED_RANGE", "FROM_START_INDEX", "ALL"] },
+        "startIndex": { "type": "integer" },
+        "endIndex": { "type": "integer" }
       }
     },
     "CreateImageRequest": {
       "type": "object",
       "properties": {
-        "createImage": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "url": { "type": "string" },
-            "elementProperties": { "type": "object" }
-          }
-        }
+        "objectId": { "type": "string" },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
+        "url": { "type": "string" }
       }
     },
     "CreateVideoRequest": {
       "type": "object",
       "properties": {
-        "createVideo": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "id": { "type": "string" },
-            "source": { "type": "string", "enum": ["SOURCE_UNSPECIFIED", "YOUTUBE", "DRIVE"] },
-            "elementProperties": { "type": "object" }
-          },
-          "required": ["id", "source"]
-        }
+        "objectId": { "type": "string" },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
+        "id": { "type": "string" },
+        "source": { "type": "string", "enum": ["SOURCE_UNSPECIFIED", "YOUTUBE", "DRIVE"] }
       }
     },
     "CreateSheetsChartRequest": {
       "type": "object",
       "properties": {
-        "createSheetsChart": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "spreadsheetId": { "type": "string" },
-            "chartId": { "type": "integer" },
-            "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
-            "elementProperties": { "type": "object" }
-          },
-          "required": ["spreadsheetId", "chartId"]
-        }
+        "objectId": { "type": "string" },
+        "spreadsheetId": { "type": "string" },
+        "chartId": { "type": "integer" },
+        "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" }
       }
     },
     "CreateLineRequest": {
       "type": "object",
       "properties": {
-        "createLine": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "elementProperties": { "type": "object" },
-            "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
-          }
-        }
+        "objectId": { "type": "string" },
+        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
+        "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] },
+        "category": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
       }
     },
     "RefreshSheetsChartRequest": {
       "type": "object",
       "properties": {
-        "refreshSheetsChart": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" }
       }
     },
     "UpdateShapePropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateShapeProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "shapeProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "shapeProperties", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "shapeProperties": { "type": "object" }
       }
     },
     "UpdateImagePropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateImageProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "imageProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "imageProperties", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "imageProperties": { "type": "object" }
       }
     },
     "UpdateVideoPropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateVideoProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "videoProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "videoProperties", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "videoProperties": { "type": "object" }
       }
     },
     "UpdatePagePropertiesRequest": {
       "type": "object",
       "properties": {
-        "updatePageProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "pageProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "pageProperties", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "pageProperties": { "type": "object" }
       }
     },
     "UpdateTableCellPropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateTableCellProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "tableRange": { "type": "object" },
-            "tableCellProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "tableRange": { "$ref": "#/definitions/TableRange" },
+        "tableCellProperties": { "type": "object" }
+      }
+    },
+    "TableRange": {
+      "type": "object",
+      "properties": {
+        "location": { "$ref": "#/definitions/TableCellLocation" },
+        "rowSpan": { "type": "integer" },
+        "columnSpan": { "type": "integer" }
       }
     },
     "UpdateLinePropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateLineProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "lineProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "fields": { "type": "string" },
+        "lineProperties": { "type": "object" }
       }
     },
     "CreateParagraphBulletsRequest": {
       "type": "object",
       "properties": {
-        "createParagraphBullets": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "textRange": { "type": "object" },
-            "bulletPreset": { "type": "string" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "textRange": { "$ref": "#/definitions/Range" },
+        "bulletPreset": { "type": "string", "enum": ["BULLET_DISC_CIRCLE_SQUARE", "BULLET_DIAMONDX_ARROW3D_SQUARE", "BULLET_CHECKBOX", "BULLET_ARROW_DIAMOND_DISC", "BULLET_STAR_CIRCLE_SQUARE", "BULLET_ARROW3D_CIRCLE_SQUARE", "BULLET_LEFTTRIANGLE_DIAMOND_DISC", "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE", "BULLET_DIAMOND_CIRCLE_SQUARE", "NUMBERED_DIGIT_ALPHA_ROMAN", "NUMBERED_DIGIT_ALPHA_ROMAN_PARENS", "NUMBERED_DIGIT_NESTED", "NUMBERED_UPPERALPHA_ALPHA_ROMAN", "NUMBERED_UPPERROMAN_UPPERALPHA_DIGIT", "NUMBERED_ZERODIGIT_ALPHA_ROMAN"] }
       }
     },
     "ReplaceAllShapesWithImageRequest": {
       "type": "object",
       "properties": {
-        "replaceAllShapesWithImage": {
-          "type": "object",
-          "properties": {
-            "imageUrl": { "type": "string" },
-            "replaceMethod": { "type": "string", "enum": ["CENTER_INSIDE", "CENTER_CROP"] },
-            "containsText": { "type": "object" },
-            "pageObjectIds": { "type": "array", "items": { "type": "string" } }
-          },
-          "required": ["imageUrl"]
-        }
+        "imageUrl": { "type": "string" },
+        "replaceMethod": { "type": "string", "enum": ["CENTER_INSIDE", "CENTER_CROP"] },
+        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_INSIDE", "CENTER_CROP"] },
+        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
+        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
       }
     },
     "DuplicateObjectRequest": {
       "type": "object",
       "properties": {
-        "duplicateObject": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "objectIds": { "type": "object" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "objectIds": { "type": "object", "additionalProperties": { "type": "string" } }
       }
     },
     "UpdateTextStyleRequest": {
       "type": "object",
       "properties": {
-        "updateTextStyle": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "style": { "type": "object" },
-            "textRange": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "style", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "style": { "type": "object" },
+        "textRange": { "$ref": "#/definitions/Range" },
+        "fields": { "type": "string" }
       }
     },
     "ReplaceAllShapesWithSheetsChartRequest": {
       "type": "object",
       "properties": {
-        "replaceAllShapesWithSheetsChart": {
-          "type": "object",
-          "properties": {
-            "spreadsheetId": { "type": "string" },
-            "chartId": { "type": "integer" },
-            "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
-            "containsText": { "type": "object" },
-            "pageObjectIds": { "type": "array", "items": { "type": "string" } }
-          },
-          "required": ["spreadsheetId", "chartId", "containsText"]
-        }
+        "spreadsheetId": { "type": "string" },
+        "chartId": { "type": "integer" },
+        "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
+        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
+        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
       }
     },
     "DeleteParagraphBulletsRequest": {
       "type": "object",
       "properties": {
-        "deleteParagraphBullets": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "textRange": { "type": "object" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "textRange": { "$ref": "#/definitions/Range" }
       }
     },
     "UpdateParagraphStyleRequest": {
       "type": "object",
       "properties": {
-        "updateParagraphStyle": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "cellLocation": { "type": "object" },
-            "style": { "type": "object" },
-            "textRange": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "style", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
+        "style": { "type": "object" },
+        "textRange": { "$ref": "#/definitions/Range" },
+        "fields": { "type": "string" }
       }
     },
     "UpdateTableBorderPropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateTableBorderProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "tableRange": { "type": "object" },
-            "borderPosition": { "type": "string" },
-            "tableBorderProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "borderPosition": { "type": "string", "enum": ["ALL", "BOTTOM", "INNER", "INNER_HORIZONTAL", "INNER_VERTICAL", "LEFT", "OUTER", "RIGHT", "TOP"] },
+        "tableRange": { "$ref": "#/definitions/TableRange" },
+        "tableBorderProperties": { "type": "object" },
+        "fields": { "type": "string" }
       }
     },
     "UpdateTableColumnPropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateTableColumnProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "columnIndices": { "type": "array", "items": { "type": "integer" } },
-            "tableColumnProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "columnIndices": { "type": "array", "items": { "type": "integer" } },
+        "tableColumnProperties": { "type": "object" },
+        "fields": { "type": "string" }
       }
     },
     "UpdateTableRowPropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateTableRowProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "rowIndices": { "type": "array", "items": { "type": "integer" } },
-            "tableRowProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "rowIndices": { "type": "array", "items": { "type": "integer" } },
+        "tableRowProperties": { "type": "object" },
+        "fields": { "type": "string" }
       }
     },
     "MergeTableCellsRequest": {
       "type": "object",
       "properties": {
-        "mergeTableCells": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "tableRange": { "type": "object" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "tableRange": { "$ref": "#/definitions/TableRange" }
       }
     },
     "UnmergeTableCellsRequest": {
       "type": "object",
       "properties": {
-        "unmergeTableCells": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "tableRange": { "type": "object" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "tableRange": { "$ref": "#/definitions/TableRange" }
       }
     },
     "GroupObjectsRequest": {
       "type": "object",
       "properties": {
-        "groupObjects": {
-          "type": "object",
-          "properties": {
-            "groupObjectId": { "type": "string" },
-            "childrenObjectIds": { "type": "array", "items": { "type": "string" } }
-          },
-          "required": ["childrenObjectIds"]
-        }
+        "groupObjectId": { "type": "string" },
+        "childrenObjectIds": { "type": "array", "items": { "type": "string" } }
       }
     },
     "UngroupObjectsRequest": {
       "type": "object",
       "properties": {
-        "ungroupObjects": {
-          "type": "object",
-          "properties": {
-            "objectIds": { "type": "array", "items": { "type": "string" } }
-          },
-          "required": ["objectIds"]
-        }
+        "objectIds": { "type": "array", "items": { "type": "string" } }
       }
     },
     "UpdatePageElementAltTextRequest": {
       "type": "object",
       "properties": {
-        "updatePageElementAltText": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "title": { "type": "string" },
-            "description": { "type": "string" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" },
+        "title": { "type": "string" },
+        "description": { "type": "string" }
       }
     },
     "ReplaceImageRequest": {
       "type": "object",
       "properties": {
-        "replaceImage": {
-          "type": "object",
-          "properties": {
-            "imageObjectId": { "type": "string" },
-            "url": { "type": "string" },
-            "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_INSIDE", "CENTER_CROP"] }
-          },
-          "required": ["imageObjectId", "url"]
-        }
+        "imageObjectId": { "type": "string" },
+        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_INSIDE", "CENTER_CROP"] },
+        "url": { "type": "string" }
       }
     },
     "UpdateSlidePropertiesRequest": {
       "type": "object",
       "properties": {
-        "updateSlideProperties": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "slideProperties": { "type": "object" },
-            "fields": { "type": "string" }
-          },
-          "required": ["objectId", "slideProperties", "fields"]
-        }
+        "objectId": { "type": "string" },
+        "slideProperties": { "type": "object" },
+        "fields": { "type": "string" }
       }
     },
     "UpdatePageElementsZOrderRequest": {
       "type": "object",
       "properties": {
-        "updatePageElementsZOrder": {
-          "type": "object",
-          "properties": {
-            "pageElementObjectIds": { "type": "array", "items": { "type": "string" } },
-            "operation": { "type": "string", "enum": ["Z_ORDER_OPERATION_UNSPECIFIED", "BRING_TO_FRONT", "BRING_FORWARD", "SEND_BACKWARD", "SEND_TO_BACK"] }
-          },
-          "required": ["pageElementObjectIds"]
-        }
+        "pageElementObjectIds": { "type": "array", "items": { "type": "string" } },
+        "operation": { "type": "string", "enum": ["Z_ORDER_OPERATION_UNSPECIFIED", "BRING_TO_FRONT", "BRING_FORWARD", "SEND_BACKWARD", "SEND_TO_BACK"] }
       }
     },
     "UpdateLineCategoryRequest": {
       "type": "object",
       "properties": {
-        "updateLineCategory": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" },
-            "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
-          },
-          "required": ["objectId", "lineCategory"]
-        }
+        "objectId": { "type": "string" },
+        "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
       }
     },
     "RerouteLineRequest": {
       "type": "object",
       "properties": {
-        "rerouteLine": {
-          "type": "object",
-          "properties": {
-            "objectId": { "type": "string" }
-          },
-          "required": ["objectId"]
-        }
+        "objectId": { "type": "string" }
       }
     }
   }
+};
+
+const jsonSchemaForSlides = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Google Slides API batchUpdate Request",
+  "description": "A list of requests to be applied to the presentation.",
+  "type": "object",
+  "properties": {
+    "presentationId": { "type": "string", "description": "Presentation ID (Google Slide ID)" },
+    "requests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "description": [
+          `Create "requests" by following JSON schema.`,
+          `The JSON schema of "requests" is as follows.`,
+          `<JSONSchema>${JSON.stringify(requestsForSlidesAPI_)}</JSONSchema>`,
+          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
+          `<URLs>`,
+          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
+          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
+          `</URLs>`,
+          `You can also refer to creating "request" by searching Google.`,
+        ].join("\n"),
+      }
+    }
+  },
+  "required": ["presentationId", "requests"]
 };
 
 

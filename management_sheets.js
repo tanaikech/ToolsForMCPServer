@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250729 12:10
+ * Updated on 20250814 10:44
  */
 
 /**
@@ -174,7 +174,7 @@ function manage_google_sheets_using_sheets_api(object = {}) {
   }
 
   try {
-    if (!spreadsheetId || requests.length == 0) {
+    if (!spreadsheetId || !Array.isArray(requests) || requests.length == 0) {
       result = { content: [{ type: "text", text: "No spreadsheet ID or requests." }], isError: true };
     } else {
       const obj = Sheets.Spreadsheets.batchUpdate({ requests }, spreadsheetId);

@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250729 12:10
+ * Updated on 20250814 10:44
  */
 
 /**
@@ -164,7 +164,7 @@ function manage_google_docs_using_docs_api(object = {}) {
   }
 
   try {
-    if (!documentId || requests.length == 0) {
+    if (!documentId || !Array.isArray(requests) || requests.length == 0) {
       result = { content: [{ type: "text", text: "No document ID or requests." }], isError: true };
     } else {
       const obj = Docs.Documents.batchUpdate({ requests }, documentId);

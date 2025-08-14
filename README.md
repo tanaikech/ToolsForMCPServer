@@ -1538,4 +1538,18 @@ function main(eventObject) {
 
   1. A tool `get_attachment_files_from_Gmail` was updated. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/10)
 
+- v1.0.24 (August 14, 2025)
+
+  I’ve dealt with an issue caused by the update of the Gemini CLI from v0.1.18 to v0.1.19.
+
+  The update has lowered the schema nesting depth, which now requires the use of `$ref`. However, the `parametersJsonSchema` appears to be incompatible with this. This means that a request body, such as the `batchUpdate` for the Docs, Sheets, and Slides APIs, cannot be directly generated using the input schema. It would be very useful if an AI agent could directly generate this type of complex request body.
+  
+  To solve this, I explored solutions to manage the low depth without using `$ref` for these three tools. I came up with the following workaround:
+
+  ```
+  The JSON schema is included in the tool's description, and this description is used as a prompt for the AI agent.
+  ```
+
+  With this workaround, the input schema remains simple, and the complex JSON schema can still be used to generate the request body. Additionally, no errors occur when using the Gemini CLI.
+
 [TOP](#top)
