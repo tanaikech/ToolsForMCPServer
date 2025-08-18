@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250809 11:55
- * version 1.0.19
+ * Updated on 20250818 15:30
+ * version 1.0.26
  */
 
-const ToolsForMCPServerVersion = "1.0.19";
+const ToolsForMCPServerVersion = "1.0.26";
 const ProtocolVersion = "2025-06-18";
 
 /**
@@ -315,7 +315,7 @@ function checkAPI_(apiName) {
 
 // Common functions.
 var for_google_apis = {
-  list: ({ func, args, jsonSchema, itemName }) => {
+  list: ({ func, args, jsonSchema, itemName, count = null }) => {
     const queryParameters = args.pop();
     let result;
     try {
@@ -343,9 +343,10 @@ var for_google_apis = {
         },
         "required": [itemName],
       };
+      const arr = count ? ar.splice(0, count) : ar;
       const text = [
-        `Retrieved values are as follows.`,
-        `<Values>${ar.length == 0 ? "No values." : JSON.stringify({ [itemName]: ar })}</Values>`,
+        `Retrieved values are as follows. ${arr.length} items were retrieved.`,
+        `<Values>${arr.length == 0 ? "No values." : JSON.stringify({ [itemName]: arr })}</Values>`,
         `JSON schema of "Values" is as follows.`,
         `<JSONSchema>${JSON.stringify(itemJsonSchema)}</JSONSchema>`,
       ].join("\n");

@@ -232,7 +232,8 @@ function main(eventObject) {
 - If an error related to Drive API occurred, please enable Drive API at Advanced Google services.
 - **If you want to manage Docs, Sheets, Slides, and Calendars using the batch update methods of API, please enable Docs API, Sheets API, Slides API, and Calendar API at Advanced Google services.**
 - If you want to use the specific Google Calendar, please set `defaultCalendarId`.
-- **If you want to manage Google Classroom and Google People, please enable the Google Classroom API and the Google People API at Advanced Google services.**
+- If you want to manage Google Classroom and Google People, please enable the Google Classroom API and the Google People API at Advanced Google services.
+- If you want to retrieve the drive activity, please enable Drive Activity API at Advanced Google services.
 
 #### Show all tools
 
@@ -1555,5 +1556,16 @@ function main(eventObject) {
 - v1.0.25 (August 14, 2025)
 
   1. Modified descriptions of `manage_google_docs_using_docs_api`, `manage_google_sheets_using_sheets_api`, and `manage_google_slides_using_slides_api`.
+
+- v1.0.26 (August 18, 2025)
+
+  1. Following 6 tools were added.
+
+    * `comments_drive_api_list`: Use to get a list of a file's comments on Google Drive.
+    * `comments_drive_api_remove`: Use to delete a comment using the "comments.delete" method of Google Drive API.
+    * `revisions_drive_api_list`: Use to get a list of a file's revisions on Google Drive.
+    * `drive_activity_api_query`: Use to query past activity in Google Drive. The activities of the files and folders in Google Drive are retrieved.
+    * `people_otherContacts_search`: Use to provide a list of contacts in the authenticated user's other contacts that matches the search query.
+    * `people_people_getBatchGet`: Use to provide information about a list of specific people by specifying a list of requested resource names.
 
 [TOP](#top)

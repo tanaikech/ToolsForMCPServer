@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250729 12:10
+ * Updated on 20250818 15:26
  */
 
 /**
@@ -378,6 +378,102 @@ function create_google_docs_from_markdown_on_google_drive(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+// REST Resource: comments: https://developers.google.com/workspace/drive/api/reference/rest/v3/comments
+function comments_drive_api_list(object = {}) {
+  /**
+  * Check API
+  */
+  const check = checkAPI_("Drive");
+  if (check.result) {
+    return check;
+  }
+
+  const { pathParameters, queryParameters = {} } = object;
+  queryParameters.fields = "*";
+  const { fileId } = pathParameters;
+  return for_google_apis.list({ func: Drive.Comments.list, args: [fileId, queryParameters], jsonSchema: jsonSchemaDrive.Comment, itemName: "comments" });
+}
+
+function comments_drive_api_remove(object = {}) {
+  /**
+   * Check API
+   */
+  const check = checkAPI_("Drive");
+  if (check.result) {
+    return check;
+  }
+
+  return for_google_apis.remove({ func: Drive.Comments.remove, args: [object.pathParameters?.fileId, object.pathParameters?.commentId] });
+}
+
+// REST Resource: revisions: https://developers.google.com/workspace/drive/api/reference/rest/v3/revisions
+function revisions_drive_api_list(object = {}) {
+  /**
+  * Check API
+  */
+  const check = checkAPI_("Drive");
+  if (check.result) {
+    return check;
+  }
+
+  const { pathParameters, queryParameters = {}, count = 10 } = object;
+  queryParameters.fields = "*";
+  const { fileId } = pathParameters;
+  return for_google_apis.list({ func: Drive.Revisions.list, args: [fileId, queryParameters], jsonSchema: jsonSchemaDrive.Revision, itemName: "revisions", count });
+}
+
+// REST Resource: activity: https://developers.google.com/workspace/drive/activity/v2/reference/rest/v2/activity
+function drive_activity_api_query(object = {}) {
+  /**
+  * Check API
+  */
+  const check = checkAPI_("DriveActivity");
+  if (check.result) {
+    return check;
+  }
+
+  let result;
+  try {
+    const { requestBody = {}, count = 10 } = object;
+    const itemName = "activities";
+    const ar = [];
+    let pageToken;
+    do {
+      const obj = DriveActivity.Activity.query(requestBody);
+      if (obj[itemName]) {
+        ar.push(...obj[itemName]);
+      }
+      pageToken = obj.nextPageToken;
+      requestBody.pageToken = pageToken;
+    } while (pageToken);
+    const itemJsonSchema = {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "description": "JSON schema for the response value.",
+      "type": "object",
+      "properties": {
+        [itemName]: {
+          "description": `${itemName} that match the list request.`,
+          "type": "array",
+          "items": jsonSchemaDrive.DriveActivity
+        }
+      },
+      "required": [itemName],
+    };
+    const arr = ar.splice(0, count);
+    const text = [
+      `Retrieved values are as follows.`,
+      `<Values>${arr.length == 0 ? "No values." : JSON.stringify({ [itemName]: arr })}</Values>`,
+      `JSON schema of "Values" is as follows.`,
+      `<JSONSchema>${JSON.stringify(itemJsonSchema)}</JSONSchema>`,
+    ].join("\n");
+    result = { content: [{ type: "text", text }], isError: false };
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 // Descriptions of the functions.
 const descriptions_management_drive = {
   search_file_in_google_drive: {
@@ -535,6 +631,128 @@ const descriptions_management_drive = {
         text: { description: "Text as a markdown format.", type: "string" },
       }
     }
-  }
+  },
 
+  comments_drive_api_list: {
+    title: "Lists a file's comments",
+    description: "Use to get a list of a file's comments on Google Drive.",
+    parameters: {
+      type: "object",
+      properties: {
+        pathParameters: {
+          type: "object",
+          properties: {
+            fileId: { type: "string", description: "The ID of the file on Google Drive." },
+          },
+          required: ["fileId"]
+        },
+        queryParameters: {
+          type: "object",
+          properties: {
+            includeDeleted: {
+              type: "boolean",
+              description: "Whether to include deleted comments. Deleted comments will not include their original content."
+            },
+            startModifiedTime: {
+              type: "string",
+              description: "The minimum value of 'modifiedTime' for the result comments (RFC 3339 date-time)."
+            },
+          }
+        }
+      },
+      required: ["pathParameters"]
+    }
+  },
+
+  comments_drive_api_remove: {
+    title: "Deletes a comment",
+    description: `Use to delete a comment using the "comments.delete" method of Google Drive API.`,
+    parameters: {
+      type: "object",
+      properties: {
+        pathParameters: {
+          type: "object",
+          properties: {
+            fileId: { type: "string", description: "The ID of the file on Google Drive." },
+            commentId: { type: "string", description: "The ID of the comment." },
+          },
+          required: ["fileId", "commentId"]
+        }
+      },
+      required: ["pathParameters"]
+    }
+  },
+
+  revisions_drive_api_list: {
+    title: "Lists a file's revisions",
+    description: "Use to get a list of a file's revisions on Google Drive.",
+    parameters: {
+      type: "object",
+      properties: {
+        pathParameters: {
+          type: "object",
+          properties: {
+            fileId: { type: "string", description: "The ID of the file on Google Drive. The file ID is also the same as the Document ID, Spreadsheet ID, Presentation ID, Form ID, and so on.." },
+          },
+          required: ["fileId"]
+        },
+        count: { type: "number", description: "Number of items. The default is 10." },
+      },
+      required: ["pathParameters"]
+    }
+  },
+
+  drive_activity_api_query: {
+    title: "Query past activity in Google Drive",
+    description: "Use to query past activity in Google Drive. The activities of the files and folders in Google Drive are retrieved.",
+    parameters: {
+      type: "object",
+      properties: {
+        requestBody: {
+          "type": "object",
+          "properties": {
+            "consolidationStrategy": {
+              "description": "Details on how to consolidate related actions that make up the activity. If not set, then related actions aren't consolidated.",
+              "type": "object",
+              "properties": {
+                "legacy": {
+                  "description": "The individual activities are consolidated using the legacy strategy.",
+                  "type": "object",
+                  "properties": {}
+                }
+              }
+            },
+            "filter": {
+              "description": [
+                `The filtering for items returned from this query request. The format of the filter string is a sequence of expressions, joined by an optional "AND", where each expression is of the form "field operator value".`,
+                `Supported fields:`,
+                ``,
+                `- time: Uses numerical operators on date values either in terms of milliseconds since Jan 1, 1970 or in RFC 3339 format. Examples:`,
+                `  time > 1452409200000 AND time <= 1492812924310`,
+                `  time >= "2016-01-10T01:02:03-05:00"`,
+                ``,
+                `- detail.action_detail_case: Uses the "has" operator (:) and either a singular value or a list of allowed action types enclosed in parentheses, separated by a space. To exclude a result from the response, prepend a hyphen (-) to the beginning of the filter string. Examples:`,
+                `  detail.action_detail_case:RENAME`,
+                `  detail.action_detail_case:(CREATE RESTORE)`,
+                `  -detail.action_detail_case:MOVE`,
+              ].join("\n"),
+              "type": "string"
+            },
+            "itemName": {
+              "description": "Return activities for this Drive item. The format is items/ITEM_ID. ITEM_ID is the file ID. The file ID is the same with Spreadsheet ID, Document ID, Preasentation ID, Form ID and so on.",
+              "type": "string"
+            },
+            "ancestorName": {
+              "description": "Return activities for this Drive folder, plus all children and descendants. The format is items/ITEM_ID. ITEM_ID is the folder ID.",
+              "type": "string"
+            }
+          },
+          "oneOf": [{ "required": ["itemName"] }, { "required": ["ancestorName"] }]
+        },
+        count: { type: "number", description: "Number of items. The default is 10." },
+      },
+      required: ["requestBody"],
+    }
+  },
+  
 };

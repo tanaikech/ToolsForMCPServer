@@ -1,7 +1,6 @@
 /**
  * Management of Google People
- * Created on 20250809 11:55
- * version 1.0.19
+ * Updated on 20250818 15:26
  */
 
 function people_contactGroups_list(object = {}) {
@@ -41,6 +40,60 @@ function people_connections_list(object = {}) {
 
   const { pathParameters, queryParameters = {} } = object;
   return for_google_apis.list({ func: People.People.Connections.list, args: [pathParameters.resourceName || "people/me", queryParameters], jsonSchema: jsonSchemaForPeople.Person, itemName: "connections" });
+}
+
+// Method: people.getBatchGet@People API: https://developers.google.com/people/api/rest/v1/people/getBatchGet
+function people_people_getBatchGet(object = {}) {
+  /**
+  * Check API
+  */
+  const check = checkAPI_("People");
+  if (check.result) {
+    return check;
+  }
+
+  let result;
+  try {
+    const { responses } = People.People.getBatchGet(object.queryParameters);
+    const text = [
+      `Retrieved values are as follows.`,
+      `<Values>${(!responses || responses.length == 0) ? "No values." : JSON.stringify({ responses })}</Values>`,
+      `JSON schema of "Values" is as follows.`,
+      `<JSONSchema>${JSON.stringify(jsonSchemaForPeople.PersonResponse)}</JSONSchema>`,
+    ].join("\n");
+    result = { content: [{ type: "text", text }], isError: false };
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
+// Method: otherContacts.search@People API: https://developers.google.com/people/api/rest/v1/otherContacts/search
+function people_otherContacts_search(object = {}) {
+  /**
+  * Check API
+  */
+  const check = checkAPI_("People");
+  if (check.result) {
+    return check;
+  }
+
+  let result;
+  try {
+    const { results } = People.OtherContacts.search(object.queryParameters);
+    const text = [
+      `Retrieved values are as follows.`,
+      `<Values>${(!results || results.length == 0) ? "No values." : JSON.stringify({ results })}</Values>`,
+      `JSON schema of "Values" is as follows.`,
+      `<JSONSchema>${JSON.stringify(jsonSchemaForPeople.SearchResponse)}</JSONSchema>`,
+    ].join("\n");
+    result = { content: [{ type: "text", text }], isError: false };
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
 }
 
 const descriptions_management_people = {
@@ -229,6 +282,75 @@ const descriptions_management_people = {
         }
       },
       required: ["pathParameters", "queryParameters"]
+    }
+  },
+
+  people_people_getBatchGet: {
+    title: "Provides information about a list of specific people by specifying a list of requested resource names",
+    description: "Use to provide information about a list of specific people by specifying a list of requested resource names. Use people/me to indicate the authenticated user.",
+    parameters: {
+      type: "object",
+      properties: {
+        queryParameters: {
+          type: "object",
+          properties: {
+            resourceNames: {
+              type: "array",
+              description: [
+                `Required. The resource names of the people to provide information about. It's repeatable. The URL query parameter should be an array.`,
+                `- To get information about the authenticated user, specify people/me.`,
+                `- To get information about a google account, specify people/{account_id}.`,
+                `- To get information about a contact, specify the resource name that identifies the contact as returned by people.connections.list.`,
+                `There is a maximum of 200 resource names.`,
+              ].join("\n"),
+              items: { type: "string" }
+            },
+            personFields: {
+              type: "string",
+              description: `Required. A field mask to restrict which fields on each person are returned. Multiple fields can be specified by separating them with commas. Valid values are "addresses","ageRanges","biographies","birthdays","calendarUrls","clientData","coverPhotos","emailAddresses","events","externalIds","genders","imClients","interests","locales","locations","memberships","metadata","miscKeywords","names","nicknames","occupations","organizations","phoneNumbers","photos","relations","sipAddresses","skills","urls","userDefined".`,
+              enum: ["addresses", "ageRanges", "biographies", "birthdays", "calendarUrls", "clientData", "coverPhotos", "emailAddresses", "events", "externalIds", "genders", "imClients", "interests", "locales", "locations", "memberships", "metadata", "miscKeywords", "names", "nicknames", "occupations", "organizations", "phoneNumbers", "photos", "relations", "sipAddresses", "skills", "urls", "userDefined"]
+            },
+            sources: {
+              type: "array",
+              description: `Optional. A mask of what source types to return. Defaults to READ_SOURCE_TYPE_CONTACT and READ_SOURCE_TYPE_PROFILE if not set.`,
+              items: { type: "string" }
+            }
+          },
+          required: ["resourceNames", "personFields"]
+        }
+      },
+      required: ["queryParameters"]
+    }
+  },
+
+  people_otherContacts_search: {
+    title: "Provides a list of contacts in the authenticated user's other contacts that matches the search query",
+    description: "Use to provide a list of contacts in the authenticated user's other contacts that matches the search query. The query matches on a contact's names, emailAddresses, and phoneNumbers fields that are from the OTHER_CONTACT source.",
+    parameters: {
+      type: "object",
+      properties: {
+        queryParameters: {
+          type: "object",
+          properties: {
+            query: {
+              type: "string",
+              description: `Required. The plain-text query for the request. The query is used to match prefix phrases of the fields on a person. For example, a person with name "foo name" matches queries such as "f", "fo", "foo", "foo n", "nam", etc., but not "oo n".`
+            },
+            readMask: {
+              type: "string",
+              description: [
+                `Required. A field mask to restrict which fields on each person are returned. Multiple fields can be specified by separating them with commas. Valid values are:`,
+                `- emailAddresses`,
+                `- metadata`,
+                `- names`,
+                `- phoneNumbers`,
+              ].join("\n")
+            }
+          },
+          required: ["query", "readMask"]
+        }
+      },
+      required: ["queryParameters"]
     }
   },
 
