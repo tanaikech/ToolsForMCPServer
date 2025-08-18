@@ -1270,6 +1270,12 @@ In this case, you can see the samples at **"[Next-Level Classroom Automation: Ge
 
 ---
 
+The following samples were added on August 18, 2025.
+
+In this case, you can see the samples at **"[Unifying Google Workspace with Natural Language: Integrated Collaboration through Gemini CLI and MCP](https://medium.com/@tanaike/unifying-google-workspace-with-natural-language-integrated-collaboration-through-gemini-cli-and-a40489ddf17e)"**.
+
+---
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
