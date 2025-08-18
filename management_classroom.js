@@ -1,6 +1,6 @@
 /**
  * Management of Google Classroom
- * Created on 20250809 11:55
+ * Created on 20250818 09:57
  */
 
 // REST Resource: courses: https://developers.google.com/workspace/classroom/reference/rest/v1/courses
@@ -2124,10 +2124,10 @@ const descriptions_management_classroom = {
           "type": "object",
           "description": "Parameters that are appended to the URL query string.",
           "properties": {
-            "announcementStates[]": {
-              "type": "string",
+            "announcementStates": {
+              "type": "array",
               "description": "Restriction on the state of announcements returned. If this argument is left unspecified, the default value is PUBLISHED.",
-              "enum": ["PUBLISHED", "DRAFT", "DELETED"]
+              "items": { "type": "string", "enum": ["PUBLISHED", "DRAFT", "DELETED"] }
             },
             "orderBy": {
               "type": "string",
@@ -2885,10 +2885,10 @@ const descriptions_management_classroom = {
           type: "object",
           properties: {
             invitedEmailAddress: { type: "string", description: "If specified, only results with the specified invitedEmailAddress are returned." },
-            "states[]": {
-              type: "string",
+            states: {
+              type: "array",
               description: "If specified, only results with the specified state values are returned. Otherwise, results with a state of PENDING are returned.",
-              enum: ["PENDING", "COMPLETE"]
+              items: { type: "string", enum: ["PENDING", "COMPLETE"] }
             }
           }
         }
