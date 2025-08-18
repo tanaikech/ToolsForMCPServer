@@ -25,7 +25,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (August 10, 2025), the following 115 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (August 18, 2025), the following 121 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `add_label_to_Gmail`: Add labels to threads of Gmail. Don't use the invalid thread IDs.
 * `auto_new_draft_creation_Gmail`: Create automatically drafted emails in Gmail. This function returns the value, including the message ID and the draft ID. When creating the draft email, confirm the owner's name and insert the sender's name into the footer. Don't use '[Your Name]'. If you have no information about the sender's email, don't include the footer of sender's name in the email.
@@ -107,6 +107,8 @@ While Classroom may validate the cloudPubSubTopic and return errors on a best ef
 * `classroom_userProfiles_guardians_list`: Use to retrieve a list of guardians that the requesting user is permitted to view, restricted to those that match the request using a method "userProfiles.guardianInvitations.list" of Google Classroom API.
 To list guardians for any student that the requesting user may view guardians for, use the literal character - for the student ID.
 * `classroom_userProfiles_guardians_remove`: Use to delete a guardian using the "userProfiles.guardians.delete" method of Google Classroom API.
+* `comments_drive_api_list`: Use to get a list of a file's comments on Google Drive.
+* `comments_drive_api_remove`: Use to delete a comment using the "comments.delete" method of Google Drive API.
 * `convert_mimetype_of_file_on_google_drive`: Use this to convert the mimeType of files on Google Drive.
 * `create_file_to_google_drive`: Use this to create an empty file to Google Drive.
 * `create_google_docs_from_markdown_on_google_drive`: Use to create a Google Document from a markdown format.
@@ -114,6 +116,7 @@ To list guardians for any student that the requesting user may view guardians fo
 * `delete_schedules_on_Google_Calendar`: Use to delete schedules (events) from Google Calendar.
 * `description_video_on_youtube`: Use this to describe and summarize a video on YouTube using the YouTube URL.
 * `description_web_site`: Use this to describe sites using URLs.
+* `drive_activity_api_query`: Use to query past activity in Google Drive. The activities of the files and folders in Google Drive are retrieved.
 * `generate_description_on_google_drive`: Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.
 * `generate_image_on_google_drive`: Use this to generate an image from an inputted prompt. The generated image is saved as a file on Google Drive.
 * `generate_presentation_with_google_slides`: Use this to create and generate a presentation using Google Slides.
@@ -139,17 +142,23 @@ If you cannot know the location, decide the location using the timezone.
 * `get_values_from_google_docs`: Use this to get text from Google Docs in a text format or a markdown format. The document ID is used for retrieving the values from the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
 * `get_values_from_google_sheets`: Use this to get cell values from Google Sheets. The spreadsheet ID is used for retrieving the values from the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
 * `manage_google_docs_using_docs_api`: Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate
+In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".
 * `manage_google_sheets_using_sheets_api`: Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/batchUpdate
+In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".
 * `manage_google_slides_using_slides_api`: Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/batchUpdate
+In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".
 * `move_files_on_google_drive`: Use this to move the files and the folders into other folder on Google Drive.
 * `people_connections_list`: Provides a list of the authenticated user's contacts.
 * `people_contactGroups_list`: List all contact groups owned by the authenticated user. Members of the contact groups are not populated.
 * `people_otherContacts_list`: List all "Other contacts", that is contacts that are not in a contact group. "Other contacts" are typically auto created contacts from interactions.
+* `people_otherContacts_search`: Use to provide a list of contacts in the authenticated user's other contacts that matches the search query. The query matches on a contact's names, emailAddresses, and phoneNumbers fields that are from the OTHER_CONTACT source.
+* `people_people_getBatchGet`: Use to provide information about a list of specific people by specifying a list of requested resource names. Use people/me to indicate the authenticated user.
 * `put_file_to_google_drive`: Use this to put and upload data to Google Drive as a file. When you use this function, please provide the file content converted to base64 data. So, you are required to encode the file content as base64 data.
 * `put_values_into_google_docs`: Use this to append or insert text to Google Docs. The document ID is used for putting the values to the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
 * `put_values_to_google_sheets`: Use this to put values into Google Sheets. The spreadsheet ID is used for putting the values to the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
 * `remove_mails_Gmail`: Use this to remove the messages.
 * `rename_files_on_google_drive`: Use this to rename the files on Google Drive.
+* `revisions_drive_api_list`: Use to get a list of a file's revisions on Google Drive.
 * `search_file_in_google_drive`: Use this to search files in Google Drive by providing a search query. For example, the filename can be converted to the file ID. But, in the case of Google Drive, the file IDs are unique values. But, the same filenames can exist in the same folder. So, when a filename is searched, multiple file IDs might be returned. At that time, it is required to confirm which file the user wants to use.
 * `search_schedule_on_Google_Calendar`: Use to search the schedules (events) on Google Calendar by providing the date range.
 * `search_values_from_google_sheets`: Use this to search all cells in Google Sheets using a regex. The spreadsheet ID is used for searching a text from the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID. In this case, the search text is searched to see whether it is the same as the entire cell value. So, if you want to search the cells including 'sample' text, please use a regex like '.*sample.*'.
@@ -424,7 +433,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹ Configured MCP servers:
 
-  🟢 gas_web_apps - Ready (115 tools, 3 prompts)
+  🟢 gas_web_apps - Ready (121 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - auto_new_draft_creation_Gmail
@@ -497,6 +506,8 @@ When your setting is correct, the following result is returned.
     - classroom_userProfiles_guardians_get
     - classroom_userProfiles_guardians_list
     - classroom_userProfiles_guardians_remove
+    - comments_drive_api_list
+    - comments_drive_api_remove
     - convert_mimetype_of_file_on_google_drive
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
@@ -504,6 +515,7 @@ When your setting is correct, the following result is returned.
     - delete_schedules_on_Google_Calendar
     - description_video_on_youtube
     - description_web_site
+    - drive_activity_api_query
     - generate_description_on_google_drive
     - generate_image_on_google_drive
     - generate_presentation_with_google_slides
@@ -530,11 +542,14 @@ When your setting is correct, the following result is returned.
     - people_connections_list
     - people_contactGroups_list
     - people_otherContacts_list
+    - people_otherContacts_search
+    - people_people_getBatchGet
     - put_file_to_google_drive
     - put_values_into_google_docs
     - put_values_to_google_sheets
     - remove_mails_Gmail
     - rename_files_on_google_drive
+    - revisions_drive_api_list
     - search_file_in_google_drive
     - search_schedule_on_Google_Calendar
     - search_values_from_google_sheets
