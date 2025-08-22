@@ -3,12 +3,13 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250818 15:30
- * version 1.0.26
+ * Updated on 20250822 16:03
+ * version 1.0.27
  */
 
-const ToolsForMCPServerVersion = "1.0.26";
+const ToolsForMCPServerVersion = "1.0.27";
 const ProtocolVersion = "2025-06-18";
+const ServerName = "gas_web_apps";
 
 /**
  * This is an API key for using Gemini API.
@@ -39,6 +40,12 @@ var enableClassroomTools = true;
  * The default is true.
  */
 var enablePeopleTools = true;
+
+/**
+ * When this is false, the tools for managing the Google Analytics Admin and Data APIs are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enableAnalyticsTools = true;
 
 /**
  * This is an access token and key for using StackExchange API.
@@ -86,6 +93,13 @@ function functions_() {
    */
   if (enablePeopleTools === true) {
     descriptions.push(descriptions_management_people);
+  }
+
+  /**
+   * Add tools for managing Google Analytics.
+   */
+  if (enableAnalyticsTools === true) {
+    descriptions.push(descriptions_management_analytics);
   }
 
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
@@ -151,7 +165,7 @@ function getTools(object = {}) {
         "capabilities": {
           "tools": { "listChanged": false }, "prompts": { listChanged: false }, "resources": { "subscribe": false, "listChanged": false }
         },
-        "serverInfo": { "name": "gas_web_apps", "version": ToolsForMCPServerVersion }
+        "serverInfo": { "name": ServerName, "version": ToolsForMCPServerVersion }
       }
     },
 
