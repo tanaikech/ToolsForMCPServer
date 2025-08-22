@@ -1288,7 +1288,7 @@ In this case, you can see the samples at **"[Unifying Google Workspace with Natu
 
 The following samples were added on August 22, 2025.
 
-In this case, you can see the samples at **"[Streamlining Web Page Insights with Natural Language using Gemini CLI, Google Analytics, and MCP]()"**.
+In this case, you can see the samples at **"[Streamlining Web Page Insights with Natural Language using Gemini CLI, Google Analytics, and MCP](https://medium.com/@tanaike/streamlining-web-page-insights-with-natural-language-using-gemini-cli-google-analytics-and-mcp-1774d2b735b7)"**.
 
 ---
 
