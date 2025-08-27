@@ -336,21 +336,15 @@ Add the `mcpServers` configuration block as shown below.
   "selectedAuthType": "###",
   "mcpServers": {
     "gas_web_apps": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://script.google.com/macros/s/###/exec?accessKey=sample"
-      ],
-      "env": {}
+      "httpUrl": "https://script.google.com/macros/s/###/exec?accessKey=sample",
+      "description": "MCP server built by Google Apps Script Web Apps"
     }
   }
 }
 ```
 
 - `"gas_web_apps"`: A local identifier for your server.
-- `"command"` and `"args"`: These tell the Gemini CLI how to invoke the `mcp-remote` tool, which handles the communication with your Web App URL.
-
-When you have never installed `mcp-remote`, please install it. [Ref](https://www.npmjs.com/package/mcp-remote)
+- `"httpUrl"`: Your Web Apps URL.
 
 ### 3. Transfer file content (Added on July 9, 2025)
 
