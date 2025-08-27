@@ -333,6 +333,26 @@ Add the `mcpServers` configuration block as shown below.
 ```json
 {
   "theme": "Default",
+  "selectedAuthType": "gemini-api-key",
+  "mcpServers": {
+    "gas_web_apps": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://script.google.com/macros/s/###/exec?accessKey=sample"
+      ],
+      "env": {}
+    }
+  },
+  "disableAutoUpdate": true
+}
+```
+
+or
+
+```json
+{
+  "theme": "Default",
   "selectedAuthType": "###",
   "mcpServers": {
     "gas_web_apps": {
@@ -344,7 +364,8 @@ Add the `mcpServers` configuration block as shown below.
 ```
 
 - `"gas_web_apps"`: A local identifier for your server.
-- `"httpUrl"`: Your Web Apps URL.
+- `"httpUrl"`: Your Web Apps URL. In the current stage, when this is used, an error might occur. At that time, use `mcp-remote`.
+- If you use `mcp-remote`, please install it. [Ref](https://www.npmjs.com/package/mcp-remote)
 
 ### 3. Transfer file content (Added on July 9, 2025)
 
