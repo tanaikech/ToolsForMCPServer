@@ -366,6 +366,26 @@ or
 - `"gas_web_apps"`: A local identifier for your server.
 - `"httpUrl"`: Your Web Apps URL. In the current stage, when this is used, an error might occur. At that time, use `mcp-remote`.
 - If you use `mcp-remote`, please install it. [Ref](https://www.npmjs.com/package/mcp-remote)
+- If an error like `Request timed out` occurs, please add `timeout` as follows.
+
+  ```json
+  {
+    "theme": "Default",
+    "selectedAuthType": "gemini-api-key",
+    "mcpServers": {
+      "gas_web_apps": {
+        "command": "npx",
+        "args": [
+          "mcp-remote",
+          "https://script.google.com/macros/s/###/exec?accessKey=sample"
+        ],
+        "env": {},
+        "timeout": 300000
+      }
+    },
+    "disableAutoUpdate": true
+  }
+  ```
 
 ### 3. Transfer file content (Added on July 9, 2025)
 
