@@ -388,7 +388,7 @@ or
   ```
 
   ```
-  export GEMINI_TIMEOUT=300 # Seconds
+  GEMINI_TIMEOUT=300 # Seconds
   ```
 
 ### 3. Transfer file content (Added on July 9, 2025)
