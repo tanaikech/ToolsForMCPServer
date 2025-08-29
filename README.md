@@ -366,7 +366,7 @@ or
 - `"gas_web_apps"`: A local identifier for your server.
 - `"httpUrl"`: Your Web Apps URL. In the current stage, when this is used, an error might occur. At that time, use `mcp-remote`.
 - If you use `mcp-remote`, please install it. [Ref](https://www.npmjs.com/package/mcp-remote)
-- If an error like `Request timed out` occurs, please add `timeout` as follows.
+- If an error like `Request timed out` occurs, please add `timeout` and use `GEMINI_TIMEOUT` as follows.
 
   ```json
   {
@@ -385,6 +385,10 @@ or
     },
     "disableAutoUpdate": true
   }
+  ```
+
+  ```
+  export GEMINI_TIMEOUT=300 # Seconds
   ```
 
 ### 3. Transfer file content (Added on July 9, 2025)
