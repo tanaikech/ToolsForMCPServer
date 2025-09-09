@@ -756,6 +756,3 @@ const descriptions_management_drive = {
   },
   
 };
-// DriveApp.createFile(blob)
-// return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(blob).getId()}".`;
-// return `The mimeType of "${fileIds[i]}" was not converted to "${dstMimeType}". Message: ${e}`;
