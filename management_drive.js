@@ -264,7 +264,7 @@ function convert_mimetype_of_file_on_google_drive(object = {}) {
       const ar = new MimeTypeApp().setFileIds(fileIds).getAs({ mimeType: dstMimeType });
       const text = ar.map((e, i) => {
         if (e.toString() == "Blob") {
-          return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(blob).getId()}".`;
+          return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(e).getId()}".`;
         }
         try {
           DriveApp.getFileById(e);
@@ -756,3 +756,6 @@ const descriptions_management_drive = {
   },
   
 };
+// DriveApp.createFile(blob)
+// return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(blob).getId()}".`;
+// return `The mimeType of "${fileIds[i]}" was not converted to "${dstMimeType}". Message: ${e}`;
