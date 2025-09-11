@@ -1,6 +1,6 @@
 /**
  * Management of Gmail
- * Updated on 20250714 09:49
+ * Updated on 20250910 16:20
  */
 
 /**
@@ -310,10 +310,10 @@ function auto_new_draft_creation_Gmail(object = {}) {
       if (res.length > 0) {
         result = { content: [{ type: "text", text: res.join("\n") }], isError: false };
       } else {
-        result = { content: [{ type: "text", text: "No creation of drafted emails." }], isError: false };
+        result = { content: [{ type: "text", text: "No creation of drafted emails." }], isError: true };
       }
     } else {
-      result = { content: [{ type: "text", text: "No creation of drafted emails." }], isError: false };
+      result = { content: [{ type: "text", text: "No creation of drafted emails." }], isError: true };
     }
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };

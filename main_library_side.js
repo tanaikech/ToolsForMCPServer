@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250822 16:03
- * version 1.0.27
+ * Updated on 20250910 16:20
+ * version 1.0.28
  */
 
-const ToolsForMCPServerVersion = "1.0.27";
+const ToolsForMCPServerVersion = "1.0.28";
 const ProtocolVersion = "2025-06-18";
 const ServerName = "gas_web_apps";
 
@@ -48,6 +48,12 @@ var enablePeopleTools = true;
 var enableAnalyticsTools = true;
 
 /**
+ * When this is false, the tools for managing the Google Maps are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enableMapsTools = true;
+
+/**
  * This is an access token and key for using StackExchange API.
  * When the `get_questions_on_stackoverflow` tool is used, these values are required to be used.
  */
@@ -75,7 +81,7 @@ function functions_() {
       descriptions_management_sheets,
       descriptions_management_slides,
       descriptions_use_gemini,
-      descriptions_management_people,
+      descriptions_management_rag,
 
       // descriptions_dev,
     );
@@ -100,6 +106,13 @@ function functions_() {
    */
   if (enableAnalyticsTools === true) {
     descriptions.push(descriptions_management_analytics);
+  }
+
+  /**
+   * Add tools for managing Google Maps.
+   */
+  if (enableMapsTools === true) {
+    descriptions.push(descriptions_management_maps);
   }
 
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});

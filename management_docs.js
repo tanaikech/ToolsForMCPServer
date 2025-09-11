@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250814 13:30
+ * Updated on 20250910 16:20
  */
 
 /**
@@ -177,6 +177,52 @@ function manage_google_docs_using_docs_api(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+/**
+ * This function creats a document body in Google Docs.
+ * @private
+ */
+function create_document_body_in_google_docs(object = {}) {
+  const { documentId, documentText } = object;
+  let result;
+  try {
+    if (documentText.length > 0) {
+      if (!documentId) {
+        object.documentId = DocumentApp.create("sample").getId();
+      }
+      const doc = DocumentApp.openById(object.documentId);
+      const body = doc.getBody();
+      const keys = ["paragraph", "table", "list", "image", "horizontalRule", "pageBreak"];
+      documentText.forEach(o => {
+        keys.forEach(k => {
+          if (o[k]) {
+            const s = k.charAt(0).toUpperCase() + k.slice(1);
+            const func = o[k].hasOwnProperty("insertIndex") ? `insert${s}` : `append${s}`;
+            if (k == "paragraph") {
+              body[func](...[(o[k].insertIndex >= 0 ? o[k].insertIndex : []), o[k].value].flat()).setHeading(DocumentApp.ParagraphHeading[o[k].paragraphHeading || "NORMAL"]);
+            } else if (k == "table") {
+              body[func](...[(o[k].insertIndex >= 0 ? o[k].insertIndex : [])].flat(), o[k].value);
+            } else if (k == "list") {
+              o[k].value.forEach((l, i) => body[func](...[(o[k].insertIndex >= 0 ? o[k].insertIndex + i : null) || [], l].flat()));
+            } else if (k == "image") {
+              const blob = o[k].fileId ? DriveApp.getFileById(o[k].fileId).getBlob() : o[k].url ? UrlFetchApp.fetch(o[k].url).getBlob() : null;
+              if (blob) {
+                body[func](...[(o[k].insertIndex >= 0 ? o[k].insertIndex : []), blob].flat());
+              }
+            } else if (["horizontalRule", "pageBreak"].includes(k)) {
+              body[func](...[(o[k].insertIndex >= 0 ? o[k].insertIndex : [])].flat());
+            }
+          }
+        });
+      });
+      result = { content: [{ type: "text", text: `The document body was created to ${doc.getUrl()}.` }], isError: false };
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 // /**
 //  * This function manages Google Docs using Docs API.
 //  * This is for only @google/gemini-cli with v0.1.13. At v0.1.13, the specification of the schema for MCP was changed. So, I use this tool.
@@ -249,6 +295,91 @@ const descriptions_management_docs = {
       `In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".`,
     ].join("\n"),
     parameters: jsonSchemaForDocs,
+  },
+
+  create_document_body_in_google_docs: {
+    title: "Create document body in Google Docs",
+    description: [
+      `Use to create document body in Google Docs.`,
+      `This tool puts a document text including paragraphs, tables, lists, images, horizontal rules, and page breaks using Google Apps Script.`,
+    ].join("\n"),
+    parameters: {
+      type: "object",
+      properties: {
+        documentId: { type: "string", description: "The file ID (Document ID) of the Google Docs. If you have no document ID, create a new Google Docs document and give the document ID of the created Google Docs." },
+        documentText: {
+          description: `Each item in this array is added to Google Docs in order. You can create an array by selecting "paragraph", "table", "listItem", "image", "horizontalRule", and "pageBreak". Create an array by considering the whole document structure.`,
+          type: "array",
+          items: {
+            type: "object",
+            properties: {
+              paragraph: {
+                type: "object",
+                properties: {
+                  value: { type: "string", description: `Text as a paragraph. When you use the escape sequence for representing a line break, it will be used as multiple paragraphs.` },
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the paragraph is inserted at the specific point. When this property is not used, the paragraph is appended to the document.` },
+                  paragraphHeading: { type: "string", description: `You can manage the paragraph using this property. When this is not used, "NORMAL" is used as the default paragraph heading.`, enum: ["HEADING1", "HEADING2", "HEADING3", "HEADING4", "HEADING5", "HEADING6", "NORMAL", "SUBTITLE", "TITLE"] }
+                }
+              },
+              table: {
+                type: "object",
+                properties: {
+                  value: {
+                    description: "Table value. This is required to be a 2-dimensional array.",
+                    type: "array", items: { type: "array" }
+                  },
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the table is inserted at the specific point. When this property is not used, the table is appended to the document.` },
+                }
+              },
+
+              // When the following property is used, an error related to the maximum nested level occurs.
+              // table: {
+              //   type: "object",
+              //   properties: {
+              //     value: {
+              //       description: "Table value. This is required to be a 2-dimensional array.",
+              //       type: "array", items: { type: "array", items: { type: "string" } }
+              //     },
+              //     insertIndex: { type: "number", description: `The start value is 0. When this is used, the table is inserted at the specific point. When this property is not used, the table is appended to the document.` },
+              //   }
+              // },
+
+              listItem: {
+                type: "object",
+                properties: {
+                  value: {
+                    description: "Texts of list items of a list. This is required to be a 1-dimensional array. The items are added to Google Docs in order in the array.",
+                    type: "array", items: { type: "string" }
+                  },
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the plistItem is inserted at the specific point. When this property is not used, the listItem is appended to the document.` },
+                }
+              },
+              image: {
+                type: "object",
+                properties: {
+                  fileId: { type: "string", description: `The file ID of the image file on Google Drive. When you use "fileId", don't use the property "url".` },
+                  url: { type: "string", description: `The direct link of the image data or image file. When you use "url", don't use the property "fileId".` },
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the image is inserted at the specific point. When this property is not used, the image is appended to the document.` },
+                }
+              },
+              horizontalRule: {
+                type: "object",
+                properties: {
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the horizontalRule is inserted at the specific point. When this property is not used, the horizontalRule is appended to the document.` },
+                }
+              },
+              pageBreak: {
+                type: "object",
+                properties: {
+                  // insertIndex: { type: "number", description: `The start value is 0. When this is used, the pageBreak is inserted at the specific point. When this property is not used, the pageBreak is appended to the document.` },
+                }
+              },
+            }
+          }
+        }
+      },
+      required: ["documentId", "documentText"]
+    }
   },
 
   // /**

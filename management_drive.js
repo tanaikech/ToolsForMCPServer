@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250818 15:26
+ * Updated on 20250910 16:20
  */
 
 /**
@@ -264,7 +264,7 @@ function convert_mimetype_of_file_on_google_drive(object = {}) {
       const ar = new MimeTypeApp().setFileIds(fileIds).getAs({ mimeType: dstMimeType });
       const text = ar.map((e, i) => {
         if (e.toString() == "Blob") {
-          return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(blob).getId()}".`;
+          return `The mimeType of "${fileIds[i]}" was converted to "${dstMimeType}". The new file ID is "${DriveApp.createFile(e).getId()}".`;
         }
         try {
           DriveApp.getFileById(e);
@@ -370,6 +370,35 @@ function create_google_docs_from_markdown_on_google_drive(object = {}) {
       result = { content: [{ type: "text", text: `The Google Docs file was created successfully. The file ID and URL of the created Google Docs are "${obj.id}" and "${url}", respectively.` }], isError: false };
     } else {
       result = { content: [{ type: "text", text: `No data. Please provide markdown, html, or text as a text data.` }], isError: true };
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
+/**
+ * This function renames files on Google Drive.
+ * @private
+ */
+function remove_files_on_google_drive(object = {}) {
+  const { fileList } = object;
+  let result;
+  try {
+    if (fileList && Array.isArray(fileList) && fileList.length > 0) {
+      const text = fileList.map(fileId => {
+        try {
+          const file = DriveApp.getFileById(fileId);
+          file.setTrashed(true);
+          return `File (${fileId}) was moved to the trashbox.`;
+        } catch ({ message }) {
+          return `FileId: "${fileId}". Error: ${message}.`;
+        }
+      }).join("\n");
+      result = { content: [{ type: "text", text }], isError: false };
+    } else {
+      result = { content: [{ type: "text", text: `Invalid arguments.` }], isError: true };
     }
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
@@ -633,6 +662,20 @@ const descriptions_management_drive = {
     }
   },
 
+  remove_files_on_google_drive: {
+    description: "Use this to remove the files on Google Drive.",
+    parameters: {
+      type: "object",
+      properties: {
+        fileList: {
+          type: "array",
+          items: { type: "string", description: "File ID of the file on Google Drive." },
+        },
+      },
+      required: ["fileList"]
+    }
+  },
+
   comments_drive_api_list: {
     title: "Lists a file's comments",
     description: "Use to get a list of a file's comments on Google Drive.",
@@ -754,5 +797,5 @@ const descriptions_management_drive = {
       required: ["requestBody"],
     }
   },
-  
+
 };

@@ -18,6 +18,8 @@ function main(eventObject) {
   // m.enableBaseTools = false; // Disable base tools
   // m.enableClassroomTools = false; // Disable tools for managing Google Classroom
   // m.enablePeopleTools = false; // Disable tools for managing Google People
+  // m.enableAnalyticsTools = false; // Disable tools for managing Google Analytics
+  // m.enableMapsTools = false; // Disable tools for managing Google Maps
 
   const object = { eventObject, items: m.getTools() };
   return new MCPApp

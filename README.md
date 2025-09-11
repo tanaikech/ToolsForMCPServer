@@ -25,13 +25,13 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (August 22, 2025), the following 125 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (September 11, 2025), the following 139 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `add_label_to_Gmail`: Add labels to threads of Gmail. Don't use the invalid thread IDs.
 * `analytics_admin_accountSummaries_list`: Use to retrieve a list of all Google Analytics accounts accessible by the current user. Each entry provides key details for the account and a summary of its properties, making it useful for discovering available data streams and managing permissions.
-* `analytics_admin_properties_get`: Use to get detailed information about a single Google Analytics property, providing essential details for management and analysis.
-* `analytics_data_properties_runRealtimeReport`: Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes. Useful for monitoring live traffic and immediate user behavior.
-* `analytics_data_properties_runReport`: Use to fetch a custom report from a Google Analytics property.
+* `analytics_admin_properties_get`: Use to get detailed information about a single Google Analytics property, providing essential details for management and analysis. Use this to confirm property settings or to retrieve its metadata.
+* `analytics_data_properties_runRealtimeReport`: Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes.
+* `analytics_data_properties_runReport`: Use to fetch a custom report from a Google Analytics property. Specify the metrics (e.g., active users, event count) and dimensions (e.g., country, event name) to retrieve specific user activity data.
 * `auto_new_draft_creation_Gmail`: Create automatically drafted emails in Gmail. This function returns the value, including the message ID and the draft ID. When creating the draft email, confirm the owner's name and insert the sender's name into the footer. Don't use '[Your Name]'. If you have no information about the sender's email, don't include the footer of sender's name in the email.
 * `auto_reply_draft_creation_Gmail`: Create automatically drafted reply emails in Gmail. Don't use the invalid message IDs. This function returns the value including the message ID, the draft ID, the URL of the mail.
 * `change_permission_of_file_on_google_drive`: Use to change the permission of a file or folder on Google Drive for a specific user by providing the item ID, user email, and desired role. As a sample situation, when URLs of the files are included in an email, it is required to add the permission to the recipient user to allow the user to read or write the file.
@@ -114,6 +114,8 @@ To list guardians for any student that the requesting user may view guardians fo
 * `comments_drive_api_list`: Use to get a list of a file's comments on Google Drive.
 * `comments_drive_api_remove`: Use to delete a comment using the "comments.delete" method of Google Drive API.
 * `convert_mimetype_of_file_on_google_drive`: Use this to convert the mimeType of files on Google Drive.
+* `create_document_body_in_google_docs`: Use to create document body in Google Docs.
+This tool puts a document text including paragraphs, tables, lists, images, horizontal rules, and page breaks using Google Apps Script.
 * `create_file_to_google_drive`: Use this to create an empty file to Google Drive.
 * `create_google_docs_from_markdown_on_google_drive`: Use to create a Google Document from a markdown format.
 * `create_schedule_on_Google_Calendar`: Use to create a new schedule (event) on Google Calendar.
@@ -121,6 +123,28 @@ To list guardians for any student that the requesting user may view guardians fo
 * `description_video_on_youtube`: Use this to describe and summarize a video on YouTube using the YouTube URL.
 * `description_web_site`: Use this to describe sites using URLs.
 * `drive_activity_api_query`: Use to query past activity in Google Drive. The activities of the files and folders in Google Drive are retrieved.
+* `explanation_create_maps_url`: Use to generate a Google Maps URL of a dynamic map, including various parameters.
+The Google Maps URL can show the specific location as a map, show the route between the origin and the target as a map, show the nearby shops, restaurants, and so on as a map, and so on.
+This tool returns the explanation of how to create a Google Maps URL.
+Generate a Google Maps URL by understanding this returned explanation.
+After you read it, you are not required to call this tool again while you continue to remember this explanation in your history.
+* `explanation_reference_export_google_sheets_as_pdf`: Use to help generate a Google Sheets URL including the query parameters for exporting as PDF.
+This tool returns the markdown including how to create a Google Sheets URL for exporting as PDF.
+Your mission is as follows.
+### Mission
+1. By understanding the user's prompt and this markdown, generate a Google Sheets URL for exporting as PDF.
+### Supplement
+- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.
+* `explanation_reference_generate_google_apps_script`: Use to help generate a Google Apps Script effectively.
+This tool returns the markdown including the titles and the hyperlinks for taking advantage of Google Apps Script.
+Your mission is as follows.
+### Mission
+1. Select several titles related to the goal for achieving by Google Apps Script from the returned markdown.
+2. Access the hyperlinks of your selected titles and retrieve the content from each link.
+3. Generate a Google Apps Script by understanding those contents.
+### Supplement
+- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.
+- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"
 * `generate_description_on_google_drive`: Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.
 * `generate_image_on_google_drive`: Use this to generate an image from an inputted prompt. The generated image is saved as a file on Google Drive.
 * `generate_presentation_with_google_slides`: Use this to create and generate a presentation using Google Slides.
@@ -134,9 +158,9 @@ At that time, convert the location to the latitude and the longitude and provide
 If you cannot know the location, decide the location using the timezone.
 * `get_exchange_rate`: Use this to get the current exchange rate. Using this, for example, it can exchange yen for dollars.
 * `get_file_from_google_drive`: Use this to get and download a file from Google Drive by giving a filename. When you use this function, the returned data is base64 data. So, you are required to decode base64 data.
-* `get_google_doc_object_using_docs_api`: Use this to get Google Docs Object using Docs API. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/get When this tool is used, for example, the index of each content in the document body can be retrieved. This cannot be directly used for retrieving text of the document body.
-* `get_google_sheet_object_using_sheets_api`: Use this to get Google Sheets Object using Sheets API. https://developers.google.com/workspace/sheets/api/reference/rest/v4/spreadsheets/get When this tool is used, for example, the sheet names can be converted to sheet IDs. This cannot be used for retrieving the cell values.
-* `get_google_slides_object_using_slides_api`: Use this to get Google Slides Object using Slides API. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/get When this tool is used, for example, the object IDs on the slides can be retrieved.
+* `get_google_doc_object_using_docs_api`: Use this to get Google Docs Object using Docs API.
+* `get_google_sheet_object_using_sheets_api`: Use this to get Google Sheets Object using Sheets API.
+* `get_google_slides_object_using_slides_api`: Use this to get Google Slides Object using Slides API.
 * `get_massages_by_search_from_Gmail`: Get messages (emails) from Gmail using the search query. This function returns the messages using the search query.
 * `get_massages_by_time_from_Gmail`: Get messages (emails) from Gmail using the time. This function returns the messages from "after" to now.
 * `get_specific_date_weather`: Use this to get the weather for the specific date using the latitude and the longitude.
@@ -151,6 +175,12 @@ In order to retrieve the detailed information of the document, including the ind
 In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".
 * `manage_google_slides_using_slides_api`: Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method.
 In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".
+* `maps_convert_lat_lon_to_location`: Use this to convert a given geographic point (latitude and longitude) to an approximate location name and address.
+* `maps_convert_location_to_lat_lon`: Use this to convert the location name and address and the location name to an approximate geographic point (latitude and longitude).
+* `maps_create_map`: Use this to create a static map as an image file on Google Drive.
+* `maps_get_route`: Use this to allow for the retrieval of directions between locations.
+The date is required to be included. The date format is "yyyy-MM-dd HH:mm"
+If you cannot know the location, decide the location using the timezone.
 * `move_files_on_google_drive`: Use this to move the files and the folders into other folder on Google Drive.
 * `people_connections_list`: Provides a list of the authenticated user's contacts.
 * `people_contactGroups_list`: List all contact groups owned by the authenticated user. Members of the contact groups are not populated.
@@ -160,6 +190,7 @@ In order to retrieve the detailed information of the spreadsheet, including the 
 * `put_file_to_google_drive`: Use this to put and upload data to Google Drive as a file. When you use this function, please provide the file content converted to base64 data. So, you are required to encode the file content as base64 data.
 * `put_values_into_google_docs`: Use this to append or insert text to Google Docs. The document ID is used for putting the values to the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
 * `put_values_to_google_sheets`: Use this to put values into Google Sheets. The spreadsheet ID is used for putting the values to the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
+* `remove_files_on_google_drive`: Use this to remove the files on Google Drive.
 * `remove_mails_Gmail`: Use this to remove the messages.
 * `rename_files_on_google_drive`: Use this to rename the files on Google Drive.
 * `revisions_drive_api_list`: Use to get a list of a file's revisions on Google Drive.
@@ -169,7 +200,6 @@ In order to retrieve the detailed information of the spreadsheet, including the 
 * `send_mails_Gmail`: Use this to send the draft emails which have already been created. If you want to send an email, first, it is required to create a draft email. By this, the draft email can be sent.
 * `summarize_file_on_google_drive`: Use this to describe and summaize a file on Google Drive.
 * `update_schedule_on_Google_Calendar`: Use to update the schedule (event) on Google Calendar.
-
 # Usage
 
 This section details deploying the MCP server using Google Apps Script and configuring the Gemini CLI to use it.
@@ -226,6 +256,7 @@ function main(eventObject) {
   // m.enableClassroomTools = false; // Disable tools for managing Google Classroom
   // m.enablePeopleTools = false; // Disable tools for managing Google People
   // m.enableAnalyticsTools = false; // Disable tools for managing Google Analytics
+  // m.enableMapsTools = false; // Disable tools for managing Google Maps
 
   const object = { eventObject, items: m.getTools() };
   return new MCPApp
@@ -478,7 +509,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹConfigured MCP servers:
 
-  🟢 gas_web_apps - Ready (125 tools, 3 prompts)
+  🟢 gas_web_apps - Ready (134 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - analytics_admin_accountSummaries_list
@@ -558,6 +589,7 @@ When your setting is correct, the following result is returned.
     - comments_drive_api_list
     - comments_drive_api_remove
     - convert_mimetype_of_file_on_google_drive
+    - create_document_body_in_google_docs
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
     - create_schedule_on_Google_Calendar
@@ -565,6 +597,9 @@ When your setting is correct, the following result is returned.
     - description_video_on_youtube
     - description_web_site
     - drive_activity_api_query
+    - explanation_create_maps_url
+    - explanation_reference_export_google_sheets_as_pdf
+    - explanation_reference_generate_google_apps_script
     - generate_description_on_google_drive
     - generate_image_on_google_drive
     - generate_presentation_with_google_slides
@@ -587,6 +622,10 @@ When your setting is correct, the following result is returned.
     - manage_google_docs_using_docs_api
     - manage_google_sheets_using_sheets_api
     - manage_google_slides_using_slides_api
+    - maps_convert_lat_lon_to_location
+    - maps_convert_location_to_lat_lon
+    - maps_create_map
+    - maps_get_route
     - move_files_on_google_drive
     - people_connections_list
     - people_contactGroups_list
@@ -596,6 +635,7 @@ When your setting is correct, the following result is returned.
     - put_file_to_google_drive
     - put_values_into_google_docs
     - put_values_to_google_sheets
+    - remove_files_on_google_drive
     - remove_mails_Gmail
     - rename_files_on_google_drive
     - revisions_drive_api_list
@@ -1651,5 +1691,19 @@ function main(eventObject) {
     * `analytics_admin_properties_get`: Get detailed information about a single Google Analytics property
     * `analytics_data_properties_runReport`: Fetches a custom report from a Google Analytics property
     * `analytics_data_properties_runRealtimeReport`: Generates a customized report of real-time event data from a Google Analytics property
+
+- v1.0.28 (September 11, 2025)
+
+  1. The following 9 tools were added.
+    - create_document_body_in_google_docs
+    - remove_files_on_google_drive
+    - maps_get_route
+    - maps_convert_location_to_lat_lon
+    - maps_convert_lat_lon_to_location
+    - maps_create_map
+    - explanation_create_maps_url
+    - explanation_reference_generate_google_apps_script
+    - explanation_reference_export_google_sheets_as_pdf
+  2. A bug of a tool "convert_mimetype_of_file_on_google_drive" was removed. This is from [this issue report](https://github.com/tanaikech/ToolsForMCPServer/issues/11).
 
 [TOP](#top)
