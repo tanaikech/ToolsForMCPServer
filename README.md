@@ -130,21 +130,7 @@ Generate a Google Maps URL by understanding this returned explanation.
 After you read it, you are not required to call this tool again while you continue to remember this explanation in your history.
 * `explanation_reference_export_google_sheets_as_pdf`: Use to help generate a Google Sheets URL including the query parameters for exporting as PDF.
 This tool returns the markdown including how to create a Google Sheets URL for exporting as PDF.
-Your mission is as follows.
-### Mission
-1. By understanding the user's prompt and this markdown, generate a Google Sheets URL for exporting as PDF.
-### Supplement
-- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.
 * `explanation_reference_generate_google_apps_script`: Use to help generate a Google Apps Script effectively.
-This tool returns the markdown including the titles and the hyperlinks for taking advantage of Google Apps Script.
-Your mission is as follows.
-### Mission
-1. Select several titles related to the goal for achieving by Google Apps Script from the returned markdown.
-2. Access the hyperlinks of your selected titles and retrieve the content from each link.
-3. Generate a Google Apps Script by understanding those contents.
-### Supplement
-- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.
-- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"
 * `generate_description_on_google_drive`: Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.
 * `generate_image_on_google_drive`: Use this to generate an image from an inputted prompt. The generated image is saved as a file on Google Drive.
 * `generate_presentation_with_google_slides`: Use this to create and generate a presentation using Google Slides.
