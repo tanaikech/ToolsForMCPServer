@@ -1357,6 +1357,12 @@ In this case, you can see the samples at **"[Streamlining Web Page Insights with
 
 ---
 
+The following samples were added on September 11, 2025.
+
+In this case, you can see the samples at **"[Google Maps with Natural Language: Integrated Collaboration through Gemini CLI and MCP](https://medium.com/google-cloud/google-maps-with-natural-language-integrated-collaboration-through-gemini-cli-and-mcp-07ba309593b3)"**.
+
+---
+
 # Summary
 
 The examples above demonstrate that combining the Gemini CLI with an MCP server built using Google Apps Script Web Apps enables powerful automation across Google Workspace. By leveraging Google Apps Script's inherent authorization capabilities, we can easily give Gemini access to Gmail, Calendar, Drive, Docs, Sheets, and Slides.
