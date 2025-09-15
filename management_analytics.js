@@ -90,14 +90,7 @@ const descriptions_management_analytics = {
 
   analytics_data_properties_runReport: {
     title: "Fetches a custom report from a Google Analytics property",
-    description: [
-      `Use to fetch a custom report from a Google Analytics property. Specify the metrics (e.g., active users, event count) and dimensions (e.g., country, event name) to retrieve specific user activity data. This tool is best for answering questions about user behavior, such as "How many active users did we have in Japan last month?" or "What are the top 5 most popular events?"`,
-      // `Use to generate a customizable report from Google Analytics data. This tool allows you to query various **metrics** (like total users, sessions, or conversions) and segment them by **dimensions** (such as date, device, or page path). Use this for detailed data analysis to understand user engagement, traffic sources, and performance of specific events. The API returns the data as a table with columns for the requested metrics and dimensions.`,
-      // `Use to analyze Google Analytics property data to provide specific insights. This tool creates a report by defining key **metrics** (what to measure, like revenue or new users) and breaking them down by **dimensions** (how to slice the data, like by city or user's first language). It's designed to answer questions that require aggregated data, such as "Show me the number of new users from the US over the last 30 days" or "What are the most viewed pages by mobile users?"`,
-      `### Building request body`,
-      `"requestBody": Create the request body for "Method: properties.runReport" of Google Analytics Data API using the following JSON schema.`,
-      `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunReport)}</JSONSchema>`
-    ].join("\n"),
+    description: `Use to fetch a custom report from a Google Analytics property. Specify the metrics (e.g., active users, event count) and dimensions (e.g., country, event name) to retrieve specific user activity data. This tool is best for answering questions about user behavior, such as "How many active users did we have in Japan last month?" or "What are the top 5 most popular events?"`,
     parameters: {
       type: "object",
       properties: {
@@ -110,11 +103,7 @@ const descriptions_management_analytics = {
         },
         requestBody: {
           type: "object",
-          description: [
-            `Create the request body for "Method: properties.runReport" of Google Analytics Data API using the provided JSON schema.`,
-            // `Create the request body for "Method: properties.runReport" of Google Analytics Data API by following JSON schema.`,
-            // `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunReport)}</JSONSchema>`,
-          ].join("\n"),
+          description: `Create the request body for "Method: properties.runReport" of Google Analytics Data API. If you want to know how to create the request body, please check a tool "explanation_analytics_data_properties_runReport".`,
         },
       },
       required: ["pathParameters", "requestBody"]
@@ -123,14 +112,7 @@ const descriptions_management_analytics = {
 
   analytics_data_properties_runRealtimeReport: {
     title: "Generates a customized report of real-time event data from a Google Analytics property",
-    description: [
-      `Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes. Useful for monitoring live traffic and immediate user behavior.`,
-      // `Use to fetch a custom report containing real-time event and usage data for a specified Google Analytics property. This tool is ideal for analyzing user behavior as it happens, with data reflecting events sent to Google Analytics within the last 30 minutes.`,
-      // `Use to provides a real-time snapshot of user activity on your Google Analytics property. Use this tool to quickly check the current number of active users, popular events, and top pages, with data updated as events occur within the last 30 minutes.`,
-      `### Building request body`,
-      `"requestBody": Create the request body for "Method: properties.runRealtimeReport" of Google Analytics Data API using the following JSON schema.`,
-      `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunRealtimeReport)}</JSONSchema>`,
-    ].join("\n"),
+    description: `Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes. Useful for monitoring live traffic and immediate user behavior.`,
     parameters: {
       type: "object",
       properties: {
@@ -143,11 +125,7 @@ const descriptions_management_analytics = {
         },
         requestBody: {
           type: "object",
-          description: [
-            `Create the request body for "Method: properties.runRealtimeReport" of Google Analytics Data API using the provided JSON schema.`,
-            // `Create the request body for "Method: properties.runRealtimeReport" of Google Analytics Data API by following JSON schema.`,
-            // `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunRealtimeReport)}</JSONSchema>`,
-          ].join("\n"),
+          description: `Create the request body for "Method: properties.runRealtimeReport" of Google Analytics Data API. If you want to know how to create the request body, please check a tool "explanation_analytics_data_properties_runRealtimeReport".`,
         },
       },
       required: ["pathParameters", "requestBody"]

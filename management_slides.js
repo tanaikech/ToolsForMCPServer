@@ -1,6 +1,6 @@
 /**
  * Management of Google Slides
- * Updated on 20250814 13:30
+ * Updated on 20250915 14:30
  */
 
 /**
@@ -71,30 +71,15 @@ function generate_presentation_with_google_slides(object = {}) {
  * @private
  */
 function get_google_slides_object_using_slides_api(object = {}) {
-  const { presentationId = null } = object;
-  let result;
-
   /**
-   * Check API.
+   * Check API
    */
-  const apiName = "Slides";
-  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
-    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
-    return { jsonrpc: "2.0", result };
+  const check = checkAPI_("Slides");
+  if (check.result) {
+    return check;
   }
 
-  try {
-    if (!presentationId) {
-      result = { content: [{ type: "text", text: "No presentation ID." }], isError: true };
-    } else {
-      const obj = Slides.Presentations.get(presentationId);
-      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
-    }
-  } catch ({ stack }) {
-    result = { content: [{ type: "text", text: stack }], isError: true };
-  }
-  console.log(result); // Check response.
-  return { jsonrpc: "2.0", result };
+  return for_google_apis.get({ func: Slides.Presentations.get, args: [object.pathParameters?.presentationId, {}], jsonSchema: jsonSchemaForSlides.Get });
 }
 
 /**
@@ -102,53 +87,16 @@ function get_google_slides_object_using_slides_api(object = {}) {
  * @private
  */
 function manage_google_slides_using_slides_api(object = {}) {
-  const { presentationId = null, requests = [] } = object;
-  let result;
-
   /**
-   * Check API.
+   * Check API
    */
-  const apiName = "Slides";
-  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
-    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
-    return { jsonrpc: "2.0", result };
+  const check = checkAPI_("Slides");
+  if (check.result) {
+    return check;
   }
 
-  try {
-    if (!presentationId || !Array.isArray(requests) || requests.length == 0) {
-      result = { content: [{ type: "text", text: "No presentation ID or requests." }], isError: true };
-    } else {
-      const obj = Slides.Presentations.batchUpdate({ requests }, presentationId);
-      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
-    }
-  } catch ({ stack }) {
-    result = { content: [{ type: "text", text: stack }], isError: true };
-  }
-  console.log(result); // Check response.
-  return { jsonrpc: "2.0", result };
+  return for_google_apis.update({ func: Slides.Presentations.batchUpdate, args: [object.requestBody, object.pathParameters?.presentationId] });
 }
-
-// /**
-//  * This function manages Google Slides using Slides API.
-//  * This is for only @google/gemini-cli with v0.1.13. At v0.1.13, the specification of the schema for MCP was changed. So, I use this tool.
-//  * At v0.1.14, I confirmed that the previous schema could be used. So, this tool was removed, and the above tool is reimplemented.
-//  * @private
-//  */
-// function manage_google_slides_using_slides_api(object = {}) {
-//   const { presentationId = null, prompt = null, refUrls = [] } = object;
-//   let result;
-//   try {
-//     if (presentationId && prompt) {
-//       const resourceIds = { presentationId };
-//       const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForSlides, resourceIds, refUrls });
-//       result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
-//     }
-//   } catch ({ stack }) {
-//     result = { content: [{ type: "text", text: stack }], isError: true };
-//   }
-//   console.log(result); // Check response.
-//   return { jsonrpc: "2.0", result };
-// }
 
 // Descriptions of the functions.
 const descriptions_management_slides = {
@@ -167,43 +115,45 @@ const descriptions_management_slides = {
   },
 
   get_google_slides_object_using_slides_api: {
-    description: "Use this to get Google Slides Object using Slides API. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/get When this tool is used, for example, the object IDs on the slides can be retrieved.",
+    description: "Use this to get Google Slides Object using Slides API. When this tool is used, for example, the object IDs on the slides can be retrieved.",
     parameters: {
       type: "object",
       properties: {
-        presentationId: { type: "string", description: "Presentation ID of Google Slides." },
+        pathParameters: {
+          type: "object",
+          properties: {
+            presentationId: { type: "string", description: "The presentation ID of the presentation to retrieve." }
+          },
+          required: ["presentationId"]
+        }
       },
-      required: ["presentationId"]
+      required: ["pathParameters"]
     }
   },
 
   manage_google_slides_using_slides_api: {
-    description: [
-      "Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/slides/api/reference/rest/v1/presentations/batchUpdate",
-      `In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".`,
-    ].join("\n"),
-    parameters: jsonSchemaForSlides,
+    title: "Updates Google Slides",
+    description: `Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".`,
+    parameters: {
+      type: "object",
+      properties: {
+        requestBody: {
+          type: "object",
+          description: `Create the request body for "Method: documents.batchUpdate" of Google Docs API. If you want to know how to create the request body, please check a tool "explanation_manage_google_slides_using_slides_api".`,
+        },
+        pathParameters: {
+          type: "object",
+          properties: {
+            presentationId: {
+              type: "string", description: "The presentation ID to apply the updates to."
+            }
+          },
+          required: ["presentationId"]
+        }
+      },
+      required: ["requestBody", "pathParameters"]
+    }
   },
-
-  // /**
-  //  * This is for only @google/gemini-cli with v0.1.13.
-  //  */
-  // manage_google_slides_using_slides_api: {
-  //   description: `Use this to manage Google Slides using the batchUpdate method of the Slides API. The information of the page object IDs and the object IDs of the shapes of each slide can be retrieved by a tool "get_google_slides_object_using_slides_api".`,
-  //   parameters: {
-  //     type: "object",
-  //     properties: {
-  //       presentationId: { type: "string", description: "Presentation ID (Google Slides ID) of Google Slides." },
-  //       prompt: { type: "string", description: "Prompt. Provide the request for processing using the Slides API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
-  //       refUrls: {
-  //         type: "array",
-  //         description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
-  //         items: { type: "string", description: "URL" }
-  //       },
-  //     },
-  //     required: ["presentationId", "prompt"]
-  //   }
-  // },
 
 };
 

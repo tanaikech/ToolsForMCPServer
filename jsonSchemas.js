@@ -3,1803 +3,5245 @@
  * Author: Kanshi Tanaike
  * GitHub: https://github.com/tanaikech/Generating-Request-Body-for-APIs-using-Gemini
  * 
- * version 1.0.6
+ * version 1.0.7  
  */
 
-const requestsForSheetsAPI_ = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Sheets API batchUpdate Requests",
-  "description": "JSON schema for the 'requests' property of the spreadsheets.batchUpdate method.",
-  "type": "array",
-  "items": {
-    "$ref": "#/$defs/Request"
-  },
-  "$defs": {
-    "Request": {
-      "type": "object",
-      "description": "A single kind of update to apply to a spreadsheet.",
-      "oneOf": [
-        {
-          "properties": {
-            "updateSpreadsheetProperties": {
-              "$ref": "#/$defs/UpdateSpreadsheetPropertiesRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "updateSheetProperties": {
-              "$ref": "#/$defs/UpdateSheetPropertiesRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "updateDimensionProperties": {
-              "$ref": "#/$defs/UpdateDimensionPropertiesRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "updateNamedRange": {
-              "$ref": "#/$defs/UpdateNamedRangeRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "repeatCell": {
-              "$ref": "#/$defs/RepeatCellRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "addNamedRange": {
-              "$ref": "#/$defs/AddNamedRangeRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "deleteNamedRange": {
-              "$ref": "#/$defs/DeleteNamedRangeRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "addSheet": {
-              "$ref": "#/$defs/AddSheetRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "deleteSheet": {
-              "$ref": "#/$defs/DeleteSheetRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "autoFill": {
-              "$ref": "#/$defs/AutoFillRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "cutPaste": {
-              "$ref": "#/$defs/CutPasteRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "copyPaste": {
-              "$ref": "#/$defs/CopyPasteRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "mergeCells": {
-              "$ref": "#/$defs/MergeCellsRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "unmergeCells": {
-              "$ref": "#/$defs/UnmergeCellsRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "updateBorders": {
-              "$ref": "#/$defs/UpdateBordersRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "updateCells": {
-              "$ref": "#/$defs/UpdateCellsRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "addFilterView": {
-              "$ref": "#/$defs/AddFilterViewRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "appendCells": {
-              "$ref": "#/$defs/AppendCellsRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "clearBasicFilter": {
-              "$ref": "#/$defs/ClearBasicFilterRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "deleteDimension": {
-              "$ref": "#/$defs/DeleteDimensionRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "deleteEmbeddedObject": {
-              "$ref": "#/$defs/DeleteEmbeddedObjectRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "deleteFilterView": {
-              "$ref": "#/$defs/DeleteFilterViewRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "duplicateFilterView": {
-              "$ref": "#/$defs/DuplicateFilterViewRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "duplicateSheet": {
-              "$ref": "#/$defs/DuplicateSheetRequest"
-            }
-          }
-        },
-        {
-          "properties": {
-            "findReplace": {
-              "$ref": "#/$defs/FindReplaceRequest"
-            }
-          }
-        }
-      ]
-    },
-    "UpdateSpreadsheetPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "type": "object"
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "UpdateSheetPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "type": "object"
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "UpdateDimensionPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        },
-        "properties": {
-          "type": "object"
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "UpdateNamedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "namedRange": {
-          "type": "object"
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "RepeatCellRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        },
-        "cell": {
-          "$ref": "#/$defs/CellData"
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "AddNamedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "namedRange": {
-          "type": "object"
-        }
-      }
-    },
-    "DeleteNamedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "namedRangeId": {
-          "type": "string"
-        }
-      }
-    },
-    "AddSheetRequest": {
-      "type": "object",
-      "properties": {
-        "properties": {
-          "type": "object"
-        }
-      }
-    },
-    "DeleteSheetRequest": {
-      "type": "object",
-      "properties": {
-        "sheetId": {
-          "type": "integer"
-        }
-      }
-    },
-    "AutoFillRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        },
-        "sourceAndDestination": {
-          "type": "object"
-        },
-        "useAlternateSeries": {
-          "type": "boolean"
-        }
-      }
-    },
-    "CutPasteRequest": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "object"
-        },
-        "destination": {
-          "type": "object"
-        },
-        "pasteType": {
-          "type": "string"
-        }
-      }
-    },
-    "CopyPasteRequest": {
-      "type": "object",
-      "properties": {
-        "source": {
-          "type": "object"
-        },
-        "destination": {
-          "type": "object"
-        },
-        "pasteType": {
-          "type": "string"
-        },
-        "pasteOrientation": {
-          "type": "string"
-        }
-      }
-    },
-    "MergeCellsRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        },
-        "mergeType": {
-          "type": "string"
-        }
-      }
-    },
-    "UnmergeCellsRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        }
-      }
-    },
-    "UpdateBordersRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        },
-        "top": {
-          "type": "object"
-        },
-        "bottom": {
-          "type": "object"
-        },
-        "left": {
-          "type": "object"
-        },
-        "right": {
-          "type": "object"
-        },
-        "innerHorizontal": {
-          "type": "object"
-        },
-        "innerVertical": {
-          "type": "object"
-        }
-      }
-    },
-    "UpdateCellsRequest": {
-      "type": "object",
-      "properties": {
-        "start": {
-          "type": "object"
-        },
-        "rows": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/RowData"
-          }
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "AddFilterViewRequest": {
-      "type": "object",
-      "properties": {
-        "filter": {
-          "type": "object"
-        }
-      }
-    },
-    "AppendCellsRequest": {
-      "type": "object",
-      "properties": {
-        "sheetId": {
-          "type": "integer"
-        },
-        "rows": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/RowData"
-          }
-        },
-        "fields": {
-          "type": "string"
-        }
-      }
-    },
-    "ClearBasicFilterRequest": {
-      "type": "object",
-      "properties": {
-        "sheetId": {
-          "type": "integer"
-        }
-      }
-    },
-    "DeleteDimensionRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "type": "object"
-        }
-      }
-    },
-    "DeleteEmbeddedObjectRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": {
-          "type": "integer"
-        }
-      }
-    },
-    "DeleteFilterViewRequest": {
-      "type": "object",
-      "properties": {
-        "filterId": {
-          "type": "integer"
-        }
-      }
-    },
-    "DuplicateFilterViewRequest": {
-      "type": "object",
-      "properties": {
-        "filterId": {
-          "type": "integer"
-        }
-      }
-    },
-    "DuplicateSheetRequest": {
-      "type": "object",
-      "properties": {
-        "sourceSheetId": {
-          "type": "integer"
-        },
-        "insertSheetIndex": {
-          "type": "integer"
-        },
-        "newSheetId": {
-          "type": "integer"
-        },
-        "newSheetName": {
-          "type": "string"
-        }
-      }
-    },
-    "FindReplaceRequest": {
-      "type": "object",
-      "properties": {
-        "find": {
-          "type": "string"
-        },
-        "replacement": {
-          "type": "string"
-        },
-        "matchCase": {
-          "type": "boolean"
-        },
-        "matchEntireCell": {
-          "type": "boolean"
-        },
-        "searchByRegex": {
-          "type": "boolean"
-        },
-        "includeFormulas": {
-          "type": "boolean"
-        },
-        "range": {
-          "type": "object"
-        },
-        "sheetId": {
-          "type": "integer"
-        },
-        "allSheets": {
-          "type": "boolean"
-        }
-      }
-    },
-    "RowData": {
-      "type": "object",
-      "properties": {
-        "values": {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/CellData"
-          }
-        }
-      }
-    },
-    "CellData": {
-      "type": "object",
-      "properties": {
-        "userEnteredValue": {
-          "type": "object"
-        },
-        "effectiveValue": {
-          "type": "object"
-        },
-        "formattedValue": {
-          "type": "string"
-        },
-        "userEnteredFormat": {
-          "type": "object"
-        },
-        "effectiveFormat": {
-          "type": "object"
-        },
-        "hyperlink": {
-          "type": "string"
-        },
-        "note": {
-          "type": "string"
-        },
-        "textFormatRuns": {
-          "type": "array",
-          "items": {
-            "type": "object"
-          }
-        },
-        "dataValidation": {
-          "type": "object"
-        },
-        "pivotTable": {
-          "type": "object"
-        },
-        "dataSourceTable": {
-          "type": "object"
-        },
-        "dataSourceFormula": {
-          "type": "object"
-        }
-      }
-    }
-  }
-};
-
 const jsonSchemaForSheets = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Sheets API - spreadsheets.batchUpdate Request Body",
-  "description": "A request to apply one or more updates to a spreadsheet.",
-  "type": "object",
-  "properties": {
-    "spreadsheetId": { "type": "string", "description": "Spreadsheet ID" },
-    "requests": {
-      "type": "array",
-      "items": {
+  BatchUpdate: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Sheets API spreadsheets.batchUpdate Request Body",
+    "description": "JSON schema for the request body of the spreadsheets.batchUpdate method in the Google Sheets API.",
+    "type": "object",
+    "properties": {
+      "requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/Request"
+        },
+        "description": "A list of updates to apply to the spreadsheet. Requests will be applied in the order they are specified. If any request is not valid, no requests will be applied."
+      },
+      "includeSpreadsheetInResponse": {
+        "type": "boolean",
+        "description": "Determines if the update response should include the spreadsheet resource."
+      },
+      "responseRanges": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Limits the ranges included in the response spreadsheet. Meaningful only if includeSpreadsheetInResponse is 'true'."
+      },
+      "responseIncludeGridData": {
+        "type": "boolean",
+        "description": "True if grid data should be returned. Meaningful only if includeSpreadsheetInResponse is 'true'. This parameter is ignored if a field mask was set in the request."
+      }
+    },
+    "required": [
+      "requests"
+    ],
+    "$defs": {
+      "Request": {
         "type": "object",
-        "description": [
-          `Create "requests" by following JSON schema.`,
-          `The JSON schema of "requests" is as follows.`,
-          `<JSONSchema>${JSON.stringify(requestsForSheetsAPI_)}</JSONSchema>`,
-          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
-          `<URLs>`,
-          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
-          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
-          `</URLs>`,
-          `You can also refer to creating "request" by searching Google.`,
-        ].join("\n"),
+        "oneOf": [
+          { "properties": { "updateSpreadsheetProperties": { "$ref": "#/$defs/UpdateSpreadsheetPropertiesRequest" } } },
+          { "properties": { "updateSheetProperties": { "$ref": "#/$defs/UpdateSheetPropertiesRequest" } } },
+          { "properties": { "updateDimensionProperties": { "$ref": "#/$defs/UpdateDimensionPropertiesRequest" } } },
+          { "properties": { "updateNamedRange": { "$ref": "#/$defs/UpdateNamedRangeRequest" } } },
+          { "properties": { "repeatCell": { "$ref": "#/$defs/RepeatCellRequest" } } },
+          { "properties": { "addNamedRange": { "$ref": "#/$defs/AddNamedRangeRequest" } } },
+          { "properties": { "deleteNamedRange": { "$ref": "#/$defs/DeleteNamedRangeRequest" } } },
+          { "properties": { "addSheet": { "$ref": "#/$defs/AddSheetRequest" } } },
+          { "properties": { "deleteSheet": { "$ref": "#/$defs/DeleteSheetRequest" } } },
+          { "properties": { "autoFill": { "$ref": "#/$defs/AutoFillRequest" } } },
+          { "properties": { "cutPaste": { "$ref": "#/$defs/CutPasteRequest" } } },
+          { "properties": { "copyPaste": { "$ref": "#/$defs/CopyPasteRequest" } } },
+          { "properties": { "mergeCells": { "$ref": "#/$defs/MergeCellsRequest" } } },
+          { "properties": { "unmergeCells": { "$ref": "#/$defs/UnmergeCellsRequest" } } },
+          { "properties": { "updateBorders": { "$ref": "#/$defs/UpdateBordersRequest" } } },
+          { "properties": { "updateCells": { "$ref": "#/$defs/UpdateCellsRequest" } } },
+          { "properties": { "addFilterView": { "$ref": "#/$defs/AddFilterViewRequest" } } },
+          { "properties": { "appendCells": { "$ref": "#/$defs/AppendCellsRequest" } } },
+          { "properties": { "clearBasicFilter": { "$ref": "#/$defs/ClearBasicFilterRequest" } } },
+          { "properties": { "deleteDimension": { "$ref": "#/$defs/DeleteDimensionRequest" } } },
+          { "properties": { "deleteEmbeddedObject": { "$ref": "#/$defs/DeleteEmbeddedObjectRequest" } } },
+          { "properties": { "deleteFilterView": { "$ref": "#/$defs/DeleteFilterViewRequest" } } },
+          { "properties": { "duplicateFilterView": { "$ref": "#/$defs/DuplicateFilterViewRequest" } } },
+          { "properties": { "duplicateSheet": { "$ref": "#/$defs/DuplicateSheetRequest" } } },
+          { "properties": { "findReplace": { "$ref": "#/$defs/FindReplaceRequest" } } },
+          { "properties": { "insertDimension": { "$ref": "#/$defs/InsertDimensionRequest" } } },
+          { "properties": { "insertRange": { "$ref": "#/$defs/InsertRangeRequest" } } },
+          { "properties": { "moveDimension": { "$ref": "#/$defs/MoveDimensionRequest" } } },
+          { "properties": { "updateEmbeddedObjectPosition": { "$ref": "#/$defs/UpdateEmbeddedObjectPositionRequest" } } },
+          { "properties": { "pasteData": { "$ref": "#/$defs/PasteDataRequest" } } },
+          { "properties": { "textToColumns": { "$ref": "#/$defs/TextToColumnsRequest" } } },
+          { "properties": { "updateFilterView": { "$ref": "#/$defs/UpdateFilterViewRequest" } } },
+          { "properties": { "deleteRange": { "$ref": "#/$defs/DeleteRangeRequest" } } },
+          { "properties": { "appendDimension": { "$ref": "#/$defs/AppendDimensionRequest" } } },
+          { "properties": { "addConditionalFormatRule": { "$ref": "#/$defs/AddConditionalFormatRuleRequest" } } },
+          { "properties": { "updateConditionalFormatRule": { "$ref": "#/$defs/UpdateConditionalFormatRuleRequest" } } },
+          { "properties": { "deleteConditionalFormatRule": { "$ref": "#/$defs/DeleteConditionalFormatRuleRequest" } } },
+          { "properties": { "sortRange": { "$ref": "#/$defs/SortRangeRequest" } } },
+          { "properties": { "setDataValidation": { "$ref": "#/$defs/SetDataValidationRequest" } } },
+          { "properties": { "setBasicFilter": { "$ref": "#/$defs/SetBasicFilterRequest" } } },
+          { "properties": { "addProtectedRange": { "$ref": "#/$defs/AddProtectedRangeRequest" } } },
+          { "properties": { "updateProtectedRange": { "$ref": "#/$defs/UpdateProtectedRangeRequest" } } },
+          { "properties": { "deleteProtectedRange": { "$ref": "#/$defs/DeleteProtectedRangeRequest" } } },
+          { "properties": { "autoResizeDimensions": { "$ref": "#/$defs/AutoResizeDimensionsRequest" } } },
+          { "properties": { "addChart": { "$ref": "#/$defs/AddChartRequest" } } },
+          { "properties": { "updateChartSpec": { "$ref": "#/$defs/UpdateChartSpecRequest" } } },
+          { "properties": { "updateBanding": { "$ref": "#/$defs/UpdateBandingRequest" } } },
+          { "properties": { "addBanding": { "$ref": "#/$defs/AddBandingRequest" } } },
+          { "properties": { "deleteBanding": { "$ref": "#/$defs/DeleteBandingRequest" } } },
+          { "properties": { "createDeveloperMetadata": { "$ref": "#/$defs/CreateDeveloperMetadataRequest" } } },
+          { "properties": { "updateDeveloperMetadata": { "$ref": "#/$defs/UpdateDeveloperMetadataRequest" } } },
+          { "properties": { "deleteDeveloperMetadata": { "$ref": "#/$defs/DeleteDeveloperMetadataRequest" } } },
+          { "properties": { "randomizeRange": { "$ref": "#/$defs/RandomizeRangeRequest" } } },
+          { "properties": { "addDimensionGroup": { "$ref": "#/$defs/AddDimensionGroupRequest" } } },
+          { "properties": { "deleteDimensionGroup": { "$ref": "#/$defs/DeleteDimensionGroupRequest" } } },
+          { "properties": { "updateDimensionGroup": { "$ref": "#/$defs/UpdateDimensionGroupRequest" } } },
+          { "properties": { "trimWhitespace": { "$ref": "#/$defs/TrimWhitespaceRequest" } } },
+          { "properties": { "deleteDuplicates": { "$ref": "#/$defs/DeleteDuplicatesRequest" } } },
+          { "properties": { "updateEmbeddedObjectBorder": { "$ref": "#/$defs/UpdateEmbeddedObjectBorderRequest" } } },
+          { "properties": { "addSlicer": { "$ref": "#/$defs/AddSlicerRequest" } } },
+          { "properties": { "updateSlicerSpec": { "$ref": "#/$defs/UpdateSlicerSpecRequest" } } },
+          { "properties": { "addDataSource": { "$ref": "#/$defs/AddDataSourceRequest" } } },
+          { "properties": { "updateDataSource": { "$ref": "#/$defs/UpdateDataSourceRequest" } } },
+          { "properties": { "deleteDataSource": { "$ref": "#/$defs/DeleteDataSourceRequest" } } },
+          { "properties": { "refreshDataSource": { "$ref": "#/$defs/RefreshDataSourceRequest" } } },
+          { "properties": { "cancelDataSourceRefresh": { "$ref": "#/$defs/CancelDataSourceRefreshRequest" } } },
+          { "properties": { "addTable": { "$ref": "#/$defs/AddTableRequest" } } },
+          { "properties": { "updateTable": { "$ref": "#/$defs/UpdateTableRequest" } } },
+          { "properties": { "deleteTable": { "$ref": "#/$defs/DeleteTableRequest" } } }
+        ]
+      },
+      "UpdateSpreadsheetPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "properties": { "$ref": "#/$defs/SpreadsheetProperties" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "UpdateSheetPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "properties": { "$ref": "#/$defs/SheetProperties" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "UpdateDimensionPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "properties": { "$ref": "#/$defs/DimensionProperties" },
+          "fields": { "type": "string", "format": "google-fieldmask" },
+          "range": { "$ref": "#/$defs/DimensionRange" },
+          "dataSourceSheetRange": { "$ref": "#/$defs/DataSourceSheetDimensionRange" }
+        }
+      },
+      "UpdateNamedRangeRequest": {
+        "type": "object",
+        "properties": {
+          "namedRange": { "$ref": "#/$defs/NamedRange" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "RepeatCellRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "cell": { "$ref": "#/$defs/CellData" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "AddNamedRangeRequest": {
+        "type": "object",
+        "properties": { "namedRange": { "$ref": "#/$defs/NamedRange" } }
+      },
+      "DeleteNamedRangeRequest": {
+        "type": "object",
+        "properties": { "namedRangeId": { "type": "string" } }
+      },
+      "AddSheetRequest": {
+        "type": "object",
+        "properties": { "properties": { "$ref": "#/$defs/SheetProperties" } }
+      },
+      "DeleteSheetRequest": {
+        "type": "object",
+        "properties": { "sheetId": { "type": "integer" } }
+      },
+      "AutoFillRequest": {
+        "type": "object",
+        "properties": {
+          "useAlternateSeries": { "type": "boolean" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "sourceAndDestination": { "$ref": "#/$defs/SourceAndDestination" }
+        }
+      },
+      "CutPasteRequest": {
+        "type": "object",
+        "properties": {
+          "source": { "$ref": "#/$defs/GridRange" },
+          "destination": { "$ref": "#/$defs/GridCoordinate" },
+          "pasteType": { "$ref": "#/$defs/PasteType" }
+        }
+      },
+      "CopyPasteRequest": {
+        "type": "object",
+        "properties": {
+          "source": { "$ref": "#/$defs/GridRange" },
+          "destination": { "$ref": "#/$defs/GridRange" },
+          "pasteType": { "$ref": "#/$defs/PasteType" },
+          "pasteOrientation": { "$ref": "#/$defs/PasteOrientation" }
+        }
+      },
+      "MergeCellsRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "mergeType": { "$ref": "#/$defs/MergeType" }
+        }
+      },
+      "UnmergeCellsRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/GridRange" } }
+      },
+      "UpdateBordersRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "top": { "$ref": "#/$defs/Border" },
+          "bottom": { "$ref": "#/$defs/Border" },
+          "left": { "$ref": "#/$defs/Border" },
+          "right": { "$ref": "#/$defs/Border" },
+          "innerHorizontal": { "$ref": "#/$defs/Border" },
+          "innerVertical": { "$ref": "#/$defs/Border" }
+        }
+      },
+      "UpdateCellsRequest": {
+        "type": "object",
+        "properties": {
+          "rows": { "type": "array", "items": { "$ref": "#/$defs/RowData" } },
+          "fields": { "type": "string", "format": "google-fieldmask" },
+          "start": { "$ref": "#/$defs/GridCoordinate" },
+          "range": { "$ref": "#/$defs/GridRange" }
+        }
+      },
+      "AddFilterViewRequest": {
+        "type": "object",
+        "properties": { "filter": { "$ref": "#/$defs/FilterView" } }
+      },
+      "AppendCellsRequest": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "rows": { "type": "array", "items": { "$ref": "#/$defs/RowData" } },
+          "fields": { "type": "string", "format": "google-fieldmask" },
+          "tableId": { "type": "string" }
+        }
+      },
+      "ClearBasicFilterRequest": {
+        "type": "object",
+        "properties": { "sheetId": { "type": "integer" } }
+      },
+      "DeleteDimensionRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/DimensionRange" } }
+      },
+      "DeleteEmbeddedObjectRequest": {
+        "type": "object",
+        "properties": { "objectId": { "type": "integer" } }
+      },
+      "DeleteFilterViewRequest": {
+        "type": "object",
+        "properties": { "filterId": { "type": "integer" } }
+      },
+      "DuplicateFilterViewRequest": {
+        "type": "object",
+        "properties": { "filterId": { "type": "integer" } }
+      },
+      "DuplicateSheetRequest": {
+        "type": "object",
+        "properties": {
+          "sourceSheetId": { "type": "integer" },
+          "insertSheetIndex": { "type": "integer" },
+          "newSheetId": { "type": "integer" },
+          "newSheetName": { "type": "string" }
+        }
+      },
+      "FindReplaceRequest": {
+        "type": "object",
+        "properties": {
+          "find": { "type": "string" },
+          "replacement": { "type": "string" },
+          "matchCase": { "type": "boolean" },
+          "matchEntireCell": { "type": "boolean" },
+          "searchByRegex": { "type": "boolean" },
+          "includeFormulas": { "type": "boolean" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "sheetId": { "type": "integer" },
+          "allSheets": { "type": "boolean" }
+        }
+      },
+      "InsertDimensionRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/DimensionRange" },
+          "inheritFromBefore": { "type": "boolean" }
+        }
+      },
+      "InsertRangeRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "shiftDimension": { "$ref": "#/$defs/Dimension" }
+        }
+      },
+      "MoveDimensionRequest": {
+        "type": "object",
+        "properties": {
+          "source": { "$ref": "#/$defs/DimensionRange" },
+          "destinationIndex": { "type": "integer" }
+        }
+      },
+      "UpdateEmbeddedObjectPositionRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "integer" },
+          "newPosition": { "$ref": "#/$defs/EmbeddedObjectPosition" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "PasteDataRequest": {
+        "type": "object",
+        "properties": {
+          "coordinate": { "$ref": "#/$defs/GridCoordinate" },
+          "data": { "type": "string" },
+          "type": { "$ref": "#/$defs/PasteType" },
+          "delimiter": { "type": "string" },
+          "html": { "type": "boolean" }
+        }
+      },
+      "TextToColumnsRequest": {
+        "type": "object",
+        "properties": {
+          "source": { "$ref": "#/$defs/GridRange" },
+          "delimiter": { "type": "string" },
+          "delimiterType": { "$ref": "#/$defs/DelimiterType" }
+        }
+      },
+      "UpdateFilterViewRequest": {
+        "type": "object",
+        "properties": {
+          "filter": { "$ref": "#/$defs/FilterView" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "DeleteRangeRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "shiftDimension": { "$ref": "#/$defs/Dimension" }
+        }
+      },
+      "AppendDimensionRequest": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "dimension": { "$ref": "#/$defs/Dimension" },
+          "length": { "type": "integer" }
+        }
+      },
+      "AddConditionalFormatRuleRequest": {
+        "type": "object",
+        "properties": {
+          "rule": { "$ref": "#/$defs/ConditionalFormatRule" },
+          "index": { "type": "integer" }
+        }
+      },
+      "UpdateConditionalFormatRuleRequest": {
+        "type": "object",
+        "properties": {
+          "index": { "type": "integer" },
+          "sheetId": { "type": "integer" },
+          "rule": { "$ref": "#/$defs/ConditionalFormatRule" },
+          "newIndex": { "type": "integer" }
+        }
+      },
+      "DeleteConditionalFormatRuleRequest": {
+        "type": "object",
+        "properties": {
+          "index": { "type": "integer" },
+          "sheetId": { "type": "integer" }
+        }
+      },
+      "SortRangeRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "sortSpecs": { "type": "array", "items": { "$ref": "#/$defs/SortSpec" } }
+        }
+      },
+      "SetDataValidationRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "rule": { "$ref": "#/$defs/DataValidationRule" },
+          "filteredRowsIncluded": { "type": "boolean" }
+        }
+      },
+      "SetBasicFilterRequest": {
+        "type": "object",
+        "properties": { "filter": { "$ref": "#/$defs/BasicFilter" } }
+      },
+      "AddProtectedRangeRequest": {
+        "type": "object",
+        "properties": { "protectedRange": { "$ref": "#/$defs/ProtectedRange" } }
+      },
+      "UpdateProtectedRangeRequest": {
+        "type": "object",
+        "properties": {
+          "protectedRange": { "$ref": "#/$defs/ProtectedRange" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "DeleteProtectedRangeRequest": {
+        "type": "object",
+        "properties": { "protectedRangeId": { "type": "integer" } }
+      },
+      "AutoResizeDimensionsRequest": {
+        "type": "object",
+        "properties": {
+          "dimensions": { "$ref": "#/$defs/DimensionRange" },
+          "dataSourceSheetDimensions": { "$ref": "#/$defs/DataSourceSheetDimensionRange" }
+        }
+      },
+      "AddChartRequest": {
+        "type": "object",
+        "properties": { "chart": { "$ref": "#/$defs/EmbeddedChart" } }
+      },
+      "UpdateChartSpecRequest": {
+        "type": "object",
+        "properties": {
+          "chartId": { "type": "integer" },
+          "spec": { "$ref": "#/$defs/ChartSpec" }
+        }
+      },
+      "UpdateBandingRequest": {
+        "type": "object",
+        "properties": {
+          "bandedRange": { "$ref": "#/$defs/BandedRange" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "AddBandingRequest": {
+        "type": "object",
+        "properties": { "bandedRange": { "$ref": "#/$defs/BandedRange" } }
+      },
+      "DeleteBandingRequest": {
+        "type": "object",
+        "properties": { "bandedRangeId": { "type": "integer" } }
+      },
+      "CreateDeveloperMetadataRequest": {
+        "type": "object",
+        "properties": { "developerMetadata": { "$ref": "#/$defs/DeveloperMetadata" } }
+      },
+      "UpdateDeveloperMetadataRequest": {
+        "type": "object",
+        "properties": {
+          "dataFilters": { "type": "array", "items": { "$ref": "#/$defs/DataFilter" } },
+          "developerMetadata": { "$ref": "#/$defs/DeveloperMetadata" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "DeleteDeveloperMetadataRequest": {
+        "type": "object",
+        "properties": { "dataFilter": { "$ref": "#/$defs/DataFilter" } }
+      },
+      "RandomizeRangeRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/GridRange" } }
+      },
+      "AddDimensionGroupRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/DimensionRange" } }
+      },
+      "DeleteDimensionGroupRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/DimensionRange" } }
+      },
+      "UpdateDimensionGroupRequest": {
+        "type": "object",
+        "properties": {
+          "dimensionGroup": { "$ref": "#/$defs/DimensionGroup" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "TrimWhitespaceRequest": {
+        "type": "object",
+        "properties": { "range": { "$ref": "#/$defs/GridRange" } }
+      },
+      "DeleteDuplicatesRequest": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "comparisonColumns": { "type": "array", "items": { "$ref": "#/$defs/DimensionRange" } }
+        }
+      },
+      "UpdateEmbeddedObjectBorderRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "integer" },
+          "border": { "$ref": "#/$defs/EmbeddedObjectBorder" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "AddSlicerRequest": {
+        "type": "object",
+        "properties": { "slicer": { "$ref": "#/$defs/Slicer" } }
+      },
+      "UpdateSlicerSpecRequest": {
+        "type": "object",
+        "properties": {
+          "slicerId": { "type": "integer" },
+          "spec": { "$ref": "#/$defs/SlicerSpec" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "AddDataSourceRequest": {
+        "type": "object",
+        "properties": { "dataSource": { "$ref": "#/$defs/DataSource" } }
+      },
+      "UpdateDataSourceRequest": {
+        "type": "object",
+        "properties": {
+          "dataSource": { "$ref": "#/$defs/DataSource" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "DeleteDataSourceRequest": {
+        "type": "object",
+        "properties": { "dataSourceId": { "type": "string" } }
+      },
+      "RefreshDataSourceRequest": {
+        "type": "object",
+        "properties": {
+          "force": { "type": "boolean" },
+          "references": { "$ref": "#/$defs/DataSourceObjectReferences" },
+          "dataSourceId": { "type": "string" },
+          "isAll": { "type": "boolean" }
+        }
+      },
+      "CancelDataSourceRefreshRequest": {
+        "type": "object",
+        "properties": {
+          "references": { "$ref": "#/$defs/DataSourceObjectReferences" },
+          "dataSourceId": { "type": "string" },
+          "isAll": { "type": "boolean" }
+        }
+      },
+      "AddTableRequest": {
+        "type": "object",
+        "properties": { "table": { "$ref": "#/$defs/Table" } }
+      },
+      "UpdateTableRequest": {
+        "type": "object",
+        "properties": {
+          "table": { "$ref": "#/$defs/Table" },
+          "fields": { "type": "string", "format": "google-fieldmask" }
+        }
+      },
+      "DeleteTableRequest": {
+        "type": "object",
+        "properties": { "tableId": { "type": "string" } }
+      },
+      "SpreadsheetProperties": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "locale": { "type": "string" },
+          "autoRecalc": { "type": "string", "enum": ["RECALCULATION_INTERVAL_UNSPECIFIED", "ON_CHANGE", "MINUTE", "HOUR"] },
+          "timeZone": { "type": "string" },
+          "defaultFormat": { "$ref": "#/$defs/CellFormat" },
+          "iterativeCalculationSettings": { "$ref": "#/$defs/IterativeCalculationSettings" },
+          "spreadsheetTheme": { "$ref": "#/$defs/SpreadsheetTheme" },
+          "importFunctionsExternalUrlAccessAllowed": { "type": "boolean" }
+        }
+      },
+      "SheetProperties": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "title": { "type": "string" },
+          "index": { "type": "integer" },
+          "sheetType": { "type": "string", "enum": ["SHEET_TYPE_UNSPECIFIED", "GRID", "OBJECT", "DATA_SOURCE"] },
+          "gridProperties": { "$ref": "#/$defs/GridProperties" },
+          "hidden": { "type": "boolean" },
+          "tabColor": { "$ref": "#/$defs/Color" },
+          "tabColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "rightToLeft": { "type": "boolean" },
+          "dataSourceSheetProperties": { "$ref": "#/$defs/DataSourceSheetProperties" }
+        }
+      },
+      "DimensionProperties": {
+        "type": "object",
+        "properties": {
+          "hiddenByFilter": { "type": "boolean" },
+          "hiddenByUser": { "type": "boolean" },
+          "pixelSize": { "type": "integer" },
+          "developerMetadata": { "type": "array", "items": { "$ref": "#/$defs/DeveloperMetadata" } },
+          "dataSourceColumnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "NamedRange": {
+        "type": "object",
+        "properties": {
+          "namedRangeId": { "type": "string" },
+          "name": { "type": "string" },
+          "range": { "$ref": "#/$defs/GridRange" }
+        }
+      },
+      "GridRange": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "startRowIndex": { "type": "integer" },
+          "endRowIndex": { "type": "integer" },
+          "startColumnIndex": { "type": "integer" },
+          "endColumnIndex": { "type": "integer" }
+        }
+      },
+      "CellData": {
+        "type": "object",
+        "properties": {
+          "userEnteredValue": { "$ref": "#/$defs/ExtendedValue" },
+          "effectiveValue": { "$ref": "#/$defs/ExtendedValue" },
+          "formattedValue": { "type": "string" },
+          "userEnteredFormat": { "$ref": "#/$defs/CellFormat" },
+          "effectiveFormat": { "$ref": "#/$defs/CellFormat" },
+          "hyperlink": { "type": "string" },
+          "note": { "type": "string" },
+          "textFormatRuns": { "type": "array", "items": { "$ref": "#/$defs/TextFormatRun" } },
+          "dataValidation": { "$ref": "#/$defs/DataValidationRule" },
+          "pivotTable": { "$ref": "#/$defs/PivotTable" },
+          "dataSourceTable": { "$ref": "#/$defs/DataSourceTable" },
+          "dataSourceFormula": { "$ref": "#/$defs/DataSourceFormula" },
+          "chipRuns": { "type": "array", "items": { "$ref": "#/$defs/ChipRun" } }
+        }
+      },
+      "RowData": {
+        "type": "object",
+        "properties": {
+          "values": { "type": "array", "items": { "$ref": "#/$defs/CellData" } }
+        }
+      },
+      "DimensionRange": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "dimension": { "$ref": "#/$defs/Dimension" },
+          "startIndex": { "type": "integer" },
+          "endIndex": { "type": "integer" }
+        }
+      },
+      "DataSourceSheetDimensionRange": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "columnReferences": { "type": "array", "items": { "$ref": "#/$defs/DataSourceColumnReference" } }
+        }
+      },
+      "SourceAndDestination": {
+        "type": "object",
+        "properties": {
+          "source": { "$ref": "#/$defs/GridRange" },
+          "dimension": { "$ref": "#/$defs/Dimension" },
+          "fillLength": { "type": "integer" }
+        }
+      },
+      "GridCoordinate": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "rowIndex": { "type": "integer" },
+          "columnIndex": { "type": "integer" }
+        }
+      },
+      "PasteType": {
+        "type": "string",
+        "enum": ["PASTE_NORMAL", "PASTE_VALUES", "PASTE_FORMAT", "PASTE_NO_BORDERS", "PASTE_FORMULA", "PASTE_DATA_VALIDATION", "PASTE_CONDITIONAL_FORMATTING"]
+      },
+      "PasteOrientation": {
+        "type": "string",
+        "enum": ["NORMAL", "TRANSPOSE"]
+      },
+      "MergeType": {
+        "type": "string",
+        "enum": ["MERGE_ALL", "MERGE_COLUMNS", "MERGE_ROWS"]
+      },
+      "Border": {
+        "type": "object",
+        "properties": {
+          "style": { "type": "string", "enum": ["STYLE_UNSPECIFIED", "DOTTED", "DASHED", "SOLID", "SOLID_MEDIUM", "SOLID_THICK", "NONE", "DOUBLE"] },
+          "width": { "type": "integer" },
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "FilterView": {
+        "type": "object",
+        "properties": {
+          "filterViewId": { "type": "integer" },
+          "title": { "type": "string" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "namedRangeId": { "type": "string" },
+          "tableId": { "type": "string" },
+          "sortSpecs": { "type": "array", "items": { "$ref": "#/$defs/SortSpec" } },
+          "criteria": { "type": "object", "additionalProperties": { "$ref": "#/$defs/FilterCriteria" } },
+          "filterSpecs": { "type": "array", "items": { "$ref": "#/$defs/FilterSpec" } }
+        }
+      },
+      "Dimension": {
+        "type": "string",
+        "enum": ["DIMENSION_UNSPECIFIED", "ROWS", "COLUMNS"]
+      },
+      "EmbeddedObjectPosition": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "integer" },
+          "overlayPosition": { "$ref": "#/$defs/OverlayPosition" },
+          "newSheet": { "type": "boolean" }
+        }
+      },
+      "DelimiterType": {
+        "type": "string",
+        "enum": ["DELIMITER_TYPE_UNSPECIFIED", "COMMA", "SEMICOLON", "PERIOD", "SPACE", "CUSTOM", "AUTODETECT"]
+      },
+      "ConditionalFormatRule": {
+        "type": "object",
+        "properties": {
+          "ranges": { "type": "array", "items": { "$ref": "#/$defs/GridRange" } },
+          "booleanRule": { "$ref": "#/$defs/BooleanRule" },
+          "gradientRule": { "$ref": "#/$defs/GradientRule" }
+        }
+      },
+      "SortSpec": {
+        "type": "object",
+        "properties": {
+          "sortOrder": { "type": "string", "enum": ["SORT_ORDER_UNSPECIFIED", "ASCENDING", "DESCENDING"] },
+          "foregroundColor": { "$ref": "#/$defs/Color" },
+          "foregroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "backgroundColor": { "$ref": "#/$defs/Color" },
+          "backgroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "dimensionIndex": { "type": "integer" },
+          "dataSourceColumnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "DataValidationRule": {
+        "type": "object",
+        "properties": {
+          "condition": { "$ref": "#/$defs/BooleanCondition" },
+          "inputMessage": { "type": "string" },
+          "strict": { "type": "boolean" },
+          "showCustomUi": { "type": "boolean" }
+        }
+      },
+      "BasicFilter": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/GridRange" },
+          "tableId": { "type": "string" },
+          "sortSpecs": { "type": "array", "items": { "$ref": "#/$defs/SortSpec" } },
+          "criteria": { "type": "object", "additionalProperties": { "$ref": "#/$defs/FilterCriteria" } },
+          "filterSpecs": { "type": "array", "items": { "$ref": "#/$defs/FilterSpec" } }
+        }
+      },
+      "ProtectedRange": {
+        "type": "object",
+        "properties": {
+          "protectedRangeId": { "type": "integer" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "namedRangeId": { "type": "string" },
+          "tableId": { "type": "string" },
+          "description": { "type": "string" },
+          "warningOnly": { "type": "boolean" },
+          "requestingUserCanEdit": { "type": "boolean" },
+          "unprotectedRanges": { "type": "array", "items": { "$ref": "#/$defs/GridRange" } },
+          "editors": { "$ref": "#/$defs/Editors" }
+        }
+      },
+      "EmbeddedChart": {
+        "type": "object",
+        "properties": {
+          "chartId": { "type": "integer" },
+          "spec": { "$ref": "#/$defs/ChartSpec" },
+          "position": { "$ref": "#/$defs/EmbeddedObjectPosition" },
+          "border": { "$ref": "#/$defs/EmbeddedObjectBorder" }
+        }
+      },
+      "ChartSpec": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "altText": { "type": "string" },
+          "titleTextFormat": { "$ref": "#/$defs/TextFormat" },
+          "titleTextPosition": { "$ref": "#/$defs/TextPosition" },
+          "subtitle": { "type": "string" },
+          "subtitleTextFormat": { "$ref": "#/$defs/TextFormat" },
+          "subtitleTextPosition": { "$ref": "#/$defs/TextPosition" },
+          "fontName": { "type": "string" },
+          "maximized": { "type": "boolean" },
+          "backgroundColor": { "$ref": "#/$defs/Color" },
+          "backgroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "dataSourceChartProperties": { "$ref": "#/$defs/DataSourceChartProperties" },
+          "filterSpecs": { "type": "array", "items": { "$ref": "#/$defs/FilterSpec" } },
+          "sortSpecs": { "type": "array", "items": { "$ref": "#/$defs/SortSpec" } },
+          "hiddenDimensionStrategy": { "type": "string", "enum": ["CHART_HIDDEN_DIMENSION_STRATEGY_UNSPECIFIED", "SKIP_HIDDEN_ROWS_AND_COLUMNS", "SKIP_HIDDEN_ROWS", "SKIP_HIDDEN_COLUMNS", "SHOW_ALL"] },
+          "basicChart": { "$ref": "#/$defs/BasicChartSpec" },
+          "pieChart": { "$ref": "#/$defs/PieChartSpec" },
+          "bubbleChart": { "$ref": "#/$defs/BubbleChartSpec" },
+          "candlestickChart": { "$ref": "#/$defs/CandlestickChartSpec" },
+          "orgChart": { "$ref": "#/$defs/OrgChartSpec" },
+          "histogramChart": { "$ref": "#/$defs/HistogramChartSpec" },
+          "waterfallChart": { "$ref": "#/$defs/WaterfallChartSpec" },
+          "treemapChart": { "$ref": "#/$defs/TreemapChartSpec" },
+          "scorecardChart": { "$ref": "#/$defs/ScorecardChartSpec" }
+        }
+      },
+      "BandedRange": {
+        "type": "object",
+        "properties": {
+          "bandedRangeId": { "type": "integer" },
+          "bandedRangeReference": { "type": "string" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "rowProperties": { "$ref": "#/$defs/BandingProperties" },
+          "columnProperties": { "$ref": "#/$defs/BandingProperties" }
+        }
+      },
+      "DeveloperMetadata": {
+        "type": "object",
+        "properties": {
+          "metadataId": { "type": "integer" },
+          "metadataKey": { "type": "string" },
+          "metadataValue": { "type": "string" },
+          "location": { "$ref": "#/$defs/DeveloperMetadataLocation" },
+          "visibility": { "$ref": "#/$defs/DeveloperMetadataVisibility" }
+        }
+      },
+      "DataFilter": {
+        "type": "object",
+        "properties": {
+          "developerMetadataLookup": { "$ref": "#/$defs/DeveloperMetadataLookup" },
+          "a1Range": { "type": "string" },
+          "gridRange": { "$ref": "#/$defs/GridRange" }
+        }
+      },
+      "DimensionGroup": {
+        "type": "object",
+        "properties": {
+          "range": { "$ref": "#/$defs/DimensionRange" },
+          "depth": { "type": "integer" },
+          "collapsed": { "type": "boolean" }
+        }
+      },
+      "EmbeddedObjectBorder": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "Slicer": {
+        "type": "object",
+        "properties": {
+          "slicerId": { "type": "integer" },
+          "spec": { "$ref": "#/$defs/SlicerSpec" },
+          "position": { "$ref": "#/$defs/EmbeddedObjectPosition" }
+        }
+      },
+      "DataSource": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": { "type": "string" },
+          "spec": { "$ref": "#/$defs/DataSourceSpec" },
+          "calculatedColumns": { "type": "array", "items": { "$ref": "#/$defs/DataSourceColumn" } },
+          "sheetId": { "type": "integer" }
+        }
+      },
+      "DataSourceObjectReferences": {
+        "type": "object",
+        "properties": {
+          "references": { "type": "array", "items": { "$ref": "#/$defs/DataSourceObjectReference" } }
+        }
+      },
+      "Table": {
+        "type": "object",
+        "properties": {
+          "tableId": { "type": "string" },
+          "name": { "type": "string" },
+          "range": { "$ref": "#/$defs/GridRange" },
+          "rowsProperties": { "$ref": "#/$defs/TableRowsProperties" },
+          "columnProperties": { "type": "array", "items": { "$ref": "#/$defs/TableColumnProperties" } }
+        }
+      },
+      "CellFormat": {
+        "type": "object",
+        "properties": {
+          "numberFormat": { "$ref": "#/$defs/NumberFormat" },
+          "backgroundColor": { "$ref": "#/$defs/Color" },
+          "backgroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "borders": { "$ref": "#/$defs/Borders" },
+          "padding": { "$ref": "#/$defs/Padding" },
+          "horizontalAlignment": { "$ref": "#/$defs/HorizontalAlign" },
+          "verticalAlignment": { "$ref": "#/$defs/VerticalAlign" },
+          "wrapStrategy": { "$ref": "#/$defs/WrapStrategy" },
+          "textDirection": { "$ref": "#/$defs/TextDirection" },
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "hyperlinkDisplayType": { "$ref": "#/$defs/HyperlinkDisplayType" },
+          "textRotation": { "$ref": "#/$defs/TextRotation" }
+        }
+      },
+      "IterativeCalculationSettings": {
+        "type": "object",
+        "properties": {
+          "maxIterations": { "type": "integer" },
+          "convergenceThreshold": { "type": "number" }
+        }
+      },
+      "SpreadsheetTheme": {
+        "type": "object",
+        "properties": {
+          "primaryFontFamily": { "type": "string" },
+          "themeColors": { "type": "array", "items": { "$ref": "#/$defs/ThemeColorPair" } }
+        }
+      },
+      "GridProperties": {
+        "type": "object",
+        "properties": {
+          "rowCount": { "type": "integer" },
+          "columnCount": { "type": "integer" },
+          "frozenRowCount": { "type": "integer" },
+          "frozenColumnCount": { "type": "integer" },
+          "hideGridlines": { "type": "boolean" },
+          "rowGroupControlAfter": { "type": "boolean" },
+          "columnGroupControlAfter": { "type": "boolean" }
+        }
+      },
+      "DataSourceSheetProperties": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": { "type": "string" },
+          "columns": { "type": "array", "items": { "$ref": "#/$defs/DataSourceColumn" } },
+          "dataExecutionStatus": { "$ref": "#/$defs/DataExecutionStatus" }
+        }
+      },
+      "ExtendedValue": {
+        "type": "object",
+        "properties": {
+          "numberValue": { "type": "number" },
+          "stringValue": { "type": "string" },
+          "boolValue": { "type": "boolean" },
+          "formulaValue": { "type": "string" },
+          "errorValue": { "$ref": "#/$defs/ErrorValue" }
+        }
+      },
+      "TextFormatRun": {
+        "type": "object",
+        "properties": {
+          "startIndex": { "type": "integer" },
+          "format": { "$ref": "#/$defs/TextFormat" }
+        }
+      },
+      "PivotTable": {
+        "type": "object",
+        "properties": {
+          "rows": { "type": "array", "items": { "$ref": "#/$defs/PivotGroup" } },
+          "columns": { "type": "array", "items": { "$ref": "#/$defs/PivotGroup" } },
+          "criteria": { "type": "object", "additionalProperties": { "$ref": "#/$defs/PivotFilterCriteria" } },
+          "filterSpecs": { "type": "array", "items": { "$ref": "#/$defs/PivotFilterSpec" } },
+          "values": { "type": "array", "items": { "$ref": "#/$defs/PivotValue" } },
+          "valueLayout": { "type": "string", "enum": ["HORIZONTAL", "VERTICAL"] },
+          "dataExecutionStatus": { "$ref": "#/$defs/DataExecutionStatus" },
+          "source": { "$ref": "#/$defs/GridRange" },
+          "dataSourceId": { "type": "string" }
+        }
+      },
+      "DataSourceTable": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": { "type": "string" },
+          "columnSelectionType": { "type": "string", "enum": ["DATA_SOURCE_TABLE_COLUMN_SELECTION_TYPE_UNSPECIFIED", "SELECTED", "SYNC_ALL"] },
+          "columns": { "type": "array", "items": { "$ref": "#/$defs/DataSourceColumnReference" } },
+          "filterSpecs": { "type": "array", "items": { "$ref": "#/$defs/FilterSpec" } },
+          "sortSpecs": { "type": "array", "items": { "$ref": "#/$defs/SortSpec" } },
+          "rowLimit": { "type": "integer" },
+          "dataExecutionStatus": { "$ref": "#/$defs/DataExecutionStatus" }
+        }
+      },
+      "DataSourceFormula": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": { "type": "string" },
+          "dataExecutionStatus": { "$ref": "#/$defs/DataExecutionStatus" }
+        }
+      },
+      "ChipRun": {
+        "type": "object",
+        "properties": {
+          "startIndex": { "type": "integer" },
+          "chip": { "$ref": "#/$defs/Chip" }
+        }
+      },
+      "DataSourceColumnReference": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" }
+        }
+      },
+      "BooleanCondition": {
+        "type": "object",
+        "properties": {
+          "type": { "$ref": "#/$defs/ConditionType" },
+          "values": { "type": "array", "items": { "$ref": "#/$defs/ConditionValue" } }
+        }
+      },
+      "FilterCriteria": {
+        "type": "object",
+        "properties": {
+          "hiddenValues": { "type": "array", "items": { "type": "string" } },
+          "condition": { "$ref": "#/$defs/BooleanCondition" },
+          "visibleBackgroundColor": { "$ref": "#/$defs/Color" },
+          "visibleBackgroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "visibleForegroundColor": { "$ref": "#/$defs/Color" },
+          "visibleForegroundColorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "Editors": {
+        "type": "object",
+        "properties": {
+          "users": { "type": "array", "items": { "type": "string" } },
+          "groups": { "type": "array", "items": { "type": "string" } },
+          "domainUsersCanEdit": { "type": "boolean" }
+        }
+      },
+      "OverlayPosition": {
+        "type": "object",
+        "properties": {
+          "anchorCell": { "$ref": "#/$defs/GridCoordinate" },
+          "offsetXPixels": { "type": "integer" },
+          "offsetYPixels": { "type": "integer" },
+          "widthPixels": { "type": "integer" },
+          "heightPixels": { "type": "integer" }
+        }
+      },
+      "TextFormat": {
+        "type": "object",
+        "properties": {
+          "foregroundColor": { "$ref": "#/$defs/Color" },
+          "foregroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "fontFamily": { "type": "string" },
+          "fontSize": { "type": "integer" },
+          "bold": { "type": "boolean" },
+          "italic": { "type": "boolean" },
+          "strikethrough": { "type": "boolean" },
+          "underline": { "type": "boolean" },
+          "link": { "$ref": "#/$defs/Link" }
+        }
+      },
+      "TextPosition": {
+        "type": "object",
+        "properties": {
+          "horizontalAlignment": { "$ref": "#/$defs/HorizontalAlign" }
+        }
+      },
+      "DataSourceChartProperties": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": { "type": "string" },
+          "dataExecutionStatus": { "$ref": "#/$defs/DataExecutionStatus" }
+        }
+      },
+      "BasicChartSpec": {
+        "type": "object",
+        "properties": {
+          "chartType": { "type": "string", "enum": ["BASIC_CHART_TYPE_UNSPECIFIED", "BAR", "LINE", "AREA", "COLUMN", "SCATTER", "COMBO", "STEPPED_AREA"] },
+          "legendPosition": { "type": "string", "enum": ["BASIC_CHART_LEGEND_POSITION_UNSPECIFIED", "BOTTOM_LEGEND", "LEFT_LEGEND", "RIGHT_LEGEND", "TOP_LEGEND", "NO_LEGEND"] },
+          "axis": { "type": "array", "items": { "$ref": "#/$defs/BasicChartAxis" } },
+          "domains": { "type": "array", "items": { "$ref": "#/$defs/BasicChartDomain" } },
+          "series": { "type": "array", "items": { "$ref": "#/$defs/BasicChartSeries" } },
+          "headerCount": { "type": "integer" },
+          "threeDimensional": { "type": "boolean" },
+          "interpolateNulls": { "type": "boolean" },
+          "stackedType": { "type": "string", "enum": ["BASIC_CHART_STACKED_TYPE_UNSPECIFIED", "NOT_STACKED", "STACKED", "PERCENT_STACKED"] },
+          "lineSmoothing": { "type": "boolean" },
+          "compareMode": { "type": "string", "enum": ["BASIC_CHART_COMPARE_MODE_UNSPECIFIED", "DATUM", "CATEGORY"] },
+          "totalDataLabel": { "$ref": "#/$defs/DataLabel" }
+        }
+      },
+      "PieChartSpec": {
+        "type": "object",
+        "properties": {
+          "legendPosition": { "type": "string", "enum": ["PIE_CHART_LEGEND_POSITION_UNSPECIFIED", "BOTTOM_LEGEND", "LEFT_LEGEND", "RIGHT_LEGEND", "TOP_LEGEND", "NO_LEGEND", "LABELED_LEGEND"] },
+          "domain": { "$ref": "#/$defs/ChartData" },
+          "series": { "$ref": "#/$defs/ChartData" },
+          "threeDimensional": { "type": "boolean" },
+          "pieHole": { "type": "number" }
+        }
+      },
+      "BubbleChartSpec": {
+        "type": "object",
+        "properties": {
+          "legendPosition": { "type": "string", "enum": ["BUBBLE_CHART_LEGEND_POSITION_UNSPECIFIED", "BOTTOM_LEGEND", "LEFT_LEGEND", "RIGHT_LEGEND", "TOP_LEGEND", "NO_LEGEND", "INSIDE_LEGEND"] },
+          "bubbleLabels": { "$ref": "#/$defs/ChartData" },
+          "domain": { "$ref": "#/$defs/ChartData" },
+          "series": { "$ref": "#/$defs/ChartData" },
+          "groupIds": { "$ref": "#/$defs/ChartData" },
+          "bubbleSizes": { "$ref": "#/$defs/ChartData" },
+          "bubbleOpacity": { "type": "number" },
+          "bubbleBorderColor": { "$ref": "#/$defs/Color" },
+          "bubbleBorderColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "bubbleMaxRadiusSize": { "type": "integer" },
+          "bubbleMinRadiusSize": { "type": "integer" },
+          "bubbleTextStyle": { "$ref": "#/$defs/TextFormat" }
+        }
+      },
+      "CandlestickChartSpec": {
+        "type": "object",
+        "properties": {
+          "domain": { "$ref": "#/$defs/CandlestickDomain" },
+          "data": { "type": "array", "items": { "$ref": "#/$defs/CandlestickData" } }
+        }
+      },
+      "OrgChartSpec": {
+        "type": "object",
+        "properties": {
+          "nodeSize": { "type": "string", "enum": ["ORG_CHART_LABEL_SIZE_UNSPECIFIED", "SMALL", "MEDIUM", "LARGE"] },
+          "nodeColor": { "$ref": "#/$defs/Color" },
+          "nodeColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "selectedNodeColor": { "$ref": "#/$defs/Color" },
+          "selectedNodeColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "labels": { "$ref": "#/$defs/ChartData" },
+          "parentLabels": { "$ref": "#/$defs/ChartData" },
+          "tooltips": { "$ref": "#/$defs/ChartData" }
+        }
+      },
+      "HistogramChartSpec": {
+        "type": "object",
+        "properties": {
+          "series": { "type": "array", "items": { "$ref": "#/$defs/HistogramSeries" } },
+          "legendPosition": { "type": "string", "enum": ["HISTOGRAM_CHART_LEGEND_POSITION_UNSPECIFIED", "BOTTOM_LEGEND", "LEFT_LEGEND", "RIGHT_LEGEND", "TOP_LEGEND", "NO_LEGEND", "INSIDE_LEGEND"] },
+          "showItemDividers": { "type": "boolean" },
+          "bucketSize": { "type": "number" },
+          "outlierPercentile": { "type": "number" }
+        }
+      },
+      "WaterfallChartSpec": {
+        "type": "object",
+        "properties": {
+          "domain": { "$ref": "#/$defs/WaterfallChartDomain" },
+          "series": { "type": "array", "items": { "$ref": "#/$defs/WaterfallChartSeries" } },
+          "stackedType": { "type": "string", "enum": ["WATERFALL_STACKED_TYPE_UNSPECIFIED", "STACKED", "SEQUENTIAL"] },
+          "firstValueIsTotal": { "type": "boolean" },
+          "hideConnectorLines": { "type": "boolean" },
+          "connectorLineStyle": { "$ref": "#/$defs/LineStyle" },
+          "totalDataLabel": { "$ref": "#/$defs/DataLabel" }
+        }
+      },
+      "TreemapChartSpec": {
+        "type": "object",
+        "properties": {
+          "labels": { "$ref": "#/$defs/ChartData" },
+          "parentLabels": { "$ref": "#/$defs/ChartData" },
+          "sizeData": { "$ref": "#/$defs/ChartData" },
+          "colorData": { "$ref": "#/$defs/ChartData" },
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "levels": { "type": "integer" },
+          "hintedLevels": { "type": "integer" },
+          "minValue": { "type": "number" },
+          "maxValue": { "type": "number" },
+          "headerColor": { "$ref": "#/$defs/Color" },
+          "headerColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "colorScale": { "$ref": "#/$defs/TreemapChartColorScale" },
+          "hideTooltips": { "type": "boolean" }
+        }
+      },
+      "ScorecardChartSpec": {
+        "type": "object",
+        "properties": {
+          "keyValueData": { "$ref": "#/$defs/ChartData" },
+          "baselineValueData": { "$ref": "#/$defs/ChartData" },
+          "aggregateType": { "type": "string", "enum": ["CHART_AGGREGATE_TYPE_UNSPECIFIED", "AVERAGE", "COUNT", "MAX", "MEDIAN", "MIN", "SUM"] },
+          "keyValueFormat": { "$ref": "#/$defs/KeyValueFormat" },
+          "baselineValueFormat": { "$ref": "#/$defs/BaselineValueFormat" },
+          "scaleFactor": { "type": "number" },
+          "numberFormatSource": { "type": "string", "enum": ["CHART_NUMBER_FORMAT_SOURCE_UNDEFINED", "FROM_DATA", "CUSTOM"] },
+          "customFormatOptions": { "$ref": "#/$defs/ChartCustomNumberFormatOptions" }
+        }
+      },
+      "BandingProperties": {
+        "type": "object",
+        "properties": {
+          "headerColor": { "$ref": "#/$defs/Color" },
+          "headerColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "firstBandColor": { "$ref": "#/$defs/Color" },
+          "firstBandColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "secondBandColor": { "$ref": "#/$defs/Color" },
+          "secondBandColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "footerColor": { "$ref": "#/$defs/Color" },
+          "footerColorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "SlicerSpec": {
+        "type": "object",
+        "properties": {
+          "dataRange": { "$ref": "#/$defs/GridRange" },
+          "filterCriteria": { "$ref": "#/$defs/FilterCriteria" },
+          "columnIndex": { "type": "integer" },
+          "applyToPivotTables": { "type": "boolean" },
+          "title": { "type": "string" },
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "backgroundColor": { "$ref": "#/$defs/Color" },
+          "backgroundColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "horizontalAlignment": { "$ref": "#/$defs/HorizontalAlign" }
+        }
+      },
+      "DataSourceSpec": {
+        "type": "object",
+        "properties": {
+          "parameters": { "type": "array", "items": { "$ref": "#/$defs/DataSourceParameter" } },
+          "bigQuery": { "$ref": "#/$defs/BigQueryDataSourceSpec" },
+          "looker": { "$ref": "#/$defs/LookerDataSourceSpec" }
+        }
+      },
+      "DataSourceObjectReference": {
+        "type": "object",
+        "properties": {
+          "sheetId": { "type": "string" },
+          "chartId": { "type": "integer" },
+          "dataSourceTableAnchorCell": { "$ref": "#/$defs/GridCoordinate" },
+          "dataSourcePivotTableAnchorCell": { "$ref": "#/$defs/GridCoordinate" },
+          "dataSourceFormulaCell": { "$ref": "#/$defs/GridCoordinate" }
+        }
+      },
+      "TableRowsProperties": {
+        "type": "object",
+        "properties": {
+          "headerColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "firstBandColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "secondBandColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "footerColorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "TableColumnProperties": {
+        "type": "object",
+        "properties": {
+          "columnIndex": { "type": "integer" },
+          "columnName": { "type": "string" },
+          "columnType": { "type": "string", "enum": ["COLUMN_TYPE_UNSPECIFIED", "DOUBLE", "CURRENCY", "PERCENT", "DATE", "TIME", "DATE_TIME", "TEXT", "BOOLEAN", "DROPDOWN", "FILES_CHIP", "PEOPLE_CHIP", "FINANCE_CHIP", "PLACE_CHIP", "RATINGS_CHIP"] },
+          "dataValidationRule": { "$ref": "#/$defs/TableColumnDataValidationRule" }
+        }
+      },
+      "NumberFormat": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["NUMBER_FORMAT_TYPE_UNSPECIFIED", "TEXT", "NUMBER", "PERCENT", "CURRENCY", "DATE", "TIME", "DATE_TIME", "SCIENTIFIC"] },
+          "pattern": { "type": "string" }
+        }
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "red": { "type": "number" },
+          "green": { "type": "number" },
+          "blue": { "type": "number" },
+          "alpha": { "type": "number" }
+        }
+      },
+      "ColorStyle": {
+        "type": "object",
+        "properties": {
+          "rgbColor": { "$ref": "#/$defs/Color" },
+          "themeColor": { "type": "string", "enum": ["THEME_COLOR_TYPE_UNSPECIFIED", "TEXT", "BACKGROUND", "ACCENT1", "ACCENT2", "ACCENT3", "ACCENT4", "ACCENT5", "ACCENT6", "LINK"] }
+        }
+      },
+      "Borders": {
+        "type": "object",
+        "properties": {
+          "top": { "$ref": "#/$defs/Border" },
+          "bottom": { "$ref": "#/$defs/Border" },
+          "left": { "$ref": "#/$defs/Border" },
+          "right": { "$ref": "#/$defs/Border" }
+        }
+      },
+      "Padding": {
+        "type": "object",
+        "properties": {
+          "top": { "type": "integer" },
+          "right": { "type": "integer" },
+          "bottom": { "type": "integer" },
+          "left": { "type": "integer" }
+        }
+      },
+      "HorizontalAlign": {
+        "type": "string",
+        "enum": ["HORIZONTAL_ALIGN_UNSPECIFIED", "LEFT", "CENTER", "RIGHT"]
+      },
+      "VerticalAlign": {
+        "type": "string",
+        "enum": ["VERTICAL_ALIGN_UNSPECIFIED", "TOP", "MIDDLE", "BOTTOM"]
+      },
+      "WrapStrategy": {
+        "type": "string",
+        "enum": ["WRAP_STRATEGY_UNSPECIFIED", "OVERFLOW_CELL", "LEGACY_WRAP", "CLIP", "WRAP"]
+      },
+      "TextDirection": {
+        "type": "string",
+        "enum": ["TEXT_DIRECTION_UNSPECIFIED", "LEFT_TO_RIGHT", "RIGHT_TO_LEFT"]
+      },
+      "HyperlinkDisplayType": {
+        "type": "string",
+        "enum": ["HYPERLINK_DISPLAY_TYPE_UNSPECIFIED", "LINKED", "PLAIN_TEXT"]
+      },
+      "TextRotation": {
+        "type": "object",
+        "properties": {
+          "angle": { "type": "integer" },
+          "vertical": { "type": "boolean" }
+        }
+      },
+      "ThemeColorPair": {
+        "type": "object",
+        "properties": {
+          "colorType": { "type": "string", "enum": ["THEME_COLOR_TYPE_UNSPECIFIED", "TEXT", "BACKGROUND", "ACCENT1", "ACCENT2", "ACCENT3", "ACCENT4", "ACCENT5", "ACCENT6", "LINK"] },
+          "color": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "DataSourceColumn": {
+        "type": "object",
+        "properties": {
+          "reference": { "$ref": "#/$defs/DataSourceColumnReference" },
+          "formula": { "type": "string" }
+        }
+      },
+      "DataExecutionStatus": {
+        "type": "object",
+        "properties": {
+          "state": { "type": "string", "enum": ["DATA_EXECUTION_STATE_UNSPECIFIED", "NOT_STARTED", "RUNNING", "CANCELLING", "SUCCEEDED", "FAILED"] },
+          "errorCode": { "type": "string", "enum": ["DATA_EXECUTION_ERROR_CODE_UNSPECIFIED", "TIMED_OUT", "TOO_MANY_ROWS", "TOO_MANY_COLUMNS", "TOO_MANY_CELLS", "ENGINE", "PARAMETER_INVALID", "UNSUPPORTED_DATA_TYPE", "DUPLICATE_COLUMN_NAMES", "INTERRUPTED", "CONCURRENT_QUERY", "OTHER", "TOO_MANY_CHARS_PER_CELL", "DATA_NOT_FOUND", "PERMISSION_DENIED", "MISSING_COLUMN_ALIAS", "OBJECT_NOT_FOUND", "OBJECT_IN_ERROR_STATE", "OBJECT_SPEC_INVALID", "DATA_EXECUTION_CANCELLED"] },
+          "errorMessage": { "type": "string" },
+          "lastRefreshTime": { "type": "string", "format": "google-datetime" }
+        }
+      },
+      "ErrorValue": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["ERROR_TYPE_UNSPECIFIED", "ERROR", "NULL_VALUE", "DIVIDE_BY_ZERO", "VALUE", "REF", "NAME", "NUM", "N_A", "LOADING"] },
+          "message": { "type": "string" }
+        }
+      },
+      "PivotGroup": {
+        "type": "object",
+        "properties": {
+          "showTotals": { "type": "boolean" },
+          "valueMetadata": { "type": "array", "items": { "$ref": "#/$defs/PivotGroupValueMetadata" } },
+          "sortOrder": { "type": "string", "enum": ["SORT_ORDER_UNSPECIFIED", "ASCENDING", "DESCENDING"] },
+          "valueBucket": { "$ref": "#/$defs/PivotGroupSortValueBucket" },
+          "repeatHeadings": { "type": "boolean" },
+          "label": { "type": "string" },
+          "groupRule": { "$ref": "#/$defs/PivotGroupRule" },
+          "groupLimit": { "$ref": "#/$defs/PivotGroupLimit" },
+          "sourceColumnOffset": { "type": "integer" },
+          "dataSourceColumnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "PivotFilterCriteria": {
+        "type": "object",
+        "properties": {
+          "visibleValues": { "type": "array", "items": { "type": "string" } },
+          "condition": { "$ref": "#/$defs/BooleanCondition" },
+          "visibleByDefault": { "type": "boolean" }
+        }
+      },
+      "PivotFilterSpec": {
+        "type": "object",
+        "properties": {
+          "filterCriteria": { "$ref": "#/$defs/PivotFilterCriteria" },
+          "columnOffsetIndex": { "type": "integer" },
+          "dataSourceColumnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "PivotValue": {
+        "type": "object",
+        "properties": {
+          "summarizeFunction": { "type": "string", "enum": ["PIVOT_STANDARD_VALUE_FUNCTION_UNSPECIFIED", "SUM", "COUNTA", "COUNT", "COUNTUNIQUE", "AVERAGE", "MAX", "MIN", "MEDIAN", "PRODUCT", "STDEV", "STDEVP", "VAR", "VARP", "CUSTOM", "NONE"] },
+          "name": { "type": "string" },
+          "calculatedDisplayType": { "type": "string", "enum": ["PIVOT_VALUE_CALCULATED_DISPLAY_TYPE_UNSPECIFIED", "PERCENT_OF_ROW_TOTAL", "PERCENT_OF_COLUMN_TOTAL", "PERCENT_OF_GRAND_TOTAL"] },
+          "sourceColumnOffset": { "type": "integer" },
+          "formula": { "type": "string" },
+          "dataSourceColumnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "Chip": {
+        "type": "object",
+        "properties": {
+          "personProperties": { "$ref": "#/$defs/PersonProperties" },
+          "richLinkProperties": { "$ref": "#/$defs/RichLinkProperties" }
+        }
+      },
+      "ConditionType": {
+        "type": "string",
+        "enum": ["CONDITION_TYPE_UNSPECIFIED", "NUMBER_GREATER", "NUMBER_GREATER_THAN_EQ", "NUMBER_LESS", "NUMBER_LESS_THAN_EQ", "NUMBER_EQ", "NUMBER_NOT_EQ", "NUMBER_BETWEEN", "NUMBER_NOT_BETWEEN", "TEXT_CONTAINS", "TEXT_NOT_CONTAINS", "TEXT_STARTS_WITH", "TEXT_ENDS_WITH", "TEXT_EQ", "TEXT_IS_EMAIL", "TEXT_IS_URL", "DATE_EQ", "DATE_BEFORE", "DATE_AFTER", "DATE_ON_OR_BEFORE", "DATE_ON_OR_AFTER", "DATE_BETWEEN", "DATE_NOT_BETWEEN", "DATE_IS_VALID", "ONE_OF_RANGE", "ONE_OF_LIST", "BLANK", "NOT_BLANK", "CUSTOM_FORMULA", "BOOLEAN", "TEXT_NOT_EQ", "DATE_NOT_EQ", "FILTER_EXPRESSION"]
+      },
+      "ConditionValue": {
+        "type": "object",
+        "properties": {
+          "relativeDate": { "type": "string", "enum": ["RELATIVE_DATE_UNSPECIFIED", "PAST_YEAR", "PAST_MONTH", "PAST_WEEK", "YESTERDAY", "TODAY", "TOMORROW"] },
+          "userEnteredValue": { "type": "string" }
+        }
+      },
+      "BooleanRule": {
+        "type": "object",
+        "properties": {
+          "condition": { "$ref": "#/$defs/BooleanCondition" },
+          "format": { "$ref": "#/$defs/CellFormat" }
+        }
+      },
+      "GradientRule": {
+        "type": "object",
+        "properties": {
+          "minpoint": { "$ref": "#/$defs/InterpolationPoint" },
+          "midpoint": { "$ref": "#/$defs/InterpolationPoint" },
+          "maxpoint": { "$ref": "#/$defs/InterpolationPoint" }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "uri": { "type": "string" }
+        }
+      },
+      "BasicChartAxis": {
+        "type": "object",
+        "properties": {
+          "position": { "type": "string", "enum": ["BASIC_CHART_AXIS_POSITION_UNSPECIFIED", "BOTTOM_AXIS", "LEFT_AXIS", "RIGHT_AXIS"] },
+          "title": { "type": "string" },
+          "format": { "$ref": "#/$defs/TextFormat" },
+          "titleTextPosition": { "$ref": "#/$defs/TextPosition" },
+          "viewWindowOptions": { "$ref": "#/$defs/ChartAxisViewWindowOptions" }
+        }
+      },
+      "BasicChartDomain": {
+        "type": "object",
+        "properties": {
+          "domain": { "$ref": "#/$defs/ChartData" },
+          "reversed": { "type": "boolean" }
+        }
+      },
+      "BasicChartSeries": {
+        "type": "object",
+        "properties": {
+          "series": { "$ref": "#/$defs/ChartData" },
+          "targetAxis": { "type": "string", "enum": ["BASIC_CHART_AXIS_POSITION_UNSPECIFIED", "BOTTOM_AXIS", "LEFT_AXIS", "RIGHT_AXIS"] },
+          "type": { "type": "string", "enum": ["BASIC_CHART_TYPE_UNSPECIFIED", "BAR", "LINE", "AREA", "COLUMN", "SCATTER", "COMBO", "STEPPED_AREA"] },
+          "lineStyle": { "$ref": "#/$defs/LineStyle" },
+          "dataLabel": { "$ref": "#/$defs/DataLabel" },
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "pointStyle": { "$ref": "#/$defs/PointStyle" },
+          "styleOverrides": { "type": "array", "items": { "$ref": "#/$defs/BasicSeriesDataPointStyleOverride" } }
+        }
+      },
+      "DataLabel": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["DATA_LABEL_TYPE_UNSPECIFIED", "NONE", "DATA", "CUSTOM"] },
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "placement": { "type": "string", "enum": ["DATA_LABEL_PLACEMENT_UNSPECIFIED", "CENTER", "LEFT", "RIGHT", "ABOVE", "BELOW", "INSIDE_END", "INSIDE_BASE", "OUTSIDE_END"] },
+          "customLabelData": { "$ref": "#/$defs/ChartData" }
+        }
+      },
+      "ChartData": {
+        "type": "object",
+        "properties": {
+          "groupRule": { "$ref": "#/$defs/ChartGroupRule" },
+          "aggregateType": { "type": "string", "enum": ["CHART_AGGREGATE_TYPE_UNSPECIFIED", "AVERAGE", "COUNT", "MAX", "MEDIAN", "MIN", "SUM"] },
+          "sourceRange": { "$ref": "#/$defs/ChartSourceRange" },
+          "columnReference": { "$ref": "#/$defs/DataSourceColumnReference" }
+        }
+      },
+      "CandlestickDomain": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/$defs/ChartData" },
+          "reversed": { "type": "boolean" }
+        }
+      },
+      "CandlestickData": {
+        "type": "object",
+        "properties": {
+          "lowSeries": { "$ref": "#/$defs/CandlestickSeries" },
+          "openSeries": { "$ref": "#/$defs/CandlestickSeries" },
+          "closeSeries": { "$ref": "#/$defs/CandlestickSeries" },
+          "highSeries": { "$ref": "#/$defs/CandlestickSeries" }
+        }
+      },
+      "HistogramSeries": {
+        "type": "object",
+        "properties": {
+          "barColor": { "$ref": "#/$defs/Color" },
+          "barColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "data": { "$ref": "#/$defs/ChartData" }
+        }
+      },
+      "WaterfallChartDomain": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/$defs/ChartData" },
+          "reversed": { "type": "boolean" }
+        }
+      },
+      "WaterfallChartSeries": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/$defs/ChartData" },
+          "positiveColumnsStyle": { "$ref": "#/$defs/WaterfallChartColumnStyle" },
+          "negativeColumnsStyle": { "$ref": "#/$defs/WaterfallChartColumnStyle" },
+          "subtotalColumnsStyle": { "$ref": "#/$defs/WaterfallChartColumnStyle" },
+          "hideTrailingSubtotal": { "type": "boolean" },
+          "customSubtotals": { "type": "array", "items": { "$ref": "#/$defs/WaterfallChartCustomSubtotal" } },
+          "dataLabel": { "$ref": "#/$defs/DataLabel" }
+        }
+      },
+      "LineStyle": {
+        "type": "object",
+        "properties": {
+          "width": { "type": "integer" },
+          "type": { "type": "string", "enum": ["LINE_DASH_TYPE_UNSPECIFIED", "INVISIBLE", "CUSTOM", "SOLID", "DOTTED", "MEDIUM_DASHED", "MEDIUM_DASHED_DOTTED", "LONG_DASHED", "LONG_DASHED_DOTTED"] }
+        }
+      },
+      "TreemapChartColorScale": {
+        "type": "object",
+        "properties": {
+          "minValueColor": { "$ref": "#/$defs/Color" },
+          "minValueColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "midValueColor": { "$ref": "#/$defs/Color" },
+          "midValueColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "maxValueColor": { "$ref": "#/$defs/Color" },
+          "maxValueColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "noDataColor": { "$ref": "#/$defs/Color" },
+          "noDataColorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "KeyValueFormat": {
+        "type": "object",
+        "properties": {
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "position": { "$ref": "#/$defs/TextPosition" }
+        }
+      },
+      "BaselineValueFormat": {
+        "type": "object",
+        "properties": {
+          "comparisonType": { "type": "string", "enum": ["COMPARISON_TYPE_UNDEFINED", "ABSOLUTE_DIFFERENCE", "PERCENTAGE_DIFFERENCE"] },
+          "textFormat": { "$ref": "#/$defs/TextFormat" },
+          "position": { "$ref": "#/$defs/TextPosition" },
+          "description": { "type": "string" },
+          "positiveColor": { "$ref": "#/$defs/Color" },
+          "positiveColorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "negativeColor": { "$ref": "#/$defs/Color" },
+          "negativeColorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "ChartCustomNumberFormatOptions": {
+        "type": "object",
+        "properties": {
+          "prefix": { "type": "string" },
+          "suffix": { "type": "string" }
+        }
+      },
+      "DataSourceParameter": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "namedRangeId": { "type": "string" },
+          "range": { "$ref": "#/$defs/GridRange" }
+        }
+      },
+      "BigQueryDataSourceSpec": {
+        "type": "object",
+        "properties": {
+          "projectId": { "type": "string" },
+          "querySpec": { "$ref": "#/$defs/BigQueryQuerySpec" },
+          "tableSpec": { "$ref": "#/$defs/BigQueryTableSpec" }
+        }
+      },
+      "LookerDataSourceSpec": {
+        "type": "object",
+        "properties": {
+          "instanceUri": { "type": "string" },
+          "model": { "type": "string" },
+          "explore": { "type": "string" }
+        }
+      },
+      "TableColumnDataValidationRule": {
+        "type": "object",
+        "properties": {
+          "condition": { "$ref": "#/$defs/BooleanCondition" }
+        }
+      },
+      "PivotGroupValueMetadata": {
+        "type": "object",
+        "properties": {
+          "value": { "$ref": "#/$defs/ExtendedValue" },
+          "collapsed": { "type": "boolean" }
+        }
+      },
+      "PivotGroupSortValueBucket": {
+        "type": "object",
+        "properties": {
+          "valuesIndex": { "type": "integer" },
+          "buckets": { "type": "array", "items": { "$ref": "#/$defs/ExtendedValue" } }
+        }
+      },
+      "PivotGroupRule": {
+        "type": "object",
+        "properties": {
+          "manualRule": { "$ref": "#/$defs/ManualRule" },
+          "histogramRule": { "$ref": "#/$defs/HistogramRule" },
+          "dateTimeRule": { "$ref": "#/$defs/DateTimeRule" }
+        }
+      },
+      "PivotGroupLimit": {
+        "type": "object",
+        "properties": {
+          "countLimit": { "type": "integer" },
+          "applyOrder": { "type": "integer" }
+        }
+      },
+      "PersonProperties": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "displayFormat": { "type": "string", "enum": ["DISPLAY_FORMAT_UNSPECIFIED", "DEFAULT", "LAST_NAME_COMMA_FIRST_NAME", "EMAIL"] }
+        }
+      },
+      "RichLinkProperties": {
+        "type": "object",
+        "properties": {
+          "uri": { "type": "string" },
+          "mimeType": { "type": "string" }
+        }
+      },
+      "InterpolationPoint": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "type": { "type": "string", "enum": ["INTERPOLATION_POINT_TYPE_UNSPECIFIED", "MIN", "MAX", "NUMBER", "PERCENT", "PERCENTILE"] },
+          "value": { "type": "string" }
+        }
+      },
+      "ChartAxisViewWindowOptions": {
+        "type": "object",
+        "properties": {
+          "viewWindowMin": { "type": "number" },
+          "viewWindowMax": { "type": "number" },
+          "viewWindowMode": { "type": "string", "enum": ["DEFAULT_VIEW_WINDOW_MODE", "VIEW_WINDOW_MODE_UNSUPPORTED", "EXPLICIT", "PRETTY"] }
+        }
+      },
+      "PointStyle": {
+        "type": "object",
+        "properties": {
+          "size": { "type": "number" },
+          "shape": { "type": "string", "enum": ["POINT_SHAPE_UNSPECIFIED", "CIRCLE", "DIAMOND", "HEXAGON", "PENTAGON", "SQUARE", "STAR", "TRIANGLE", "X_MARK"] }
+        }
+      },
+      "BasicSeriesDataPointStyleOverride": {
+        "type": "object",
+        "properties": {
+          "index": { "type": "integer" },
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" },
+          "pointStyle": { "$ref": "#/$defs/PointStyle" }
+        }
+      },
+      "ChartGroupRule": {
+        "type": "object",
+        "properties": {
+          "dateTimeRule": { "$ref": "#/$defs/ChartDateTimeRule" },
+          "histogramRule": { "$ref": "#/$defs/ChartHistogramRule" }
+        }
+      },
+      "ChartSourceRange": {
+        "type": "object",
+        "properties": {
+          "sources": { "type": "array", "items": { "$ref": "#/$defs/GridRange" } }
+        }
+      },
+      "CandlestickSeries": {
+        "type": "object",
+        "properties": {
+          "data": { "$ref": "#/$defs/ChartData" }
+        }
+      },
+      "WaterfallChartColumnStyle": {
+        "type": "object",
+        "properties": {
+          "label": { "type": "string" },
+          "color": { "$ref": "#/$defs/Color" },
+          "colorStyle": { "$ref": "#/$defs/ColorStyle" }
+        }
+      },
+      "WaterfallChartCustomSubtotal": {
+        "type": "object",
+        "properties": {
+          "subtotalIndex": { "type": "integer" },
+          "label": { "type": "string" },
+          "dataIsSubtotal": { "type": "boolean" }
+        }
+      },
+      "BigQueryQuerySpec": {
+        "type": "object",
+        "properties": {
+          "rawQuery": { "type": "string" }
+        }
+      },
+      "BigQueryTableSpec": {
+        "type": "object",
+        "properties": {
+          "tableProjectId": { "type": "string" },
+          "tableId": { "type": "string" },
+          "datasetId": { "type": "string" }
+        }
+      },
+      "ManualRule": {
+        "type": "object",
+        "properties": {
+          "groups": { "type": "array", "items": { "$ref": "#/$defs/ManualRuleGroup" } }
+        }
+      },
+      "HistogramRule": {
+        "type": "object",
+        "properties": {
+          "interval": { "type": "number" },
+          "start": { "type": "number" },
+          "end": { "type": "number" }
+        }
+      },
+      "DateTimeRule": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["DATE_TIME_RULE_TYPE_UNSPECIFIED", "SECOND", "MINUTE", "HOUR", "HOUR_MINUTE", "HOUR_MINUTE_AMPM", "DAY_OF_WEEK", "DAY_OF_YEAR", "DAY_OF_MONTH", "DAY_MONTH", "MONTH", "QUARTER", "YEAR", "YEAR_MONTH", "YEAR_QUARTER", "YEAR_MONTH_DAY"] }
+        }
+      },
+      "ChartDateTimeRule": {
+        "type": "object",
+        "properties": {
+          "type": { "type": "string", "enum": ["CHART_DATE_TIME_RULE_TYPE_UNSPECIFIED", "SECOND", "MINUTE", "HOUR", "HOUR_MINUTE", "HOUR_MINUTE_AMPM", "DAY_OF_WEEK", "DAY_OF_YEAR", "DAY_OF_MONTH", "DAY_MONTH", "MONTH", "QUARTER", "YEAR", "YEAR_MONTH", "YEAR_QUARTER", "YEAR_MONTH_DAY"] }
+        }
+      },
+      "ChartHistogramRule": {
+        "type": "object",
+        "properties": {
+          "minValue": { "type": "number" },
+          "maxValue": { "type": "number" },
+          "intervalSize": { "type": "number" }
+        }
+      },
+      "ManualRuleGroup": {
+        "type": "object",
+        "properties": {
+          "groupName": { "$ref": "#/$defs/ExtendedValue" },
+          "items": { "type": "array", "items": { "$ref": "#/$defs/ExtendedValue" } }
+        }
+      },
+      "DeveloperMetadataLocation": {
+        "type": "object",
+        "properties": {
+          "locationType": { "type": "string", "enum": ["DEVELOPER_METADATA_LOCATION_TYPE_UNSPECIFIED", "ROW", "COLUMN", "SHEET", "SPREADSHEET"] },
+          "sheetId": { "type": "integer" },
+          "spreadsheet": { "type": "boolean" },
+          "dimensionRange": { "$ref": "#/$defs/DimensionRange" }
+        }
+      },
+      "DeveloperMetadataVisibility": {
+        "type": "string",
+        "enum": ["DEVELOPER_METADATA_VISIBILITY_UNSPECIFIED", "DOCUMENT", "PROJECT"]
+      },
+      "DeveloperMetadataLookup": {
+        "type": "object",
+        "properties": {
+          "metadataId": { "type": "integer" },
+          "metadataKey": { "type": "string" },
+          "metadataValue": { "type": "string" },
+          "locationType": { "type": "string", "enum": ["DEVELOPER_METADATA_LOCATION_TYPE_UNSPECIFIED", "ROW", "COLUMN", "SHEET", "SPREADSHEET"] },
+          "locationMatchingStrategy": { "type": "string", "enum": ["DEVELOPER_METADATA_LOCATION_MATCHING_STRATEGY_UNSPECIFIED", "EXACT_LOCATION", "INTERSECTING_LOCATION"] },
+          "visibility": { "$ref": "#/$defs/DeveloperMetadataVisibility" }
+        }
       }
     }
   },
-  "required": ["spreadsheetId", "requests"]
-};
 
-const requestsForDocsAPI_ = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Docs API batchUpdate Requests",
-  "description": "Schema for the 'requests' property of the documents.batchUpdate method.",
-  "type": "array",
-  "items": {
-    "$ref": "#/definitions/Request"
-  },
-  "definitions": {
-    "Request": {
-      "type": "object",
-      "oneOf": [
-        { "properties": { "replaceAllText": { "$ref": "#/definitions/ReplaceAllTextRequest" } } },
-        { "properties": { "insertText": { "$ref": "#/definitions/InsertTextRequest" } } },
-        { "properties": { "updateTextStyle": { "$ref": "#/definitions/UpdateTextStyleRequest" } } },
-        { "properties": { "createParagraphBullets": { "$ref": "#/definitions/CreateParagraphBulletsRequest" } } },
-        { "properties": { "deleteParagraphBullets": { "$ref": "#/definitions/DeleteParagraphBulletsRequest" } } },
-        { "properties": { "createNamedRange": { "$ref": "#/definitions/CreateNamedRangeRequest" } } },
-        { "properties": { "deleteNamedRange": { "$ref": "#/definitions/DeleteNamedRangeRequest" } } },
-        { "properties": { "updateParagraphStyle": { "$ref": "#/definitions/UpdateParagraphStyleRequest" } } },
-        { "properties": { "deleteContentRange": { "$ref": "#/definitions/DeleteContentRangeRequest" } } },
-        { "properties": { "insertInlineImage": { "$ref": "#/definitions/InsertInlineImageRequest" } } },
-        { "properties": { "insertTable": { "$ref": "#/definitions/InsertTableRequest" } } },
-        { "properties": { "insertTableRow": { "$ref": "#/definitions/InsertTableRowRequest" } } },
-        { "properties": { "insertTableColumn": { "$ref": "#/definitions/InsertTableColumnRequest" } } },
-        { "properties": { "deleteTableRow": { "$ref": "#/definitions/DeleteTableRowRequest" } } },
-        { "properties": { "deleteTableColumn": { "$ref": "#/definitions/DeleteTableColumnRequest" } } },
-        { "properties": { "insertPageBreak": { "$ref": "#/definitions/InsertPageBreakRequest" } } },
-        { "properties": { "deletePositionedObject": { "$ref": "#/definitions/DeletePositionedObjectRequest" } } },
-        { "properties": { "updateTableColumnProperties": { "$ref": "#/definitions/UpdateTableColumnPropertiesRequest" } } },
-        { "properties": { "updateTableCellStyle": { "$ref": "#/definitions/UpdateTableCellStyleRequest" } } },
-        { "properties": { "updateTableRowStyle": { "$ref": "#/definitions/UpdateTableRowStyleRequest" } } },
-        { "properties": { "replaceImage": { "$ref": "#/definitions/ReplaceImageRequest" } } },
-        { "properties": { "updateDocumentStyle": { "$ref": "#/definitions/UpdateDocumentStyleRequest" } } },
-        { "properties": { "mergeTableCells": { "$ref": "#/definitions/MergeTableCellsRequest" } } },
-        { "properties": { "unmergeTableCells": { "$ref": "#/definitions/UnmergeTableCellsRequest" } } },
-        { "properties": { "createHeader": { "$ref": "#/definitions/CreateHeaderRequest" } } },
-        { "properties": { "createFooter": { "$ref": "#/definitions/CreateFooterRequest" } } },
-        { "properties": { "createFootnote": { "$ref": "#/definitions/CreateFootnoteRequest" } } },
-        { "properties": { "replaceNamedRangeContent": { "$ref": "#/definitions/ReplaceNamedRangeContentRequest" } } },
-        { "properties": { "updateSectionStyle": { "$ref": "#/definitions/UpdateSectionStyleRequest" } } },
-        { "properties": { "insertSectionBreak": { "$ref": "#/definitions/InsertSectionBreakRequest" } } },
-        { "properties": { "deleteHeader": { "$ref": "#/definitions/DeleteHeaderRequest" } } },
-        { "properties": { "deleteFooter": { "$ref": "#/definitions/DeleteFooterRequest" } } },
-        { "properties": { "pinTableHeaderRows": { "$ref": "#/definitions/PinTableHeaderRowsRequest" } } }
-      ]
-    },
-    "ReplaceAllTextRequest": {
-      "type": "object",
+  Get: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Sheets API - spreadsheets.get Response Body",
+    "description": "JSON schema for the response body of the Method: spreadsheets.get of the Google Sheets API.",
+    "type": "object",
+    "properties": {
+      "spreadsheetId": {
+        "type": "string"
+      },
       "properties": {
-        "replaceText": {
-          "type": "string"
-        },
-        "containsText": {
-          "$ref": "#/definitions/SubstringMatchCriteria"
-        },
-        "tabsCriteria": {
-          "$ref": "#/definitions/TabsCriteria"
+        "$ref": "#/definitions/SpreadsheetProperties"
+      },
+      "sheets": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Sheet"
+        }
+      },
+      "namedRanges": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/NamedRange"
+        }
+      },
+      "spreadsheetUrl": {
+        "type": "string"
+      },
+      "developerMetadata": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/DeveloperMetadata"
+        }
+      },
+      "dataSources": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/DataSource"
+        }
+      },
+      "dataSourceSchedules": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/DataSourceRefreshSchedule"
         }
       }
     },
-    "InsertTextRequest": {
-      "type": "object",
-      "properties": {
-        "text": {
-          "type": "string"
-        },
-        "location": {
-          "$ref": "#/definitions/Location"
-        },
-        "endOfSegmentLocation": {
-          "$ref": "#/definitions/EndOfSegmentLocation"
+    "required": [
+      "spreadsheetId",
+      "properties",
+      "sheets",
+      "spreadsheetUrl"
+    ],
+    "definitions": {
+      "SpreadsheetProperties": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "locale": {
+            "type": "string"
+          },
+          "autoRecalc": {
+            "type": "string",
+            "enum": [
+              "RECALCULATION_INTERVAL_UNSPECIFIED",
+              "ON_CHANGE",
+              "MINUTE",
+              "HOUR"
+            ]
+          },
+          "timeZone": {
+            "type": "string"
+          },
+          "defaultFormat": {
+            "$ref": "#/definitions/CellFormat"
+          },
+          "iterativeCalculationSettings": {
+            "$ref": "#/definitions/IterativeCalculationSettings"
+          },
+          "spreadsheetTheme": {
+            "$ref": "#/definitions/SpreadsheetTheme"
+          }
         }
-      }
-    },
-    "UpdateTextStyleRequest": {
-      "type": "object",
-      "properties": {
-        "textStyle": {
-          "$ref": "#/definitions/TextStyle"
-        },
-        "fields": {
-          "type": "string"
-        },
-        "range": {
-          "$ref": "#/definitions/Range"
+      },
+      "Sheet": {
+        "type": "object",
+        "properties": {
+          "properties": {
+            "$ref": "#/definitions/SheetProperties"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/GridData"
+            }
+          },
+          "merges": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/GridRange"
+            }
+          }
         }
-      }
-    },
-    "CreateParagraphBulletsRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "$ref": "#/definitions/Range"
-        },
-        "bulletPreset": {
-          "type": "string",
-          "enum": [
-            "BULLET_GLYPH_PRESET_UNSPECIFIED",
-            "BULLET_DISC_CIRCLE_SQUARE",
-            "BULLET_DIAMONDX_ARROW3D_SQUARE",
-            "BULLET_CHECKBOX",
-            "BULLET_ARROW_DIAMOND_DISC",
-            "BULLET_STAR_CIRCLE_SQUARE",
-            "BULLET_ARROW3D_CIRCLE_SQUARE",
-            "BULLET_LEFTTRIANGLE_DIAMOND_DISC",
-            "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE",
-            "BULLET_DIAMOND_CIRCLE_SQUARE",
-            "NUMBERED_DECIMAL_ALPHA_ROMAN",
-            "NUMBERED_DECIMAL_ALPHA_ROMAN_PARENS",
-            "NUMBERED_DECIMAL_NESTED",
-            "NUMBERED_UPPERALPHA_ALPHA_ROMAN",
-            "NUMBERED_UPPERROMAN_UPPERALPHA_DECIMAL",
-            "NUMBERED_ZERODECIMAL_ALPHA_ROMAN"
-          ]
+      },
+      "NamedRange": {
+        "type": "object",
+        "properties": {
+          "namedRangeId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "range": {
+            "$ref": "#/definitions/GridRange"
+          }
         }
-      }
-    },
-    "DeleteParagraphBulletsRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "$ref": "#/definitions/Range"
+      },
+      "DeveloperMetadata": {
+        "type": "object",
+        "properties": {
+          "metadataId": {
+            "type": "integer"
+          },
+          "metadataKey": {
+            "type": "string"
+          },
+          "metadataValue": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/definitions/DeveloperMetadataLocation"
+          },
+          "visibility": {
+            "type": "string",
+            "enum": [
+              "DEVELOPER_METADATA_VISIBILITY_UNSPECIFIED",
+              "DOCUMENT",
+              "PROJECT"
+            ]
+          }
         }
-      }
-    },
-    "CreateNamedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "range": {
-          "$ref": "#/definitions/Range"
+      },
+      "DataSource": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": {
+            "type": "string"
+          },
+          "spec": {
+            "$ref": "#/definitions/DataSourceSpec"
+          },
+          "calculatedColumns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DataSourceColumn"
+            }
+          },
+          "sheetId": {
+            "type": "integer"
+          }
         }
-      }
-    },
-    "DeleteNamedRangeRequest": {
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "namedRangeId": {
-          "type": "string"
+      },
+      "DataSourceRefreshSchedule": {
+        "type": "object",
+        "properties": {
+          "enabled": {
+            "type": "boolean"
+          },
+          "refreshScope": {
+            "type": "string"
+          },
+          "dailySchedule": {
+            "$ref": "#/definitions/DataSourceRefreshDailySchedule"
+          },
+          "weeklySchedule": {
+            "$ref": "#/definitions/DataSourceRefreshWeeklySchedule"
+          },
+          "monthlySchedule": {
+            "$ref": "#/definitions/DataSourceRefreshMonthlySchedule"
+          }
         }
-      }
-    },
-    "UpdateParagraphStyleRequest": {
-      "type": "object",
-      "properties": {
-        "paragraphStyle": {
-          "$ref": "#/definitions/ParagraphStyle"
-        },
-        "fields": {
-          "type": "string"
-        },
-        "range": {
-          "$ref": "#/definitions/Range"
+      },
+      "CellFormat": {
+        "type": "object",
+        "properties": {}
+      },
+      "IterativeCalculationSettings": {
+        "type": "object",
+        "properties": {
+          "maxIterations": {
+            "type": "integer"
+          },
+          "convergenceThreshold": {
+            "type": "number"
+          }
         }
-      }
-    },
-    "DeleteContentRangeRequest": {
-      "type": "object",
-      "properties": {
-        "range": {
-          "$ref": "#/definitions/Range"
+      },
+      "SpreadsheetTheme": {
+        "type": "object",
+        "properties": {
+          "primaryFontFamily": {
+            "type": "string"
+          },
+          "themeColors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ThemeColorPair"
+            }
+          }
         }
-      }
-    },
-    "InsertInlineImageRequest": {
-      "type": "object",
-      "properties": {
-        "uri": { "type": "string" },
-        "objectSize": { "$ref": "#/definitions/Size" },
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
-      }
-    },
-    "InsertTableRequest": {
-      "type": "object",
-      "properties": {
-        "rows": { "type": "integer" },
-        "columns": { "type": "integer" },
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
-      }
-    },
-    "InsertTableRowRequest": {
-      "type": "object",
-      "properties": {
-        "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "insertBelow": { "type": "boolean" }
-      }
-    },
-    "InsertTableColumnRequest": {
-      "type": "object",
-      "properties": {
-        "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "insertRight": { "type": "boolean" }
-      }
-    },
-    "DeleteTableRowRequest": {
-      "type": "object",
-      "properties": {
-        "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" }
-      }
-    },
-    "DeleteTableColumnRequest": {
-      "type": "object",
-      "properties": {
-        "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" }
-      }
-    },
-    "InsertPageBreakRequest": {
-      "type": "object",
-      "properties": {
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
-      }
-    },
-    "DeletePositionedObjectRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" }
-      }
-    },
-    "UpdateTableColumnPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "tableStartLocation": { "$ref": "#/definitions/Location" },
-        "columnIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableColumnProperties": { "$ref": "#/definitions/TableColumnProperties" },
-        "fields": { "type": "string" }
-      }
-    },
-    "UpdateTableCellStyleRequest": {
-      "type": "object",
-      "properties": {
-        "tableCellStyle": { "$ref": "#/definitions/TableCellStyle" },
-        "fields": { "type": "string" },
-        "tableRange": { "$ref": "#/definitions/TableRange" }
-      }
-    },
-    "UpdateTableRowStyleRequest": {
-      "type": "object",
-      "properties": {
-        "tableStartLocation": { "$ref": "#/definitions/Location" },
-        "rowIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableRowStyle": { "$ref": "#/definitions/TableRowStyle" },
-        "fields": { "type": "string" }
-      }
-    },
-    "ReplaceImageRequest": {
-      "type": "object",
-      "properties": {
-        "imageObjectId": { "type": "string" },
-        "uri": { "type": "string" },
-        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_CROP"] }
-      }
-    },
-    "UpdateDocumentStyleRequest": {
-      "type": "object",
-      "properties": {
-        "documentStyle": { "$ref": "#/definitions/DocumentStyle" },
-        "fields": { "type": "string" }
-      }
-    },
-    "MergeTableCellsRequest": {
-      "type": "object",
-      "properties": {
-        "tableRange": { "$ref": "#/definitions/TableRange" }
-      }
-    },
-    "UnmergeTableCellsRequest": {
-      "type": "object",
-      "properties": {
-        "tableRange": { "$ref": "#/definitions/TableRange" }
-      }
-    },
-    "CreateHeaderRequest": {
-      "type": "object",
-      "properties": {
-        "type": { "type": "string", "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"] },
-        "sectionBreakLocation": { "$ref": "#/definitions/Location" }
-      }
-    },
-    "CreateFooterRequest": {
-      "type": "object",
-      "properties": {
-        "type": { "type": "string", "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"] },
-        "sectionBreakLocation": { "$ref": "#/definitions/Location" }
-      }
-    },
-    "CreateFootnoteRequest": {
-      "type": "object",
-      "properties": {
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
-      }
-    },
-    "ReplaceNamedRangeContentRequest": {
-      "type": "object",
-      "properties": {
-        "namedRangeName": { "type": "string" },
-        "text": { "type": "string" }
-      }
-    },
-    "UpdateSectionStyleRequest": {
-      "type": "object",
-      "properties": {
-        "range": { "$ref": "#/definitions/Range" },
-        "sectionStyle": { "$ref": "#/definitions/SectionStyle" },
-        "fields": { "type": "string" }
-      }
-    },
-    "InsertSectionBreakRequest": {
-      "type": "object",
-      "properties": {
-        "sectionType": { "type": "string", "enum": ["SECTION_TYPE_UNSPECIFIED", "CONTINUOUS", "NEXT_PAGE"] },
-        "location": { "$ref": "#/definitions/Location" },
-        "endOfSegmentLocation": { "$ref": "#/definitions/EndOfSegmentLocation" }
-      }
-    },
-    "DeleteHeaderRequest": {
-      "type": "object",
-      "properties": {
-        "headerId": { "type": "string" }
-      }
-    },
-    "DeleteFooterRequest": {
-      "type": "object",
-      "properties": {
-        "footerId": { "type": "string" }
-      }
-    },
-    "PinTableHeaderRowsRequest": {
-      "type": "object",
-      "properties": {
-        "tableStartLocation": { "$ref": "#/definitions/Location" },
-        "pinnedHeaderRowsCount": { "type": "integer" }
-      }
-    },
-    "SubstringMatchCriteria": {
-      "type": "object",
-      "properties": {
-        "text": {
-          "type": "string"
-        },
-        "matchCase": {
-          "type": "boolean"
+      },
+      "ThemeColorPair": {
+        "type": "object",
+        "properties": {
+          "colorType": {
+            "type": "string"
+          },
+          "color": {
+            "$ref": "#/definitions/ColorStyle"
+          }
         }
-      }
-    },
-    "Location": {
-      "type": "object",
-      "properties": {
-        "segmentId": {
-          "type": "string"
-        },
-        "index": {
-          "type": "integer"
+      },
+      "ColorStyle": {
+        "type": "object",
+        "properties": {
+          "rgbColor": {
+            "$ref": "#/definitions/Color"
+          },
+          "themeColor": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "EndOfSegmentLocation": {
-      "type": "object",
-      "properties": {
-        "segmentId": {
-          "type": "string"
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "red": {
+            "type": "number"
+          },
+          "green": {
+            "type": "number"
+          },
+          "blue": {
+            "type": "number"
+          },
+          "alpha": {
+            "type": "number"
+          }
         }
-      }
-    },
-    "Range": {
-      "type": "object",
-      "properties": {
-        "segmentId": {
-          "type": "string"
-        },
-        "startIndex": {
-          "type": "integer"
-        },
-        "endIndex": {
-          "type": "integer"
+      },
+      "SheetProperties": {
+        "type": "object",
+        "properties": {
+          "sheetId": {
+            "type": "integer"
+          },
+          "title": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer"
+          }
         }
-      }
-    },
-    "TextStyle": {
-      "type": "object",
-      "properties": {
-        "bold": { "type": "boolean" },
-        "italic": { "type": "boolean" },
-        "underline": { "type": "boolean" },
-        "strikethrough": { "type": "boolean" },
-        "smallCaps": { "type": "boolean" },
-        "backgroundColor": { "$ref": "#/definitions/OptionalColor" },
-        "foregroundColor": { "$ref": "#/definitions/OptionalColor" },
-        "fontSize": { "$ref": "#/definitions/Dimension" },
-        "weightedFontFamily": { "$ref": "#/definitions/WeightedFontFamily" },
-        "baselineOffset": { "type": "string", "enum": ["BASELINE_OFFSET_UNSPECIFIED", "NONE", "SUPERSCRIPT", "SUBSCRIPT"] },
-        "link": { "$ref": "#/definitions/Link" }
-      }
-    },
-    "OptionalColor": {
-      "type": "object",
-      "properties": {
-        "color": {
-          "$ref": "#/definitions/Color"
+      },
+      "GridData": {
+        "type": "object",
+        "properties": {}
+      },
+      "GridRange": {
+        "type": "object",
+        "properties": {
+          "sheetId": {
+            "type": "integer"
+          },
+          "startRowIndex": {
+            "type": "integer"
+          },
+          "endRowIndex": {
+            "type": "integer"
+          },
+          "startColumnIndex": {
+            "type": "integer"
+          },
+          "endColumnIndex": {
+            "type": "integer"
+          }
         }
-      }
-    },
-    "Color": {
-      "type": "object",
-      "properties": {
-        "rgbColor": {
-          "$ref": "#/definitions/RgbColor"
+      },
+      "DeveloperMetadataLocation": {
+        "type": "object",
+        "properties": {
+          "locationType": {
+            "type": "string"
+          },
+          "spreadsheet": {
+            "type": "boolean"
+          },
+          "sheetId": {
+            "type": "integer"
+          },
+          "dimensionRange": {
+            "$ref": "#/definitions/DimensionRange"
+          }
         }
-      }
-    },
-    "RgbColor": {
-      "type": "object",
-      "properties": {
-        "red": {
-          "type": "number"
-        },
-        "green": {
-          "type": "number"
-        },
-        "blue": {
-          "type": "number"
+      },
+      "DimensionRange": {
+        "type": "object",
+        "properties": {
+          "sheetId": {
+            "type": "integer"
+          },
+          "dimension": {
+            "type": "string"
+          },
+          "startIndex": {
+            "type": "integer"
+          },
+          "endIndex": {
+            "type": "integer"
+          }
         }
-      }
-    },
-    "Dimension": {
-      "type": "object",
-      "properties": {
-        "magnitude": {
-          "type": "number"
-        },
-        "unit": {
-          "type": "string",
-          "enum": [
-            "UNIT_UNSPECIFIED",
-            "PT"
-          ]
+      },
+      "DataSourceSpec": {
+        "type": "object",
+        "properties": {
+          "parameters": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/DataSourceParameter"
+            }
+          },
+          "bigQuery": {
+            "$ref": "#/definitions/BigQueryDataSourceSpec"
+          }
         }
-      }
-    },
-    "WeightedFontFamily": {
-      "type": "object",
-      "properties": {
-        "fontFamily": {
-          "type": "string"
-        },
-        "weight": {
-          "type": "integer"
+      },
+      "DataSourceColumn": {
+        "type": "object",
+        "properties": {
+          "reference": {
+            "$ref": "#/definitions/DataSourceColumnReference"
+          },
+          "formula": {
+            "type": "string"
+          }
         }
-      }
-    },
-    "Link": {
-      "type": "object",
-      "properties": {
-        "url": {
-          "type": "string"
-        },
-        "bookmarkId": {
-          "type": "string"
-        },
-        "headingId": {
-          "type": "string"
+      },
+      "DataSourceRefreshDailySchedule": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "$ref": "#/definitions/TimeOfDay"
+          }
         }
-      }
-    },
-    "Size": {
-      "type": "object",
-      "properties": {
-        "height": {
-          "$ref": "#/definitions/Dimension"
-        },
-        "width": {
-          "$ref": "#/definitions/Dimension"
+      },
+      "DataSourceRefreshWeeklySchedule": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "$ref": "#/definitions/TimeOfDay"
+          },
+          "daysOfWeek": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
         }
-      }
-    },
-    "TableCellLocation": {
-      "type": "object",
-      "properties": {
-        "tableStartLocation": { "$ref": "#/definitions/Location" },
-        "rowIndex": { "type": "integer" },
-        "columnIndex": { "type": "integer" }
-      }
-    },
-    "TableColumnProperties": {
-      "type": "object",
-      "properties": {
-        "width": { "$ref": "#/definitions/Dimension" },
-        "widthType": { "type": "string", "enum": ["WIDTH_TYPE_UNSPECIFIED", "EVENLY_DISTRIBUTED", "FIXED_WIDTH"] }
-      }
-    },
-    "TableCellStyle": {
-      "type": "object",
-      "properties": {
-        "backgroundColor": { "$ref": "#/definitions/OptionalColor" },
-        "borderTop": { "$ref": "#/definitions/TableCellBorder" },
-        "borderBottom": { "$ref": "#/definitions/TableCellBorder" },
-        "borderLeft": { "$ref": "#/definitions/TableCellBorder" },
-        "borderRight": { "$ref": "#/definitions/TableCellBorder" },
-        "paddingTop": { "$ref": "#/definitions/Dimension" },
-        "paddingBottom": { "$ref": "#/definitions/Dimension" },
-        "paddingLeft": { "$ref": "#/definitions/Dimension" },
-        "paddingRight": { "$ref": "#/definitions/Dimension" },
-        "contentAlignment": { "type": "string", "enum": ["CONTENT_ALIGNMENT_UNSPECIFIED", "CONTENT_ALIGNMENT_UNSUPPORTED", "TOP", "MIDDLE", "BOTTOM"] }
-      }
-    },
-    "TableRange": {
-      "type": "object",
-      "properties": {
-        "tableCellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "rowSpan": { "type": "integer" },
-        "columnSpan": { "type": "integer" }
-      }
-    },
-    "TableRowStyle": {
-      "type": "object",
-      "properties": {
-        "minRowHeight": { "$ref": "#/definitions/Dimension" }
-      }
-    },
-    "DocumentStyle": {
-      "type": "object",
-      "properties": {
-        "background": { "$ref": "#/definitions/Background" },
-        "pageNumberStart": { "type": "integer" },
-        "marginTop": { "$ref": "#/definitions/Dimension" },
-        "marginBottom": { "$ref": "#/definitions/Dimension" },
-        "marginRight": { "$ref": "#/definitions/Dimension" },
-        "marginLeft": { "$ref": "#/definitions/Dimension" },
-        "pageSize": { "$ref": "#/definitions/Size" },
-        "marginHeader": { "$ref": "#/definitions/Dimension" },
-        "marginFooter": { "$ref": "#/definitions/Dimension" },
-        "useCustomHeaderFooterMargins": { "type": "boolean" },
-        "flipPageOrientation": { "type": "boolean" }
-      }
-    },
-    "SectionStyle": {
-      "type": "object",
-      "properties": {
-        "columnProperties": { "type": "array", "items": { "$ref": "#/definitions/SectionColumnProperties" } },
-        "columnSeparatorStyle": { "type": "string", "enum": ["COLUMN_SEPARATOR_STYLE_UNSPECIFIED", "NONE", "BETWEEN_EACH_COLUMN"] },
-        "contentDirection": { "type": "string", "enum": ["CONTENT_DIRECTION_UNSPECIFIED", "LEFT_TO_RIGHT", "RIGHT_TO_LEFT"] },
-        "marginTop": { "$ref": "#/definitions/Dimension" },
-        "marginBottom": { "$ref": "#/definitions/Dimension" },
-        "marginRight": { "$ref": "#/definitions/Dimension" },
-        "marginLeft": { "$ref": "#/definitions/Dimension" },
-        "marginHeader": { "$ref": "#/definitions/Dimension" },
-        "marginFooter": { "$ref": "#/definitions/Dimension" },
-        "pageNumberStart": { "type": "integer" }
-      }
-    },
-    "Background": {
-      "type": "object",
-      "properties": {
-        "color": {
-          "$ref": "#/definitions/OptionalColor"
+      },
+      "DataSourceRefreshMonthlySchedule": {
+        "type": "object",
+        "properties": {
+          "startTime": {
+            "$ref": "#/definitions/TimeOfDay"
+          },
+          "daysOfMonth": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          }
         }
-      }
-    },
-    "SectionColumnProperties": {
-      "type": "object",
-      "properties": {
-        "width": {
-          "$ref": "#/definitions/Dimension"
-        },
-        "paddingEnd": {
-          "$ref": "#/definitions/Dimension"
+      },
+      "DataSourceParameter": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "namedRangeId": {
+            "type": "string"
+          },
+          "range": {
+            "$ref": "#/definitions/GridRange"
+          }
         }
-      }
-    },
-    "ParagraphStyle": {
-      "type": "object",
-      "properties": {
-        "headingId": { "type": "string" },
-        "namedStyleType": { "type": "string", "enum": ["NAMED_STYLE_TYPE_UNSPECIFIED", "NORMAL_TEXT", "TITLE", "SUBTITLE", "HEADING_1", "HEADING_2", "HEADING_3", "HEADING_4", "HEADING_5", "HEADING_6"] },
-        "alignment": { "type": "string", "enum": ["ALIGNMENT_UNSPECIFIED", "START", "CENTER", "END", "JUSTIFIED"] },
-        "lineSpacing": { "type": "number" },
-        "direction": { "type": "string", "enum": ["CONTENT_DIRECTION_UNSPECIFIED", "LEFT_TO_RIGHT", "RIGHT_TO_LEFT"] },
-        "spacingMode": { "type": "string", "enum": ["SPACING_MODE_UNSPECIFIED", "NEVER_COLLAPSE", "COLLAPSE_LISTS"] },
-        "spaceAbove": { "$ref": "#/definitions/Dimension" },
-        "spaceBelow": { "$ref": "#/definitions/Dimension" },
-        "borderBetween": { "$ref": "#/definitions/ParagraphBorder" },
-        "borderTop": { "$ref": "#/definitions/ParagraphBorder" },
-        "borderBottom": { "$ref": "#/definitions/ParagraphBorder" },
-        "borderLeft": { "$ref": "#/definitions/ParagraphBorder" },
-        "borderRight": { "$ref": "#/definitions/ParagraphBorder" },
-        "indentFirstLine": { "$ref": "#/definitions/Dimension" },
-        "indentStart": { "$ref": "#/definitions/Dimension" },
-        "indentEnd": { "$ref": "#/definitions/Dimension" },
-        "keepLinesTogether": { "type": "boolean" },
-        "keepWithNext": { "type": "boolean" },
-        "shading": { "$ref": "#/definitions/Shading" }
-      }
-    },
-    "ParagraphBorder": {
-      "type": "object",
-      "properties": {
-        "color": { "$ref": "#/definitions/OptionalColor" },
-        "width": { "$ref": "#/definitions/Dimension" },
-        "padding": { "$ref": "#/definitions/Dimension" },
-        "dashStyle": { "type": "string", "enum": ["DASH_STYLE_UNSPECIFIED", "SOLID", "DOT", "DASH"] }
-      }
-    },
-    "Shading": {
-      "type": "object",
-      "properties": {
-        "backgroundColor": {
-          "$ref": "#/definitions/OptionalColor"
+      },
+      "BigQueryDataSourceSpec": {
+        "type": "object",
+        "properties": {
+          "projectId": {
+            "type": "string"
+          },
+          "querySpec": {
+            "$ref": "#/definitions/BigQueryQuerySpec"
+          },
+          "tableSpec": {
+            "$ref": "#/definitions/BigQueryTableSpec"
+          }
         }
-      }
-    },
-    "TableCellBorder": {
-      "type": "object",
-      "properties": {
-        "color": { "$ref": "#/definitions/OptionalColor" },
-        "width": { "$ref": "#/definitions/Dimension" },
-        "dashStyle": { "type": "string", "enum": ["DASH_STYLE_UNSPECIFIED", "SOLID", "DOT", "DASH"] }
-      }
-    },
-    "TabsCriteria": {
-      "type": "object",
-      "properties": {
-        "tabIds": {
-          "type": "array",
-          "items": { "type": "string" }
+      },
+      "DataSourceColumnReference": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "TimeOfDay": {
+        "type": "object",
+        "properties": {
+          "hours": {
+            "type": "integer"
+          },
+          "minutes": {
+            "type": "integer"
+          },
+          "seconds": {
+            "type": "integer"
+          },
+          "nanos": {
+            "type": "integer"
+          }
+        }
+      },
+      "BigQueryQuerySpec": {
+        "type": "object",
+        "properties": {
+          "rawQuery": {
+            "type": "string"
+          }
+        }
+      },
+      "BigQueryTableSpec": {
+        "type": "object",
+        "properties": {
+          "tableProjectId": {
+            "type": "string"
+          },
+          "datasetId": {
+            "type": "string"
+          },
+          "tableId": {
+            "type": "string"
+          }
         }
       }
     }
-  }
+  },
 };
 
 const jsonSchemaForDocs = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Docs API batchUpdate Request Body",
-  "description": "A list of updates to apply to the document.",
-  "type": "object",
-  "properties": {
-    "documentId": { "type": "string", "description": "Document ID" },
-    "requests": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "description": [
-          `Create "requests" by following JSON schema.`,
-          `The JSON schema of "requests" is as follows.`,
-          `<JSONSchema>${JSON.stringify(requestsForDocsAPI_)}</JSONSchema>`,
-          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
-          `<URLs>`,
-          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
-          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
-          `</URLs>`,
-          `You can also refer to creating "request" by searching Google.`,
-        ].join("\n"),
+  BatchUpdate: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Docs API batchUpdate Request Body",
+    "description": "JSON schema for the request body of the Method: documents.batchUpdate of Google Docs API.",
+    "type": "object",
+    "properties": {
+      "requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/Request"
+        }
+      },
+      "writeControl": {
+        "$ref": "#/$defs/WriteControl"
       }
-    }
-  },
-  "required": ["documentId", "requests"]
-};
-
-const requestsForSlidesAPI_ = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Slides API Requests",
-  "description": "JSON schema for the 'requests' property of the presentations.batchUpdate method in the Google Slides API. The 'requests' property is an array of Request objects.",
-  "type": "array",
-  "items": {
-    "$ref": "#/definitions/Request"
-  },
-  "definitions": {
-    "Request": {
-      "type": "object",
-      "oneOf": [
-        { "$ref": "#/definitions/CreateSlideRequest" },
-        { "$ref": "#/definitions/CreateShapeRequest" },
-        { "$ref": "#/definitions/CreateTableRequest" },
-        { "$ref": "#/definitions/InsertTextRequest" },
-        { "$ref": "#/definitions/InsertTableRowsRequest" },
-        { "$ref": "#/definitions/InsertTableColumnsRequest" },
-        { "$ref": "#/definitions/DeleteTableRowRequest" },
-        { "$ref": "#/definitions/DeleteTableColumnRequest" },
-        { "$ref": "#/definitions/ReplaceAllTextRequest" },
-        { "$ref": "#/definitions/DeleteObjectRequest" },
-        { "$ref": "#/definitions/UpdatePageElementTransformRequest" },
-        { "$ref": "#/definitions/UpdateSlidesPositionRequest" },
-        { "$ref": "#/definitions/DeleteTextRequest" },
-        { "$ref": "#/definitions/CreateImageRequest" },
-        { "$ref": "#/definitions/CreateVideoRequest" },
-        { "$ref": "#/definitions/CreateSheetsChartRequest" },
-        { "$ref": "#/definitions/CreateLineRequest" },
-        { "$ref": "#/definitions/RefreshSheetsChartRequest" },
-        { "$ref": "#/definitions/UpdateShapePropertiesRequest" },
-        { "$ref": "#/definitions/UpdateImagePropertiesRequest" },
-        { "$ref": "#/definitions/UpdateVideoPropertiesRequest" },
-        { "$ref": "#/definitions/UpdatePagePropertiesRequest" },
-        { "$ref": "#/definitions/UpdateTableCellPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateLinePropertiesRequest" },
-        { "$ref": "#/definitions/CreateParagraphBulletsRequest" },
-        { "$ref": "#/definitions/ReplaceAllShapesWithImageRequest" },
-        { "$ref": "#/definitions/DuplicateObjectRequest" },
-        { "$ref": "#/definitions/UpdateTextStyleRequest" },
-        { "$ref": "#/definitions/ReplaceAllShapesWithSheetsChartRequest" },
-        { "$ref": "#/definitions/DeleteParagraphBulletsRequest" },
-        { "$ref": "#/definitions/UpdateParagraphStyleRequest" },
-        { "$ref": "#/definitions/UpdateTableBorderPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateTableColumnPropertiesRequest" },
-        { "$ref": "#/definitions/UpdateTableRowPropertiesRequest" },
-        { "$ref": "#/definitions/MergeTableCellsRequest" },
-        { "$ref": "#/definitions/UnmergeTableCellsRequest" },
-        { "$ref": "#/definitions/GroupObjectsRequest" },
-        { "$ref": "#/definitions/UngroupObjectsRequest" },
-        { "$ref": "#/definitions/UpdatePageElementAltTextRequest" },
-        { "$ref": "#/definitions/ReplaceImageRequest" },
-        { "$ref": "#/definitions/UpdateSlidePropertiesRequest" },
-        { "$ref": "#/definitions/UpdatePageElementsZOrderRequest" },
-        { "$ref": "#/definitions/UpdateLineCategoryRequest" },
-        { "$ref": "#/definitions/RerouteLineRequest" }
-      ]
     },
-    "CreateSlideRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "insertionIndex": { "type": "integer" },
-        "slideLayoutReference": { "$ref": "#/definitions/LayoutReference" },
-        "placeholderIdMappings": {
-          "type": "array",
-          "items": { "$ref": "#/definitions/LayoutPlaceholderIdMapping" }
+    "$defs": {
+      "Request": {
+        "type": "object",
+        "oneOf": [
+          { "$ref": "#/$defs/UpdateDocumentStyleRequest" },
+          { "$ref": "#/$defs/UpdateParagraphStyleRequest" },
+          { "$ref": "#/$defs/UpdateTextStyleRequest" },
+          { "$ref": "#/$defs/UpdateTableColumnPropertiesRequest" },
+          { "$ref": "#/$defs/UpdateTableRowStyleRequest" },
+          { "$ref": "#/$defs/UpdateTableCellStyleRequest" },
+          { "$ref": "#/$defs/InsertTextRequest" },
+          { "$ref": "#/$defs/DeleteContentRangeRequest" },
+          { "$ref": "#/$defs/DeleteNamedRangeRequest" },
+          { "$ref": "#/$defs/DeletePositionedObjectRequest" },
+          { "$ref": "#/$defs/DeleteTableColumnRequest" },
+          { "$ref": "#/$defs/DeleteTableRowRequest" },
+          { "$ref": "#/$defs/DeleteParagraphBulletsRequest" },
+          { "$ref": "#/$defs/InsertInlineImageRequest" },
+          { "$ref": "#/$defs/InsertInlineSheetsChartRequest" },
+          { "$ref": "#/$defs/InsertTableRequest" },
+          { "$ref": "#/$defs/InsertTableColumnRequest" },
+          { "$ref": "#/$defs/InsertTableRowRequest" },
+          { "$ref": "#/$defs/MergeTableCellsRequest" },
+          { "$ref": "#/$defs/UnmergeTableCellsRequest" },
+          { "$ref": "#/$defs/CreateNamedRangeRequest" },
+          { "$ref": "#/$defs/CreateParagraphBulletsRequest" },
+          { "$ref": "#/$defs/CreateHeaderRequest" },
+          { "$ref": "#/$defs/CreateFooterRequest" },
+          { "$ref": "#/$defs/CreateFootnoteRequest" },
+          { "$ref": "#/$defs/ReplaceAllTextRequest" },
+          { "$ref": "#/$defs/ReplaceAllSmartChipsRequest" },
+          { "$ref": "#/$defs/ReplaceImageRequest" },
+          { "$ref": "#/$defs/ReplaceNamedRangeContentRequest" },
+          { "$ref": "#/$defs/PinTableHeaderRowsRequest" },
+          { "$ref": "#/$defs/InsertSectionBreakRequest" },
+          { "$ref": "#/$defs/DeleteSectionBreakRequest" },
+          { "$ref": "#/$defs/UpdateSectionStyleRequest" },
+          { "$ref": "#/$defs/PinRevisionRequest" },
+          { "$ref": "#/$defs/UnpinRevisionRequest" }
+        ]
+      },
+      "WriteControl": {
+        "type": "object",
+        "properties": {
+          "requiredRevisionId": {
+            "type": "string"
+          },
+          "targetRevisionId": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateDocumentStyleRequest": {
+        "type": "object",
+        "properties": {
+          "documentStyle": {
+            "$ref": "#/$defs/DocumentStyle"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateParagraphStyleRequest": {
+        "type": "object",
+        "properties": {
+          "paragraphStyle": {
+            "$ref": "#/$defs/ParagraphStyle"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "UpdateTextStyleRequest": {
+        "type": "object",
+        "properties": {
+          "textStyle": {
+            "$ref": "#/$defs/TextStyle"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "UpdateTableColumnPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "tableStartLocation": {
+            "$ref": "#/$defs/Location"
+          },
+          "columnIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tableColumnProperties": {
+            "$ref": "#/$defs/TableColumnProperties"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTableRowStyleRequest": {
+        "type": "object",
+        "properties": {
+          "tableStartLocation": {
+            "$ref": "#/$defs/Location"
+          },
+          "rowIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tableRowStyle": {
+            "$ref": "#/$defs/TableRowStyle"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTableCellStyleRequest": {
+        "type": "object",
+        "properties": {
+          "tableCellStyle": {
+            "$ref": "#/$defs/TableCellStyle"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "tableRange": {
+            "$ref": "#/$defs/TableRange"
+          }
+        }
+      },
+      "InsertTextRequest": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "DeleteContentRangeRequest": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "DeleteNamedRangeRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "namedRangeId": {
+            "type": "string"
+          }
+        }
+      },
+      "DeletePositionedObjectRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          }
+        }
+      },
+      "DeleteTableColumnRequest": {
+        "type": "object",
+        "properties": {
+          "tableCellLocation": {
+            "$ref": "#/$defs/TableCellLocation"
+          }
+        }
+      },
+      "DeleteTableRowRequest": {
+        "type": "object",
+        "properties": {
+          "tableCellLocation": {
+            "$ref": "#/$defs/TableCellLocation"
+          }
+        }
+      },
+      "DeleteParagraphBulletsRequest": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "InsertInlineImageRequest": {
+        "type": "object",
+        "properties": {
+          "uri": {
+            "type": "string"
+          },
+          "objectSize": {
+            "$ref": "#/$defs/Size"
+          },
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "InsertInlineSheetsChartRequest": {
+        "type": "object",
+        "properties": {
+          "spreadsheetId": {
+            "type": "string"
+          },
+          "chartId": {
+            "type": "integer"
+          },
+          "objectSize": {
+            "$ref": "#/$defs/Size"
+          },
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "InsertTableRequest": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "integer"
+          },
+          "columns": {
+            "type": "integer"
+          },
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "InsertTableColumnRequest": {
+        "type": "object",
+        "properties": {
+          "tableCellLocation": {
+            "$ref": "#/$defs/TableCellLocation"
+          },
+          "insertRight": {
+            "type": "boolean"
+          }
+        }
+      },
+      "InsertTableRowRequest": {
+        "type": "object",
+        "properties": {
+          "tableCellLocation": {
+            "$ref": "#/$defs/TableCellLocation"
+          },
+          "insertBelow": {
+            "type": "boolean"
+          }
+        }
+      },
+      "MergeTableCellsRequest": {
+        "type": "object",
+        "properties": {
+          "tableRange": {
+            "$ref": "#/$defs/TableRange"
+          }
+        }
+      },
+      "UnmergeTableCellsRequest": {
+        "type": "object",
+        "properties": {
+          "tableRange": {
+            "$ref": "#/$defs/TableRange"
+          }
+        }
+      },
+      "CreateNamedRangeRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "CreateParagraphBulletsRequest": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/$defs/Range"
+          },
+          "bulletPreset": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateHeaderRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"]
+          },
+          "sectionBreakLocation": {
+            "$ref": "#/$defs/Location"
+          }
+        }
+      },
+      "CreateFooterRequest": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": ["HEADER_FOOTER_TYPE_UNSPECIFIED", "DEFAULT"]
+          },
+          "sectionBreakLocation": {
+            "$ref": "#/$defs/Location"
+          }
+        }
+      },
+      "CreateFootnoteRequest": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "ReplaceAllTextRequest": {
+        "type": "object",
+        "properties": {
+          "replaceText": {
+            "type": "string"
+          },
+          "containsText": {
+            "$ref": "#/$defs/SubstringMatchCriteria"
+          }
+        }
+      },
+      "ReplaceAllSmartChipsRequest": {
+        "type": "object",
+        "properties": {
+          "replaceText": {
+            "type": "string"
+          },
+          "containsText": {
+            "$ref": "#/$defs/SubstringMatchCriteria"
+          }
+        }
+      },
+      "ReplaceImageRequest": {
+        "type": "object",
+        "properties": {
+          "imageObjectId": {
+            "type": "string"
+          },
+          "uri": {
+            "type": "string"
+          },
+          "imageReplaceMethod": {
+            "type": "string"
+          }
+        }
+      },
+      "ReplaceNamedRangeContentRequest": {
+        "type": "object",
+        "properties": {
+          "namedRangeName": {
+            "type": "string"
+          },
+          "text": {
+            "type": "string"
+          }
+        }
+      },
+      "PinTableHeaderRowsRequest": {
+        "type": "object",
+        "properties": {
+          "tableStartLocation": {
+            "$ref": "#/$defs/Location"
+          },
+          "pinnedHeaderRowsCount": {
+            "type": "integer"
+          }
+        }
+      },
+      "InsertSectionBreakRequest": {
+        "type": "object",
+        "properties": {
+          "sectionType": {
+            "type": "string"
+          },
+          "location": {
+            "$ref": "#/$defs/Location"
+          },
+          "endOfSegmentLocation": {
+            "$ref": "#/$defs/EndOfSegmentLocation"
+          }
+        }
+      },
+      "DeleteSectionBreakRequest": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/$defs/Range"
+          }
+        }
+      },
+      "UpdateSectionStyleRequest": {
+        "type": "object",
+        "properties": {
+          "range": {
+            "$ref": "#/$defs/Range"
+          },
+          "sectionStyle": {
+            "$ref": "#/$defs/SectionStyle"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "PinRevisionRequest": {
+        "type": "object",
+        "properties": {
+          "revisionId": {
+            "type": "string"
+          }
+        }
+      },
+      "UnpinRevisionRequest": {
+        "type": "object",
+        "properties": {
+          "revisionId": {
+            "type": "string"
+          }
+        }
+      },
+      "TextStyle": {
+        "type": "object",
+        "properties": {
+          "bold": { "type": "boolean" },
+          "italic": { "type": "boolean" },
+          "underline": { "type": "boolean" },
+          "strikethrough": { "type": "boolean" },
+          "smallCaps": { "type": "boolean" },
+          "backgroundColor": { "$ref": "#/$defs/OptionalColor" },
+          "foregroundColor": { "$ref": "#/$defs/OptionalColor" },
+          "fontSize": { "$ref": "#/$defs/Dimension" },
+          "weightedFontFamily": { "$ref": "#/$defs/WeightedFontFamily" },
+          "baselineOffset": { "type": "string" },
+          "link": { "$ref": "#/$defs/Link" }
+        }
+      },
+      "ParagraphStyle": {
+        "type": "object",
+        "properties": {
+          "headingId": { "type": "string" },
+          "namedStyleType": { "type": "string" },
+          "alignment": { "type": "string" },
+          "lineSpacing": { "type": "number" },
+          "direction": { "type": "string" },
+          "spacingMode": { "type": "string" },
+          "spaceAbove": { "$ref": "#/$defs/Dimension" },
+          "spaceBelow": { "$ref": "#/$defs/Dimension" },
+          "borderBetween": { "$ref": "#/$defs/ParagraphBorder" },
+          "borderTop": { "$ref": "#/$defs/ParagraphBorder" },
+          "borderBottom": { "$ref": "#/$defs/ParagraphBorder" },
+          "borderLeft": { "$ref": "#/$defs/ParagraphBorder" },
+          "borderRight": { "$ref": "#/$defs/ParagraphBorder" },
+          "indentFirstLine": { "$ref": "#/$defs/Dimension" },
+          "indentStart": { "$ref": "#/$defs/Dimension" },
+          "indentEnd": { "$ref": "#/$defs/Dimension" },
+          "tabStops": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/TabStop" }
+          },
+          "keepLinesTogether": { "type": "boolean" },
+          "keepWithNext": { "type": "boolean" },
+          "avoidWidowAndOrphan": { "type": "boolean" },
+          "shading": { "$ref": "#/$defs/Shading" },
+          "pageBreakBefore": { "type": "boolean" }
+        }
+      },
+      "DocumentStyle": {
+        "type": "object",
+        "properties": {
+          "background": { "$ref": "#/$defs/Background" },
+          "defaultHeaderId": { "type": "string" },
+          "defaultFooterId": { "type": "string" },
+          "evenPageHeaderId": { "type": "string" },
+          "evenPageFooterId": { "type": "string" },
+          "firstPageHeaderId": { "type": "string" },
+          "firstPageFooterId": { "type": "string" },
+          "useFirstPageHeaderFooter": { "type": "boolean" },
+          "useEvenPageHeaderFooter": { "type": "boolean" },
+          "pageNumberStart": { "type": "integer" },
+          "marginTop": { "$ref": "#/$defs/Dimension" },
+          "marginBottom": { "$ref": "#/$defs/Dimension" },
+          "marginRight": { "$ref": "#/$defs/Dimension" },
+          "marginLeft": { "$ref": "#/$defs/Dimension" },
+          "pageSize": { "$ref": "#/$defs/Size" },
+          "marginHeader": { "$ref": "#/$defs/Dimension" },
+          "marginFooter": { "$ref": "#/$defs/Dimension" },
+          "useCustomHeaderFooterMargins": { "type": "boolean" },
+          "flipPageOrientation": { "type": "boolean" }
+        }
+      },
+      "TableColumnProperties": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "widthType": {
+            "type": "string"
+          }
+        }
+      },
+      "TableRowStyle": {
+        "type": "object",
+        "properties": {
+          "minRowHeight": {
+            "$ref": "#/$defs/Dimension"
+          }
+        }
+      },
+      "TableCellStyle": {
+        "type": "object",
+        "properties": {
+          "rowSpan": {
+            "type": "integer"
+          },
+          "columnSpan": {
+            "type": "integer"
+          },
+          "backgroundColor": {
+            "$ref": "#/$defs/OptionalColor"
+          },
+          "borderTop": {
+            "$ref": "#/$defs/TableCellBorder"
+          },
+          "borderBottom": {
+            "$ref": "#/$defs/TableCellBorder"
+          },
+          "borderLeft": {
+            "$ref": "#/$defs/TableCellBorder"
+          },
+          "borderRight": {
+            "$ref": "#/$defs/TableCellBorder"
+          },
+          "paddingTop": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "paddingBottom": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "paddingLeft": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "paddingRight": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "contentAlignment": {
+            "type": "string"
+          }
+        }
+      },
+      "SectionStyle": {
+        "type": "object",
+        "properties": {
+          "columnProperties": {
+            "type": "array",
+            "items": { "$ref": "#/$defs/SectionColumnProperties" }
+          },
+          "columnSeparatorStyle": { "type": "string" },
+          "contentDirection": { "type": "string" },
+          "marginTop": { "$ref": "#/$defs/Dimension" },
+          "marginBottom": { "$ref": "#/$defs/Dimension" },
+          "marginRight": { "$ref": "#/$defs/Dimension" },
+          "marginLeft": { "$ref": "#/$defs/Dimension" },
+          "marginHeader": { "$ref": "#/$defs/Dimension" },
+          "marginFooter": { "$ref": "#/$defs/Dimension" },
+          "sectionType": { "type": "string" },
+          "defaultHeaderId": { "type": "string" },
+          "defaultFooterId": { "type": "string" },
+          "firstPageHeaderId": { "type": "string" },
+          "firstPageFooterId": { "type": "string" },
+          "evenPageHeaderId": { "type": "string" },
+          "evenPageFooterId": { "type": "string" },
+          "useFirstPageHeaderFooter": { "type": "boolean" },
+          "pageNumberStart": { "type": "integer" },
+          "flipPageOrientation": { "type": "boolean" }
+        }
+      },
+      "Range": {
+        "type": "object",
+        "properties": {
+          "startIndex": { "type": "integer" },
+          "endIndex": { "type": "integer" },
+          "segmentId": { "type": "string" }
+        }
+      },
+      "Location": {
+        "type": "object",
+        "properties": {
+          "segmentId": { "type": "string" },
+          "index": { "type": "integer" }
+        }
+      },
+      "EndOfSegmentLocation": {
+        "type": "object",
+        "properties": {
+          "segmentId": { "type": "string" }
+        }
+      },
+      "Size": {
+        "type": "object",
+        "properties": {
+          "height": { "$ref": "#/$defs/Dimension" },
+          "width": { "$ref": "#/$defs/Dimension" }
+        }
+      },
+      "TableCellLocation": {
+        "type": "object",
+        "properties": {
+          "tableStartLocation": { "$ref": "#/$defs/Location" },
+          "rowIndex": { "type": "integer" },
+          "columnIndex": { "type": "integer" }
+        }
+      },
+      "TableRange": {
+        "type": "object",
+        "properties": {
+          "tableCellLocation": { "$ref": "#/$defs/TableCellLocation" },
+          "rowSpan": { "type": "integer" },
+          "columnSpan": { "type": "integer" }
+        }
+      },
+      "SubstringMatchCriteria": {
+        "type": "object",
+        "properties": {
+          "text": { "type": "string" },
+          "matchCase": { "type": "boolean" }
+        }
+      },
+      "OptionalColor": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/Color" }
+        }
+      },
+      "Color": {
+        "type": "object",
+        "properties": {
+          "rgbColor": { "$ref": "#/$defs/RgbColor" }
+        }
+      },
+      "RgbColor": {
+        "type": "object",
+        "properties": {
+          "red": { "type": "number" },
+          "green": { "type": "number" },
+          "blue": { "type": "number" }
+        }
+      },
+      "Dimension": {
+        "type": "object",
+        "properties": {
+          "magnitude": { "type": "number" },
+          "unit": { "type": "string" }
+        }
+      },
+      "WeightedFontFamily": {
+        "type": "object",
+        "properties": {
+          "fontFamily": { "type": "string" },
+          "weight": { "type": "integer" }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "url": { "type": "string" },
+          "bookmarkId": { "type": "string" },
+          "headingId": { "type": "string" }
+        }
+      },
+      "ParagraphBorder": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/OptionalColor" },
+          "width": { "$ref": "#/$defs/Dimension" },
+          "padding": { "$ref": "#/$defs/Dimension" },
+          "dashStyle": { "type": "string" }
+        }
+      },
+      "TabStop": {
+        "type": "object",
+        "properties": {
+          "offset": { "$ref": "#/$defs/Dimension" },
+          "alignment": { "type": "string" }
+        }
+      },
+      "Shading": {
+        "type": "object",
+        "properties": {
+          "backgroundColor": { "$ref": "#/$defs/OptionalColor" }
+        }
+      },
+      "Background": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/OptionalColor" }
+        }
+      },
+      "TableCellBorder": {
+        "type": "object",
+        "properties": {
+          "color": { "$ref": "#/$defs/OptionalColor" },
+          "width": { "$ref": "#/$defs/Dimension" },
+          "dashStyle": { "type": "string" }
+        }
+      },
+      "SectionColumnProperties": {
+        "type": "object",
+        "properties": {
+          "width": { "$ref": "#/$defs/Dimension" },
+          "paddingEnd": { "$ref": "#/$defs/Dimension" }
         }
       }
-    },
-    "LayoutReference": {
-      "type": "object",
-      "properties": {
-        "predefinedLayout": { "type": "string", "enum": ["PREDEFINED_LAYOUT_UNSPECIFIED", "BLANK", "CAPTION_ONLY", "TITLE", "TITLE_AND_BODY", "TITLE_AND_TWO_COLUMNS", "TITLE_ONLY", "SECTION_HEADER", "SECTION_TITLE_AND_DESCRIPTION", "ONE_COLUMN_TEXT", "MAIN_POINT", "BIG_NUMBER"] },
-        "layoutId": { "type": "string" }
+    }
+  },
+
+  Get: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Docs API Document Schema",
+    "description": "JSON schema for the response body of Method: documents.get of Google Docs API.",
+    "type": "object",
+    "properties": {
+      "document": {
+        "$ref": "#/definitions/Document"
       }
     },
-    "LayoutPlaceholderIdMapping": {
-      "type": "object",
-      "properties": {
-        "layoutPlaceholder": { "$ref": "#/definitions/Placeholder" },
-        "layoutPlaceholderObjectId": { "type": "string" },
-        "objectId": { "type": "string" }
-      }
-    },
-    "Placeholder": {
-      "type": "object",
-      "properties": {
-        "parentObjectId": { "type": "string" },
-        "index": { "type": "integer" },
-        "type": { "type": "string", "enum": ["NONE", "BODY", "CHART", "CLIP_ART", "CENTERED_TITLE", "DIAGRAM", "DATE_AND_TIME", "FOOTER", "HEADER", "MEDIA", "OBJECT", "PICTURE", "SLIDE_NUMBER", "SUBTITLE", "TABLE", "TITLE", "SLIDE_IMAGE"] }
-      }
-    },
-    "CreateShapeRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "shapeType": { "type": "string", "enum": ["TYPE_UNSPECIFIED", "TEXT_BOX", "RECTANGLE", "ROUND_RECTANGLE", "ELLIPSE", "ARC", "BENT_ARROW", "BENT_UP_ARROW", "BEVEL", "BLOCK_ARC", "BRACE_PAIR", "BRACKET_PAIR", "CAN", "CHEVRON", "CHORD", "CLOUD", "CORNER", "CUBE", "CURVED_DOWN_ARROW", "CURVED_LEFT_ARROW", "CURVED_RIGHT_ARROW", "CURVED_UP_ARROW", "DECAGON", "DIAMOND", "DODECAGON", "DONUT", "DOUBLE_WAVE", "DOWN_ARROW", "DOWN_ARROW_CALLOUT", "FOLDED_CORNER", "FRAME", "HALF_FRAME", "HEART", "HEPTAGON", "HEXAGON", "HOME_PLATE", "HORIZONTAL_SCROLL", "IRREGULAR_SEAL_1", "IRREGULAR_SEAL_2", "LEFT_ARROW", "LEFT_ARROW_CALLOUT", "LEFT_BRACE", "LEFT_BRACKET", "LEFT_RIGHT_ARROW", "LEFT_RIGHT_ARROW_CALLOUT", "LEFT_RIGHT_UP_ARROW", "LEFT_UP_ARROW", "LIGHTNING_BOLT", "MATH_DIVIDE", "MATH_EQUAL", "MATH_MINUS", "MATH_MULTIPLY", "MATH_NOT_EQUAL", "MATH_PLUS", "MOON", "NO_SMOKING", "NON_ISOSCELES_TRAPEZOID", "NOTCHED_RIGHT_ARROW", "OCTAGON", "PARALLELOGRAM", "PENTAGON", "PIE", "PLAQUE", "PLUS", "QUAD_ARROW", "QUAD_ARROW_CALLOUT", "RIBBON", "RIBBON_2", "RIGHT_ARROW", "RIGHT_ARROW_CALLOUT", "RIGHT_BRACE", "RIGHT_BRACKET", "ROUND_1_RECTANGLE", "ROUND_2_DIAG_RECTANGLE", "ROUND_2_SAME_RECTANGLE", "RIGHT_TRIANGLE", "SMILEY_FACE", "SNIP_1_RECTANGLE", "SNIP_2_DIAG_RECTANGLE", "SNIP_2_SAME_RECTANGLE", "SNIP_ROUND_RECTANGLE", "STAR_10", "STAR_12", "STAR_16", "STAR_24", "STAR_32", "STAR_4", "STAR_5", "STAR_6", "STAR_7", "STAR_8", "STRIPED_RIGHT_ARROW", "SUN", "TRAPEZOID", "TRIANGLE", "UP_ARROW", "UP_ARROW_CALLOUT", "UP_DOWN_ARROW", "UTURN_ARROW", "VERTICAL_SCROLL", "WAVE", "WEDGE_ELLIPSE_CALLOUT", "WEDGE_RECTANGLE_CALLOUT", "WEDGE_ROUND_RECTANGLE_CALLOUT"] },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" }
-      }
-    },
-    "PageElementProperties": {
-      "type": "object",
-      "properties": {
-        "pageObjectId": { "type": "string" },
-        "size": { "$ref": "#/definitions/Size" },
-        "transform": { "$ref": "#/definitions/AffineTransform" }
-      }
-    },
-    "Size": {
-      "type": "object",
-      "properties": {
-        "width": { "$ref": "#/definitions/Dimension" },
-        "height": { "$ref": "#/definitions/Dimension" }
-      }
-    },
-    "Dimension": {
-      "type": "object",
-      "properties": {
-        "magnitude": { "type": "number" },
-        "unit": { "type": "string", "enum": ["UNIT_UNSPECIFIED", "EMU", "PT"] }
-      }
-    },
-    "AffineTransform": {
-      "type": "object",
-      "properties": {
-        "scaleX": { "type": "number" },
-        "scaleY": { "type": "number" },
-        "translateX": { "type": "number" },
-        "translateY": { "type": "number" },
-        "shearX": { "type": "number" },
-        "shearY": { "type": "number" },
-        "unit": { "type": "string", "enum": ["UNIT_UNSPECIFIED", "EMU", "PT"] }
-      }
-    },
-    "CreateTableRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
-        "rows": { "type": "integer" },
-        "columns": { "type": "integer" }
-      }
-    },
-    "InsertTextRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "insertionIndex": { "type": "integer" },
-        "text": { "type": "string" }
-      }
-    },
-    "TableCellLocation": {
-      "type": "object",
-      "properties": {
-        "rowIndex": { "type": "integer" },
-        "columnIndex": { "type": "integer" }
-      }
-    },
-    "InsertTableRowsRequest": {
-      "type": "object",
-      "properties": {
-        "tableObjectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "insertBelow": { "type": "boolean" },
-        "number": { "type": "integer" }
-      }
-    },
-    "InsertTableColumnsRequest": {
-      "type": "object",
-      "properties": {
-        "tableObjectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "insertRight": { "type": "boolean" },
-        "number": { "type": "integer" }
-      }
-    },
-    "DeleteTableRowRequest": {
-      "type": "object",
-      "properties": {
-        "tableObjectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" }
-      }
-    },
-    "DeleteTableColumnRequest": {
-      "type": "object",
-      "properties": {
-        "tableObjectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" }
-      }
-    },
-    "ReplaceAllTextRequest": {
-      "type": "object",
-      "properties": {
-        "replaceText": { "type": "string" },
-        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
-        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
-      }
-    },
-    "SubstringMatchCriteria": {
-      "type": "object",
-      "properties": {
-        "text": { "type": "string" },
-        "matchCase": { "type": "boolean" }
-      }
-    },
-    "DeleteObjectRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" }
-      }
-    },
-    "UpdatePageElementTransformRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "transform": { "$ref": "#/definitions/AffineTransform" },
-        "applyMode": { "type": "string", "enum": ["APPLY_MODE_UNSPECIFIED", "RELATIVE", "ABSOLUTE"] }
-      }
-    },
-    "UpdateSlidesPositionRequest": {
-      "type": "object",
-      "properties": {
-        "slideObjectIds": { "type": "array", "items": { "type": "string" } },
-        "insertionIndex": { "type": "integer" }
-      }
-    },
-    "DeleteTextRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "textRange": { "$ref": "#/definitions/Range" }
-      }
-    },
-    "Range": {
-      "type": "object",
-      "properties": {
-        "type": { "type": "string", "enum": ["RANGE_TYPE_UNSPECIFIED", "FIXED_RANGE", "FROM_START_INDEX", "ALL"] },
-        "startIndex": { "type": "integer" },
-        "endIndex": { "type": "integer" }
-      }
-    },
-    "CreateImageRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
-        "url": { "type": "string" }
-      }
-    },
-    "CreateVideoRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
-        "id": { "type": "string" },
-        "source": { "type": "string", "enum": ["SOURCE_UNSPECIFIED", "YOUTUBE", "DRIVE"] }
-      }
-    },
-    "CreateSheetsChartRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "spreadsheetId": { "type": "string" },
-        "chartId": { "type": "integer" },
-        "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" }
-      }
-    },
-    "CreateLineRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
-        "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] },
-        "category": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
-      }
-    },
-    "RefreshSheetsChartRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" }
-      }
-    },
-    "UpdateShapePropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "shapeProperties": { "type": "object" }
-      }
-    },
-    "UpdateImagePropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "imageProperties": { "type": "object" }
-      }
-    },
-    "UpdateVideoPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "videoProperties": { "type": "object" }
-      }
-    },
-    "UpdatePagePropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "pageProperties": { "type": "object" }
-      }
-    },
-    "UpdateTableCellPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "tableRange": { "$ref": "#/definitions/TableRange" },
-        "tableCellProperties": { "type": "object" }
-      }
-    },
-    "TableRange": {
-      "type": "object",
-      "properties": {
-        "location": { "$ref": "#/definitions/TableCellLocation" },
-        "rowSpan": { "type": "integer" },
-        "columnSpan": { "type": "integer" }
-      }
-    },
-    "UpdateLinePropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "fields": { "type": "string" },
-        "lineProperties": { "type": "object" }
-      }
-    },
-    "CreateParagraphBulletsRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "textRange": { "$ref": "#/definitions/Range" },
-        "bulletPreset": { "type": "string", "enum": ["BULLET_DISC_CIRCLE_SQUARE", "BULLET_DIAMONDX_ARROW3D_SQUARE", "BULLET_CHECKBOX", "BULLET_ARROW_DIAMOND_DISC", "BULLET_STAR_CIRCLE_SQUARE", "BULLET_ARROW3D_CIRCLE_SQUARE", "BULLET_LEFTTRIANGLE_DIAMOND_DISC", "BULLET_DIAMONDX_HOLLOWDIAMOND_SQUARE", "BULLET_DIAMOND_CIRCLE_SQUARE", "NUMBERED_DIGIT_ALPHA_ROMAN", "NUMBERED_DIGIT_ALPHA_ROMAN_PARENS", "NUMBERED_DIGIT_NESTED", "NUMBERED_UPPERALPHA_ALPHA_ROMAN", "NUMBERED_UPPERROMAN_UPPERALPHA_DIGIT", "NUMBERED_ZERODIGIT_ALPHA_ROMAN"] }
-      }
-    },
-    "ReplaceAllShapesWithImageRequest": {
-      "type": "object",
-      "properties": {
-        "imageUrl": { "type": "string" },
-        "replaceMethod": { "type": "string", "enum": ["CENTER_INSIDE", "CENTER_CROP"] },
-        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_INSIDE", "CENTER_CROP"] },
-        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
-        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
-      }
-    },
-    "DuplicateObjectRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "objectIds": { "type": "object", "additionalProperties": { "type": "string" } }
-      }
-    },
-    "UpdateTextStyleRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "style": { "type": "object" },
-        "textRange": { "$ref": "#/definitions/Range" },
-        "fields": { "type": "string" }
-      }
-    },
-    "ReplaceAllShapesWithSheetsChartRequest": {
-      "type": "object",
-      "properties": {
-        "spreadsheetId": { "type": "string" },
-        "chartId": { "type": "integer" },
-        "linkingMode": { "type": "string", "enum": ["NOT_LINKED_IMAGE", "LINKED"] },
-        "pageObjectIds": { "type": "array", "items": { "type": "string" } },
-        "containsText": { "$ref": "#/definitions/SubstringMatchCriteria" }
-      }
-    },
-    "DeleteParagraphBulletsRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "textRange": { "$ref": "#/definitions/Range" }
-      }
-    },
-    "UpdateParagraphStyleRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "cellLocation": { "$ref": "#/definitions/TableCellLocation" },
-        "style": { "type": "object" },
-        "textRange": { "$ref": "#/definitions/Range" },
-        "fields": { "type": "string" }
-      }
-    },
-    "UpdateTableBorderPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "borderPosition": { "type": "string", "enum": ["ALL", "BOTTOM", "INNER", "INNER_HORIZONTAL", "INNER_VERTICAL", "LEFT", "OUTER", "RIGHT", "TOP"] },
-        "tableRange": { "$ref": "#/definitions/TableRange" },
-        "tableBorderProperties": { "type": "object" },
-        "fields": { "type": "string" }
-      }
-    },
-    "UpdateTableColumnPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "columnIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableColumnProperties": { "type": "object" },
-        "fields": { "type": "string" }
-      }
-    },
-    "UpdateTableRowPropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "rowIndices": { "type": "array", "items": { "type": "integer" } },
-        "tableRowProperties": { "type": "object" },
-        "fields": { "type": "string" }
-      }
-    },
-    "MergeTableCellsRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "tableRange": { "$ref": "#/definitions/TableRange" }
-      }
-    },
-    "UnmergeTableCellsRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "tableRange": { "$ref": "#/definitions/TableRange" }
-      }
-    },
-    "GroupObjectsRequest": {
-      "type": "object",
-      "properties": {
-        "groupObjectId": { "type": "string" },
-        "childrenObjectIds": { "type": "array", "items": { "type": "string" } }
-      }
-    },
-    "UngroupObjectsRequest": {
-      "type": "object",
-      "properties": {
-        "objectIds": { "type": "array", "items": { "type": "string" } }
-      }
-    },
-    "UpdatePageElementAltTextRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "title": { "type": "string" },
-        "description": { "type": "string" }
-      }
-    },
-    "ReplaceImageRequest": {
-      "type": "object",
-      "properties": {
-        "imageObjectId": { "type": "string" },
-        "imageReplaceMethod": { "type": "string", "enum": ["IMAGE_REPLACE_METHOD_UNSPECIFIED", "CENTER_INSIDE", "CENTER_CROP"] },
-        "url": { "type": "string" }
-      }
-    },
-    "UpdateSlidePropertiesRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "slideProperties": { "type": "object" },
-        "fields": { "type": "string" }
-      }
-    },
-    "UpdatePageElementsZOrderRequest": {
-      "type": "object",
-      "properties": {
-        "pageElementObjectIds": { "type": "array", "items": { "type": "string" } },
-        "operation": { "type": "string", "enum": ["Z_ORDER_OPERATION_UNSPECIFIED", "BRING_TO_FRONT", "BRING_FORWARD", "SEND_BACKWARD", "SEND_TO_BACK"] }
-      }
-    },
-    "UpdateLineCategoryRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" },
-        "lineCategory": { "type": "string", "enum": ["STRAIGHT", "BENT", "CURVED"] }
-      }
-    },
-    "RerouteLineRequest": {
-      "type": "object",
-      "properties": {
-        "objectId": { "type": "string" }
+    "definitions": {
+      "Document": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "tabs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Tab"
+            }
+          },
+          "revisionId": {
+            "type": "string"
+          },
+          "suggestionsViewMode": {
+            "type": "string",
+            "enum": [
+              "DEFAULT_FOR_CURRENT_ACCESS",
+              "SUGGESTIONS_INLINE",
+              "PREVIEW_SUGGESTIONS_ACCEPTED",
+              "PREVIEW_WITHOUT_SUGGESTIONS"
+            ]
+          },
+          "body": {
+            "$ref": "#/definitions/Body"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Header"
+            }
+          },
+          "footers": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Footer"
+            }
+          },
+          "footnotes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Footnote"
+            }
+          },
+          "documentStyle": {
+            "$ref": "#/definitions/DocumentStyle"
+          },
+          "suggestedDocumentStyleChanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/SuggestedDocumentStyle"
+            }
+          },
+          "namedStyles": {
+            "$ref": "#/definitions/NamedStyles"
+          },
+          "suggestedNamedStylesChanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/SuggestedNamedStyles"
+            }
+          },
+          "lists": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/List"
+            }
+          },
+          "namedRanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/NamedRanges"
+            }
+          },
+          "inlineObjects": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/InlineObject"
+            }
+          },
+          "positionedObjects": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/PositionedObject"
+            }
+          }
+        }
+      },
+      "Tab": {
+        "type": "object",
+        "properties": {
+          "tabProperties": {
+            "$ref": "#/definitions/TabProperties"
+          },
+          "childTabs": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/Tab"
+            }
+          },
+          "documentTab": {
+            "$ref": "#/definitions/DocumentTab"
+          }
+        }
+      },
+      "TabProperties": {
+        "type": "object",
+        "properties": {
+          "tabId": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "parentTabId": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "nestingLevel": {
+            "type": "integer"
+          }
+        }
+      },
+      "DocumentTab": {
+        "type": "object",
+        "properties": {
+          "body": {
+            "$ref": "#/definitions/Body"
+          },
+          "headers": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Header"
+            }
+          },
+          "footers": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Footer"
+            }
+          },
+          "footnotes": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/Footnote"
+            }
+          },
+          "documentStyle": {
+            "$ref": "#/definitions/DocumentStyle"
+          },
+          "suggestedDocumentStyleChanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/SuggestedDocumentStyle"
+            }
+          },
+          "namedStyles": {
+            "$ref": "#/definitions/NamedStyles"
+          },
+          "suggestedNamedStylesChanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/SuggestedNamedStyles"
+            }
+          },
+          "lists": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/List"
+            }
+          },
+          "namedRanges": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/NamedRanges"
+            }
+          },
+          "inlineObjects": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/InlineObject"
+            }
+          },
+          "positionedObjects": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/PositionedObject"
+            }
+          }
+        }
+      },
+      "Body": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StructuralElement"
+            }
+          }
+        }
+      },
+      "Header": {
+        "type": "object",
+        "properties": {
+          "headerId": {
+            "type": "string"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StructuralElement"
+            }
+          }
+        }
+      },
+      "Footer": {
+        "type": "object",
+        "properties": {
+          "footerId": {
+            "type": "string"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StructuralElement"
+            }
+          }
+        }
+      },
+      "Footnote": {
+        "type": "object",
+        "properties": {
+          "footnoteId": {
+            "type": "string"
+          },
+          "content": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/StructuralElement"
+            }
+          }
+        }
+      },
+      "DocumentStyle": {
+        "type": "object",
+        "properties": {}
+      },
+      "SuggestedDocumentStyle": {
+        "type": "object",
+        "properties": {}
+      },
+      "NamedStyles": {
+        "type": "object",
+        "properties": {}
+      },
+      "SuggestedNamedStyles": {
+        "type": "object",
+        "properties": {}
+      },
+      "List": {
+        "type": "object",
+        "properties": {}
+      },
+      "NamedRanges": {
+        "type": "object",
+        "properties": {}
+      },
+      "InlineObject": {
+        "type": "object",
+        "properties": {}
+      },
+      "PositionedObject": {
+        "type": "object",
+        "properties": {}
+      },
+      "StructuralElement": {
+        "type": "object",
+        "properties": {}
       }
     }
-  }
+  },
+
 };
 
 const jsonSchemaForSlides = {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Google Slides API batchUpdate Request",
-  "description": "A list of requests to be applied to the presentation.",
-  "type": "object",
-  "properties": {
-    "presentationId": { "type": "string", "description": "Presentation ID (Google Slide ID)" },
-    "requests": {
-      "type": "array",
-      "items": {
+  BatchUpdate: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Slides API presentations.batchUpdate Request Body",
+    "description": "JSON schema for the request body of the Method: presentations.batchUpdate of Google Slides API.",
+    "type": "object",
+    "properties": {
+      "requests": {
+        "type": "array",
+        "items": {
+          "$ref": "#/definitions/Request"
+        }
+      },
+      "writeControl": {
+        "$ref": "#/definitions/WriteControl"
+      }
+    },
+    "definitions": {
+      "Request": {
         "type": "object",
-        "description": [
-          `Create "requests" by following JSON schema.`,
-          `The JSON schema of "requests" is as follows.`,
-          `<JSONSchema>${JSON.stringify(requestsForSlidesAPI_)}</JSONSchema>`,
-          `Many of the "update" requests require field masks as "fields". The reference URLs are as follows.`,
-          `<URLs>`,
-          `https://developers.google.com/workspace/sheets/api/guides/field-masks#update_with_a_field_mask`,
-          `https://developers.google.com/workspace/sheets/api/guides/batchupdate#field_masks`,
-          `</URLs>`,
-          `You can also refer to creating "request" by searching Google.`,
-        ].join("\n"),
+        "oneOf": [
+          { "properties": { "createSlide": { "$ref": "#/definitions/CreateSlideRequest" } } },
+          { "properties": { "createShape": { "$ref": "#/definitions/CreateShapeRequest" } } },
+          { "properties": { "createTable": { "$ref": "#/definitions/CreateTableRequest" } } },
+          { "properties": { "insertText": { "$ref": "#/definitions/InsertTextRequest" } } },
+          { "properties": { "insertTableRows": { "$ref": "#/definitions/InsertTableRowsRequest" } } },
+          { "properties": { "insertTableColumns": { "$ref": "#/definitions/InsertTableColumnsRequest" } } },
+          { "properties": { "deleteTableRow": { "$ref": "#/definitions/DeleteTableRowRequest" } } },
+          { "properties": { "deleteTableColumn": { "$ref": "#/definitions/DeleteTableColumnRequest" } } },
+          { "properties": { "replaceAllText": { "$ref": "#/definitions/ReplaceAllTextRequest" } } },
+          { "properties": { "deleteObject": { "$ref": "#/definitions/DeleteObjectRequest" } } },
+          { "properties": { "updatePageElementTransform": { "$ref": "#/definitions/UpdatePageElementTransformRequest" } } },
+          { "properties": { "updateSlidesPosition": { "$ref": "#/definitions/UpdateSlidesPositionRequest" } } },
+          { "properties": { "deleteText": { "$ref": "#/definitions/DeleteTextRequest" } } },
+          { "properties": { "createImage": { "$ref": "#/definitions/CreateImageRequest" } } },
+          { "properties": { "createVideo": { "$ref": "#/definitions/CreateVideoRequest" } } },
+          { "properties": { "createSheetsChart": { "$ref": "#/definitions/CreateSheetsChartRequest" } } },
+          { "properties": { "createLine": { "$ref": "#/definitions/CreateLineRequest" } } },
+          { "properties": { "refreshSheetsChart": { "$ref": "#/definitions/RefreshSheetsChartRequest" } } },
+          { "properties": { "updateShapeProperties": { "$ref": "#/definitions/UpdateShapePropertiesRequest" } } },
+          { "properties": { "updateImageProperties": { "$ref": "#/definitions/UpdateImagePropertiesRequest" } } },
+          { "properties": { "updateVideoProperties": { "$ref": "#/definitions/UpdateVideoPropertiesRequest" } } },
+          { "properties": { "updatePageProperties": { "$ref": "#/definitions/UpdatePagePropertiesRequest" } } },
+          { "properties": { "updateTableCellProperties": { "$ref": "#/definitions/UpdateTableCellPropertiesRequest" } } },
+          { "properties": { "updateLineProperties": { "$ref": "#/definitions/UpdateLinePropertiesRequest" } } },
+          { "properties": { "createParagraphBullets": { "$ref": "#/definitions/CreateParagraphBulletsRequest" } } },
+          { "properties": { "replaceAllShapesWithImage": { "$ref": "#/definitions/ReplaceAllShapesWithImageRequest" } } },
+          { "properties": { "duplicateObject": { "$ref": "#/definitions/DuplicateObjectRequest" } } },
+          { "properties": { "updateTextStyle": { "$ref": "#/definitions/UpdateTextStyleRequest" } } },
+          { "properties": { "replaceAllShapesWithSheetsChart": { "$ref": "#/definitions/ReplaceAllShapesWithSheetsChartRequest" } } },
+          { "properties": { "deleteParagraphBullets": { "$ref": "#/definitions/DeleteParagraphBulletsRequest" } } },
+          { "properties": { "updateParagraphStyle": { "$ref": "#/definitions/UpdateParagraphStyleRequest" } } },
+          { "properties": { "updateTableBorderProperties": { "$ref": "#/definitions/UpdateTableBorderPropertiesRequest" } } },
+          { "properties": { "updateTableColumnProperties": { "$ref": "#/definitions/UpdateTableColumnPropertiesRequest" } } },
+          { "properties": { "updateTableRowProperties": { "$ref": "#/definitions/UpdateTableRowPropertiesRequest" } } },
+          { "properties": { "mergeTableCells": { "$ref": "#/definitions/MergeTableCellsRequest" } } },
+          { "properties": { "unmergeTableCells": { "$ref": "#/definitions/UnmergeTableCellsRequest" } } },
+          { "properties": { "groupObjects": { "$ref": "#/definitions/GroupObjectsRequest" } } },
+          { "properties": { "ungroupObjects": { "$ref": "#/definitions/UngroupObjectsRequest" } } },
+          { "properties": { "updatePageElementAltText": { "$ref": "#/definitions/UpdatePageElementAltTextRequest" } } },
+          { "properties": { "replaceImage": { "$ref": "#/definitions/ReplaceImageRequest" } } },
+          { "properties": { "updateSlideProperties": { "$ref": "#/definitions/UpdateSlidePropertiesRequest" } } },
+          { "properties": { "updatePageElementsZOrder": { "$ref": "#/definitions/UpdatePageElementsZOrderRequest" } } },
+          { "properties": { "updateLineCategory": { "$ref": "#/definitions/UpdateLineCategoryRequest" } } },
+          { "properties": { "rerouteLine": { "$ref": "#/definitions/RerouteLineRequest" } } }
+        ]
+      },
+      "WriteControl": {
+        "type": "object",
+        "properties": {
+          "requiredRevisionId": {
+            "type": "string"
+          }
+        }
+      },
+      "CreateSlideRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "insertionIndex": { "type": "integer" },
+          "slideLayoutReference": { "$ref": "#/definitions/LayoutReference" },
+          "placeholderIdMappings": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/LayoutPlaceholderIdMapping" }
+          }
+        }
+      },
+      "LayoutReference": {
+        "type": "object",
+        "properties": {
+          "predefinedLayout": { "type": "string" },
+          "layoutId": { "type": "string" }
+        }
+      },
+      "LayoutPlaceholderIdMapping": {
+        "type": "object",
+        "properties": {
+          "layoutPlaceholder": {
+            "$ref": "#/definitions/Placeholder"
+          },
+          "layoutPlaceholderObjectId": {
+            "type": "string"
+          },
+          "objectId": {
+            "type": "string"
+          }
+        }
+      },
+      "Placeholder": {
+        "type": "object",
+        "properties": {
+          "parentObjectId": {
+            "type": "string"
+          },
+          "index": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "NONE",
+              "BODY",
+              "CHART",
+              "CLIP_ART",
+              "CENTERED_TITLE",
+              "DIAGRAM",
+              "DATE_AND_TIME",
+              "FOOTER",
+              "HEADER",
+              "MEDIA",
+              "OBJECT",
+              "PICTURE",
+              "SLIDE_NUMBER",
+              "SUBTITLE",
+              "TABLE",
+              "TITLE",
+              "SLIDE_IMAGE"
+            ]
+          }
+        }
+      },
+      "CreateShapeRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "shapeType": { "type": "string" },
+          "elementProperties": { "$ref": "#/definitions/PageElementProperties" }
+        }
+      },
+      "PageElementProperties": {
+        "type": "object",
+        "properties": {
+          "pageObjectId": { "type": "string" },
+          "size": { "$ref": "#/definitions/Size" },
+          "transform": { "$ref": "#/definitions/AffineTransform" }
+        }
+      },
+      "Size": {
+        "type": "object",
+        "properties": {
+          "width": { "$ref": "#/definitions/Dimension" },
+          "height": { "$ref": "#/definitions/Dimension" }
+        }
+      },
+      "Dimension": {
+        "type": "object",
+        "properties": {
+          "magnitude": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "UNIT_UNSPECIFIED",
+              "EMU",
+              "PT"
+            ]
+          }
+        }
+      },
+      "AffineTransform": {
+        "type": "object",
+        "properties": {
+          "scaleX": {
+            "type": "number"
+          },
+          "scaleY": {
+            "type": "number"
+          },
+          "translateX": {
+            "type": "number"
+          },
+          "translateY": {
+            "type": "number"
+          },
+          "shearX": {
+            "type": "number"
+          },
+          "shearY": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "enum": [
+              "UNIT_UNSPECIFIED",
+              "EMU",
+              "PT"
+            ]
+          }
+        }
+      },
+      "CreateTableRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "elementProperties": { "$ref": "#/definitions/PageElementProperties" },
+          "rows": { "type": "integer" },
+          "columns": { "type": "integer" }
+        }
+      },
+      "InsertTextRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "insertionIndex": {
+            "type": "integer"
+          },
+          "text": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          }
+        }
+      },
+      "TableCellLocation": {
+        "type": "object",
+        "properties": {
+          "rowIndex": {
+            "type": "integer"
+          },
+          "columnIndex": {
+            "type": "integer"
+          }
+        }
+      },
+      "InsertTableRowsRequest": {
+        "type": "object",
+        "properties": {
+          "tableObjectId": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "insertBelow": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "integer"
+          }
+        }
+      },
+      "InsertTableColumnsRequest": {
+        "type": "object",
+        "properties": {
+          "tableObjectId": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "insertRight": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeleteTableRowRequest": {
+        "type": "object",
+        "properties": {
+          "tableObjectId": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          }
+        }
+      },
+      "DeleteTableColumnRequest": {
+        "type": "object",
+        "properties": {
+          "tableObjectId": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          }
+        }
+      },
+      "ReplaceAllTextRequest": {
+        "type": "object",
+        "properties": {
+          "replaceText": {
+            "type": "string"
+          },
+          "pageObjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "containsText": {
+            "$ref": "#/definitions/SubstringMatchCriteria"
+          }
+        }
+      },
+      "SubstringMatchCriteria": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "matchCase": {
+            "type": "boolean"
+          }
+        }
+      },
+      "DeleteObjectRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdatePageElementTransformRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "transform": {
+            "$ref": "#/definitions/AffineTransform"
+          },
+          "applyMode": {
+            "type": "string",
+            "enum": [
+              "APPLY_MODE_UNSPECIFIED",
+              "RELATIVE",
+              "ABSOLUTE"
+            ]
+          }
+        }
+      },
+      "UpdateSlidesPositionRequest": {
+        "type": "object",
+        "properties": {
+          "slideObjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "insertionIndex": {
+            "type": "integer"
+          }
+        }
+      },
+      "DeleteTextRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "textRange": {
+            "$ref": "#/definitions/Range"
+          }
+        }
+      },
+      "Range": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "RANGE_TYPE_UNSPECIFIED",
+              "FIXED_RANGE",
+              "FROM_START_INDEX",
+              "ALL"
+            ]
+          },
+          "startIndex": {
+            "type": "integer"
+          },
+          "endIndex": {
+            "type": "integer"
+          }
+        }
+      },
+      "CreateImageRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "elementProperties": {
+            "$ref": "#/definitions/PageElementProperties"
+          }
+        }
+      },
+      "CreateVideoRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "SOURCE_UNSPECIFIED",
+              "YOUTUBE",
+              "DRIVE"
+            ]
+          },
+          "elementProperties": {
+            "$ref": "#/definitions/PageElementProperties"
+          }
+        }
+      },
+      "CreateSheetsChartRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "spreadsheetId": {
+            "type": "string"
+          },
+          "chartId": {
+            "type": "integer"
+          },
+          "linkingMode": {
+            "type": "string",
+            "enum": [
+              "NOT_LINKED_IMAGE",
+              "LINKED"
+            ]
+          },
+          "elementProperties": {
+            "$ref": "#/definitions/PageElementProperties"
+          }
+        }
+      },
+      "CreateLineRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "elementProperties": {
+            "$ref": "#/definitions/PageElementProperties"
+          },
+          "lineCategory": {
+            "type": "string",
+            "enum": [
+              "LINE_CATEGORY_UNSPECIFIED",
+              "STRAIGHT",
+              "BENT",
+              "CURVED"
+            ]
+          }
+        }
+      },
+      "RefreshSheetsChartRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateShapePropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "shapeProperties": {
+            "$ref": "#/definitions/ShapeProperties"
+          }
+        }
+      },
+      "ShapeProperties": {
+        "type": "object",
+        "properties": {
+          "shapeBackgroundFill": {
+            "$ref": "#/definitions/ShapeBackgroundFill"
+          },
+          "outline": {
+            "$ref": "#/definitions/Outline"
+          },
+          "shadow": {
+            "$ref": "#/definitions/Shadow"
+          },
+          "link": {
+            "$ref": "#/definitions/Link"
+          },
+          "contentAlignment": {
+            "type": "string"
+          }
+        }
+      },
+      "ShapeBackgroundFill": {
+        "type": "object",
+        "properties": {
+          "propertyState": {
+            "type": "string"
+          },
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          }
+        }
+      },
+      "SolidFill": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/OpaqueColor"
+          },
+          "alpha": {
+            "type": "number"
+          }
+        }
+      },
+      "OpaqueColor": {
+        "type": "object",
+        "properties": {
+          "rgbColor": {
+            "$ref": "#/definitions/RgbColor"
+          },
+          "themeColor": {
+            "type": "string"
+          }
+        }
+      },
+      "RgbColor": {
+        "type": "object",
+        "properties": {
+          "red": {
+            "type": "number"
+          },
+          "green": {
+            "type": "number"
+          },
+          "blue": {
+            "type": "number"
+          }
+        }
+      },
+      "Outline": {
+        "type": "object",
+        "properties": {
+          "outlineFill": {
+            "$ref": "#/definitions/OutlineFill"
+          },
+          "weight": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "dashStyle": {
+            "type": "string"
+          },
+          "propertyState": {
+            "type": "string"
+          }
+        }
+      },
+      "OutlineFill": {
+        "type": "object",
+        "properties": {
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          }
+        }
+      },
+      "Shadow": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "alignment": {
+            "type": "string"
+          },
+          "transform": {
+            "$ref": "#/definitions/AffineTransform"
+          },
+          "blurRadius": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "color": {
+            "$ref": "#/definitions/OpaqueColor"
+          },
+          "alpha": {
+            "type": "number"
+          },
+          "propertyState": {
+            "type": "string"
+          }
+        }
+      },
+      "Link": {
+        "type": "object",
+        "properties": {
+          "relativeLink": {
+            "type": "string"
+          },
+          "pageObjectId": {
+            "type": "string"
+          },
+          "slideIndex": {
+            "type": "integer"
+          },
+          "url": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateImagePropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "imageProperties": {
+            "$ref": "#/definitions/ImageProperties"
+          }
+        }
+      },
+      "ImageProperties": {
+        "type": "object",
+        "properties": {
+          "outline": {
+            "$ref": "#/definitions/Outline"
+          },
+          "shadow": {
+            "$ref": "#/definitions/Shadow"
+          },
+          "link": {
+            "$ref": "#/definitions/Link"
+          },
+          "brightness": {
+            "type": "number"
+          },
+          "contrast": {
+            "type": "number"
+          },
+          "transparency": {
+            "type": "number"
+          },
+          "recolor": {
+            "$ref": "#/definitions/Recolor"
+          },
+          "cropProperties": {
+            "$ref": "#/definitions/CropProperties"
+          }
+        }
+      },
+      "Recolor": {
+        "type": "object",
+        "properties": {
+          "recolorStops": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ColorStop"
+            }
+          },
+          "name": {
+            "type": "string"
+          }
+        }
+      },
+      "ColorStop": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "$ref": "#/definitions/OpaqueColor"
+          },
+          "alpha": {
+            "type": "number"
+          },
+          "position": {
+            "type": "number"
+          }
+        }
+      },
+      "CropProperties": {
+        "type": "object",
+        "properties": {
+          "leftOffset": {
+            "type": "number"
+          },
+          "rightOffset": {
+            "type": "number"
+          },
+          "topOffset": {
+            "type": "number"
+          },
+          "bottomOffset": {
+            "type": "number"
+          },
+          "angle": {
+            "type": "number"
+          }
+        }
+      },
+      "UpdateVideoPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "videoProperties": {
+            "$ref": "#/definitions/VideoProperties"
+          }
+        }
+      },
+      "VideoProperties": {
+        "type": "object",
+        "properties": {
+          "outline": {
+            "$ref": "#/definitions/Outline"
+          },
+          "autoPlay": {
+            "type": "boolean"
+          },
+          "start": {
+            "type": "integer"
+          },
+          "end": {
+            "type": "integer"
+          },
+          "mute": {
+            "type": "boolean"
+          }
+        }
+      },
+      "UpdatePagePropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "pageProperties": {
+            "$ref": "#/definitions/PageProperties"
+          }
+        }
+      },
+      "PageProperties": {
+        "type": "object",
+        "properties": {
+          "pageBackgroundFill": {
+            "$ref": "#/definitions/PageBackgroundFill"
+          },
+          "colorScheme": {
+            "$ref": "#/definitions/ColorScheme"
+          }
+        }
+      },
+      "PageBackgroundFill": {
+        "type": "object",
+        "properties": {
+          "propertyState": {
+            "type": "string"
+          },
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          },
+          "stretchedPictureFill": {
+            "$ref": "#/definitions/StretchedPictureFill"
+          }
+        }
+      },
+      "StretchedPictureFill": {
+        "type": "object",
+        "properties": {
+          "contentUrl": {
+            "type": "string"
+          },
+          "size": {
+            "$ref": "#/definitions/Size"
+          }
+        }
+      },
+      "ColorScheme": {
+        "type": "object",
+        "properties": {
+          "colors": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/ThemeColorPair"
+            }
+          }
+        }
+      },
+      "ThemeColorPair": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "color": {
+            "$ref": "#/definitions/RgbColor"
+          }
+        }
+      },
+      "UpdateTableCellPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "tableRange": {
+            "$ref": "#/definitions/TableRange"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "tableCellProperties": {
+            "$ref": "#/definitions/TableCellProperties"
+          }
+        }
+      },
+      "TableRange": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "rowSpan": {
+            "type": "integer"
+          },
+          "columnSpan": {
+            "type": "integer"
+          }
+        }
+      },
+      "TableCellProperties": {
+        "type": "object",
+        "properties": {
+          "tableCellBackgroundFill": {
+            "$ref": "#/definitions/TableCellBackgroundFill"
+          },
+          "contentAlignment": {
+            "type": "string"
+          }
+        }
+      },
+      "TableCellBackgroundFill": {
+        "type": "object",
+        "properties": {
+          "propertyState": {
+            "type": "string"
+          },
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          }
+        }
+      },
+      "UpdateLinePropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "fields": {
+            "type": "string"
+          },
+          "lineProperties": {
+            "$ref": "#/definitions/LineProperties"
+          }
+        }
+      },
+      "LineProperties": {
+        "type": "object",
+        "properties": {
+          "lineFill": {
+            "$ref": "#/definitions/LineFill"
+          },
+          "weight": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "dashStyle": {
+            "type": "string"
+          },
+          "startArrow": {
+            "type": "string"
+          },
+          "endArrow": {
+            "type": "string"
+          },
+          "link": {
+            "$ref": "#/definitions/Link"
+          }
+        }
+      },
+      "LineFill": {
+        "type": "object",
+        "properties": {
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          }
+        }
+      },
+      "CreateParagraphBulletsRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "textRange": {
+            "$ref": "#/definitions/Range"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "bulletPreset": {
+            "type": "string"
+          }
+        }
+      },
+      "ReplaceAllShapesWithImageRequest": {
+        "type": "object",
+        "properties": {
+          "imageUrl": {
+            "type": "string"
+          },
+          "replaceMethod": {
+            "type": "string"
+          },
+          "containsText": {
+            "$ref": "#/definitions/SubstringMatchCriteria"
+          },
+          "pageObjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DuplicateObjectRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "objectIds": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UpdateTextStyleRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "textRange": {
+            "$ref": "#/definitions/Range"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "style": {
+            "$ref": "#/definitions/TextStyle"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "TextStyle": {
+        "type": "object",
+        "properties": {
+          "foregroundColor": {
+            "$ref": "#/definitions/OptionalColor"
+          },
+          "backgroundColor": {
+            "$ref": "#/definitions/OptionalColor"
+          },
+          "bold": {
+            "type": "boolean"
+          },
+          "italic": {
+            "type": "boolean"
+          },
+          "underline": {
+            "type": "boolean"
+          },
+          "strikethrough": {
+            "type": "boolean"
+          },
+          "smallCaps": {
+            "type": "boolean"
+          },
+          "fontFamily": {
+            "type": "string"
+          },
+          "fontSize": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "link": {
+            "$ref": "#/definitions/Link"
+          },
+          "baselineOffset": {
+            "type": "string"
+          }
+        }
+      },
+      "OptionalColor": {
+        "type": "object",
+        "properties": {
+          "opaqueColor": {
+            "$ref": "#/definitions/OpaqueColor"
+          }
+        }
+      },
+      "ReplaceAllShapesWithSheetsChartRequest": {
+        "type": "object",
+        "properties": {
+          "spreadsheetId": {
+            "type": "string"
+          },
+          "chartId": {
+            "type": "integer"
+          },
+          "linkingMode": {
+            "type": "string"
+          },
+          "containsText": {
+            "$ref": "#/definitions/SubstringMatchCriteria"
+          },
+          "pageObjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "DeleteParagraphBulletsRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "textRange": {
+            "$ref": "#/definitions/Range"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          }
+        }
+      },
+      "UpdateParagraphStyleRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "textRange": {
+            "$ref": "#/definitions/Range"
+          },
+          "cellLocation": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "style": {
+            "$ref": "#/definitions/ParagraphStyle"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "ParagraphStyle": {
+        "type": "object",
+        "properties": {
+          "lineSpacing": {
+            "type": "number"
+          },
+          "alignment": {
+            "type": "string"
+          },
+          "indentStart": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "indentEnd": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "spaceAbove": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "spaceBelow": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "indentFirstLine": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "direction": {
+            "type": "string"
+          },
+          "spacingMode": {
+            "type": "string"
+          }
+        }
+      },
+      "UpdateTableBorderPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "tableRange": {
+            "$ref": "#/definitions/TableRange"
+          },
+          "borderPosition": {
+            "type": "string"
+          },
+          "tableBorderProperties": {
+            "$ref": "#/definitions/TableBorderProperties"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "TableBorderProperties": {
+        "type": "object",
+        "properties": {
+          "tableBorderFill": {
+            "$ref": "#/definitions/TableBorderFill"
+          },
+          "weight": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "dashStyle": {
+            "type": "string"
+          }
+        }
+      },
+      "TableBorderFill": {
+        "type": "object",
+        "properties": {
+          "solidFill": {
+            "$ref": "#/definitions/SolidFill"
+          }
+        }
+      },
+      "UpdateTableColumnPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "columnIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tableColumnProperties": {
+            "$ref": "#/definitions/TableColumnProperties"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "TableColumnProperties": {
+        "type": "object",
+        "properties": {
+          "columnWidth": {
+            "$ref": "#/definitions/Dimension"
+          }
+        }
+      },
+      "UpdateTableRowPropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "rowIndices": {
+            "type": "array",
+            "items": {
+              "type": "integer"
+            }
+          },
+          "tableRowProperties": {
+            "$ref": "#/definitions/TableRowProperties"
+          },
+          "fields": {
+            "type": "string"
+          }
+        }
+      },
+      "TableRowProperties": {
+        "type": "object",
+        "properties": {
+          "minRowHeight": {
+            "$ref": "#/definitions/Dimension"
+          }
+        }
+      },
+      "MergeTableCellsRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "tableRange": {
+            "$ref": "#/definitions/TableRange"
+          }
+        }
+      },
+      "UnmergeTableCellsRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "tableRange": {
+            "$ref": "#/definitions/TableRange"
+          }
+        }
+      },
+      "GroupObjectsRequest": {
+        "type": "object",
+        "properties": {
+          "childrenObjectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "groupObjectId": {
+            "type": "string"
+          }
+        }
+      },
+      "UngroupObjectsRequest": {
+        "type": "object",
+        "properties": {
+          "objectIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      },
+      "UpdatePageElementAltTextRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" }
+        }
+      },
+      "ReplaceImageRequest": {
+        "type": "object",
+        "properties": {
+          "imageObjectId": { "type": "string" },
+          "url": { "type": "string" },
+          "imageReplaceMethod": { "type": "string" }
+        }
+      },
+      "UpdateSlidePropertiesRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "slideProperties": { "$ref": "#/definitions/SlideProperties" },
+          "fields": { "type": "string" }
+        }
+      },
+      "SlideProperties": {
+        "type": "object",
+        "properties": {
+          "notesPage": { "$ref": "#/definitions/Page" },
+          "isSkipped": { "type": "boolean" },
+          "layoutObjectId": { "type": "string" },
+          "masterObjectId": { "type": "string" }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "pageType": { "type": "string" },
+          "pageElements": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/PageElement" }
+          },
+          "revisionId": { "type": "string" },
+          "pageProperties": { "$ref": "#/definitions/PageProperties" },
+          "slideProperties": { "$ref": "#/definitions/SlideProperties" },
+          "layoutProperties": { "$ref": "#/definitions/LayoutProperties" },
+          "notesProperties": { "$ref": "#/definitions/NotesProperties" },
+          "masterProperties": { "$ref": "#/definitions/MasterProperties" }
+        }
+      },
+      "PageElement": {
+        "type": "object",
+        "properties": {
+          "objectId": {
+            "type": "string"
+          },
+          "size": {
+            "$ref": "#/definitions/Size"
+          },
+          "transform": {
+            "$ref": "#/definitions/AffineTransform"
+          },
+          "title": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "elementGroup": {
+            "$ref": "#/definitions/Group"
+          },
+          "shape": {
+            "$ref": "#/definitions/Shape"
+          },
+          "image": {
+            "$ref": "#/definitions/Image"
+          },
+          "video": {
+            "$ref": "#/definitions/Video"
+          },
+          "line": {
+            "$ref": "#/definitions/Line"
+          },
+          "table": {
+            "$ref": "#/definitions/Table"
+          },
+          "wordArt": {
+            "$ref": "#/definitions/WordArt"
+          },
+          "sheetsChart": {
+            "$ref": "#/definitions/SheetsChart"
+          }
+        }
+      },
+      "Group": {
+        "type": "object",
+        "properties": {
+          "children": {
+            "type": "array",
+            "items": { "$ref": "#/definitions/PageElement" }
+          }
+        }
+      },
+      "Shape": {
+        "type": "object",
+        "properties": {
+          "shapeType": { "type": "string" },
+          "text": { "$ref": "#/definitions/TextContent" },
+          "shapeProperties": { "$ref": "#/definitions/ShapeProperties" },
+          "placeholder": { "$ref": "#/definitions/Placeholder" }
+        }
+      },
+      "TextContent": {
+        "type": "object",
+        "properties": {
+          "textElements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TextElement"
+            }
+          },
+          "lists": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/List"
+            }
+          }
+        }
+      },
+      "TextElement": {
+        "type": "object",
+        "properties": {
+          "startIndex": {
+            "type": "integer"
+          },
+          "endIndex": {
+            "type": "integer"
+          },
+          "paragraphMarker": {
+            "$ref": "#/definitions/ParagraphMarker"
+          },
+          "textRun": {
+            "$ref": "#/definitions/TextRun"
+          },
+          "autoText": {
+            "$ref": "#/definitions/AutoText"
+          }
+        }
+      },
+      "ParagraphMarker": {
+        "type": "object",
+        "properties": {
+          "style": {
+            "$ref": "#/definitions/ParagraphStyle"
+          },
+          "bullet": {
+            "$ref": "#/definitions/Bullet"
+          }
+        }
+      },
+      "Bullet": {
+        "type": "object",
+        "properties": {
+          "listId": { "type": "string" },
+          "nestingLevel": { "type": "integer" },
+          "glyph": { "type": "string" },
+          "bulletStyle": { "$ref": "#/definitions/TextStyle" }
+        }
+      },
+      "TextRun": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string"
+          },
+          "style": {
+            "$ref": "#/definitions/TextStyle"
+          }
+        }
+      },
+      "AutoText": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "content": {
+            "type": "string"
+          },
+          "style": {
+            "$ref": "#/definitions/TextStyle"
+          }
+        }
+      },
+      "List": {
+        "type": "object",
+        "properties": {
+          "listId": {
+            "type": "string"
+          },
+          "nestingLevel": {
+            "type": "object",
+            "additionalProperties": {
+              "$ref": "#/definitions/NestingLevel"
+            }
+          }
+        }
+      },
+      "NestingLevel": {
+        "type": "object",
+        "properties": {
+          "bulletStyle": {
+            "$ref": "#/definitions/TextStyle"
+          }
+        }
+      },
+      "Image": {
+        "type": "object",
+        "properties": {
+          "sourceUrl": {
+            "type": "string"
+          },
+          "contentUrl": {
+            "type": "string"
+          },
+          "imageProperties": {
+            "$ref": "#/definitions/ImageProperties"
+          },
+          "placeholder": {
+            "$ref": "#/definitions/Placeholder"
+          }
+        }
+      },
+      "Video": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string"
+          },
+          "videoProperties": {
+            "$ref": "#/definitions/VideoProperties"
+          }
+        }
+      },
+      "Line": {
+        "type": "object",
+        "properties": {
+          "lineType": {
+            "type": "string"
+          },
+          "lineCategory": {
+            "type": "string"
+          },
+          "lineProperties": {
+            "$ref": "#/definitions/LineProperties"
+          }
+        }
+      },
+      "Table": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "integer"
+          },
+          "columns": {
+            "type": "integer"
+          },
+          "tableRows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableRow"
+            }
+          },
+          "tableColumns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableColumn"
+            }
+          },
+          "horizontalBorderRows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableBorderRow"
+            }
+          },
+          "verticalBorderRows": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableBorderRow"
+            }
+          }
+        }
+      },
+      "TableRow": {
+        "type": "object",
+        "properties": {
+          "rowHeight": {
+            "$ref": "#/definitions/Dimension"
+          },
+          "tableCells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableCell"
+            }
+          },
+          "tableRowProperties": {
+            "$ref": "#/definitions/TableRowProperties"
+          }
+        }
+      },
+      "TableCell": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "rowSpan": {
+            "type": "integer"
+          },
+          "columnSpan": {
+            "type": "integer"
+          },
+          "text": {
+            "$ref": "#/definitions/TextContent"
+          },
+          "tableCellProperties": {
+            "$ref": "#/definitions/TableCellProperties"
+          }
+        }
+      },
+      "TableColumn": {
+        "type": "object",
+        "properties": {
+          "tableColumnProperties": {
+            "$ref": "#/definitions/TableColumnProperties"
+          }
+        }
+      },
+      "TableBorderRow": {
+        "type": "object",
+        "properties": {
+          "tableBorderCells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/TableBorderCell"
+            }
+          }
+        }
+      },
+      "TableBorderCell": {
+        "type": "object",
+        "properties": {
+          "location": {
+            "$ref": "#/definitions/TableCellLocation"
+          },
+          "tableBorderProperties": {
+            "$ref": "#/definitions/TableBorderProperties"
+          }
+        }
+      },
+      "WordArt": {
+        "type": "object",
+        "properties": {
+          "renderedText": {
+            "type": "string"
+          }
+        }
+      },
+      "SheetsChart": {
+        "type": "object",
+        "properties": {
+          "spreadsheetId": {
+            "type": "string"
+          },
+          "chartId": {
+            "type": "integer"
+          },
+          "contentUrl": {
+            "type": "string"
+          },
+          "sheetsChartProperties": {
+            "$ref": "#/definitions/SheetsChartProperties"
+          }
+        }
+      },
+      "SheetsChartProperties": {
+        "type": "object",
+        "properties": {
+          "chartImageProperties": {
+            "$ref": "#/definitions/ImageProperties"
+          }
+        }
+      },
+      "LayoutProperties": {
+        "type": "object",
+        "properties": {
+          "name": { "type": "string" },
+          "displayName": { "type": "string" },
+          "masterObjectId": { "type": "string" }
+        }
+      },
+      "NotesProperties": {
+        "type": "object",
+        "properties": {
+          "speakerNotesObjectId": { "type": "string" }
+        }
+      },
+      "MasterProperties": {
+        "type": "object",
+        "properties": {
+          "displayName": { "type": "string" }
+        }
+      },
+      "UpdatePageElementsZOrderRequest": {
+        "type": "object",
+        "properties": {
+          "pageElementObjectIds": {
+            "type": "array",
+            "items": { "type": "string" }
+          },
+          "operation": { "type": "string" }
+        }
+      },
+      "UpdateLineCategoryRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" },
+          "lineCategory": { "type": "string" }
+        }
+      },
+      "RerouteLineRequest": {
+        "type": "object",
+        "properties": {
+          "objectId": { "type": "string" }
+        }
       }
     }
   },
-  "required": ["presentationId", "requests"]
-};
 
+  Get: {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Presentation",
+    "description": "A Google Slides presentation.",
+    "type": "object",
+    "properties": {
+      "presentationId": {
+        "type": "string",
+        "description": "The ID of the presentation."
+      },
+      "pageSize": {
+        "$ref": "#/$defs/Size"
+      },
+      "slides": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/Page"
+        },
+        "description": "The slides in the presentation."
+      },
+      "title": {
+        "type": "string",
+        "description": "The title of the presentation."
+      },
+      "masters": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/Page"
+        },
+        "description": "The slide masters in the presentation."
+      },
+      "layouts": {
+        "type": "array",
+        "items": {
+          "$ref": "#/$defs/Page"
+        },
+        "description": "The layouts in the presentation."
+      },
+      "locale": {
+        "type": "string",
+        "description": "The locale of the presentation, as an IETF BCP 47 language tag."
+      },
+      "revisionId": {
+        "type": "string",
+        "description": "Output only. The revision ID of the presentation.",
+        "readOnly": true
+      },
+      "notesMaster": {
+        "$ref": "#/$defs/Page"
+      }
+    },
+    "$defs": {
+      "Size": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "$ref": "#/$defs/Dimension"
+          },
+          "height": {
+            "$ref": "#/$defs/Dimension"
+          }
+        }
+      },
+      "Dimension": {
+        "type": "object",
+        "properties": {
+          "magnitude": {
+            "type": "number"
+          },
+          "unit": {
+            "type": "string",
+            "enum": ["UNIT_UNSPECIFIED", "EMU", "PT"]
+          }
+        }
+      },
+      "Page": {
+        "type": "object",
+        "description": "A page in a presentation.",
+        "properties": {
+          "objectId": {
+            "type": "string",
+            "description": "The object ID for this page."
+          },
+          "pageType": {
+            "type": "string",
+            "enum": ["SLIDE", "MASTER", "LAYOUT", "NOTES", "NOTES_MASTER"],
+            "description": "The type of the page."
+          },
+          "pageElements": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            },
+            "description": "The page elements rendered on the page."
+          },
+          "revisionId": {
+            "type": "string",
+            "description": "Output only. The revision ID of the presentation.",
+            "readOnly": true
+          },
+          "pageProperties": {
+            "$ref": "#/$defs/PageProperties"
+          },
+          "slideProperties": {
+            "$ref": "#/$defs/SlideProperties"
+          },
+          "layoutProperties": {
+            "$ref": "#/$defs/LayoutProperties"
+          },
+          "notesProperties": {
+            "$ref": "#/$defs/NotesProperties"
+          },
+          "masterProperties": {
+            "$ref": "#/$defs/MasterProperties"
+          }
+        }
+      },
+      "PageProperties": {
+        "type": "object",
+        "properties": {
+          "pageBackgroundFill": {
+            "type": "object"
+          },
+          "colorScheme": {
+            "type": "object"
+          }
+        }
+      },
+      "SlideProperties": {
+        "type": "object",
+        "properties": {
+          "layoutObjectId": {
+            "type": "string"
+          },
+          "masterObjectId": {
+            "type": "string"
+          },
+          "notesPage": {
+            "$ref": "#/$defs/Page"
+          },
+          "isSkipped": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LayoutProperties": {
+        "type": "object",
+        "properties": {
+          "masterObjectId": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "displayName": {
+            "type": "string"
+          }
+        }
+      },
+      "NotesProperties": {
+        "type": "object",
+        "properties": {
+          "speakerNotesObjectId": {
+            "type": "string"
+          }
+        }
+      },
+      "MasterProperties": {
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  },
+
+};
 
 const jsonSchemaForClassroom = {
   Course: {
@@ -8826,3 +12268,604 @@ const jsonSchemaMaps = {
   },
 
 };
+
+/**
+const jsonSchemaForCalendar_requestBody = {
+  "type": "object",
+  "title": "Events resource",
+  "properties": {
+    "anyoneCanAddSelf": {
+      "type": "boolean",
+      "description": "Whether anyone can invite themselves to the event (deprecated). Optional. The default is False. [2]"
+    },
+    "attachments": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "description": "URL link to the attachment. For adding Google Drive file attachments use the same format as in alternateLink property of the Files resource in the Drive API. Required when adding an attachment. [2]"
+          },
+          "title": {
+            "type": "string",
+            "description": "Attachment title. [2]"
+          },
+          "mimeType": {
+            "type": "string",
+            "description": "Internet media type (MIME type) of the attachment. [2]"
+          },
+          "iconLink": {
+            "type": "string",
+            "description": "URL link to the attachment's icon. [2]"
+          },
+          "fileId": {
+            "type": "string",
+            "description": "ID of the attached file. Read-only. For Google Drive files, this is the ID of the corresponding Files resource entry in the Drive API. [2]"
+          }
+        },
+        "required": ["fileUrl"]
+      }
+    },
+    "attendees": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "additionalGuests": {
+            "type": "integer",
+            "description": "Number of additional guests. Optional. The default is 0. [2]"
+          },
+          "comment": {
+            "type": "string",
+            "description": "The attendee's response comment. Optional. [2]"
+          },
+          "displayName": {
+            "type": "string",
+            "description": "The attendee's name, if available. Optional. [2]"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "The attendee's email address, if available. This field must be present when adding an attendee. It must be a valid email address as per RFC5322. Required when adding an attendee. [2]"
+          },
+          "id": {
+            "type": "string",
+            "description": "The attendee's Profile ID, if available. [2]"
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "Whether this is an optional attendee. Optional. The default is False. [2]"
+          },
+          "organizer": {
+            "type": "boolean",
+            "description": "Whether the attendee is the organizer of the event. Read-only. The default is False. [2]"
+          },
+          "resource": {
+            "type": "boolean",
+            "description": "Whether the attendee is a resource. Can only be set when the attendee is added to the event for the first time. Subsequent modifications are ignored. Optional. The default is False. [2]"
+          },
+          "responseStatus": {
+            "type": "string",
+            "enum": ["needsAction", "declined", "tentative", "accepted"],
+            "description": "The attendee's response status. [2]"
+          },
+          "self": {
+            "type": "boolean",
+            "description": "Whether this entry represents the calendar on which this copy of the event appears. Read-only. The default is False. [2]"
+          }
+        },
+        "required": ["email"]
+      }
+    },
+    "attendeesOmitted": {
+      "type": "boolean",
+      "description": "Whether attendees may have been omitted from the event's representation. When retrieving an event, this may be due to a restriction specified by the maxAttendee query parameter. When updating an event, this can be used to only update the participant's response. Optional. The default is False. [2]"
+    },
+    "birthdayProperties": {
+      "type": "object",
+      "description": "Birthday or special event data. Used if eventType is 'birthday'. Immutable. [2]",
+      "properties": {
+        "contact": {
+          "type": "string",
+          "description": "Resource name of the contact this birthday event is linked to. This can be used to fetch contact details from People API. Format: 'people/c12345'. Read-only. [2]"
+        },
+        "customTypeName": {
+          "type": "string",
+          "description": "Custom type label specified for this event. This is populated if birthdayProperties.type is set to 'custom'. Read-only. [2]"
+        },
+        "type": {
+          "type": "string",
+          "description": "Type of birthday or special event. Possible values are: 'anniversary', 'birthday', 'custom', 'other', 'self'. The Calendar API only supports creating events with the type 'birthday'. The type cannot be changed after the event is created. [2]",
+          "enum": [
+            "anniversary",
+            "birthday",
+            "custom",
+            "other",
+            "self"
+          ]
+        }
+      }
+    },
+    "colorId": {
+      "type": "string",
+      "description": "The color of the event. This is an ID referring to an entry in the event section of the colors definition (see the colors endpoint). Optional. [2]"
+    },
+    "conferenceData": {
+      "type": "object",
+      "description": "The conference-related information, such as details of a Google Meet conference. To create new conference details use the createRequest field. To persist your changes, remember to set the conferenceDataVersion request parameter to 1 for all event modification requests. [2]"
+    },
+    "created": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Creation time of the event (as a RFC3339 timestamp). Read-only. [2]"
+    },
+    "creator": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "The creator's name, if available. [2]"
+        },
+        "email": {
+          "type": "string",
+          "description": "The creator's email address, if available. [2]"
+        },
+        "id": {
+          "type": "string",
+          "description": "The creator's Profile ID, if available. [2]"
+        },
+        "self": {
+          "type": "boolean",
+          "description": "Whether the creator corresponds to the calendar on which this copy of the event appears. Read-only. The default is False. [2]"
+        }
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of the event. Can contain HTML. Optional. [2]"
+    },
+    "end": {
+      "type": "object",
+      "description": "The (exclusive) end time of the event. For a recurring event, this is the end time of the first instance. [2]",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date, in the format 'yyyy-mm-dd', if this is an all-day event. [2]"
+        },
+        "dateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time, as a combined date-time value (formatted according to RFC3339). A time zone offset is required unless a time zone is explicitly specified in timeZone. [2]"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "The time zone in which the time is specified. (Formatted as an IANA Time Zone Database name, e.g. 'Europe/Zurich'.) [2]"
+        }
+      }
+    },
+    "endTimeUnspecified": {
+      "type": "boolean",
+      "description": "Whether the end time is actually unspecified. An end time is still provided for compatibility reasons, even if this attribute is set to True. The default is False. [2]"
+    },
+    "etag": {
+      "type": "string",
+      "description": "ETag of the resource. [2]"
+    },
+    "eventType": {
+      "type": "string",
+      "description": "Specific type of the event. This cannot be modified after the event is created. [2]",
+      "enum": [
+        "birthday",
+        "default",
+        "focusTime",
+        "fromGmail",
+        "outOfOffice",
+        "workingLocation"
+      ]
+    },
+    "extendedProperties": {
+      "type": "object",
+      "properties": {
+        "private": {
+          "type": "object",
+          "description": "Properties that are private to the copy of the event that appears on this calendar. [2]"
+        },
+        "shared": {
+          "type": "object",
+          "description": "Properties that are shared between copies of the event on other attendees' calendars. [2]"
+        }
+      }
+    },
+    "focusTimeProperties": {
+      "type": "object",
+      "description": "Focus Time event data. Used if eventType is focusTime. [2]"
+    },
+    "gadget": {
+      "type": "object",
+      "description": "The gadget's display mode. Deprecated. [2]",
+      "properties": {
+        "display": {
+          "type": "string",
+          "enum": ["icon", "chip"]
+        },
+        "height": {
+          "type": "integer"
+        },
+        "iconLink": {
+          "type": "string"
+        },
+        "link": {
+          "type": "string"
+        },
+        "preferences": {
+          "type": "object"
+        },
+        "title": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string"
+        },
+        "width": {
+          "type": "integer"
+        }
+      }
+    },
+    "guestsCanInviteOthers": {
+      "type": "boolean",
+      "description": "Whether attendees other than the organizer can invite others to the event. Optional. The default is True. [2]"
+    },
+    "guestsCanModify": {
+      "type": "boolean",
+      "description": "Whether attendees other than the organizer can modify the event. Optional. The default is False. [2]"
+    },
+    "guestsCanSeeOtherGuests": {
+      "type": "boolean",
+      "description": "Whether attendees other than the organizer can see who the event's attendees are. Optional. The default is True. [2]"
+    },
+    "hangoutLink": {
+      "type": "string",
+      "description": "An absolute link to the Google Hangout associated with this event. Read-only. [2]"
+    },
+    "htmlLink": {
+      "type": "string",
+      "description": "An absolute link to this event in the Google Calendar Web UI. Read-only. [2]"
+    },
+    "iCalUID": {
+      "type": "string",
+      "description": "Event unique identifier as defined in RFC5545. It is used to uniquely identify events accross calendaring systems and must be supplied when importing events via the import method. Note that the iCalUID and the id are not identical and only one of them should be supplied at event creation time. [2]"
+    },
+    "id": {
+      "type": "string",
+      "description": "Opaque identifier of the event. When creating new single or recurring events, you can specify their IDs. [2]"
+    },
+    "kind": {
+      "type": "string",
+      "description": "Type of the resource ('calendar#event'). [2]"
+    },
+    "location": {
+      "type": "string",
+      "description": "Geographic location of the event as free-form text. Optional. [2]"
+    },
+    "locked": {
+      "type": "boolean",
+      "description": "Whether this is a locked event copy where no changes can be made to the main event fields 'summary', 'description', 'location', 'start', 'end' or 'recurrence'. The default is False. Read-Only. [2]"
+    },
+    "organizer": {
+      "type": "object",
+      "properties": {
+        "displayName": {
+          "type": "string",
+          "description": "The organizer's name, if available. [2]"
+        },
+        "email": {
+          "type": "string",
+          "description": "The organizer's email address, if available. It must be a valid email address as per RFC5322. [2]"
+        },
+        "id": {
+          "type": "string",
+          "description": "The organizer's Profile ID, if available. [2]"
+        },
+        "self": {
+          "type": "boolean",
+          "description": "Whether the organizer corresponds to the calendar on which this copy of the event appears. Read-only. The default is False. [2]"
+        }
+      }
+    },
+    "originalStartTime": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date"
+        },
+        "dateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "timeZone": {
+          "type": "string"
+        }
+      }
+    },
+    "outOfOfficeProperties": {
+      "type": "object",
+      "description": "Out of office event data. Used if eventType is outOfOffice. [2]"
+    },
+    "privateCopy": {
+      "type": "boolean",
+      "description": "If set to True, Event propagation is disabled. Note that it is not the same thing as Private event properties. Optional. Immutable. The default is False. [2]"
+    },
+    "recurrence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of RRULE, EXRULE, RDATE and EXDATE lines for a recurring event, as specified in RFC5545. [2]"
+    },
+    "recurringEventId": {
+      "type": "string",
+      "description": "For an instance of a recurring event, this is the id of the recurring event to which this instance belongs. Immutable. [2]"
+    },
+    "reminders": {
+      "type": "object",
+      "properties": {
+        "overrides": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "method": {
+                "type": "string",
+                "enum": ["email", "popup"]
+              },
+              "minutes": {
+                "type": "integer"
+              }
+            },
+            "required": ["method", "minutes"]
+          }
+        },
+        "useDefault": {
+          "type": "boolean"
+        }
+      }
+    },
+    "sequence": {
+      "type": "integer",
+      "description": "Sequence number as per iCalendar. [2]"
+    },
+    "source": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string"
+        }
+      }
+    },
+    "start": {
+      "type": "object",
+      "description": "The (inclusive) start time of the event. For a recurring event, this is the start time of the first instance. [2]",
+      "properties": {
+        "date": {
+          "type": "string",
+          "format": "date",
+          "description": "The date, in the format 'yyyy-mm-dd', if this is an all-day event. [2]"
+        },
+        "dateTime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "The time, as a combined date-time value (formatted according to RFC3339). A time zone offset is required unless a time zone is explicitly specified in timeZone. [2]"
+        },
+        "timeZone": {
+          "type": "string",
+          "description": "The time zone in which the time is specified. (Formatted as an IANA Time Zone Database name, e.g. 'Europe/Zurich'.) [2]"
+        }
+      }
+    },
+    "status": {
+      "type": "string",
+      "enum": ["confirmed", "tentative", "cancelled"],
+      "description": "Status of the event. Optional. [2]"
+    },
+    "summary": {
+      "type": "string",
+      "description": "Title of the event. [2]"
+    },
+    "transparency": {
+      "type": "string",
+      "enum": ["opaque", "transparent"],
+      "description": "Whether the event blocks time on the calendar. Optional. [2]"
+    },
+    "updated": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Last modification time of the main event data (as a RFC3339 timestamp). Updating event reminders will not cause this to change. Read-only. [2]"
+    },
+    "visibility": {
+      "type": "string",
+      "enum": ["default", "public", "private", "confidential"],
+      "description": "Visibility of the event. Optional. [2]"
+    },
+    "workingLocationProperties": {
+      "type": "object",
+      "properties": {
+        "customLocation": {
+          "type": "object",
+          "properties": {
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "homeOffice": {
+          "type": "object"
+        },
+        "officeLocation": {
+          "type": "object",
+          "properties": {
+            "buildingId": {
+              "type": "string"
+            },
+            "deskId": {
+              "type": "string"
+            },
+            "floorId": {
+              "type": "string"
+            },
+            "floorSectionId": {
+              "type": "string"
+            },
+            "label": {
+              "type": "string"
+            }
+          }
+        },
+        "type": {
+          "type": "string",
+          "enum": ["homeOffice", "officeLocation", "customLocation"]
+        }
+      },
+      "required": ["type"]
+    }
+  },
+  "required": [
+    "end",
+    "start"
+  ]
+};
+
+// for insert event.
+const jsonSchemaForCalendar_insertEvent = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Google Calendar API - Events: insert Parameters",
+  "description": "JSON schema for the parameters of the Google Calendar API's Events: insert method. [1, 2]",
+  "type": "object",
+  "properties": {
+    "pathParameters": {
+      "type": "object",
+      "properties": {
+        "calendarId": {
+          "type": "string",
+          "description": "Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the 'primary' keyword. [1]"
+        }
+      }
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "conferenceDataVersion": {
+          "type": "integer",
+          "description": "Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0. [1]",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 0
+        },
+        "maxAttendees": {
+          "type": "integer",
+          "description": "The maximum number of attendees to include in the response. If there are more than the specified number of attendees, only the participant is returned. Optional. [1]"
+        },
+        "sendNotifications": {
+          "type": "boolean",
+          "description": "Deprecated. Please use sendUpdates instead. Whether to send notifications about the event insertion (for example, sending invitations to attendees). Note that some emails might still be sent even if you set the value to false. The default is false. [1]"
+        },
+        "sendUpdates": {
+          "type": "string",
+          "description": "Guests who should receive notifications about the event insertion (for example, sending invitations to attendees). [1]",
+          "enum": [
+            "all",
+            "externalOnly",
+            "none"
+          ]
+        },
+        "supportsAttachments": {
+          "type": "boolean",
+          "description": "Whether API client performing operation supports event attachments. Optional. The default is False. [1]",
+          "default": false
+        }
+      }
+    },
+    "requestBody": jsonSchemaForCalendar_requestBody
+  },
+  "required": [
+    "pathParameters",
+    "requestBody"
+  ]
+};
+
+// for update event.
+const jsonSchemaForCalendar_updateEvent = {
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Google Calendar API - Events: update Parameters",
+  "description": "JSON schema for the parameters of the Google Calendar API's Events: update method. [1, 2]",
+  "type": "object",
+  "properties": {
+    "pathParameters": {
+      "type": "object",
+      "properties": {
+        "calendarId": {
+          "type": "string",
+          "description": "Calendar identifier. To retrieve calendar IDs call the calendarList.list method. If you want to access the primary calendar of the currently logged in user, use the 'primary' keyword. [1]"
+        },
+        "eventId": {
+          "type": "string",
+          "description": "Event identifier. [1]"
+        }
+      },
+      "required": ["eventId"]
+    },
+    "queryParameters": {
+      "type": "object",
+      "properties": {
+        "alwaysIncludeEmail": {
+          "type": "boolean",
+          "description": "Deprecated and ignored. A value will always be returned in the email field for the organizer, creator and attendees, even if no real email address is available (i.e. a generated, non-working value will be provided). [1]"
+        },
+        "conferenceDataVersion": {
+          "type": "integer",
+          "description": "Version number of conference data supported by the API client. Version 0 assumes no conference data support and ignores conference data in the event's body. Version 1 enables support for copying of ConferenceData as well as for creating new conferences using the createRequest field of conferenceData. The default is 0. [1]",
+          "enum": [
+            0,
+            1
+          ],
+          "default": 0
+        },
+        "maxAttendees": {
+          "type": "integer",
+          "description": "The maximum number of attendees to include in the response. If there are more than the specified number of attendees, only the participant is returned. Optional. [1]"
+        },
+        "sendNotifications": {
+          "type": "boolean",
+          "description": "Deprecated. Please use sendUpdates instead. Whether to send notifications about the event update (for example, description changes, etc.). Note that some emails might still be sent even if you set the value to false. The default is false. [1]"
+        },
+        "sendUpdates": {
+          "type": "string",
+          "description": "Guests who should receive notifications about the event update (for example, title changes, etc.). [1]",
+          "enum": [
+            "all",
+            "externalOnly",
+            "none"
+          ]
+        },
+        "supportsAttachments": {
+          "type": "boolean",
+          "description": "Whether API client performing operation supports event attachments. Optional. The default is False. [1]",
+          "default": false
+        }
+      }
+    },
+    "requestBody": jsonSchemaForCalendar_requestBody
+  },
+  "required": [
+    "pathParameters",
+    "requestBody"
+  ]
+};
+ */

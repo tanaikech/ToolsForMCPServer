@@ -25,13 +25,13 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (September 11, 2025), the following 134 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (September 11, 2025), the following 139 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 * `add_label_to_Gmail`: Add labels to threads of Gmail. Don't use the invalid thread IDs.
 * `analytics_admin_accountSummaries_list`: Use to retrieve a list of all Google Analytics accounts accessible by the current user. Each entry provides key details for the account and a summary of its properties, making it useful for discovering available data streams and managing permissions.
 * `analytics_admin_properties_get`: Use to get detailed information about a single Google Analytics property, providing essential details for management and analysis. Use this to confirm property settings or to retrieve its metadata.
-* `analytics_data_properties_runRealtimeReport`: Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes.
-* `analytics_data_properties_runReport`: Use to fetch a custom report from a Google Analytics property. Specify the metrics (e.g., active users, event count) and dimensions (e.g., country, event name) to retrieve specific user activity data.
+* `analytics_data_properties_runRealtimeReport`: Use to generate a customized report of real-time event data from a Google Analytics property, showing events and user activity that occurred within the last 30 minutes. Useful for monitoring live traffic and immediate user behavior.
+* `analytics_data_properties_runReport`: Use to fetch a custom report from a Google Analytics property. Specify the metrics (e.g., active users, event count) and dimensions (e.g., country, event name) to retrieve specific user activity data. This tool is best for answering questions about user behavior, such as "How many active users did we have in Japan last month?" or "What are the top 5 most popular events?"
 * `auto_new_draft_creation_Gmail`: Create automatically drafted emails in Gmail. This function returns the value, including the message ID and the draft ID. When creating the draft email, confirm the owner's name and insert the sender's name into the footer. Don't use '[Your Name]'. If you have no information about the sender's email, don't include the footer of sender's name in the email.
 * `auto_reply_draft_creation_Gmail`: Create automatically drafted reply emails in Gmail. Don't use the invalid message IDs. This function returns the value including the message ID, the draft ID, the URL of the mail.
 * `change_permission_of_file_on_google_drive`: Use to change the permission of a file or folder on Google Drive for a specific user by providing the item ID, user email, and desired role. As a sample situation, when URLs of the files are included in an email, it is required to add the permission to the recipient user to allow the user to read or write the file.
@@ -67,11 +67,9 @@ In the current stage (September 11, 2025), the following 134 tools are provided 
 * `classroom_courses_courseWork_studentSubmissions_return`: Use to returns a student submission using the "courses.courseWork.studentSubmissions.return" method of Google Classroom API.
 * `classroom_courses_courseWork_studentSubmissions_turnIn`: Use to turn in a student submission using the "courses.courseWork.studentSubmissions.turnIn" method of Google Classroom API.
 * `classroom_courses_create`: Use to create a course using the "courses.create" method of Google Classroom API.
-The user specified in ownerId is the owner of the created course and added as a teacher. A non-admin requesting user can only create a course with themselves as the owner. Domain admins can create courses owned by any user within their domain.
 * `classroom_courses_get`: Use to return metadata of a course.
 * `classroom_courses_getGradingPeriodSettings`: Use to return the grading period settings in a course.
 * `classroom_courses_list`: Use to retrieve courses of Google Classroom using a method "courses.list" of Google Classroom API.
-Unless otherwise specified, run this tool without parameters of "studentId", "teacherId", and "courseStates".
 * `classroom_courses_patch`: Use to update one or more fields in a course using the "courses.patch" method of Google Classroom API.
 * `classroom_courses_remove`: Use to deletes a course using the "courses.delete" method of Google Classroom API.
 * `classroom_courses_students_create`: Use to add a user as a student of a course. using the "courses.students.create" method of Google Classroom API.
@@ -91,16 +89,10 @@ Unless otherwise specified, run this tool without parameters of "studentId", "te
 * `classroom_courses_updateGradingPeriodSettings`: Use to update grading period settings of a course using the "courses.updateGradingPeriodSettings" method of Google Classroom API.
 * `classroom_invitations_accept`: Use to accept an invitation using the "invitations.accept" method of Google Classroom API. Accepts an invitation, removing it and adding the invited user to the teachers or students (as appropriate) of the specified course. Only the invited user may accept an invitation.
 * `classroom_invitations_create`: Use to create an invitation using the "invitations.create" method of Google Classroom API.
-Only one invitation for a user and course may exist at a time. Delete and re-create an invitation to make changes.
 * `classroom_invitations_get`: Use to return an invitation using the "invitations.get" method of Google Classroom API.
 * `classroom_invitations_list`: Use to retrieve a list of invitations that the requesting user is permitted to view, restricted to those that match the list request of Google Classroom using a method "invitations.list" of Google Classroom API.
-At least one of userId or courseId must be supplied. Both fields can be supplied.
 * `classroom_invitations_remove`: Use to deletes an invitation using the "invitations.delete" method of Google Classroom API.
 * `classroom_registrations_create`: Use to create a Registration using the "registrations.create" method of Google Classroom API.
-Creates a Registration, causing Classroom to start sending notifications from the provided feed to the destination provided in cloudPubSubTopic.
-Returns the created Registration. Currently, this will be the same as the argument, but with server-assigned fields such as expiryTime and id filled in.
-Note that any value specified for the expiryTime or id fields will be ignored.
-While Classroom may validate the cloudPubSubTopic and return errors on a best effort basis, it is the caller's responsibility to ensure that it exists and that Classroom has permission to publish to it.
 * `classroom_registrations_delete`: Use to deletes a Registration using the "registrations.delete" method of Google Classroom API. Deletes a Registration, causing Classroom to stop sending notifications for that Registration.
 * `classroom_userProfiles_get`: Use to return a user profile using the "userProfiles.get" method of Google Classroom API.
 * `classroom_userProfiles_guardianInvitations_create`: Use to creates a guardian invitation using the "courses.topics.create" method of Google Classroom API. Creates a guardian invitation, and sends an email to the guardian asking them to confirm that they are the student's guardian.
@@ -109,13 +101,11 @@ While Classroom may validate the cloudPubSubTopic and return errors on a best ef
 * `classroom_userProfiles_guardianInvitations_patch`: Use to modify a guardian invitation using the "userProfiles.guardianInvitations.patch" method of Google Classroom API. Currently, the only valid modification is to change the state from PENDING to COMPLETE. This has the effect of withdrawing the invitation.
 * `classroom_userProfiles_guardians_get`: Use to return a specific guardian using the "userProfiles.guardians.get" method of Google Classroom API.
 * `classroom_userProfiles_guardians_list`: Use to retrieve a list of guardians that the requesting user is permitted to view, restricted to those that match the request using a method "userProfiles.guardianInvitations.list" of Google Classroom API.
-To list guardians for any student that the requesting user may view guardians for, use the literal character - for the student ID.
 * `classroom_userProfiles_guardians_remove`: Use to delete a guardian using the "userProfiles.guardians.delete" method of Google Classroom API.
 * `comments_drive_api_list`: Use to get a list of a file's comments on Google Drive.
 * `comments_drive_api_remove`: Use to delete a comment using the "comments.delete" method of Google Drive API.
 * `convert_mimetype_of_file_on_google_drive`: Use this to convert the mimeType of files on Google Drive.
 * `create_document_body_in_google_docs`: Use to create document body in Google Docs.
-This tool puts a document text including paragraphs, tables, lists, images, horizontal rules, and page breaks using Google Apps Script.
 * `create_file_to_google_drive`: Use this to create an empty file to Google Drive.
 * `create_google_docs_from_markdown_on_google_drive`: Use to create a Google Document from a markdown format.
 * `create_schedule_on_Google_Calendar`: Use to create a new schedule (event) on Google Calendar.
@@ -123,13 +113,13 @@ This tool puts a document text including paragraphs, tables, lists, images, hori
 * `description_video_on_youtube`: Use this to describe and summarize a video on YouTube using the YouTube URL.
 * `description_web_site`: Use this to describe sites using URLs.
 * `drive_activity_api_query`: Use to query past activity in Google Drive. The activities of the files and folders in Google Drive are retrieved.
+* `explanation_analytics_data_properties_runRealtimeReport`: Use to help generate a request body for "Method: properties.runRealtimeReport" of Google Analytics Data API.
+* `explanation_analytics_data_properties_runReport`: Use to help generate a request body for "Method: properties.runReport" of Google Analytics Data API.
 * `explanation_create_maps_url`: Use to generate a Google Maps URL of a dynamic map, including various parameters.
-The Google Maps URL can show the specific location as a map, show the route between the origin and the target as a map, show the nearby shops, restaurants, and so on as a map, and so on.
-This tool returns the explanation of how to create a Google Maps URL.
-Generate a Google Maps URL by understanding this returned explanation.
-After you read it, you are not required to call this tool again while you continue to remember this explanation in your history.
+* `explanation_manage_google_docs_using_docs_api`: Use to help generate a request body for "Method: documents.batchUpdate" of Google Docs API.
+* `explanation_manage_google_sheets_using_sheets_api`: Use to help generate a request body for "Method: spreadsheets.batchUpdate" of Google Sheets API.
+* `explanation_manage_google_slides_using_slides_api`: Use to help generate a request body for "Method: presentations.batchUpdate" of Google Slides API.
 * `explanation_reference_export_google_sheets_as_pdf`: Use to help generate a Google Sheets URL including the query parameters for exporting as PDF.
-This tool returns the markdown including how to create a Google Sheets URL for exporting as PDF.
 * `explanation_reference_generate_google_apps_script`: Use to help generate a Google Apps Script effectively.
 * `generate_description_on_google_drive`: Set a description to the file on Google Drive. Use this to generate the description of the file and set it to the file on Google Drive.
 * `generate_image_on_google_drive`: Use this to generate an image from an inputted prompt. The generated image is saved as a file on Google Drive.
@@ -140,33 +130,23 @@ This tool returns the markdown including how to create a Google Sheets URL for e
 * `get_attachment_files_from_Gmail`: Use this to retrieve the attachment files of an email. The attachment files are returned as the file IDs on Google Drive.
 * `get_current_date_time`: The current date and time are returned. Please provide your timezone. If you don't know the timezone, it is automatically detected with the script.
 * `get_current_weather`: Use this to get the current weather using the latitude and the longitude.
-At that time, convert the location to the latitude and the longitude and provide them to the function.
-If you cannot know the location, decide the location using the timezone.
 * `get_exchange_rate`: Use this to get the current exchange rate. Using this, for example, it can exchange yen for dollars.
 * `get_file_from_google_drive`: Use this to get and download a file from Google Drive by giving a filename. When you use this function, the returned data is base64 data. So, you are required to decode base64 data.
-* `get_google_doc_object_using_docs_api`: Use this to get Google Docs Object using Docs API.
-* `get_google_sheet_object_using_sheets_api`: Use this to get Google Sheets Object using Sheets API.
-* `get_google_slides_object_using_slides_api`: Use this to get Google Slides Object using Slides API.
+* `get_google_doc_object_using_docs_api`: Use this to get Google Docs Object using Docs API. When this tool is used, for example, the index of each content in the document body can be retrieved. This cannot be directly used for retrieving text of the document body.
+* `get_google_sheet_object_using_sheets_api`: Use this to get Google Sheets Object using Sheets API. When this tool is used, for example, the sheet names can be converted to sheet IDs. This cannot be used for retrieving the cell values.
+* `get_google_slides_object_using_slides_api`: Use this to get Google Slides Object using Slides API. When this tool is used, for example, the object IDs on the slides can be retrieved.
 * `get_massages_by_search_from_Gmail`: Get messages (emails) from Gmail using the search query. This function returns the messages using the search query.
 * `get_massages_by_time_from_Gmail`: Get messages (emails) from Gmail using the time. This function returns the messages from "after" to now.
 * `get_specific_date_weather`: Use this to get the weather for the specific date using the latitude and the longitude.
-At that time, convert the location to the latitude and the longitude and provide them to the function.
-The date is required to be included. The date format is "yyyy-MM-dd HH:mm"
-If you cannot know the location, decide the location using the timezone.
 * `get_values_from_google_docs`: Use this to get text from Google Docs in a text format or a markdown format. The document ID is used for retrieving the values from the Google Docs. If you use the document URL, get the document ID from the URL and use the ID.
 * `get_values_from_google_sheets`: Use this to get cell values from Google Sheets. The spreadsheet ID is used for retrieving the values from the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.
-* `manage_google_docs_using_docs_api`: Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method.
-In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".
-* `manage_google_sheets_using_sheets_api`: Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method.
-In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".
-* `manage_google_slides_using_slides_api`: Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method.
-In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".
+* `manage_google_docs_using_docs_api`: Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".
+* `manage_google_sheets_using_sheets_api`: Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".
+* `manage_google_slides_using_slides_api`: Use this to manage Google Slides using Slides API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the object ID and so on, it is required to use a tool "get_google_slides_object_using_slides_api".
 * `maps_convert_lat_lon_to_location`: Use this to convert a given geographic point (latitude and longitude) to an approximate location name and address.
 * `maps_convert_location_to_lat_lon`: Use this to convert the location name and address and the location name to an approximate geographic point (latitude and longitude).
 * `maps_create_map`: Use this to create a static map as an image file on Google Drive.
 * `maps_get_route`: Use this to allow for the retrieval of directions between locations.
-The date is required to be included. The date format is "yyyy-MM-dd HH:mm"
-If you cannot know the location, decide the location using the timezone.
 * `move_files_on_google_drive`: Use this to move the files and the folders into other folder on Google Drive.
 * `people_connections_list`: Provides a list of the authenticated user's contacts.
 * `people_contactGroups_list`: List all contact groups owned by the authenticated user. Members of the contact groups are not populated.
@@ -186,7 +166,6 @@ If you cannot know the location, decide the location using the timezone.
 * `send_mails_Gmail`: Use this to send the draft emails which have already been created. If you want to send an email, first, it is required to create a draft email. By this, the draft email can be sent.
 * `summarize_file_on_google_drive`: Use this to describe and summaize a file on Google Drive.
 * `update_schedule_on_Google_Calendar`: Use to update the schedule (event) on Google Calendar.
-# Usage
 
 This section details deploying the MCP server using Google Apps Script and configuring the Gemini CLI to use it.
 
@@ -495,7 +474,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹConfigured MCP servers:
 
-  🟢 gas_web_apps - Ready (134 tools, 3 prompts)
+  🟢 gas_web_apps - Ready (139 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - analytics_admin_accountSummaries_list
@@ -583,7 +562,12 @@ When your setting is correct, the following result is returned.
     - description_video_on_youtube
     - description_web_site
     - drive_activity_api_query
+    - explanation_analytics_data_properties_runRealtimeReport
+    - explanation_analytics_data_properties_runReport
     - explanation_create_maps_url
+    - explanation_manage_google_docs_using_docs_api
+    - explanation_manage_google_sheets_using_sheets_api
+    - explanation_manage_google_slides_using_slides_api
     - explanation_reference_export_google_sheets_as_pdf
     - explanation_reference_generate_google_apps_script
     - generate_description_on_google_drive
@@ -1697,5 +1681,23 @@ function main(eventObject) {
     - explanation_reference_generate_google_apps_script
     - explanation_reference_export_google_sheets_as_pdf
   2. A bug of a tool "convert_mimetype_of_file_on_google_drive" was removed. This is from [this issue report](https://github.com/tanaikech/ToolsForMCPServer/issues/11).
+
+- v1.0.29 (September 15, 2025)
+
+  1. The following 5 tools were added.
+    - explanation_analytics_data_properties_runReport
+    - explanation_analytics_data_properties_runRealtimeReport
+    - explanation_manage_google_sheets_using_sheets_api
+    - explanation_manage_google_docs_using_docs_api
+    - explanation_manage_google_slides_using_slides_api
+  2. The following 8 tools were updated.
+    - get_google_sheet_object_using_sheets_api
+    - manage_google_sheets_using_sheets_api
+    - get_google_doc_object_using_docs_api
+    - manage_google_docs_using_docs_api
+    - get_google_slides_object_using_slides_api
+    - manage_google_slides_using_slides_api
+    - analytics_data_properties_runReport
+    - analytics_data_properties_runRealtimeReport
 
 [TOP](#top)

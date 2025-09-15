@@ -1,6 +1,6 @@
 /**
  * Management of Rag
- * Updated on 20250910 16:20
+ * Updated on 20250915 14:30
  */
 
 function download_data_(url) {
@@ -74,6 +74,66 @@ function explanation_reference_export_google_sheets_as_pdf(object = {}) {
   return download_data_(url);
 }
 
+function explanation_analytics_data_properties_runReport(object = {}) {
+  const _ = object;
+  const text = [
+    `JSON schema for building the request body ("requestBody") for "Method: properties.runReport" of Google Analytics Data API.`,
+    `### JSONSchema`,
+    `"requestBody": Create the request body for "Method: properties.runReport" of Google Analytics Data API using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunReport)}</JSONSchema>`
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_analytics_data_properties_runRealtimeReport(object = {}) {
+  const _ = object;
+  const text = [
+    `JSON schema for building the request body ("requestBody") for "Method: properties.runRealtimeReport" of Google Analytics Data API.`,
+    `### JSONSchema`,
+    `"requestBody": Create the request body for "Method: properties.runRealtimeReport" of Google Analytics Data API using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(jsonSchemaAnalyticsData.RunRealtimeReport)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_manage_google_sheets_using_sheets_api(object = {}) {
+  const _ = object;
+  const text = [
+    `JSON schema for building the request body ("requestBody") for "Method: spreadsheets.batchUpdate" of Google Sheets API.`,
+    `### JSONSchema`,
+    `"requestBody": Create the request body for "Method: spreadsheets.batchUpdate" of Google Sheets API using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(jsonSchemaForSheets.BatchUpdate)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_manage_google_docs_using_docs_api(object = {}) {
+  const _ = object;
+  const text = [
+    `JSON schema for building the request body ("requestBody") for "Method: documents.batchUpdate" of Google Docs API.`,
+    `### JSONSchema`,
+    `"requestBody": Create the request body for "Method: documents.batchUpdate" of Google Docs API using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(jsonSchemaForDocs.BatchUpdate)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_manage_google_slides_using_slides_api(object = {}) {
+  const _ = object;
+  const text = [
+    `JSON schema for building the request body ("requestBody") for "Method: presentations.batchUpdate" of Google Slides API.`,
+    `### JSONSchema`,
+    `"requestBody": Create the request body for "Method: presentations.batchUpdate" of Google Slides API using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(jsonSchemaForSlides.BatchUpdate)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
 // Descriptions of the functions.
 const descriptions_management_rag = {
   explanation_create_maps_url: {
@@ -118,5 +178,80 @@ const descriptions_management_rag = {
     ].join("\n"),
     parameters: { description: "No properties.", type: "object", properties: {} }
   },
-  
+
+  explanation_analytics_data_properties_runReport: {
+    title: `Generate a request body for "Method: properties.runReport" of Google Analytics Data API`,
+    description: [
+      `Use to help generate a request body for "Method: properties.runReport" of Google Analytics Data API.`,
+      `This tool returns the markdown including how to create a request body for "Method: properties.runReport" of Google Analytics Data API.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate a request body for "Method: properties.runReport" of Google Analytics Data API.`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_analytics_data_properties_runRealtimeReport: {
+    title: `Generate a request body for "Method: properties.runRealtimeReport" of Google Analytics Data API`,
+    description: [
+      `Use to help generate a request body for "Method: properties.runRealtimeReport" of Google Analytics Data API.`,
+      `This tool returns the markdown including how to create a request body for "Method: properties.runRealtimeReport" of Google Analytics Data API.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate a request body for "Method: properties.runRealtimeReport" of Google Analytics Data API.`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_manage_google_sheets_using_sheets_api: {
+    title: `Generate a request body for "Method: spreadsheets.batchUpdate" of Google Sheets API`,
+    description: [
+      `Use to help generate a request body for "Method: spreadsheets.batchUpdate" of Google Sheets API.`,
+      `This tool returns the markdown including how to create a request body for "Method: spreadsheets.batchUpdate" of Google Sheets API.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate a request body for "Method: spreadsheets.batchUpdate" of Google Sheets API.`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_manage_google_docs_using_docs_api: {
+    title: `Generate a request body for "Method: documents.batchUpdate" of Google Docs API`,
+    description: [
+      `Use to help generate a request body for "Method: documents.batchUpdate" of Google Docs API.`,
+      `This tool returns the markdown including how to create a request body for "Method: documents.batchUpdate" of Google Docs API.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate a request body for "Method: documents.batchUpdate" of Google Docs API.`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_manage_google_slides_using_slides_api: {
+    title: `Generate a request body for "Method: presentations.batchUpdate" of Google Slides API`,
+    description: [
+      `Use to help generate a request body for "Method: presentations.batchUpdate" of Google Slides API.`,
+      `This tool returns the markdown including how to create a request body for "Method: presentations.batchUpdate" of Google Slides API.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate a request body for "Method: presentations.batchUpdate" of Google Slides API.`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
 };

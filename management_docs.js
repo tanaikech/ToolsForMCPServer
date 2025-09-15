@@ -1,6 +1,6 @@
 /**
  * Management of Google Docs
- * Updated on 20250910 16:20
+ * Updated on 20250915 14:30
  */
 
 /**
@@ -120,30 +120,15 @@ function put_values_into_google_docs(object = {}) {
  * @private
  */
 function get_google_doc_object_using_docs_api(object = {}) {
-  const { documentId = null } = object;
-  let result;
-
   /**
-   * Check API.
+   * Check API
    */
-  const apiName = "Docs";
-  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
-    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
-    return { jsonrpc: "2.0", result };
+  const check = checkAPI_("Docs");
+  if (check.result) {
+    return check;
   }
 
-  try {
-    if (!documentId) {
-      result = { content: [{ type: "text", text: "No document ID." }], isError: true };
-    } else {
-      const obj = Docs.Documents.get(documentId);
-      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
-    }
-  } catch ({ stack }) {
-    result = { content: [{ type: "text", text: stack }], isError: true };
-  }
-  console.log(result); // Check response.
-  return { jsonrpc: "2.0", result };
+  return for_google_apis.get({ func: Docs.Documents.get, args: [object.pathParameters?.documentId, object.queryParameters || {}], jsonSchema: jsonSchemaForDocs.Get });
 }
 
 /**
@@ -151,30 +136,15 @@ function get_google_doc_object_using_docs_api(object = {}) {
  * @private
  */
 function manage_google_docs_using_docs_api(object = {}) {
-  const { documentId = null, requests = [] } = object;
-  let result;
-
   /**
-   * Check API.
+   * Check API
    */
-  const apiName = "Docs";
-  if (isAPIAtAdvancedGoogleServices_(apiName).api == "disable") {
-    result = { content: [{ type: "text", text: `${apiName} API is disabled. Please enable ${apiName} API in the Advanced Google services.` }], isError: true };
-    return { jsonrpc: "2.0", result };
+  const check = checkAPI_("Docs");
+  if (check.result) {
+    return check;
   }
 
-  try {
-    if (!documentId || !Array.isArray(requests) || requests.length == 0) {
-      result = { content: [{ type: "text", text: "No document ID or requests." }], isError: true };
-    } else {
-      const obj = Docs.Documents.batchUpdate({ requests }, documentId);
-      result = { content: [{ type: "text", text: JSON.stringify(obj) }], isError: false };
-    }
-  } catch ({ stack }) {
-    result = { content: [{ type: "text", text: stack }], isError: true };
-  }
-  console.log(result); // Check response.
-  return { jsonrpc: "2.0", result };
+  return for_google_apis.update({ func: Docs.Documents.batchUpdate, args: [object.requestBody, object.pathParameters?.documentId] });
 }
 
 /**
@@ -223,28 +193,6 @@ function create_document_body_in_google_docs(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
-// /**
-//  * This function manages Google Docs using Docs API.
-//  * This is for only @google/gemini-cli with v0.1.13. At v0.1.13, the specification of the schema for MCP was changed. So, I use this tool.
-//  * At v0.1.14, I confirmed that the previous schema could be used. So, this tool was removed, and the above tool is reimplemented.
-//  * @private
-//  */
-// function manage_google_docs_using_docs_api(object = {}) {
-//   const { documentId = null, prompt = null, refUrls = [] } = object;
-//   let result;
-//   try {
-//     if (documentId && prompt) {
-//       const resourceIds = { documentId };
-//       const res = new GenerateRequestBody().generateRequestBody({ apiKey, prompt, jsonSchema: jsonSchemaForDocs, resourceIds, refUrls });
-//       result = { content: [{ type: "text", text: `The generated request body was correctly used, and your request in the prompt was successfully run. The generated request body is as follows.\n${JSON.stringify(res)}` }], isError: false };
-//     }
-//   } catch ({ stack }) {
-//     result = { content: [{ type: "text", text: stack }], isError: true };
-//   }
-//   console.log(result); // Check response.
-//   return { jsonrpc: "2.0", result };
-// }
-
 // Descriptions of the functions.
 const descriptions_management_docs = {
   get_values_from_google_docs: {
@@ -279,22 +227,61 @@ const descriptions_management_docs = {
   },
 
   get_google_doc_object_using_docs_api: {
-    description: "Use this to get Google Docs Object using Docs API. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/get When this tool is used, for example, the index of each content in the document body can be retrieved. This cannot be directly used for retrieving text of the document body.",
+    description: "Use this to get Google Docs Object using Docs API. When this tool is used, for example, the index of each content in the document body can be retrieved. This cannot be directly used for retrieving text of the document body.",
     parameters: {
       type: "object",
       properties: {
-        documentId: { type: "string", description: "Document ID of Google Docs." },
+        pathParameters: {
+          type: "object",
+          properties: {
+            documentId: { type: "string", description: "The document ID of the document to retrieve." }
+          },
+          required: ["documentId"]
+        },
+        queryParameters: {
+          type: "object",
+          properties: {
+            suggestionsViewMode: {
+              type: "string",
+              description: "The suggestions view mode to apply to the document. This allows viewing the document with all suggestions inline, accepted or rejected. If one is not specified, DEFAULT_FOR_CURRENT_ACCESS is used.",
+              enum: ["DEFAULT_FOR_CURRENT_ACCESS", "SUGGESTIONS_INLINE", "PREVIEW_SUGGESTIONS_ACCEPTED", "PREVIEW_WITHOUT_SUGGESTIONS"]
+            },
+            excludeTablesInBandedRanges: {
+              type: "boolean", description: [
+                `Whether to populate the Document.tabs field instead of the text content fields like body and documentStyle on Document.`,
+                `When True: Document content populates in the Document.tabs field instead of the text content fields in Document.`,
+                `When False: The content of the document's first tab populates the content fields in Document excluding Document.tabs. If a document has only one tab, then that tab is used to populate the document content. Document.tabs will be empty.`,
+              ].join("\n")
+            },
+          }
+        }
       },
-      required: ["documentId"]
+      required: ["pathParameters"]
     }
   },
 
   manage_google_docs_using_docs_api: {
-    description: [
-      "Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. https://developers.google.com/workspace/docs/api/reference/rest/v1/documents/batchUpdate",
-      `In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".`,
-    ].join("\n"),
-    parameters: jsonSchemaForDocs,
+    title: "Updates Google Docs",
+    description: `Use this to manage Google Docs using Docs API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the document, including the index and so on, it is required to use a tool "get_google_doc_object_using_docs_api".`,
+    parameters: {
+      type: "object",
+      properties: {
+        requestBody: {
+          type: "object",
+          description: `Create the request body for "Method: documents.batchUpdate" of Google Docs API. If you want to know how to create the request body, please check a tool "explanation_manage_google_docs_using_docs_api".`,
+        },
+        pathParameters: {
+          type: "object",
+          properties: {
+            documentId: {
+              type: "string", description: "The document ID to apply the updates to."
+            }
+          },
+          required: ["documentId"]
+        }
+      },
+      required: ["requestBody", "pathParameters"]
+    }
   },
 
   create_document_body_in_google_docs: {
@@ -381,25 +368,5 @@ const descriptions_management_docs = {
       required: ["documentId", "documentText"]
     }
   },
-
-  // /**
-  //  * This is for only @google/gemini-cli with v0.1.13.
-  //  */
-  // manage_google_docs_using_docs_api: {
-  //   description: `Use this to manage Google Docs using the batchUpdate method of the Docs API. The information of the index of each content can be retrieved by a tool "get_google_doc_object_using_docs_api". If the request cannot be achieved by the tool "put_values_into_google_docs", try it with this tool.`,
-  //   parameters: {
-  //     type: "object",
-  //     properties: {
-  //       documentId: { type: "string", description: "Document ID of Google Docs." },
-  //       prompt: { type: "string", description: "Prompt. Provide the request for processing using the Docs API by natural language. In order to help generate the request body, if it is required to add more information and the modification points, please reflect them in the provided prompt and provide it as the new prompt." },
-  //       refUrls: {
-  //         type: "array",
-  //         description: "URLs for helping to generate the request body. If the request is complicated, provide the URLs with the information for helping to help generate the request body.",
-  //         items: { type: "string", description: "URL" }
-  //       },
-  //     },
-  //     required: ["documentId", "prompt"]
-  //   }
-  // },
 
 };

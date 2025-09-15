@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20250910 16:20
- * version 1.0.28
+ * Updated on 20250915 14:30
+ * version 1.0.29
  */
 
-const ToolsForMCPServerVersion = "1.0.28";
+const ToolsForMCPServerVersion = "1.0.29";
 const ProtocolVersion = "2025-06-18";
 const ServerName = "gas_web_apps";
 
@@ -80,8 +80,8 @@ function functions_() {
       descriptions_management_gmail,
       descriptions_management_sheets,
       descriptions_management_slides,
-      descriptions_use_gemini,
       descriptions_management_rag,
+      descriptions_use_gemini,
 
       // descriptions_dev,
     );
