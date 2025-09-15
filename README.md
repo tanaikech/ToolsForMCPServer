@@ -1684,20 +1684,25 @@ function main(eventObject) {
 
 - v1.0.29 (September 15, 2025)
 
+- v1.0.29 (September 15, 2025)
+
   1. The following 5 tools were added. These tools provide the information for building the request body of Google APIs.
-    - explanation_analytics_data_properties_runReport
-    - explanation_analytics_data_properties_runRealtimeReport
-    - explanation_manage_google_sheets_using_sheets_api
-    - explanation_manage_google_docs_using_docs_api
-    - explanation_manage_google_slides_using_slides_api
+
+     - explanation_analytics_data_properties_runReport
+     - explanation_analytics_data_properties_runRealtimeReport
+     - explanation_manage_google_sheets_using_sheets_api
+     - explanation_manage_google_docs_using_docs_api
+     - explanation_manage_google_slides_using_slides_api
+
   2. The following 8 tools were updated.
-    - get_google_sheet_object_using_sheets_api
-    - manage_google_sheets_using_sheets_api
-    - get_google_doc_object_using_docs_api
-    - manage_google_docs_using_docs_api
-    - get_google_slides_object_using_slides_api
-    - manage_google_slides_using_slides_api
-    - analytics_data_properties_runReport
-    - analytics_data_properties_runRealtimeReport
+
+     - get_google_sheet_object_using_sheets_api
+     - manage_google_sheets_using_sheets_api
+     - get_google_doc_object_using_docs_api
+     - manage_google_docs_using_docs_api
+     - get_google_slides_object_using_slides_api
+     - manage_google_slides_using_slides_api
+     - analytics_data_properties_runReport
+     - analytics_data_properties_runRealtimeReport
 
 [TOP](#top)
