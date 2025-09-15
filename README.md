@@ -1684,8 +1684,6 @@ function main(eventObject) {
 
 - v1.0.29 (September 15, 2025)
 
-- v1.0.29 (September 15, 2025)
-
   1. The following 5 tools were added. These tools provide the information for building the request body of Google APIs.
 
      - explanation_analytics_data_properties_runReport
