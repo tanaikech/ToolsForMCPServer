@@ -1,6 +1,6 @@
 /**
  * Management of Google Forms
- * Updated on 20250816 11:45
+ * Updated on 20250916 13:56
  */
 
 /**
@@ -70,7 +70,7 @@ const descriptions_management_forms = {
         itemList: {
           description: `Create "itemList" by understanding how to create "itemList" by calling a tool "explanation_generate_survey_with_google_forms".`,
           type: "array",
-          items: {}
+          items: { type: "object" }
         }
       },
       required: ["title", "itemList"]
@@ -86,7 +86,7 @@ const descriptions_management_forms = {
         itemList: {
           description: `Create "itemList" by understanding how to create "itemList" by calling a tool "explanation_generate_quiz_with_google_forms".`,
           type: "array",
-          items: {}
+          items: { type: "object" }
         }
       },
       required: ["title", "itemList"]

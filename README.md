@@ -1707,4 +1707,8 @@ function main(eventObject) {
 
   1. Updated JSON schema for "generate_survey_with_google_forms" and "generate_quiz_with_google_forms". And, added 2 tools of "explanation_generate_survey_with_google_forms" and "explanation_generate_quiz_with_google_forms". Recently, the complex JSON schema cannot be used. By this, when it is required to generate the complex JSON, I use the RAG to provide the explanation of the complex schema.
 
+- v1.0.31 (September 16, 2025)
+
+  1. Modified JSON schema for "generate_survey_with_google_forms" and "generate_quiz_with_google_forms".
+
 [TOP](#top)
