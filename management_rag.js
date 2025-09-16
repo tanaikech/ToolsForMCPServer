@@ -1,6 +1,6 @@
 /**
  * Management of Rag
- * Updated on 20250915 14:30
+ * Updated on 20250816 11:45
  */
 
 function download_data_(url) {
@@ -134,6 +134,105 @@ function explanation_manage_google_slides_using_slides_api(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+function explanation_generate_survey_with_google_forms(object = {}) {
+  const _ = object;
+  const itemList = {
+    type: "array",
+    items: {
+      type: "object",
+      properties: {
+        itemTitle: { type: "string", description: "Title of question." },
+        helpText: { type: "string", description: "Description of the question." },
+        required: { type: "boolean", description: "When the user has to answer, set to true. Please set false as the default value." },
+        itemMethod: {
+          type: "string",
+          description: [
+            `Select one of the following "Methods". These are the methods of the Class Form of Google Apps Script. The reference page is "https://developers.google.com/apps-script/reference/forms/form".`,
+            `<Methods>addCheckboxItem,addDateItem,addDateTimeItem,addTimeItem,addListItem,addMultipleChoiceItem,addParagraphTextItem,addTextItem</Methods>`,
+          ].join("\n")
+        },
+        params: {
+          type: "array",
+          description: `Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.`,
+          items: {
+            type: "object",
+            properties: {
+              method: { type: "string", description: `Method name. This method is the method of the Class object selected at "itemMethod". Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.` },
+              choiceValues: {
+                type: "array",
+                items: {
+                  type: "string",
+                  description: `Only when you select one of the methods "addCheckboxItem","addListItem","addMultipleChoiceItem" for "itemMethod", "setChoiceValues" is required to be selected as "method". At that time, set the choice values.`,
+                }
+              }
+            },
+            required: ["method", "choiceValues"]
+          }
+        },
+      },
+      required: ["itemTitle", "helpText", "required", "itemMethod", "params"]
+    }
+  };
+  const text = [
+    `JSON schema for building the itemList for the tool "generate_survey_with_google_forms".`,
+    `### JSONSchema`,
+    `"itemList": Create the itemList for the tool "generate_survey_with_google_forms" using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(itemList)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_generate_quiz_with_google_forms(object = {}) {
+  const _ = object;
+  const itemList = {
+    type: "array",
+    items: {
+      type: "object",
+      properties: {
+        itemTitle: { type: "string", description: "Title of question." },
+        helpText: { type: "string", description: "Description of the question." },
+        required: { type: "boolean", description: "When the user has to answer, set to true. Please set false as the default value." },
+        itemMethod: {
+          type: "string",
+          description: [
+            `Select one of the following "Methods". These are the methods of the Class Form of Google Apps Script. The reference page is "https://developers.google.com/apps-script/reference/forms/form".`,
+            `<Methods>addCheckboxItem,addDateItem,addDateTimeItem,addTimeItem,addListItem,addMultipleChoiceItem,addParagraphTextItem,addTextItem</Methods>`,
+          ].join("\n")
+        },
+        params: {
+          type: "array",
+          description: `Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.`,
+          items: {
+            type: "object",
+            properties: {
+              method: { type: "string", description: `Method name. This method is the method of the Class object selected at "itemMethod". Only when you select one of the methods "addCheckboxItem", "addListItem", "addMultipleChoiceItem" for "itemMethod", set "setChoiceValues". When you select the methods except for "addCheckboxItem", "addListItem", "addMultipleChoiceItem" to "itemMethod", this value should be only [], which is an empty array.` },
+              choiceValues: {
+                type: "array",
+                items: {
+                  type: "string",
+                  description: `Only when you select one of the methods "addCheckboxItem","addListItem","addMultipleChoiceItem" for "itemMethod", "setChoiceValues" is required to be selected as "method". At that time, set the choice values.`,
+                }
+              },
+              correctIndex: { type: "number", description: `The index of the correct answer in "choiceValues" of the array.` }
+            },
+            required: ["method", "choiceValues", "correctIndex"]
+          }
+        },
+      },
+      required: ["itemTitle", "helpText", "required", "itemMethod", "params"]
+    }
+  };
+  const text = [
+    `JSON schema for building the itemList for the tool "generate_quiz_with_google_forms".`,
+    `### JSONSchema`,
+    `"itemList": Create the itemList for the tool "generate_quiz_with_google_forms" using the following JSON schema.`,
+    `<JSONSchema>${JSON.stringify(itemList)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
 // Descriptions of the functions.
 const descriptions_management_rag = {
   explanation_create_maps_url: {
@@ -250,6 +349,34 @@ const descriptions_management_rag = {
       `### Supplement`,
       `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
       `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_generate_survey_with_google_forms: {
+    title: `Generate itemList for the tool "generate_survey_with_google_forms"`,
+    description: [
+      `Use to help generate itemList for the tool "generate_survey_with_google_forms".`,
+      `This tool returns the markdown including how to create itemList for the tool "generate_survey_with_google_forms".`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate itemList for the tool "generate_survey_with_google_forms".`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_generate_quiz_with_google_forms: {
+    title: `Generate itemList for the tool "generate_quiz_with_google_forms"`,
+    description: [
+      `Use to help generate itemList for the tool "generate_quiz_with_google_forms".`,
+      `This tool returns the markdown including how to create itemList for the tool "generate_quiz_with_google_forms".`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate itemList for the tool "generate_quiz_with_google_forms".`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
     ].join("\n"),
     parameters: { description: "No properties.", type: "object", properties: {} }
   },
