@@ -1,6 +1,6 @@
 /**
  * Management of Rag
- * Updated on 20250816 11:45
+ * Updated on 20250917 15:11
  */
 
 function download_data_(url) {
@@ -233,6 +233,41 @@ function explanation_generate_quiz_with_google_forms(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+function explanation_search_file_in_google_drive(object = {}) {
+  const _ = object;
+
+  const text = `### Search Query Terms and Operators
+
+The search query language for the Drive API consists of three parts: a query term, an operator, and values.
+
+*   **Query Terms:** These are the fields you can search on, such as \`name\`, \`mimeType\`, \`modifiedTime\`, \`starred\`, \`trashed\`, \`owners\`, \`writers\`, and \`readers\`. For searching the content of a file, you can use the \`fullText\` term.
+*   **Operators:** A variety of operators are available to specify the condition for the query term. These include \`contains\`, \`=\`, \`!=\`, \`<\`, \`>\`, \`<=\`, \`>=\`, \`in\`, \`and\`, \`or\`, and \`not\`.
+*   **Values:** These are the specific values you want to use to filter your search results.
+
+### Search for Files and Folders
+
+You can search for files and folders using the \`files.list\` method. To filter the results, you use the \`q\` query string parameter, which combines one or more search terms and operators.
+
+For example, to search for folders, you would use the query string \`mimeType = 'application/vnd.google-apps.folder'\`. You can also search for files with specific names, files modified after a certain date, or files shared with the current user. The \`corpora\` parameter allows you to search beyond the user's files to include files shared with a domain. The documentation also provides code examples in several programming languages to demonstrate how to perform searches.
+
+### Search for Shared Drives
+
+To search for shared drives, you use the \`drives.list\` method with the \`q\` query string. Many of the query terms for shared drives, such as \`createdTime\`, \`memberCount\`, and \`organizerCount\`, require the \`useDomainAdminAccess\` parameter to be set to \`true\`.
+
+You can construct complex queries by grouping multiple terms with parentheses. For instance, you can search for shared drives created after a specific date that have either more than a certain number of organizers or members.
+
+### References
+- [Search query terms and operators](https://developers.google.com/workspace/drive/api/guides/ref-search-terms)
+- [Search for files and folders](https://developers.google.com/workspace/drive/api/guides/search-files)
+- [Search for shared drives](https://developers.google.com/workspace/drive/api/guides/search-shareddrives)`;
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+function explanation_google_apps_script_library_list(object = {}) {
+  return explanation_reference_generate_google_apps_script(object);
+}
+
 // Descriptions of the functions.
 const descriptions_management_rag = {
   explanation_create_maps_url: {
@@ -375,6 +410,38 @@ const descriptions_management_rag = {
       `Your mission is as follows.`,
       `### Mission`,
       `1. By understanding the user's prompt and this markdown, generate itemList for the tool "generate_quiz_with_google_forms".`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_search_file_in_google_drive: {
+    title: `Generate search query for "Method: files.list" of Drive API v3. This is used for the tool "search_file_in_google_drive"`,
+    description: [
+      `Use to help generate search query for "Method: files.list" of Drive API v3. This is used for the tool "search_file_in_google_drive".`,
+      `This tool returns the markdown including how to search query for "Method: files.list" of Drive API v3. This is used for the tool "search_file_in_google_drive".`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. By understanding the user's prompt and this markdown, generate itemList for the tool "generate_quiz_with_google_forms".`,
+      `### Supplement`,
+      `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+      `- If those contents were not useful, retrieve the useful contents by searching on StackOverflow. The search keywords are like "stackoverflow Google Apps Script {the special words related to the goal for achieving by Google Apps Script}"`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_google_apps_script_library_list: {
+    title: "Get Google Apps Script library list",
+    description: [
+      `Use to get the Google Apps Script library list. Those libraries are created by Tanaike.`,
+      `This tool returns the markdown including the titles and the hyperlinks for retrieving the suitable libraries.`,
+      `Your mission is as follows.`,
+      `### Mission`,
+      `1. Understand the prompt.`,
+      `2. By following the prompt, retrieve the library titles, descriptions, and links as a list from the returned markdown.`,
+      `3. Access the hyperlinks of your selected titles and retrieve the content from each link.`,
+      `4. Summarize the library list.`,
       `### Supplement`,
       `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
     ].join("\n"),

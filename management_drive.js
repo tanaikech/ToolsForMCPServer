@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250910 16:20
+ * Updated on 20250917 15:11
  */
 
 /**
@@ -512,7 +512,7 @@ const descriptions_management_drive = {
       properties: {
         query: {
           type: "string",
-          description: `Search query. In this case, the files are searched using "Method: files.list" of Drive API v3. "https://developers.google.com/workspace/drive/api/reference/rest/v3/files/list" The official document of "Search query terms and operators" is "https://developers.google.com/workspace/drive/api/guides/ref-search-terms".`
+          description: `Search query. In this case, the files are searched using "Method: files.list" of Drive API v3. The tool "explanation_search_file_in_google_drive" will help to generate the search query.`
         }
       },
       required: ["query"]
