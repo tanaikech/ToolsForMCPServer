@@ -44,7 +44,7 @@ async function request_({ name, method, body }) {
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
   }
-  console.log(result); // Check response.
+  // console.log(result); // Check response. // Removed.
   return result;
 }
 
