@@ -44,7 +44,7 @@ async function request_({ name, method, body }) {
   } catch ({ stack }) {
     result = { content: [{ type: "text", text: stack }], isError: true };
   }
-  // console.log(result); // Check response. // Removed.
+  // console.log(result); // Check response.
   return result;
 }
 
@@ -1404,6 +1404,12 @@ const tools_management_sheets = [
                 "True if tables should be excluded in the banded ranges. False if not set."
               )
               .optional(),
+            fields: z
+              .string()
+              .describe(
+                "Field masks are a way for API callers to list the fields that a request should return or update. Using a FieldMask allows the API to avoid unnecessary work and improves performance. If you want more information about 'fields', please search https://developers.google.com/workspace/sheets/api/guides/field-masks"
+              )
+              .optional(),
           })
           .optional(),
       },
@@ -1418,7 +1424,7 @@ const tools_management_sheets = [
   {
     name: "manage_google_sheets_using_sheets_api",
     schema: {
-      description: `Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".`,
+      description: `Use this to update Google Sheets using the Sheets API. Provide the request body for the batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".`,
       inputSchema: {
         requestBody: z
           .record(z.any())

@@ -1626,4 +1626,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
   2. In order to reduce the startup speed for loading the MCP server, I created a wrapper. [Ref](https://github.com/tanaikech/ToolsForMCPServer/tree/master/Wrapper_for_reduce_load_time_of_MCP)
 
+- v1.0.33 (September 20, 2025)
+
+  1. The bug was removed from "management_sheets.js".
+
 [TOP](#top)

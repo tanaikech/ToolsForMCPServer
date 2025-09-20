@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250915 14:30
+ * Updated on 20250920 13:00
  */
 
 /**
@@ -83,7 +83,11 @@ function put_values_to_google_sheets(object = {}) {
           rangeObj = sheet.getRange(sheet.getLastRow() + 1, 1, values.length, values[0].length);
         }
         rangeObj.setValues(values);
-        result = { content: [{ type: "text", text: `${JSON.stringify(values)} were put into the range "${rangeObj.getA1Notation()}" of the "${sheet.getName()}" sheet on the Google Sheets of "${sheet.getParent().getName()}".` }], isError: false };
+        // result = { content: [{ type: "text", text: `${JSON.stringify(values)} were put into the range "${rangeObj.getA1Notation()}" of the "${sheet.getName()}" sheet on the Google Sheets of "${sheet.getParent().getName()}".` }], isError: false };
+        const sheetName = sheet.getName();
+        const sheetId = sheet.getSheetId();
+        const ssName = sheet.getParent().getName();
+        result = { content: [{ type: "text", text: `${JSON.stringify(values)} were put into the range "${rangeObj.getA1Notation()}" of the "${sheetName}" sheet on the Google Sheets of "${ssName}". The sheet ID of "${sheetName}" is "${sheetId}".` }], isError: false };
       }
     }
   } catch ({ stack }) {
@@ -211,7 +215,7 @@ const descriptions_management_sheets = {
   },
 
   get_google_sheet_object_using_sheets_api: {
-    description: "Use this to get Google Sheets Object using Sheets API. When this tool is used, for example, the sheet names can be converted to sheet IDs. This cannot be used for retrieving the cell values.",
+    description: "Use this to get Google Sheets Object using Sheets API. When this tool is used, for example, the sheet names can be converted to sheet IDs. This cannot be used for retrieving the cell values. In order to retrieve the minimum necessary information, it is recommended to use 'fields' in queryParameters.",
     parameters: {
       type: "object",
       properties: {
@@ -228,6 +232,7 @@ const descriptions_management_sheets = {
             ranges: { type: "array", items: { type: "string", description: "The ranges to retrieve from the spreadsheet. It's A1Notation." } },
             includeGridData: { type: "boolean", description: "True if grid data should be returned. This parameter is ignored if a field mask was set in the request." },
             excludeTablesInBandedRanges: { type: "boolean", description: "True if tables should be excluded in the banded ranges. False if not set." },
+            fields: { type: "string", description: "Field masks are a way for API callers to list the fields that a request should return or update. Using a FieldMask allows the API to avoid unnecessary work and improves performance. If you want more information about 'fields', please search https://developers.google.com/workspace/sheets/api/guides/field-masks" },
           }
         }
       },
@@ -237,7 +242,7 @@ const descriptions_management_sheets = {
 
   manage_google_sheets_using_sheets_api: {
     title: "Updates Google Sheets",
-    description: `Use this to manage Google Sheets using Sheets API. Provide the request body for batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".`,
+    description: `Use this to update Google Sheets using the Sheets API. Provide the request body for the batchUpdate method. In order to retrieve the detailed information of the spreadsheet, including the sheet ID and so on, it is required to use a tool "get_google_sheet_object_using_sheets_api".`,
     parameters: {
       type: "object",
       properties: {
