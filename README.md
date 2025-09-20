@@ -253,6 +253,12 @@ or
   GEMINI_TIMEOUT=300 # Seconds
   ```
 
+#### [NEW] As another connection between Gemini CLI and the MCP server built by Google Apps Script Web Apps
+
+When you use the above method, you might feel the slow loading of the MCP server. If you want to resolve it, how about using the following approach?
+
+In order to reduce the startup speed for loading the MCP server, I created a wrapper. Please check [this](https://github.com/tanaikech/ToolsForMCPServer/tree/master/Wrapper_for_reduce_load_time_of_MCP).
+
 ### 3. Transfer file content (Added on July 9, 2025)
 
 Recently, I published a report titled "Processing File Content Using Gemini CLI with an MCP Server Built by Google Apps Script" [Ref](https://medium.com/google-cloud/processing-file-content-using-gemini-cli-with-an-mcp-server-built-by-google-apps-script-86e2675e4d6b). In this report, I concluded that using the Drive API in the background is more effective for transferring file content between Gemini CLI and Google Drive than embedding base64 data directly in the prompt. Therefore, to facilitate this effective transfer, I use **ggsrun**, a CLI tool.
