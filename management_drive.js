@@ -1,6 +1,6 @@
 /**
  * Management of Google Drive
- * Updated on 20250917 15:11
+ * Updated on 20250922 15:00
  */
 
 /**
@@ -337,6 +337,46 @@ function change_permission_of_file_on_google_drive(object = {}) {
   return { jsonrpc: "2.0", result };
 }
 
+function publicly_share_file_on_google_drive(object = {}) {
+  const { fileId, access, permission } = object;
+  let result;
+  try {
+    if (!fileId || !access || !permission) {
+      throw new Error("Missing required parameters. Please provide 'fileId', 'access', and 'permission'.");
+    }
+    if (!["ANYONE", "ANYONE_WITH_LINK", "DOMAIN", "DOMAIN_WITH_LINK", "PRIVATE"].includes(access.toUpperCase())) {
+      throw new Error("Invalid access specified.");
+    }
+    if (!["COMMENT", "EDIT", "FILE_ORGANIZER", "NONE", "ORGANIZER", "OWNER", "VIEW"].includes(permission.toUpperCase())) {
+      throw new Error("Invalid permission specified.");
+    }
+
+    let item;
+    let itemType;
+
+    try {
+      item = DriveApp.getFileById(fileId);
+      itemType = "file";
+    } catch (e) {
+      try {
+        item = DriveApp.getFolderById(fileId);
+        itemType = "folder";
+      } catch (f) {
+        throw new Error(`Could not find a file or folder with the ID '${fileId}'.`);
+      }
+    }
+
+    item.setSharing(DriveApp.Access[access], DriveApp.Permission[permission]);
+
+    result = { content: [{ type: "text", text: `The ${itemType} '${item.getName()}' (ID: ${fileId}) was publicly shared as ${access} and ${permission}.` }], isError: false };
+
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 /**
  * This function creates Google Docs by converting the markdown format.
  * @private
@@ -643,9 +683,56 @@ const descriptions_management_drive = {
         role: {
           description: "The permission level to grant. Accepted values are 'viewer', 'commenter', or 'editor'.",
           type: "string"
-        },
+        }
       },
       required: ["fileId", "email", "role"]
+    }
+  },
+
+  publicly_share_file_on_google_drive: {
+    description: [
+      "Use to publicly share a file or folder on Google Drive by providing the item ID and desired role. As a sample situation, when you want to publicly show the file on Google Drive, it is required to publicly share the file as VIEW.",
+      `### Create thumbnail link`,
+      `In the case of a file on Google Drive, the public thumbnail link can be created by publicly sharing the file. The following description shows the steps to retrieve the thumbnail link from a file on Google Drive.`,
+      `1. Change the permission of the file as ANYONE_WITH_LINK and VIEW for access and permission, respectively.`,
+      `2. Return the thumbnail link using the file ID. The link format is as follows`,
+      `https://drive.google.com/thumbnail?sz=w1000&id={fileId}`,
+      `  - Replace {fileId} with the actual file ID.`,
+      `  - "w1000" is the width of the thumbnail image as pixels. When you want to change the thumbnail image size, use this parameter. The default should be "w1000".`,
+    ].join("\n"),
+    parameters: {
+      type: "object",
+      properties: {
+        fileId: {
+          description: "The ID of the file or folder on Google Drive whose permissions need to be changed.",
+          type: "string"
+        },
+        access: {
+          description: "An enum representing classes of users who can access a file or folder, besides any individual users who have been explicitly given access. When you want to only show the file, ANYONE_WITH_LINK is suitable. When you don't want to publicly share the file, please use PRIVATE.",
+          type: "string",
+          enum: [
+            "ANYONE",
+            "ANYONE_WITH_LINK",
+            "DOMAIN",
+            "DOMAIN_WITH_LINK",
+            "PRIVATE"
+          ]
+        },
+        permission: {
+          description: "An enum representing the permissions granted to users who can access a file or folder, besides any individual users who have been explicitly given access. When you want to only show the file, VIEW is suitable. When you don't want to publicly share the file, please use NONE.",
+          type: "string",
+          enum: [
+            "COMMENT",
+            "EDIT",
+            "FILE_ORGANIZER",
+            "NONE",
+            "ORGANIZER",
+            "OWNER",
+            "VIEW",
+          ]
+        }
+      },
+      required: ["fileId", "access", "permission"]
     }
   },
 

@@ -1630,4 +1630,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
   1. The bug was removed from "management_sheets.js".
 
+- v1.0.34 (September 22, 2025)
+
+  1. A new tool "publicly_share_file_on_google_drive" was added.
+
 [TOP](#top)

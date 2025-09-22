@@ -986,6 +986,58 @@ const tools_management_drive = [
         body: object,
       }),
   },
+  {
+    name: "publicly_share_file_on_google_drive",
+    schema: {
+      description: [
+        "Use to publicly share a file or folder on Google Drive by providing the item ID and desired role. As a sample situation, when you want to publicly show the file on Google Drive, it is required to publicly share the file as VIEW.",
+        `### Create thumbnail link`,
+        `In the case of a file on Google Drive, the public thumbnail link can be created by publicly sharing the file. The following description shows the steps to retrieve the thumbnail link from a file on Google Drive.`,
+        `1. Change the permission of the file as ANYONE_WITH_LINK and VIEW for access and permission, respectively.`,
+        `2. Return the thumbnail link using the file ID. The link format is as follows`,
+        `https://drive.google.com/thumbnail?sz=w1000&id={fileId}`,
+        `  - Replace {fileId} with the actual file ID.`,
+        `  - "w1000" is the width of the thumbnail image as pixels. When you want to change the thumbnail image size, use this parameter. The default should be "w1000".`,
+      ].join("\n"),
+      inputSchema: {
+        fileId: z
+          .string()
+          .describe(
+            "The ID of the file or folder on Google Drive whose permissions need to be changed."
+          ),
+        access: z
+          .enum([
+            "ANYONE",
+            "ANYONE_WITH_LINK",
+            "DOMAIN",
+            "DOMAIN_WITH_LINK",
+            "PRIVATE",
+          ])
+          .describe(
+            "An enum representing classes of users who can access a file or folder, besides any individual users who have been explicitly given access. When you want to only show the file, ANYONE_WITH_LINK is suitable. When you don't want to publicly share the file, please use PRIVATE."
+          ),
+        permission: z
+          .enum([
+            "COMMENT",
+            "EDIT",
+            "FILE_ORGANIZER",
+            "NONE",
+            "ORGANIZER",
+            "OWNER",
+            "VIEW",
+          ])
+          .describe(
+            "An enum representing the permissions granted to users who can access a file or folder, besides any individual users who have been explicitly given access. When you want to only show the file, VIEW is suitable. When you don't want to publicly share the file, please use NONE."
+          ),
+      },
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "publicly_share_file_on_google_drive",
+        method: "tools/call",
+        body: object,
+      }),
+  },
 ];
 
 const tools_management_forms = [
