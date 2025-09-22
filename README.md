@@ -346,7 +346,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹConfigured MCP servers:
 
-  🟢 wrapped_gas_web_apps - Ready (143 tools, 3 prompts)
+  🟢 wrapped_gas_web_apps - Ready (144 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - analytics_admin_accountSummaries_list
@@ -478,6 +478,7 @@ When your setting is correct, the following result is returned.
     - people_otherContacts_list
     - people_otherContacts_search
     - people_people_getBatchGet
+    - publicly_share_file_on_google_drive
     - put_file_to_google_drive
     - put_values_into_google_docs
     - put_values_to_google_sheets
