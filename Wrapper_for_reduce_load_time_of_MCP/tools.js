@@ -1515,7 +1515,18 @@ const tools_management_slides = [
         presentationTime: z
           .number()
           .describe("Presentation time. The unit is minute."),
-        text: z.string().describe("Description of the presentation."),
+        text: z
+          .string()
+          .describe(
+            "Description of the presentation. If document ID is used, this property is ignored."
+          )
+          .optional(),
+        documentId: z
+          .string()
+          .describe(
+            "The document ID of a Google Document. This document is used as the description for creating the presentation."
+          )
+          .optional(),
       },
     },
     func: async (object = {}) =>

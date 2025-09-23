@@ -1,6 +1,6 @@
 /**
  * Management of Google Slides
- * Updated on 20250915 14:30
+ * Updated on 20250923 10:14
  */
 
 /**
@@ -10,6 +10,7 @@
  */
 function generate_presentation_with_google_slides(object = {}) {
   const { title = null, name = "Sample speaker", presentationTime = 5, text = "" } = object;
+  let { documentId = null } = object;
   let result;
 
   /**
@@ -23,8 +24,7 @@ function generate_presentation_with_google_slides(object = {}) {
 
   try {
     if (title) {
-      let documentId = null;
-      if (text) {
+      if (!documentId && text) {
         const doc = DocumentApp.create("temp");
         documentId = doc.getId();
         doc.getBody().appendParagraph(text);
@@ -108,9 +108,10 @@ const descriptions_management_slides = {
         title: { type: "string", description: "Title of the presentation." },
         name: { type: "string", description: "Your name. This name is used as the speaker name of the presentation." },
         presentationTime: { type: "number", description: "Presentation time. The unit is minute." },
-        text: { type: "string", description: "Description of the presentation." },
+        text: { type: "string", description: "Description of the presentation. If document ID is used, this property is ignored." },
+        documentId: { type: "string", description: "The document ID of a Google Document. This document is used as the description for creating the presentation." },
       },
-      required: ["title", "name", "presentationTime", "text"]
+      required: ["title", "name", "presentationTime"]
     }
   },
 

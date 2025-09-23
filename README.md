@@ -253,7 +253,7 @@ or
   GEMINI_TIMEOUT=300 # Seconds
   ```
 
-#### [NEW] As another connection between Gemini CLI and the MCP server built by Google Apps Script Web Apps
+#### [NEW] As another connection between Gemini CLI and the MCP server built by Google Apps Script Web Apps (Added on September 17, 2025)
 
 When you use the above method, you might feel the slow loading of the MCP server. If you want to resolve it, how about using the following approach?
 
@@ -1634,5 +1634,9 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 - v1.0.34 (September 22, 2025)
 
   1. A new tool "publicly_share_file_on_google_drive" was added.
+
+- v1.0.35 (September 23, 2025)
+
+  1. A tool "generate_presentation_with_google_slides" was updated.
 
 [TOP](#top)
