@@ -21,3 +21,5 @@ Now, implement the Node.js wrapper to accelerate the startup.
 ```
 
 Run `$ gemini` again. You should observe a significantly faster startup. In my tests, the startup time was reduced by approximately 15 times. While the performance of individual tool execution remains the same, the improved startup time makes the CLI much more practical and user-friendly.
+
+An article related to this can be seen at [https://medium.com/google-cloud/accelerating-gemini-cli-a-node-js-wrapper-for-google-apps-script-mcp-servers-a4295283d2ca](https://medium.com/google-cloud/accelerating-gemini-cli-a-node-js-wrapper-for-google-apps-script-mcp-servers-a4295283d2ca).
