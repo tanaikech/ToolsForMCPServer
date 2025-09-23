@@ -10,7 +10,7 @@
  */
 function generate_presentation_with_google_slides(object = {}) {
   const { title = null, name = "Sample speaker", presentationTime = 5, text = "" } = object;
-  let { documentId = null } = object;
+  const { documentId = null } = object;
   let result;
 
   /**
@@ -24,21 +24,24 @@ function generate_presentation_with_google_slides(object = {}) {
 
   try {
     if (title) {
-      if (!documentId && text) {
+      let docId = documentId;
+      if (!docId && text) {
         const doc = DocumentApp.create("temp");
-        documentId = doc.getId();
+        docId = doc.getId();
         doc.getBody().appendParagraph(text);
         doc.saveAndClose();
       }
       const presentation = SlidesApp.create(name);
       const object = { apiKey, title, name, presentationTime, generateImage: true, presentationDesign: "Normal", presentation };
-      if (documentId) {
-        object.documentId = documentId;
+      if (docId) {
+        object.documentId = docId;
       }
       new GeneratePresentation(object).run();
       presentation.getSlides()[0].remove();
       presentation.saveAndClose();
-      Drive.Files.remove(documentId);
+      if (docId && !documentId) {
+        Drive.Files.remove(docId);
+      }
 
       // If you want to return only the text, please use below.
       result = {
