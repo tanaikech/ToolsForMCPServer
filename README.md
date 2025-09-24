@@ -346,7 +346,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹConfigured MCP servers:
 
-  🟢 wrapped_gas_web_apps - Ready (144 tools, 3 prompts)
+  🟢 wrapped_gas_web_apps - Ready (148 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - analytics_admin_accountSummaries_list
@@ -426,6 +426,7 @@ When your setting is correct, the following result is returned.
     - comments_drive_api_list
     - comments_drive_api_remove
     - convert_mimetype_of_file_on_google_drive
+    - create_chart_on_google_sheets
     - create_document_body_in_google_docs
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
@@ -436,6 +437,7 @@ When your setting is correct, the following result is returned.
     - drive_activity_api_query
     - explanation_analytics_data_properties_runRealtimeReport
     - explanation_analytics_data_properties_runReport
+    - explanation_create_chart_by_google_sheets_api
     - explanation_create_maps_url
     - explanation_generate_quiz_with_google_forms
     - explanation_generate_survey_with_google_forms
@@ -453,6 +455,7 @@ When your setting is correct, the following result is returned.
     - generate_roadmap_to_google_sheets
     - generate_survey_with_google_forms
     - get_attachment_files_from_Gmail
+    - get_charts_on_google_sheets
     - get_current_date_time
     - get_current_weather
     - get_exchange_rate
@@ -491,6 +494,7 @@ When your setting is correct, the following result is returned.
     - search_values_from_google_sheets
     - send_mails_Gmail
     - summarize_file_on_google_drive
+    - update_chart_on_google_sheets
     - update_schedule_on_Google_Calendar
 
     Prompts:
