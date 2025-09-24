@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250924 10:50
+ * Updated on 20250924 14:39
  */
 
 /**
@@ -180,10 +180,12 @@ function get_charts_on_google_sheets(object = {}) {
       result = { content: [{ type: "text", text: "Set the spreadsheet ID." }], isError: true };
     } else {
       const ss = SpreadsheetApp.openById(spreadsheetId);
-      const charts = ss.getSheets().reduce((o, s) => {
-        o[s.getSheetName()] = s.getCharts().map(c => ({ chartId: c.get.getChartId(), chartTitle: c.getOptions().get("title") || "No title" }));
-        return o;
-      }, {});
+      const charts = ss.getSheets().reduce((ar, s) => {
+        s.getCharts().forEach(c =>
+          ar.push({ sheetName: s.getSheetName(), sheetId: s.getSheetId(), chartId: c.getChartId(), chartTitle: c.getOptions().get("title") || "No title" })
+        );
+        return ar;
+      }, []);
       result = { content: [{ type: "text", text: JSON.stringify(charts) }], isError: false };
     }
   } catch ({ stack }) {
@@ -226,6 +228,47 @@ function update_chart_on_google_sheets(object = {}) {
   const requestBody = { requests: [{ updateChartSpec: object.requestBody.chart }] };
   return for_google_apis.update({ func: Sheets.Spreadsheets.batchUpdate, args: [requestBody, object.pathParameters?.spreadsheetId] });
 }
+
+/**
+ * This function create charts as image files.
+ * @private
+ */
+function create_charts_as_image_on_google_sheets(object = {}) {
+  const { spreadsheetId = null, chartIds = [] } = object;
+  let result;
+  try {
+    if (!spreadsheetId || chartIds.length == 0) {
+      result = { content: [{ type: "text", text: "Set the spreadsheet ID and charts in an array." }], isError: true };
+    } else {
+      const temp = SlidesApp.create("temp slide");
+      const slide = temp.getSlides()[0];
+      const ss = SpreadsheetApp.openById(spreadsheetId);
+      const charts = ss.getSheets().reduce((o, s) => {
+        s.getCharts().forEach(cc => o[cc.getChartId()] = cc);
+        return o;
+      }, {});
+      const fileIds = chartIds.reduce((ar, id) => {
+        if (charts[id]) {
+          const blob = slide.insertSheetsChart(charts[id]).asImage().getBlob().copyBlob();
+          const fileId = DriveApp.createFile(blob.setName(id)).getId();
+          ar.push({ chartId: id, imageFileId: fileId });
+        }
+        return ar;
+      }, []);
+      DriveApp.getFileById(temp.getId()).setTrashed(true);
+      const text = [
+        `The image file IDs for each chart ID are as follows.`,
+        JSON.stringify(fileIds),
+      ].join("\n");
+      result = { content: [{ type: "text", text }], isError: false };
+    }
+  } catch ({ stack }) {
+    result = { content: [{ type: "text", text: stack }], isError: true };
+  }
+  console.log(result); // Check response.
+  return { jsonrpc: "2.0", result };
+}
+
 
 // Descriptions of the functions.
 const descriptions_management_sheets = {
@@ -409,6 +452,19 @@ const descriptions_management_sheets = {
         }
       },
       required: ["requestBody", "pathParameters"]
+    }
+  },
+
+  create_charts_as_image_on_google_sheets: {
+    title: "Create charts as image files",
+    description: `Use this to create charts on Google Sheets as the image files on Google Drive. Use this to convert charts on Google Sheets as the image files on Google Drive.`,
+    parameters: {
+      type: "object",
+      properties: {
+        spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." },
+        chartIds: { type: "array", items: { type: "string", description: "Chart ID on Google Sheets." } },
+      },
+      required: ["spreadsheetId", "chartIds"]
     }
   },
 

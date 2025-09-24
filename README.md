@@ -25,7 +25,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (September 24, 2025), the following 148 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (September 24, 2025), the following 149 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 You can see the descriptions of all tools with the following command on Gemini CLI.
 
@@ -346,7 +346,7 @@ When your setting is correct, the following result is returned.
 ```text
 ℹConfigured MCP servers:
 
-  🟢 wrapped_gas_web_apps - Ready (148 tools, 3 prompts)
+  🟢 wrapped_gas_web_apps - Ready (149 tools, 3 prompts)
     Tools:
     - add_label_to_Gmail
     - analytics_admin_accountSummaries_list
@@ -427,6 +427,7 @@ When your setting is correct, the following result is returned.
     - comments_drive_api_remove
     - convert_mimetype_of_file_on_google_drive
     - create_chart_on_google_sheets
+    - create_charts_as_image_on_google_sheets
     - create_document_body_in_google_docs
     - create_file_to_google_drive
     - create_google_docs_from_markdown_on_google_drive
@@ -1651,5 +1652,11 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
      - get_charts_on_google_sheets
      - create_chart_on_google_sheets
      - update_chart_on_google_sheets
+
+- v1.0.37 (September 24, 2025)
+
+  1. The following 1 tool was added.
+
+     - create_charts_as_image_on_google_sheets
 
 [TOP](#top)

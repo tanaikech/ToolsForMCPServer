@@ -1570,6 +1570,22 @@ const tools_management_sheets = [
         body: object,
       }),
   },
+  {
+    name: "create_charts_as_image_on_google_sheets",
+    schema: {
+      description: `Use this to create charts on Google Sheets as the image files on Google Drive. Use this to convert charts on Google Sheets as the image files on Google Drive.`,
+      inputSchema: {
+        spreadsheetId: z.string().describe("Spreadsheet ID of Google Sheets."),
+        chartIds: z.array(z.string().describe("Chart ID on Google Sheets.")),
+      },
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "create_charts_as_image_on_google_sheets",
+        method: "tools/call",
+        body: object,
+      }),
+  },
 ];
 
 const tools_management_slides = [
