@@ -1,6 +1,6 @@
 /**
  * Management of Rag
- * Updated on 20250917 15:11
+ * Updated on 20250924 10:50
  */
 
 function download_data_(url) {
@@ -268,6 +268,1032 @@ function explanation_google_apps_script_library_list(object = {}) {
   return explanation_reference_generate_google_apps_script(object);
 }
 
+function explanation_create_chart_by_google_sheets_api(object = {}) {
+  const _ = object;
+  const schema = {
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Google Sheets API - addChart Request",
+    "description": "JSON schema for the addChart request in the Google Sheets API.",
+    "type": "object",
+    "properties": {
+      "chart": {
+        "$ref": "#/definitions/EmbeddedChart"
+      }
+    },
+    "required": [
+      "chart"
+    ],
+    "definitions": {
+      "EmbeddedChart": {
+        "type": "object",
+        "properties": {
+          "chartId": {
+            "type": "integer"
+          },
+          "spec": {
+            "$ref": "#/definitions/ChartSpec"
+          },
+          "position": {
+            "type": "object"
+          },
+          "border": {
+            "$ref": "#/definitions/EmbeddedObjectBorder"
+          }
+        }
+      },
+      "ChartSpec": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "altText": {
+            "type": "string"
+          },
+          "titleTextFormat": {
+            "type": "object"
+          },
+          "titleTextPosition": {
+            "$ref": "#/definitions/TextPosition"
+          },
+          "subtitle": {
+            "type": "string"
+          },
+          "subtitleTextFormat": {
+            "type": "object"
+          },
+          "subtitleTextPosition": {
+            "$ref": "#/definitions/TextPosition"
+          },
+          "fontName": {
+            "type": "string"
+          },
+          "maximized": {
+            "type": "boolean"
+          },
+          "backgroundColor": {
+            "type": "object"
+          },
+          "backgroundColorStyle": {
+            "type": "object"
+          },
+          "dataSourceChartProperties": {
+            "$ref": "#/definitions/DataSourceChartProperties"
+          },
+          "filterSpecs": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "sortSpecs": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "hiddenDimensionStrategy": {
+            "type": "string",
+            "enum": [
+              "CHART_HIDDEN_DIMENSION_STRATEGY_UNSPECIFIED",
+              "SKIP_HIDDEN_ROWS_AND_COLUMNS",
+              "SKIP_HIDDEN_ROWS",
+              "SKIP_HIDDEN_COLUMNS",
+              "SHOW_ALL"
+            ]
+          },
+          "basicChart": {
+            "$ref": "#/definitions/BasicChartSpec"
+          },
+          "pieChart": {
+            "$ref": "#/definitions/PieChartSpec"
+          },
+          "bubbleChart": {
+            "$ref": "#/definitions/BubbleChartSpec"
+          },
+          "candlestickChart": {
+            "$ref": "#/definitions/CandlestickChartSpec"
+          },
+          "orgChart": {
+            "$ref": "#/definitions/OrgChartSpec"
+          },
+          "histogramChart": {
+            "$ref": "#/definitions/HistogramChartSpec"
+          },
+          "waterfallChart": {
+            "$ref": "#/definitions/WaterfallChartSpec"
+          },
+          "treemapChart": {
+            "$ref": "#/definitions/TreemapChartSpec"
+          },
+          "scorecardChart": {
+            "$ref": "#/definitions/ScorecardChartSpec"
+          }
+        }
+      },
+      "TextPosition": {
+        "type": "object",
+        "properties": {
+          "horizontalAlignment": {
+            "type": "string",
+            "enum": [
+              "HORIZONTAL_ALIGN_UNSPECIFIED",
+              "LEFT",
+              "CENTER",
+              "RIGHT"
+            ]
+          }
+        }
+      },
+      "DataSourceChartProperties": {
+        "type": "object",
+        "properties": {
+          "dataSourceId": {
+            "type": "string"
+          },
+          "dataExecutionStatus": {
+            "type": "object"
+          }
+        }
+      },
+      "BasicChartSpec": {
+        "type": "object",
+        "properties": {
+          "chartType": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_TYPE_UNSPECIFIED",
+              "BAR",
+              "LINE",
+              "AREA",
+              "COLUMN",
+              "SCATTER",
+              "COMBO",
+              "STEPPED_AREA"
+            ]
+          },
+          "legendPosition": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_LEGEND_POSITION_UNSPECIFIED",
+              "BOTTOM_LEGEND",
+              "LEFT_LEGEND",
+              "RIGHT_LEGEND",
+              "TOP_LEGEND",
+              "NO_LEGEND"
+            ]
+          },
+          "axis": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BasicChartAxis"
+            }
+          },
+          "domains": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BasicChartDomain"
+            }
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BasicChartSeries"
+            }
+          },
+          "headerCount": {
+            "type": "integer"
+          },
+          "threeDimensional": {
+            "type": "boolean"
+          },
+          "interpolateNulls": {
+            "type": "boolean"
+          },
+          "stackedType": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_STACKED_TYPE_UNSPECIFIED",
+              "NOT_STACKED",
+              "STACKED",
+              "PERCENT_STACKED"
+            ]
+          },
+          "lineSmoothing": {
+            "type": "boolean"
+          },
+          "compareMode": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_COMPARE_MODE_UNSPECIFIED",
+              "DATUM",
+              "CATEGORY"
+            ]
+          },
+          "totalDataLabel": {
+            "$ref": "#/definitions/DataLabel"
+          }
+        }
+      },
+      "BasicChartAxis": {
+        "type": "object",
+        "properties": {
+          "position": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_AXIS_POSITION_UNSPECIFIED",
+              "BOTTOM_AXIS",
+              "LEFT_AXIS",
+              "RIGHT_AXIS"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "format": {
+            "type": "object"
+          },
+          "titleTextPosition": {
+            "$ref": "#/definitions/TextPosition"
+          },
+          "viewWindowOptions": {
+            "$ref": "#/definitions/ChartAxisViewWindowOptions"
+          }
+        }
+      },
+      "ChartAxisViewWindowOptions": {
+        "type": "object",
+        "properties": {
+          "viewWindowMin": {
+            "type": "number"
+          },
+          "viewWindowMax": {
+            "type": "number"
+          },
+          "viewWindowMode": {
+            "type": "string",
+            "enum": [
+              "DEFAULT_VIEW_WINDOW_MODE",
+              "VIEW_WINDOW_MODE_UNSUPPORTED",
+              "EXPLICIT",
+              "PRETTY"
+            ]
+          }
+        }
+      },
+      "BasicChartDomain": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "reversed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "ChartData": {
+        "type": "object",
+        "properties": {
+          "sourceRange": {
+            "$ref": "#/definitions/ChartSourceRange"
+          },
+          "groupRule": {
+            "$ref": "#/definitions/ChartGroupRule"
+          },
+          "columnReference": {
+            "type": "object"
+          },
+          "aggregateType": {
+            "type": "string",
+            "enum": [
+              "CHART_AGGREGATE_TYPE_UNSPECIFIED",
+              "AVERAGE",
+              "COUNT",
+              "MAX",
+              "MEDIAN",
+              "MIN",
+              "SUM"
+            ]
+          }
+        }
+      },
+      "ChartSourceRange": {
+        "type": "object",
+        "properties": {
+          "sources": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          }
+        }
+      },
+      "ChartGroupRule": {
+        "type": "object",
+        "properties": {
+          "dateTimeRule": {
+            "$ref": "#/definitions/ChartDateTimeRule"
+          },
+          "histogramRule": {
+            "$ref": "#/definitions/ChartHistogramRule"
+          }
+        }
+      },
+      "ChartDateTimeRule": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "CHART_DATE_TIME_RULE_TYPE_UNSPECIFIED",
+              "SECOND",
+              "MINUTE",
+              "HOUR",
+              "HOUR_MINUTE",
+              "HOUR_MINUTE_AMPM",
+              "DAY_OF_WEEK",
+              "DAY_OF_YEAR",
+              "DAY_OF_MONTH",
+              "DAY_MONTH",
+              "MONTH",
+              "QUARTER",
+              "YEAR",
+              "YEAR_MONTH",
+              "YEAR_QUARTER",
+              "YEAR_MONTH_DAY"
+            ]
+          }
+        }
+      },
+      "ChartHistogramRule": {
+        "type": "object",
+        "properties": {
+          "minValue": {
+            "type": "number"
+          },
+          "maxValue": {
+            "type": "number"
+          },
+          "intervalSize": {
+            "type": "number"
+          }
+        }
+      },
+      "BasicChartSeries": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "targetAxis": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_AXIS_POSITION_UNSPECIFIED",
+              "BOTTOM_AXIS",
+              "LEFT_AXIS",
+              "RIGHT_AXIS"
+            ]
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "BASIC_CHART_TYPE_UNSPECIFIED",
+              "BAR",
+              "LINE",
+              "AREA",
+              "COLUMN",
+              "SCATTER",
+              "COMBO",
+              "STEPPED_AREA"
+            ]
+          },
+          "lineStyle": {
+            "$ref": "#/definitions/LineStyle"
+          },
+          "dataLabel": {
+            "$ref": "#/definitions/DataLabel"
+          },
+          "color": {
+            "type": "object"
+          },
+          "colorStyle": {
+            "type": "object"
+          },
+          "pointStyle": {
+            "$ref": "#/definitions/PointStyle"
+          },
+          "styleOverrides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/BasicSeriesDataPointStyleOverride"
+            }
+          }
+        }
+      },
+      "LineStyle": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "type": "integer"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "LINE_DASH_TYPE_UNSPECIFIED",
+              "INVISIBLE",
+              "CUSTOM",
+              "SOLID",
+              "DOTTED",
+              "MEDIUM_DASHED",
+              "MEDIUM_DASHED_DOTTED",
+              "LONG_DASHED",
+              "LONG_DASHED_DOTTED"
+            ]
+          }
+        }
+      },
+      "DataLabel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "DATA_LABEL_TYPE_UNSPECIFIED",
+              "NONE",
+              "DATA",
+              "CUSTOM"
+            ]
+          },
+          "textFormat": {
+            "type": "object"
+          },
+          "placement": {
+            "type": "string",
+            "enum": [
+              "DATA_LABEL_PLACEMENT_UNSPECIFIED",
+              "CENTER",
+              "LEFT",
+              "RIGHT",
+              "ABOVE",
+              "BELOW",
+              "INSIDE_END",
+              "INSIDE_BASE",
+              "OUTSIDE_END"
+            ]
+          },
+          "customLabelData": {
+            "$ref": "#/definitions/ChartData"
+          }
+        }
+      },
+      "PointStyle": {
+        "type": "object",
+        "properties": {
+          "size": {
+            "type": "number"
+          },
+          "shape": {
+            "type": "string",
+            "enum": [
+              "POINT_SHAPE_UNSPECIFIED",
+              "CIRCLE",
+              "DIAMOND",
+              "HEXAGON",
+              "PENTAGON",
+              "SQUARE",
+              "STAR",
+              "TRIANGLE",
+              "X_MARK"
+            ]
+          }
+        }
+      },
+      "BasicSeriesDataPointStyleOverride": {
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer"
+          },
+          "color": {
+            "type": "object"
+          },
+          "colorStyle": {
+            "type": "object"
+          },
+          "pointStyle": {
+            "$ref": "#/definitions/PointStyle"
+          }
+        }
+      },
+      "PieChartSpec": {
+        "type": "object",
+        "properties": {
+          "legendPosition": {
+            "type": "string",
+            "enum": [
+              "PIE_CHART_LEGEND_POSITION_UNSPECIFIED",
+              "BOTTOM_LEGEND",
+              "LEFT_LEGEND",
+              "RIGHT_LEGEND",
+              "TOP_LEGEND",
+              "NO_LEGEND",
+              "LABELED_LEGEND"
+            ]
+          },
+          "domain": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "series": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "threeDimensional": {
+            "type": "boolean"
+          },
+          "pieHole": {
+            "type": "number"
+          }
+        }
+      },
+      "BubbleChartSpec": {
+        "type": "object",
+        "properties": {
+          "legendPosition": {
+            "type": "string",
+            "enum": [
+              "BUBBLE_CHART_LEGEND_POSITION_UNSPECIFIED",
+              "BOTTOM_LEGEND",
+              "LEFT_LEGEND",
+              "RIGHT_LEGEND",
+              "TOP_LEGEND",
+              "NO_LEGEND",
+              "INSIDE_LEGEND"
+            ]
+          },
+          "bubbleLabels": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "domain": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "series": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "groupIds": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "bubbleSizes": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "bubbleOpacity": {
+            "type": "number"
+          },
+          "bubbleBorderColor": {
+            "type": "object"
+          },
+          "bubbleBorderColorStyle": {
+            "type": "object"
+          },
+          "bubbleMaxRadiusSize": {
+            "type": "integer"
+          },
+          "bubbleMinRadiusSize": {
+            "type": "integer"
+          },
+          "bubbleTextStyle": {
+            "type": "object"
+          }
+        }
+      },
+      "CandlestickChartSpec": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "$ref": "#/definitions/CandlestickDomain"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/CandlestickData"
+            }
+          }
+        }
+      },
+      "CandlestickDomain": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "reversed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "CandlestickData": {
+        "type": "object",
+        "properties": {
+          "lowSeries": {
+            "$ref": "#/definitions/CandlestickSeries"
+          },
+          "openSeries": {
+            "$ref": "#/definitions/CandlestickSeries"
+          },
+          "closeSeries": {
+            "$ref": "#/definitions/CandlestickSeries"
+          },
+          "highSeries": {
+            "$ref": "#/definitions/CandlestickSeries"
+          }
+        }
+      },
+      "CandlestickSeries": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ChartData"
+          }
+        }
+      },
+      "OrgChartSpec": {
+        "type": "object",
+        "properties": {
+          "nodeSize": {
+            "type": "string",
+            "enum": [
+              "ORG_CHART_LABEL_SIZE_UNSPECIFIED",
+              "SMALL",
+              "MEDIUM",
+              "LARGE"
+            ]
+          },
+          "nodeColor": {
+            "type": "object"
+          },
+          "nodeColorStyle": {
+            "type": "object"
+          },
+          "selectedNodeColor": {
+            "type": "object"
+          },
+          "selectedNodeColorStyle": {
+            "type": "object"
+          },
+          "labels": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "parentLabels": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "tooltips": {
+            "$ref": "#/definitions/ChartData"
+          }
+        }
+      },
+      "HistogramChartSpec": {
+        "type": "object",
+        "properties": {
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/HistogramSeries"
+            }
+          },
+          "legendPosition": {
+            "type": "string",
+            "enum": [
+              "HISTOGRAM_CHART_LEGEND_POSITION_UNSPECIFIED",
+              "BOTTOM_LEGEND",
+              "LEFT_LEGEND",
+              "RIGHT_LEGEND",
+              "TOP_LEGEND",
+              "NO_LEGEND",
+              "INSIDE_LEGEND"
+            ]
+          },
+          "showItemDividers": {
+            "type": "boolean"
+          },
+          "bucketSize": {
+            "type": "number"
+          },
+          "outlierPercentile": {
+            "type": "number"
+          }
+        }
+      },
+      "HistogramSeries": {
+        "type": "object",
+        "properties": {
+          "barColor": {
+            "type": "object"
+          },
+          "barColorStyle": {
+            "type": "object"
+          },
+          "data": {
+            "$ref": "#/definitions/ChartData"
+          }
+        }
+      },
+      "WaterfallChartSpec": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "$ref": "#/definitions/WaterfallChartDomain"
+          },
+          "series": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/WaterfallChartSeries"
+            }
+          },
+          "stackedType": {
+            "type": "string",
+            "enum": [
+              "WATERFALL_STACKED_TYPE_UNSPECIFIED",
+              "STACKED",
+              "SEQUENTIAL"
+            ]
+          },
+          "firstValueIsTotal": {
+            "type": "boolean"
+          },
+          "hideConnectorLines": {
+            "type": "boolean"
+          },
+          "connectorLineStyle": {
+            "$ref": "#/definitions/LineStyle"
+          },
+          "totalDataLabel": {
+            "$ref": "#/definitions/DataLabel"
+          }
+        }
+      },
+      "WaterfallChartDomain": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "reversed": {
+            "type": "boolean"
+          }
+        }
+      },
+      "WaterfallChartSeries": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "positiveColumnsStyle": {
+            "$ref": "#/definitions/WaterfallChartColumnStyle"
+          },
+          "negativeColumnsStyle": {
+            "$ref": "#/definitions/WaterfallChartColumnStyle"
+          },
+          "subtotalColumnsStyle": {
+            "$ref": "#/definitions/WaterfallChartColumnStyle"
+          },
+          "hideTrailingSubtotal": {
+            "type": "boolean"
+          },
+          "customSubtotals": {
+            "type": "array",
+            "items": {
+              "$ref": "#/definitions/WaterfallChartCustomSubtotal"
+            }
+          },
+          "dataLabel": {
+            "$ref": "#/definitions/DataLabel"
+          }
+        }
+      },
+      "WaterfallChartColumnStyle": {
+        "type": "object",
+        "properties": {
+          "label": {
+            "type": "string"
+          },
+          "color": {
+            "type": "object"
+          },
+          "colorStyle": {
+            "type": "object"
+          }
+        }
+      },
+      "WaterfallChartCustomSubtotal": {
+        "type": "object",
+        "properties": {
+          "subtotalIndex": {
+            "type": "integer"
+          },
+          "label": {
+            "type": "string"
+          },
+          "dataIsSubtotal": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TreemapChartSpec": {
+        "type": "object",
+        "properties": {
+          "labels": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "parentLabels": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "sizeData": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "colorData": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "textFormat": {
+            "type": "object"
+          },
+          "levels": {
+            "type": "integer"
+          },
+          "hintedLevels": {
+            "type": "integer"
+          },
+          "minValue": {
+            "type": "number"
+          },
+          "maxValue": {
+            "type": "number"
+          },
+          "headerColor": {
+            "type": "object"
+          },
+          "headerColorStyle": {
+            "type": "object"
+          },
+          "colorScale": {
+            "$ref": "#/definitions/TreemapChartColorScale"
+          },
+          "hideTooltips": {
+            "type": "boolean"
+          }
+        }
+      },
+      "TreemapChartColorScale": {
+        "type": "object",
+        "properties": {
+          "minValueColor": {
+            "type": "object"
+          },
+          "minValueColorStyle": {
+            "type": "object"
+          },
+          "midValueColor": {
+            "type": "object"
+          },
+          "midValueColorStyle": {
+            "type": "object"
+          },
+          "maxValueColor": {
+            "type": "object"
+          },
+          "maxValueColorStyle": {
+            "type": "object"
+          },
+          "noDataColor": {
+            "type": "object"
+          },
+          "noDataColorStyle": {
+            "type": "object"
+          }
+        }
+      },
+      "ScorecardChartSpec": {
+        "type": "object",
+        "properties": {
+          "keyValueData": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "baselineValueData": {
+            "$ref": "#/definitions/ChartData"
+          },
+          "aggregateType": {
+            "type": "string",
+            "enum": [
+              "CHART_AGGREGATE_TYPE_UNSPECIFIED",
+              "AVERAGE",
+              "COUNT",
+              "MAX",
+              "MEDIAN",
+              "MIN",
+              "SUM"
+            ]
+          },
+          "keyValueFormat": {
+            "$ref": "#/definitions/KeyValueFormat"
+          },
+          "baselineValueFormat": {
+            "$ref": "#/definitions/BaselineValueFormat"
+          },
+          "scaleFactor": {
+            "type": "number"
+          },
+          "numberFormatSource": {
+            "type": "string",
+            "enum": [
+              "CHART_NUMBER_FORMAT_SOURCE_UNDEFINED",
+              "FROM_DATA",
+              "CUSTOM"
+            ]
+          },
+          "customFormatOptions": {
+            "$ref": "#/definitions/ChartCustomNumberFormatOptions"
+          }
+        }
+      },
+      "KeyValueFormat": {
+        "type": "object",
+        "properties": {
+          "textFormat": {
+            "type": "object"
+          },
+          "position": {
+            "$ref": "#/definitions/TextPosition"
+          }
+        }
+      },
+      "BaselineValueFormat": {
+        "type": "object",
+        "properties": {
+          "comparisonType": {
+            "type": "string",
+            "enum": [
+              "COMPARISON_TYPE_UNDEFINED",
+              "ABSOLUTE_DIFFERENCE",
+              "PERCENTAGE_DIFFERENCE"
+            ]
+          },
+          "textFormat": {
+            "type": "object"
+          },
+          "position": {
+            "$ref": "#/definitions/TextPosition"
+          },
+          "description": {
+            "type": "string"
+          },
+          "positiveColor": {
+            "type": "object"
+          },
+          "positiveColorStyle": {
+            "type": "object"
+          },
+          "negativeColor": {
+            "type": "object"
+          },
+          "negativeColorStyle": {
+            "type": "object"
+          }
+        }
+      },
+      "ChartCustomNumberFormatOptions": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string"
+          },
+          "suffix": {
+            "type": "string"
+          }
+        }
+      },
+      "EmbeddedObjectBorder": {
+        "type": "object",
+        "properties": {
+          "color": {
+            "type": "object"
+          },
+          "colorStyle": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  };
+  const text = [
+    `JSON schema for building the request body for creating and updating a chart using Google Sheets API.`,
+    `This is for the tools "create_chart_on_google_sheets" and "update_chart_on_google_sheets".`,
+    `### JSONSchema`,
+    `<JSONSchema>${JSON.stringify(schema)}</JSONSchema>`,
+  ].join("\n");
+  const result = { content: [{ type: "text", text }], isError: false };
+  return { jsonrpc: "2.0", result };
+}
+
+
 // Descriptions of the functions.
 const descriptions_management_rag = {
   explanation_create_maps_url: {
@@ -444,6 +1470,18 @@ const descriptions_management_rag = {
       `4. Summarize the library list.`,
       `### Supplement`,
       `- After you read it, you are not required to call this tool again while you continue to remember this markdown in your history.`,
+    ].join("\n"),
+    parameters: { description: "No properties.", type: "object", properties: {} }
+  },
+
+  explanation_create_chart_by_google_sheets_api: {
+    title: "Generate a request body for creating and updating a chart on Google Sheets using Sheets API",
+    description: [
+      `Use to generate a request body for creating and updating a chart on Google Sheets using Sheets API.`,
+      `When you use a JSON schema, you are required to have the Spreadsheet ID, sheet ID, and the data range as the grid range.`,
+      `This tool returns the explanation of how to create a Google Maps URL.`,
+      `Generate a request body by understanding this returned explanation.`,
+      `After you read it, you are not required to call this tool again while you continue to remember this explanation in your history.`,
     ].join("\n"),
     parameters: { description: "No properties.", type: "object", properties: {} }
   },

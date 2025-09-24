@@ -25,7 +25,7 @@ Building upon that foundation, this report aims to explore the expanded possibil
 
 # Current tools
 
-In the current stage (September 22, 2025), the following 144 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
+In the current stage (September 24, 2025), the following 148 tools are provided by [ToolsForMCPServer](https://github.com/tanaikech/ToolsForMCPServer) for the MCP server.
 
 You can see the descriptions of all tools with the following command on Gemini CLI.
 
@@ -1638,5 +1638,14 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 - v1.0.35 (September 23, 2025)
 
   1. A tool "generate_presentation_with_google_slides" was updated.
+
+- v1.0.36 (September 24, 2025)
+
+  1. The following 4 tools were added.
+
+     - explanation_create_chart_by_google_sheets_api
+     - get_charts_on_google_sheets
+     - create_chart_on_google_sheets
+     - update_chart_on_google_sheets
 
 [TOP](#top)

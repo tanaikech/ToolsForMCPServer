@@ -1360,7 +1360,7 @@ const tools_management_sheets = [
     name: "put_values_to_google_sheets",
     schema: {
       description:
-        "Use this to put values into Google Sheets. The spreadsheet ID is used for putting the values to the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL and use the ID.",
+        "se this to put values into Google Sheets. The spreadsheet ID is used for putting the values into the Google Sheets. If you use the spreadsheet URL, get the spreadsheet ID from the URL, and use the ID. The sheet name, the sheet ID, and the range of the inserted data are returned as the response value.",
       inputSchema: {
         spreadsheetId: z.string().describe("Spreadsheet ID of Google Sheets."),
         sheetName: z
@@ -1459,7 +1459,15 @@ const tools_management_sheets = [
             fields: z
               .string()
               .describe(
-                "Field masks are a way for API callers to list the fields that a request should return or update. Using a FieldMask allows the API to avoid unnecessary work and improves performance. If you want more information about 'fields', please search https://developers.google.com/workspace/sheets/api/guides/field-masks"
+                [
+                  "Field masks are a way for API callers to list the fields that a request should return or update. Using a FieldMask allows the API to avoid unnecessary work and improves performance. If you want more information about 'fields', please search https://developers.google.com/workspace/sheets/api/guides/field-masks",
+                  `The sample fields are as follows.`,
+                  `"sheets(charts)": Only the metadata of all charts is returned.`,
+                  `"sheets(properties)": Only the metadata of all sheets is returned.`,
+                  `"sheets(properties(sheetId))": All sheet IDs in a Google Spreadsheet are returned.`,
+                  `"properties": Only the metadata of spreadsheet is returned.`,
+                  `"sheets(data(rowData(values(textFormatRuns(format(link))))))": All links in all cells are returned.`,
+                ].join("\n")
               )
               .optional(),
           })
@@ -1493,6 +1501,71 @@ const tools_management_sheets = [
     func: async (object = {}) =>
       await request_({
         name: "manage_google_sheets_using_sheets_api",
+        method: "tools/call",
+        body: object,
+      }),
+  },
+  {
+    name: "get_charts_on_google_sheets",
+    schema: {
+      description: `Use this to get all charts in a Google Spreadsheet. The response value includes the chart ID and the chart title of each sheet.`,
+      inputSchema: {
+        spreadsheetId: z
+          .string()
+          .describe("The spreadsheet ID to apply the updates to."),
+      },
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "get_charts_on_google_sheets",
+        method: "tools/call",
+        body: object,
+      }),
+  },
+  {
+    name: "create_chart_on_google_sheets",
+    schema: {
+      description: `Use this to update a chart on Google Sheets using Google Sheets API. Provide the request body for creating a chart using Sheets API. Before you use this tool, understand how to build the request body for creating a chart using a tool "explanation_create_chart_by_google_sheets_api". In this case, the chart ID is required to be known.`,
+      inputSchema: {
+        requestBody: z.object({
+          chart: z
+            .record(z.any())
+            .describe(`The request body for creating a chart.`),
+        }),
+        pathParameters: z.object({
+          spreadsheetId: z
+            .string()
+            .describe("The spreadsheet ID to apply the updates to."),
+        }),
+      },
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "create_chart_on_google_sheets",
+        method: "tools/call",
+        body: object,
+      }),
+  },
+  {
+    name: "update_chart_on_google_sheets",
+    schema: {
+      description: `Use this to update a chart on Google Sheets using Google Sheets API. Provide the request body for creating a chart using Sheets API. Before you use this tool, understand how to build the request body for creating a chart using a tool "explanation_create_chart_by_google_sheets_api". In this case, the chart ID is required to be known.`,
+      inputSchema: {
+        requestBody: z.object({
+          chart: z
+            .record(z.any())
+            .describe(`The request body for creating a chart.`),
+        }),
+        pathParameters: z.object({
+          spreadsheetId: z
+            .string()
+            .describe("The spreadsheet ID to apply the updates to."),
+        }),
+      },
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "update_chart_on_google_sheets",
         method: "tools/call",
         body: object,
       }),
@@ -4810,6 +4883,25 @@ const tools_management_rag = [
     func: async (object = {}) =>
       await request_({
         name: "explanation_google_apps_script_library_list",
+        method: "tools/call",
+        body: object,
+      }),
+  },
+  {
+    name: "explanation_create_chart_by_google_sheets_api",
+    schema: {
+      description: [
+        `Use to generate a request body for creating and updating a chart on Google Sheets using Sheets API.`,
+        `When you use a JSON schema, you are required to have the Spreadsheet ID, sheet ID, and the data range as the grid range.`,
+        `This tool returns the explanation of how to create a Google Maps URL.`,
+        `Generate a request body by understanding this returned explanation.`,
+        `After you read it, you are not required to call this tool again while you continue to remember this explanation in your history.`,
+      ].join("\n"),
+      inputSchema: {},
+    },
+    func: async (object = {}) =>
+      await request_({
+        name: "explanation_create_chart_by_google_sheets_api",
         method: "tools/call",
         body: object,
       }),
