@@ -1786,4 +1786,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
      - create_charts_as_image_on_google_sheets
 
+- v1.0.38 (October 2, 2025)
+
+  1. By reporting [this issue](https://github.com/tanaikech/ToolsForMCPServer/issues/13), a bug of `get_charts_on_google_sheets` could be removed. `type: "object"` was put in the properties. By this, an error of `Schema at properties.type must be a boolean or an object` occurred. This was removed.
+
 [TOP](#top)

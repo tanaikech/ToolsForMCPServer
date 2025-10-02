@@ -1,6 +1,6 @@
 /**
  * Management of Google Sheets
- * Updated on 20250924 14:39
+ * Updated on 2025102 09:55
  */
 
 /**
@@ -388,7 +388,6 @@ const descriptions_management_sheets = {
     parameters: {
       type: "object",
       properties: {
-        type: "object",
         spreadsheetId: { type: "string", description: "Spreadsheet ID of Google Sheets." }
       },
       required: ["spreadsheetId"]
