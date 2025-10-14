@@ -1,9 +1,13 @@
 import { z } from "zod";
 
-/**
- * Please set your Web Apps URL.
- */
-const webAppsURL = "https://script.google.com/macros/s/###/exec?accessKey=sample";
+const geminiAPIKey = process.env.GEMINI_API_KEY || "";
+const webAppsURL = process.env.MCP_WEB_APPS_URL || "";
+
+if (!webAppsURL) {
+  throw new Error(
+    `Please set your Web Apps URL to "MCP_WEB_APPS_URL" of the environmental variables.`
+  );
+}
 
 async function request_({ name, method, body }) {
   let result;
@@ -12,7 +16,7 @@ async function request_({ name, method, body }) {
       jsonrpc: "2.0",
       id: 1,
       method,
-      params: { name, arguments: body },
+      params: { name, arguments: { ...body, geminiAPIKey } },
     };
     const response = await fetch(webAppsURL, {
       method: "POST",
