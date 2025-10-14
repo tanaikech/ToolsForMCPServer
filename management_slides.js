@@ -1,6 +1,6 @@
 /**
  * Management of Google Slides
- * Updated on 20250923 10:14
+ * Updated on 20251015 0830
  */
 
 /**
@@ -9,7 +9,7 @@
  * @private
  */
 function generate_presentation_with_google_slides(object = {}) {
-  const { title = null, name = "Sample speaker", presentationTime = 5, text = "" } = object;
+  const { title = null, name = "Sample speaker", presentationTime = 5, text = "", geminiAPIKey = "" } = object;
   const { documentId = null } = object;
   let result;
 
@@ -32,6 +32,9 @@ function generate_presentation_with_google_slides(object = {}) {
         doc.saveAndClose();
       }
       const presentation = SlidesApp.create(name);
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       const object = { apiKey, title, name, presentationTime, generateImage: true, presentationDesign: "Normal", presentation };
       if (docId) {
         object.documentId = docId;

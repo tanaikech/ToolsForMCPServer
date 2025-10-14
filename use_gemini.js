@@ -1,6 +1,6 @@
 /**
  * Functions using Gemini
- * Updated on 20250724 11:30
+ * Updated on 20251015 0830
  */
 
 /**
@@ -8,10 +8,13 @@
  * @private
  */
 function generate_description_on_google_drive(object = {}) {
-  const { fileId } = object;
+  const { fileId, geminiAPIKey = "" } = object;
   let result;
   try {
     if (fileId) {
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       const file = DriveApp.getFileById(fileId);
       if (file.getMimeType() != MimeType.FOLDER) {
         const g = new GeminiWithFiles({ apiKey });
@@ -38,10 +41,13 @@ function generate_description_on_google_drive(object = {}) {
  * @private
  */
 function generate_image_on_google_drive(object = {}) {
-  const { prompt } = object;
+  const { prompt, geminiAPIKey = "" } = object;
   let result;
   try {
     if (prompt) {
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       const g = new GeminiWithFiles({
         apiKey,
         exportRawData: true,
@@ -71,10 +77,13 @@ function generate_image_on_google_drive(object = {}) {
  * @private
  */
 function summarize_file_on_google_drive(object = {}) {
-  const { fileId, prompt = "Describe this file." } = object;
+  const { fileId, prompt = "Describe this file.", geminiAPIKey = "" } = object;
   let result;
   try {
     if (fileId) {
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       const file = DriveApp.getFileById(fileId);
       const mimeType = file.getMimeType();
       if (mimeType != MimeType.FOLDER) {
@@ -106,11 +115,13 @@ function summarize_file_on_google_drive(object = {}) {
  * @private
  */
 function generate_roadmap_to_google_sheets(object = {}) {
-  console.log(object)
-  const { goal = null, exportPDF = false } = object;
+  const { goal = null, exportPDF = false, geminiAPIKey = "" } = object;
   let result;
   try {
     if (goal) {
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       result = getSheet_(object);
       if (result.toString() == "Sheet") {
         const sheet = result;
@@ -156,9 +167,12 @@ function generate_roadmap_to_google_sheets(object = {}) {
  * @private
  */
 function description_web_site(object = {}) {
-  const { urls = [] } = object;
+  const { urls = [], geminiAPIKey = "" } = object;
   let result;
   try {
+    if (!apiKey && geminiAPIKey) {
+      apiKey = geminiAPIKey;
+    }
     if (Array.isArray(urls) && urls.length > 0) {
       const q = [
         `Read and understand all the content of all sites from "URLs". Follow "Mission".`,
@@ -185,10 +199,13 @@ function description_web_site(object = {}) {
  * @private
  */
 function description_video_on_youtube(object = {}) {
-  const { url = null } = object;
+  const { url = null, geminiAPIKey = "" } = object;
   let result;
   try {
     if (url) {
+      if (!apiKey && geminiAPIKey) {
+        apiKey = geminiAPIKey;
+      }
       const g = new GeminiWithFiles({ apiKey });
       const parts = [{ text: "Describe the video." }, { file_data: { file_uri: url } }];
       const text = g.generateContent({ parts });

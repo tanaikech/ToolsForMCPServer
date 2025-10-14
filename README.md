@@ -1790,4 +1790,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
   1. By reporting [this issue](https://github.com/tanaikech/ToolsForMCPServer/issues/13), a bug of `get_charts_on_google_sheets` could be removed. `type: "object"` was put in the properties. By this, an error of `Schema at properties.type must be a boolean or an object` occurred. This was removed.
 
+- v1.0.39 (October 15, 2025)
+
+  1. `use_gemini` and `management_sheets` were modified to use the API key from Gemini CLI. Of course, you can continuously set your API key directly in the script of the Web Apps.
+
 [TOP](#top)
