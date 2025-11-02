@@ -53,7 +53,7 @@ function get_values_from_google_sheets(object = {}) {
       } else {
         values = sheet.getDataRange().getDisplayValues();
       }
-      const r = `'${sheet.getSheetname()}'!${range.getgA1Notation()}`;
+      const r = `'${sheet.getSheetName()}'!${range.getA1Notation()}`;
       const text = [
         `Range of the cell data is ${r}`,
         `Retrieved cell data is as follows`,
@@ -468,3 +468,4 @@ const descriptions_management_sheets = {
   },
 
 };
+
