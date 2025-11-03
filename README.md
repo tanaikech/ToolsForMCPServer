@@ -972,4 +972,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
   1. `use_gemini` and `management_sheets` were modified to use the API key from Gemini CLI. Of course, you can continuously set your API key directly in the script of the Web Apps.
 
+- v1.0.40 (November 3, 2025)
+
+  1. A bug was removed. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/14)
+
 [TOP](#top)
