@@ -976,4 +976,20 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
 
   1. A bug was removed. [Ref](https://github.com/tanaikech/ToolsForMCPServer/issues/14)
 
+- v1.0.41 (November 14, 2025)
+
+  1. **The following 11 tools for managing [File Search](https://ai.google.dev/gemini-api/docs/file-search) were added.** The underlying script for these tools was created using Google Apps Script. [Ref](https://github.com/tanaikech/FileSearchApp)
+
+     - file_search_gas_create
+     - file_search_gas_documents_get
+     - file_search_gas_documents_list
+     - file_search_gas_documents_query
+     - file_search_gas_documents_remove
+     - file_search_gas_generate_content
+     - file_search_gas_get
+     - file_search_gas_import_file
+     - file_search_gas_list
+     - file_search_gas_media_upload
+     - file_search_gas_remove
+
 [TOP](#top)

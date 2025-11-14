@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20251015 0830
- * version 1.0.39
+ * Updated on 20251114 1416
+ * version 1.0.41
  */
 
-const ToolsForMCPServerVersion = "1.0.39";
+const ToolsForMCPServerVersion = "1.0.40";
 const ProtocolVersion = "2025-06-18";
 const ServerName = "gas_web_apps";
 
@@ -16,6 +16,11 @@ const ServerName = "gas_web_apps";
  * When the tools of `use_gemini` are used, this API key is required to be used.
  */
 var apiKey = "";
+
+/**
+ * This is a model of Gemini API.
+ */
+var model = "";
 
 /**
  * This is a calendar ID. When this is not set, the primary calendar is used.
@@ -52,6 +57,12 @@ var enableAnalyticsTools = true;
  * The default is true.
  */
 var enableMapsTools = true;
+
+/**
+ * When this is false, the tools for managing the File Search with Gemini API are not included in the tools of the MCP server.
+ * The default is true.
+ */
+var enableFileSearch = true;
 
 /**
  * This is an access token and key for using StackExchange API.
@@ -113,6 +124,13 @@ function functions_() {
    */
   if (enableMapsTools === true) {
     descriptions.push(descriptions_management_maps);
+  }
+
+  /**
+   * Add tools for managing File Search.
+   */
+  if (enableFileSearch === true) {
+    descriptions.push(descriptions_management_filesearch);
   }
 
   const descriptionObj = descriptions.reduce((o, e) => (o = { ...o, ...e }, o), {});
