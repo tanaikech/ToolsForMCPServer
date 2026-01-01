@@ -3,11 +3,11 @@
  * Author: Kanshi Tanaike
  * https://github.com/tanaikech/ToolsForMCPServer
  * 
- * Updated on 20251114 1416
- * version 1.0.41
+ * Updated on 20260101 11:30
+ * version 1.1.0
  */
 
-const ToolsForMCPServerVersion = "1.0.40";
+const ToolsForMCPServerVersion = "1.1.0";
 const ProtocolVersion = "2025-06-18";
 const ServerName = "gas_web_apps";
 
@@ -20,7 +20,7 @@ var apiKey = "";
 /**
  * This is a model of Gemini API.
  */
-var model = "";
+var model = "models/gemini-3-flash-preview"; // At v1.1.0 Default model is "models/gemini-3-flash-preview".
 
 /**
  * This is a calendar ID. When this is not set, the primary calendar is used.

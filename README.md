@@ -994,4 +994,8 @@ Run `$ gemini` again. You should observe a significantly faster startup. In my t
      - file_search_gas_media_upload
      - file_search_gas_remove
 
+- v1.1.0 (January 1, 2026)
+
+  1. The default model was changed from `models/gemini-3-flash-preview` for using Gemini API.
+
 [TOP](#top)
